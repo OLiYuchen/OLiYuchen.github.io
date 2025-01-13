@@ -3,16 +3,88 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
-
-    <title>Example Student's HCDE 439 Physical Computing Page!</title>
-
+    <title>Assignment 1: Blink!</title>
     <link href="style.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <h1>Example Student's Assignment 1!</h1>
-    <div class="header">
-      <img src="red-panda.jpg" />
-      <p>Here is all the documentation for assignment 1!</p>
-    </div>
+    <h1>Assignment 1: Blink!</h1>
+    <p>For this assignment, I created a blinking circuit with three LEDs using my Arduino. Below, you can find the schematic, circuit setup, firmware code, and answers to the additional questions.</p>
+    <br><br><br><br>
+    <h2>Schematic</h2>
+    <br><img src="Blink_schematic.png" alt="LED Schematic" />
+    <p><br>
+      This is the schematic of my LED circuit. Each LED is connected to a resistor
+      to limit the current, ensuring the LEDs and Arduino are safe. I calculated the resistance using Ohm's Law (shown below).
+    </p>
+    <br><br><br><br>
+    <h2>Resistance Calculation</h2>
+    <br><img src="Blink_cal.png" alt="Resistance Calculation" />
+    <p><br>
+      Based on the LED forward voltage of ~1.8V and the desired current of 20mA, I calculated the minimum resistance as 107Ω and the desired resistance as 160Ω. I chose 220Ω resistors for safety and availability.
+    </p>
+    <br><br><br><br>
+    <h2>Circuit Implementation</h2>
+    <br><img src="Blink.jpg" alt="Circuit on Breadboard" />
+    <p><br>
+      This is the breadboard setup of my circuit. Green, Yellow, and Red LED is connected to digital pins 13, 12, and 11 on the Arduino with a 220Ω resistor in series. Red wires are used to connect the positive side while black wires are used to connect the GND sides.
+    </p><br>
+    <br><br>
+    <h2>Firmware</h2>
+    <pre><code>
+      // the setup function runs once when you press reset or power the board
+      void setup() {
+        // initialize digital pin LED_BUILTIN,12,11 as an output.
+        pinMode(LED_BUILTIN, OUTPUT); // circuit for the green LED
+        pinMode(12, OUTPUT); // circuit for the yellow LED
+        pinMode(11, OUTPUT); // circuit for the red LED
+        
+      }s
+      
+      // the loop function runs over and over again forever
+      void loop() {
+        digitalWrite(LED_BUILTIN, HIGH);  // turn the green LED on (HIGH is the voltage level)
+        delay(500);                       // wait for 0.5 second
+        digitalWrite(LED_BUILTIN, LOW);   // turn the green LED off (LOW is the voltage level)
+        delay(500);                       // wait for 0.5 second
+        digitalWrite(12, HIGH);           // turn the yellow LED on
+        delay(500);                       // wait for 0.5 second
+        digitalWrite(12, LOW);            // turn the yellow LED off 
+        delay(500);                       // wait for 0.5 second
+        digitalWrite(11, HIGH);           // turn the red LED on
+        delay(500);                       // wait for 0.5 second
+        digitalWrite(11, LOW);            // turn red LED off
+        delay(500);                       // wait for 0.5 second
+      }
+      
+    </code></pre>
+    <p>
+      This firmware sequentially controls three LEDs (green, yellow, and red), making them blink one after another. Each LED turns on for 0.5 seconds and then off for 0.5 seconds before moving to the next LED. The code is thoroughly commented for clarity, explaining the functionality of each line.
+    </p>
+    <br><br><br><br>
+    <h2>Animated GIF of Operation</h2>
+    <br><img src="Blink.gif" alt="Blinking LED Circuit Animation" />
+    <p> <br>
+      This animated GIF demonstrates the operation of the blinking LED circuit. Each LED (green, yellow, and red) blinks sequentially, turning on for 0.5 seconds and then off for 0.5 seconds, showcasing the firmware in action.
+    </p>
+    <br><br><br><br>
+    <h2>Additional Questions</h2>
+        <br><h3>1. Voltage Over Time Graph</h3>
+        <img src="Blink_graph.png" alt="Voltage Over Time Graph for 3 LEDs" />
+        <p><br>
+          This graph illustrates the voltage across each LED (green, yellow, and red) over time. The X-axis represents time in seconds, and the Y-axis represents voltage across the LEDs. Each LED alternates between 0V (off) and 5V (on) as they blink sequentially.
+        </p><br>
+
+        <h3>2. Maximum Independent LEDs</h3>
+        <p><br>
+          The Arduino Uno can blink up to 13 LEDs independently, using all available digital pins. Assuming each LED operates at a desired current of 20mA, the total current draw would be approximately 260mA (0.26A).
+
+          However, based on research, it is recommended to keep the total current draw within the Arduino Uno's 200mA limit to avoid damaging the board. To achieve this, larger resistors may be required to reduce the current per LED, ensuring the total current stays at or below 200mA. Additionally, the LEDs may need to blink sequentially rather than simultaneously to safely operate within these constraints.
+        </p><br>
+        <h3>3. Frequency Perception Threshold</h3>
+        <p><br>
+          Based on testing, the minimum delay time required to perceive the LEDs as blinking is 15 milliseconds for both on and off states. At this speed, the LEDs appear to the human eye as blinking rapidly; any faster (less than 15 milliseconds), they would appear continuously on.
+        </p><br>
+
+    <a href="index.html">Return to Main Page</a>
   </body>
 </html>
