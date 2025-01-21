@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+    <title>Assignment 2: Fade!</title>
+    <link href="../style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <h1>Assignment 2: Fade!</h1>
+    <p>For this assignment, I created a circuit with fading and blinking LEDs using Arduino, controlled with a pushbutton. Below, you can find the schematic, circuit setup, firmware code, and answers to the additional questions.</p>
+    <br><br><br><br>
+    <h2>Schematic</h2>
+    <br><img src="fading_schematics.jpg" alt="Schematic for LED Circuit" />
+    <p><br>
+      This is the schematic of my LED circuit. Pushbutton is connected to pin12 with a 10kΩ resistor to limit current and save power. Each LED is connected to a 220Ω resistor to limit current and ensure safety for both the LEDs and the Arduino. The green LED is connected to digital pin 11. The yellow LED is connected to digital pin 10. The red LED is connected to digital pin 9.  The resistors were calculated using Ohm's Law, as shown below.
+    </p>
+    <br><br><br><br>
+    <h2>Resistance Calculation</h2>
+    <br><img src="resistor_calculation.png" alt="Resistance Calculation" />
+    <p><br>
+      Assuming voltage drop fo green, yellow and red LEDs is 1.8V each and a desired current of ~20mA, I calculated the resistance to be at least 107Ω and desired 160Ω. The final choice of 220Ω resistor is based on desirability and availability, which ensures safe operation of the LEDs while maintaining brightness.
+    </p>
+    <br><br><br><br>
+    <h2>Circuit Implementation</h2>
+    <br><img src="fading_firmware.jpg" alt="Circuit on Breadboard" />
+    <p><br>
+      This is the breadboard setup of my circuit. The green LED (pin 11) fades while the yellow (pin 10) and red (pin 9) LEDs blink, all controlled by the pushbutton connected to pin 12. To make the firmware more readable, wires are choosed on purpose. Wire color corresponds to LED color, ie. green wire to green LED, yellow wire to yellow LED, and red wire to red LED. The circuit for the pushbutton is built by white wires. All back wires are connecting to the ground. 
+    </p>
+    <br><br><br><br>
+    <h2>Firmware</h2>
+    <pre><code>// A2: Fade!
+
+const int G = 11; // Green LED pin 11
+const int Y = 10; // Yellow LED pin 10
+const int R = 9;  // Red LED pin 9
+const int sPin = 12; // Pushbutton pin 12
+
+// Setup runs once when the Arduino powers up
+void setup() {
+  pinMode(R, OUTPUT); // Red LED pin
+  pinMode(Y, OUTPUT); // Yellow LED pin
+  pinMode(G, OUTPUT); // Green LED pin
+  pinMode(sPin, INPUT); // Pushbutton pin
+}
+
+// Loop runs continuously
+void loop() {
+  int switchState = digitalRead(sPin); // Read button state
+
+  if (switchState == HIGH) { // If button is pressed
+    for (int brightness = 0; brightness <= 255; brightness += 5) { // Fade up
+      analogWrite(G, brightness); // Set brightness
+      delay(30); // wait for 0.03 seconds
+    }
+    for (int brightness = 255; brightness >= 0; brightness -= 5) { // Fade down
+      analogWrite(G, brightness); // Set brightness
+      delay(30); // wait for 0.03 seconds
+    }
+
+    // Blink yellow and red LEDs
+    digitalWrite(Y, HIGH); delay(200); // Turn on yellow, wait for 0.2 seconds
+    digitalWrite(R, HIGH); delay(400); // Turn on red, wait for 0.4 seconds
+    digitalWrite(R, LOW); delay(200); // Turn off red, wait for 0.2 seconds
+    digitalWrite(Y, LOW); delay(400); // Turn off yellow, wait for 0.4 seconds
+  
+  } else {
+    digitalWrite(G, LOW); // Turn off green LED
+    digitalWrite(Y, LOW); // Turn off yellow LED
+    digitalWrite(R, LOW); // Turn off red LED
+  }
+}
+    </code></pre>
+    <p><br>
+      This firmware fades the green LED using PWM while blinking the yellow and red LEDs. The pushbutton controls the operation, and each line of code is commented for clarity.
+    </p>
+    <br><br><br><br>
+    <h2>Animated GIF of Operation</h2>
+    <br><img src="fading.gif" alt="Fading and Blinking Circuit Animation" />
+    <p><br>
+      This animated GIF demonstrates the operation of the circuit. While the pushbutton is pressed, the green LED fades smoothly, while the yellow and red LEDs blink alternately, showcasing the firmware in action.
+    </p>
+    <br><br><br><br>
+    <h2>Additional Questions</h2>
+    <br><br>
+    <h4> 1: Draw a chart where the X axis is time and the Y axis is voltage. Draw 3 lines representing the voltage across an LED with analogWrite(led, 64), analogWrite(led, 128), and analogWrite(led,255). 
+    </h4>
+    <br><img src="Q2dutycycle.jpg" alt="Voltage Over Time for Different Duty Cycles" />
+    <p><br>
+      This graph shows the voltage across the LEDs for 25%, 50%, and 100% duty cycles. The X-axis represents time, while the Y-axis represents voltage.
+    </p>
+    <br><br>
+    <h4>2: Given your schematic, circuit, and firmware, assuming the only thing that draws current is your LEDs, how long would your circuit run if powered by a 1200 mAh battery?
+    </h4>
+
+    <br><img src="Battery_runtime.jpg" alt="Voltage Over Time for Different Duty Cycles" />
+    <p><br>
+      Based on the circuit's average current draw of 21.75mA, the runtime with a 1200mAh battery is approximately 55 hours.
+    </p>
+
+    <br><br><br><br>
+    <a href="../index.html">Return to Main Page</a>
+  </body>
+</html>
