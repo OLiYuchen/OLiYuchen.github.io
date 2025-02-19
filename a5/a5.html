@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+    <title>Assignment 5: Transistor Load Control</title>
+    <link href="../style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <h1>Assignment 5: Transistor Load Control</h1>
+    <p>For this assignment, I created a circuit using an N-MOSFET transistor to control a high-power load separately from logic power. The circuit utilizes a capacitive sensor as an input, controlling an external device via PWM. Below, you can find the schematic, circuit setup, firmware code, and answers to the additional questions.</p>
+    <br><br><br><br>
+    
+    <h2>Schematic</h2>
+    <br><img src="a5_schematics.jpg" alt="Schematic for Transistor Load Control Circuit" />
+    <p><br>
+      This is the schematic of my transistor-controlled circuit. The N-MOSFET is used to switch the external power load, isolating it from the logic power provided by the Arduino. The input sensor is a capacitive sensor that uses a 1MΩ resistor for sensitivity, and the transistor is chosen based on its ability to handle sufficient current.
+    </p>
+    <br><br><br><br>
+    
+    <h2>Circuit Implementation</h2>
+    <br><img src="a5_firmware.jpg" alt="Circuit on Breadboard" />
+    <p><br>
+      This is the breadboard setup of my circuit. The capacitive sensor detects touch input and controls the transistor using PWM signals from the Arduino, regulating the power to the connected device.
+    </p>
+    <br><br><br><br>
+    <h2>Animated GIF of Operation</h2>
+    <br><img src="a5.gif" alt="Capacitive Sensing and light control Animation" />
+    <p><br>
+      This animated GIF demonstrates the operation of the circuit. It starts with callibration process. Then, as the conductive lid is touched, the led stripe responds by adjusting its brightness accordingly.
+    </p>
+    <br><br><br><br>
+    
+    <h2>Firmware</h2>
+    <pre><code>
+        
+#include <CapacitiveSensor.h> //capacitive sensor lib
+
+    // Create a capacitive sensor object with pins 4 (send) and 2 (receive)
+    CapacitiveSensor   cs_4_2 = CapacitiveSensor(4,2);       
+    
+    
+    // For callibration
+    long minValue = 999999;  // Start with a high value 
+    long maxValue = 0;       // Start with a low value
+    
+    void setup()                    
+    {
+       cs_4_2.set_CS_AutocaL_Millis(0xFFFFFFFF);     // turn off autocalibrate 
+       Serial.begin(9600); // begin serial
+       pinMode(9,OUTPUT);
+    
+       Serial.println("Touch the sensor for calibration...");
+       delay(2000); // Wait for 2 seconds touch the conductor
+    
+    
+    
+       // Take 10 readings to set min and max
+       for (int i = 0; i < 10; i++) {
+          long sensorValue = cs_4_2.capacitiveSensor(30); // Read sensor
+          if (sensorValue > maxValue) {
+            maxValue = sensorValue;} // compare max value
+          if (sensorValue < minValue) {
+            minValue = sensorValue;} //compare min value
+          delay(100);
+        }
+    
+        Serial.println("Calibration done!");
+    
+    }
+    
+    void loop()               	 
+    {
+        long sensorValue = cs_4_2.capacitiveSensor(30); // Read sensor
+      int brightness = map(sensorValue, minValue, maxValue, 0, 255); // Convert to analogwrite brightness
+      brightness = constrain(brightness, 0, 255); // Keep value within valid range
+    
+      analogWrite(9,brightness); // 
+    
+      // Print values for debugging
+        Serial.print("Sensor: "); 
+        Serial.print(sensorValue);
+        Serial.print(" | Brightness: "); 
+        Serial.println(brightness);
+    
+      delay(100);
+    
+    }
+    
+    </code></pre>
+    <p><br>
+      This firmware reads capacitive touch input and maps it to the transistor's PWM control. The transistor regulates power to an external load based on sensor readings.
+    </p>
+    <br><br><br><br>
+    
+    <h2>Animated GIF of Operation</h2>
+    <br><img src="a5.gif" alt="Transistor Load Control Animation" />
+    <p><br>
+      This animated GIF demonstrates the circuit operation. As the capacitive sensor detects input, the MOSFET transistor adjusts power delivery accordingly.
+    </p>
+    <br><br><br><br>
+    
+    <h2>Additional Questions</h2>
+    <br><br>
+    
+    <h4>1: Maximum Current for N-MOSFET</h4>
+    <p><br>
+        Thus, the absolute maximum continuous current is 37.2A, and the absolute pulsed current is 80A.
+    <br><br>
+    
+    <h4>2: Schematic with DC Motor, Flyback Diode, and Capacitors</h4>
+    <br><img src="Question 2 schematic.png" alt="Schematic for DC Motor with Flyback Diode and Capacitors" />
+    <p><br>
+      This schematic shows a circuit including an Arduino, a DC motor, a flyback diode to prevent voltage spikes, and capacitors for power smoothing.
+    </p>
+    <br><br>
+    
+    <h4>3: Schematic for L293D with Two Motors and Pseudocode</h4>
+    <br><img src="q3 schematics and code.jpg" alt="L293D Motor Driver Schematic" />
+    <p><br>
+      This schematic uses the L293D motor driver IC to control two motors via an Arduino. The motors can move forward, backward, or rotate in opposite directions.
+    </p>
+ 
+    <p><br>
+      The pseudocode above controls two motors using the L293D chip, demonstrating different movement patterns.
+    </p>
+    <br><br><br><br>
+    
+    <a href="../index.html">Return to Main Page</a>
+  </body>
+</html>
