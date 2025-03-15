@@ -11,10 +11,41 @@
     <h1>Final Project: Cat-Proof Charging Station 🐱⚡ </h1>
     <br><br><br>
     <h2>Motivation</h2>
+    <br>
     <p>At home, I have a designated charging corner where all my charging cables and plugged-in devices are stored inside a box. However, my cat loves playing around this area, which poses serious risks like electric shocks or chewing on wires, potentially damaging both the devices and the cat’s safety. I want to build a cat-proof charging station that detects when my cat gets too close and activates a gentle deterrent (such as LED warnings, a buzzer, or vibrations) to keep them away safely and effectively.</p>
-    <br><br><br><br>
+    <br><br><br>
+    <h2>Proposal</h2>
+    <img src="proposal.png" alt="Schematic for Joystick Controlled Game" />
     
-    <br><img src="proposal.png" alt="Schematic for Joystick Controlled Game" />
+    <h2>Final Project Implementation </h2>
+    <br>
+    <p>Materials:</p>
+    <ul>
+        <li>Capacitive touch sensor (detects cat presence)</li>
+        <li>PIR sensor (detects cat presence)</li>
+        <li>Active Buzzer (gentle deterrent)</li>
+        <li>LED strip (visual warning)</li>
+        <li>Arduino board (logic control)</li>
+        <li>Resistors & wires (circuit connections)</li>
+        <li>N-Fet MOSFET Transistor</li>
+        <li>12V Power supply</li>
+        <li>Alligator Clip</li>
+        <li>Repurposed cardboard enclosure (hides electronics)</li>
+    </ul>
+    <br><br><br>
+    <h2>Schematic</h2>
+    <br><img src="schematics.png" alt="Schematic for Joystick Controlled Game" />
+    <br><p>
+      The schematic outlines the connections for the input sensors and output components. The system takes input from a PIR motion sensor and a capacitive touch sensor. The PIR sensor is powered with 5V and connected to Arduino pin 5, with its digital output triggering detection. Sensitivity and delay time can be adjusted using the onboard potentiometers. Upon testing with cat user, PIR sensor is set to repeatable trigger mode, highest sensitivity and lowest delay time. The capacitive touch sensor, formed by an aluminum foil-covered enclosure, is connected between pins 12 and 8 with a 1MΩ resistor to detect physical contact. For outputs, an LED strip is controlled using an N-FET MOSFET transistor. The Arduino sends a signal from pin 9 to the transistor gate, switching the LED strip on and off via the drain-source connection with a 12V power supply. Additionally, an active buzzer is connected to pin 10 through a 220Ω resistor to limit current. When triggered, the Arduino activates the buzzer and LED strip as deterrents. 
+    </p>
+  
+    <br><br><br><br>
+    <h2>Firmware</h2>
+    <br><img src="firmware.JPG" alt="Schematic for Joystick Controlled Game" />
+    <br><p> 
+      The firmware for this system is carefully designed for flexibility and reusability. All components are secured using non-conductive tape, allowing for easy adjustments and modifications without damaging the setup. Instead of permanent soldering, the connections rely on the natural tension and elasticity of the wires, ensuring a firm grip in the breadboard and component terminals even when the enclosure is upside down. The wiring is strategically arranged to remain stable while minimizing clutter. Some connections are hidden within the side flaps of the cardboard box, maintaining a clean and organized layout. 
+  
+    <br><br><br><br>
 
     <a href="../index.html">Return to Main Page</a>
 </body>
