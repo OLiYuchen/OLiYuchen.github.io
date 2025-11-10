@@ -58,28 +58,73 @@
     </div>
   </header>
 
-  <!-- Hero -->
-  <section id="home" class="relative overflow-hidden">
-    <div class="absolute inset-0 -z-10 opacity-30 dark:opacity-20" aria-hidden="true">
-      <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 1440 560"><path fill="url(#g)" d="M0,320L60,298.7C120,277,240,235,360,229.3C480,224,600,256,720,272C840,288,960,288,1080,277.3C1200,267,1320,245,1380,234.7L1440,224L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"/><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#6b6cff"/><stop offset="100%" stop-color="#8a90ff"/></linearGradient></defs></svg>
+<!-- Hero -->
+<section id="home" class="relative overflow-hidden">
+  <!-- Hero background: same purple wave + soft calligraphy watermark -->
+  <div class="absolute inset-0 -z-10" aria-hidden="true">
+  <svg class="w-full h-full" viewBox="0 0 1440 560" preserveAspectRatio="none"
+       xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <!-- Wave clip is unchanged -->
+      <clipPath id="waveClip" clipPathUnits="userSpaceOnUse">
+        <path d="M0,320L60,298.7C120,277,240,235,360,229.3C480,224,600,256,720,272C840,288,960,288,1080,277.3C1200,267,1320,245,1380,234.7L1440,224L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"/>
+      </clipPath>
+
+      <!-- Soften + desaturate so text stays readable -->
+      <filter id="soften">
+        <feGaussianBlur stdDeviation="1.0" />
+        <feColorMatrix type="saturate" values="1" />
+        <feComponentTransfer>
+          <feFuncA type="linear" slope="0.8" />
+        </feComponentTransfer>
+      </filter>
+
+      <!-- Very subtle brand tint for cohesion -->
+      <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#DBDAF9"/>
+        <stop offset="100%" stop-color="#7A7AF2"/>
+      </linearGradient>
+    </defs>
+
+    <g clip-path="url(#waveClip)">
+      <!-- Parchment base -->
+      <rect width="1640" height="560" fill="#EFEADF"/>
+
+      <!-- Your calligraphy: cropped like a hero image,
+           shifted right so it clears the headline. -->
+      <!-- TUNE these three numbers to position: x / width / opacity -->
+      <image href="/portfolio/assets/img/calligraphy.jpg"
+             x="-400" y="-30" width="1500" height="320"
+             preserveAspectRatio="xMidYMid slice"
+             opacity=".28" filter="url(#soften)"/>
+
+      <!-- Subtle brand tint (remove if you prefer pure parchment) -->
+      <rect width="1440" height="560" fill="url(#tint)"/>
+      <!-- Light/dark contrast layer -->
+      <rect width="1440" height="560" fill="#000" opacity="0.8"
+            class="hidden dark:block"/>
+    </g>
+  </svg>
+</div>
+
+  <!-- Hero content -->
+  <div class="mx-auto max-w-6xl px-4 py-16 md:py-24 grid md:grid-cols-[auto,1fr] gap-10 items-center">
+    <div class="w-36 h-36 md:w-44 md:h-44 rounded-full overflow-hidden ring-8 ring-white/70 dark:ring-slate-900/70 shadow-soft">
+      <img src="/portfolio/assets/img/olivia.jpg" alt="Olivia portrait" class="w-full h-full object-cover" />
     </div>
-    <div class="mx-auto max-w-6xl px-4 py-16 md:py-24 grid md:grid-cols-[auto,1fr] gap-10 items-center">
-      <div class="w-36 h-36 md:w-44 md:h-44 rounded-full overflow-hidden ring-8 ring-white/70 dark:ring-slate-900/70 shadow-soft">
-        <!-- your profile photo -->
-        <img src="/portfolio/assets/img/olivia.jpg" alt="Olivia portrait" class="w-full h-full object-cover" />
-      </div>
-      <div class="fade">
-        <h1 class="text-4xl md:text-5xl font-extrabold leading-tight">Olivia (Yuchen) Feng</h1>
-        <p class="mt-4 text-lg text-slate-600 dark:text-slate-300 max-w-2xl">
-          UX Designer & product-minded researcher at UW HCDE. I turn complex problems into simple, elegant, shippable experiences.
-        </p>
-        <div class="mt-6 flex gap-3">
-          <a href="#projects" class="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-primary-600 text-white shadow-soft hover:translate-y-0.5 transition">View Projects</a>
-          <a href="#contact" class="inline-flex items-center gap-2 px-5 py-3 rounded-2xl border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition">Contact Me</a>
-        </div>
+    <div class="fade">
+      <h1 class="text-4xl md:text-5xl font-extrabold leading-tight">Olivia (Yuchen) Feng</h1>
+      <p class="mt-4 text-lg text-slate-600 dark:text-slate-300 max-w-2xl">
+        UX Designer & product-minded researcher at UW HCDE. I turn complex problems into simple, elegant, shippable experiences.
+      </p>
+      <div class="mt-6 flex gap-3">
+        <a href="#projects" class="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-primary-600 text-white shadow-soft hover:translate-y-0.5 transition">View Projects</a>
+        <a href="#contact" class="inline-flex items-center gap-2 px-5 py-3 rounded-2xl border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition">Contact Me</a>
       </div>
     </div>
-  </section>
+  </div>
+</section>
+
 
   <!-- Projects -->
   <section id="projects" class="mx-auto max-w-6xl px-4 py-14">
@@ -90,13 +135,13 @@
     <div class="grid md:grid-cols-2 gap-6">
       <!-- Paira -->
       <a href="/portfolio/projects/paira.html" class="group block rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden hover:shadow-soft transition">
-        <img src="https://images.unsplash.com/photo-1522542550221-31fd19575a2d?q=80&w=1600&auto=format&fit=crop" alt="Paira" class="h-52 w-full object-cover">
+        <img src="/portfolio/assets/img/paira.png" alt="Paira" class="h-52 w-full object-cover">
         <div class="p-5">
           <div class="flex items-center justify-between">
-            <h3 class="text-lg font-semibold">Paira — Gen-Z Networking & Mentorship</h3>
+            <h3 class="text-lg font-semibold">Paira — New style of Networking </h3>
             <span class="text-xs px-2 py-1 rounded-full bg-primary-50 text-primary-700 dark:bg-primary-900/30 dark:text-primary-200">Product + UX</span>
           </div>
-          <p class="mt-2 text-slate-600 dark:text-slate-300">Meaningful matches through referrals, badges, and playful micro-interactions.</p>
+          <p class="mt-2 text-slate-600 dark:text-slate-300"> Original app designed to make networking more fun and meaningful. I UX designed onboaring, logo and branding and Meaningful matches through referrals, badges, and playful micro-interactions.</p>
         </div>
       </a>
 
