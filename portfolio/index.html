@@ -1,54 +1,206 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Olivia Feng — UX Portfolio</title>
+  <meta name="description" content="Olivia (Yuchen) Feng — UX Portfolio" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <!-- Tailwind via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ["Inter", "ui-sans-serif", "system-ui"] },
+          colors: {
+            primary: {
+              50: '#f3f4ff', 100: '#e8e9ff', 200: '#cfd2ff', 300: '#aeb3ff', 400: '#8a90ff',
+              500: '#6b6cff', 600: '#4d4df2', 700: '#3b3bcc', 800: '#2e2ea3', 900: '#26287f'
+            },
+            accent: { 500: '#F5C84B' }
+          },
+          boxShadow: { soft: '0 10px 30px -10px rgba(0,0,0,0.15)' }
+        }
+      },
+      darkMode: 'class'
+    }
+  </script>
+  <style>
+    :root { color-scheme: light dark; }
+    html { scroll-behavior: smooth; }
+    .glass { backdrop-filter: blur(10px); background: color-mix(in oklab, white 65%, transparent); }
+    .dark .glass { background: color-mix(in oklab, #0b1020 50%, transparent); }
+    .fade { animation: fade .5s ease both; }
+    @keyframes fade { from { opacity:0; transform: translateY(8px);} to {opacity:1; transform:none;} }
+    .focus-ring:focus { outline: 3px solid #6b6cff; outline-offset: 3px; border-radius: .75rem; }
+  </style>
+</head>
+<body class="bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100 font-sans">
+  <!-- Sticky Nav -->
+  <header class="sticky top-0 z-50 bg-white/70 dark:bg-slate-950/60 glass border-b border-slate-200/60 dark:border-slate-800">
+    <div class="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
+      <a href="#home" class="text-lg font-semibold tracking-tight">Olivia Feng</a>
+      <nav class="hidden md:flex items-center gap-6 text-sm">
+        <a class="hover:text-primary-600 focus-ring" href="#projects">Projects</a>
+        <a class="hover:text-primary-600 focus-ring" href="#about">About</a>
+        <a class="hover:text-primary-600 focus-ring" href="#contact">Contact</a>
+        <button id="themeToggle" class="px-3 py-1 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 focus-ring" aria-label="Toggle dark mode">🌓</button>
+      </nav>
+      <button id="menuBtn" class="md:hidden px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 focus-ring" aria-label="Open menu">☰</button>
+    </div>
+    <div id="mobileMenu" class="md:hidden hidden border-t border-slate-200 dark:border-slate-800 px-4 pb-4">
+      <a class="block py-2 hover:text-primary-600" href="#projects">Projects</a>
+      <a class="block py-2 hover:text-primary-600" href="#about">About</a>
+      <a class="block py-2 hover:text-primary-600" href="#contact">Contact</a>
+    </div>
+  </header>
 
+  <!-- Hero -->
+  <section id="home" class="relative overflow-hidden">
+    <div class="absolute inset-0 -z-10 opacity-30 dark:opacity-20" aria-hidden="true">
+      <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 1440 560"><path fill="url(#g)" d="M0,320L60,298.7C120,277,240,235,360,229.3C480,224,600,256,720,272C840,288,960,288,1080,277.3C1200,267,1320,245,1380,234.7L1440,224L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"/><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#6b6cff"/><stop offset="100%" stop-color="#8a90ff"/></linearGradient></defs></svg>
+    </div>
+    <div class="mx-auto max-w-6xl px-4 py-16 md:py-24 grid md:grid-cols-[auto,1fr] gap-10 items-center">
+      <div class="w-36 h-36 md:w-44 md:h-44 rounded-full overflow-hidden ring-8 ring-white/70 dark:ring-slate-900/70 shadow-soft">
+        <!-- your profile photo -->
+        <img src="/portfolio/assets/img/olivia.jpg" alt="Olivia portrait" class="w-full h-full object-cover" />
+      </div>
+      <div class="fade">
+        <h1 class="text-4xl md:text-5xl font-extrabold leading-tight">Olivia (Yuchen) Feng</h1>
+        <p class="mt-4 text-lg text-slate-600 dark:text-slate-300 max-w-2xl">
+          UX Designer & product-minded researcher at UW HCDE. I turn complex problems into simple, elegant, shippable experiences.
+        </p>
+        <div class="mt-6 flex gap-3">
+          <a href="#projects" class="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-primary-600 text-white shadow-soft hover:translate-y-0.5 transition">View Projects</a>
+          <a href="#contact" class="inline-flex items-center gap-2 px-5 py-3 rounded-2xl border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition">Contact Me</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<!-- About -->
-<section id="about" class="section alt">
-<div class="container split">
-<div>
-<h2>About Me</h2>
-<p>Hi! I’m Olivia — a UX designer who loves turning complex problems into elegant, shippable experiences. I connect research insights to interaction details, and I care deeply about accessibility and thoughtful visual systems.</p>
-<ul class="ticks">
-<li><strong>Strengths:</strong> product sense, interaction, design systems, rapid prototyping</li>
-<li><strong>Tools:</strong> Figma, Framer, HTML/CSS/JS, Python (viz), Notion</li>
-<li><strong>Values:</strong> clarity, kindness, momentum</li>
-</ul>
-</div>
-<div>
-<div class="highlight">
-<p><strong>Selected Highlights</strong></p>
-<ul>
-<li>Led <em>Paira</em> product & UX; built playful referral + matching system.</li>
-<li><em>EcoScan</em> 0→1 in 24h; simplified recycling with camera assist.</li>
-<li>Game UX side project: behavior design + light social to sustain focus.</li>
-</ul>
-</div>
-</div>
-</div>
-</section>
+  <!-- Projects -->
+  <section id="projects" class="mx-auto max-w-6xl px-4 py-14">
+    <div class="flex items-end justify-between mb-8">
+      <h2 class="text-2xl md:text-3xl font-bold">Featured Projects</h2>
+      <div class="text-sm text-slate-500">Click a card to view the full case study.</div>
+    </div>
+    <div class="grid md:grid-cols-2 gap-6">
+      <!-- Paira -->
+      <a href="/portfolio/projects/paira.html" class="group block rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden hover:shadow-soft transition">
+        <img src="https://images.unsplash.com/photo-1522542550221-31fd19575a2d?q=80&w=1600&auto=format&fit=crop" alt="Paira" class="h-52 w-full object-cover">
+        <div class="p-5">
+          <div class="flex items-center justify-between">
+            <h3 class="text-lg font-semibold">Paira — Gen-Z Networking & Mentorship</h3>
+            <span class="text-xs px-2 py-1 rounded-full bg-primary-50 text-primary-700 dark:bg-primary-900/30 dark:text-primary-200">Product + UX</span>
+          </div>
+          <p class="mt-2 text-slate-600 dark:text-slate-300">Meaningful matches through referrals, badges, and playful micro-interactions.</p>
+        </div>
+      </a>
 
+      <!-- Merlin Bird ID (Capstone) -->
+      <a href="/portfolio/projects/merlin.html" class="group block rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden hover:shadow-soft transition">
+        <img src="/portfolio/assets/img/merlin-bird-id.png" alt="Merlin Bird ID redesign" class="h-52 w-full object-cover">
+        <div class="p-5">
+          <div class="flex items-center justify-between">
+            <h3 class="text-lg font-semibold">Merlin Bird ID — Capstone with Cornell Lab</h3>
+            <span class="text-xs px-2 py-1 rounded-full bg-primary-50 text-primary-700 dark:bg-primary-900/30 dark:text-primary-200">UX • Research</span>
+          </div>
+          <p class="mt-2 text-slate-600 dark:text-slate-300">Improving onboarding & match confidence for new birders.</p>
+        </div>
+      </a>
 
-<!-- Contact -->
-<section id="contact" class="section">
-<div class="container center">
-<h2>Let’s build something thoughtful ✨</h2>
-<p class="muted">Email me for the full case studies or resume.</p>
-<div class="actions">
-<a class="btn primary" href="mailto:your.email@uw.edu">Email</a>
-<a class="btn ghost" href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn</a>
-<a class="btn ghost" href="/Olivia_Feng_Resume.pdf" target="_blank" rel="noreferrer">Resume</a>
-</div>
-</div>
-</section>
-</main>
+      <!-- EcoScan -->
+      <a href="/portfolio/projects/ecoscan.html" class="group block rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden hover:shadow-soft transition">
+        <img src="/portfolio/assets/img/ecoscan.png" alt="EcoScan" class="h-52 w-full object-cover">
+        <div class="p-5">
+          <div class="flex items-center justify-between">
+            <h3 class="text-lg font-semibold">EcoScan — Hackathon Winner</h3>
+            <span class="text-xs px-2 py-1 rounded-full bg-primary-50 text-primary-700 dark:bg-primary-900/30 dark:text-primary-200">Hackathon</span>
+          </div>
+          <p class="mt-2 text-slate-600 dark:text-slate-300">Scan → Sort → Save. Fast, educational recycling decisions.</p>
+        </div>
+      </a>
 
+      <!-- Game Design -->
+      <a href="/portfolio/projects/game.html" class="group block rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden hover:shadow-soft transition">
+        <img src="/portfolio/assets/img/game-cards.png" alt="Game UX" class="h-52 w-full object-cover">
+        <div class="p-5">
+          <div class="flex items-center justify-between">
+            <h3 class="text-lg font-semibold">Playful Habit — Game Design for Focus</h3>
+            <span class="text-xs px-2 py-1 rounded-full bg-primary-50 text-primary-700 dark:bg-primary-900/30 dark:text-primary-200">Game UX</span>
+          </div>
+          <p class="mt-2 text-slate-600 dark:text-slate-300">Turning focus tracking into a cozy, rewarding loop.</p>
+        </div>
+      </a>
+    </div>
+  </section>
 
-<footer class="site-footer">
-<div class="container small muted">© <span id="year"></span> Olivia Yuchen Feng — All rights reserved.</div>
-</footer>
+  <!-- About -->
+  <section id="about" class="mx-auto max-w-6xl px-4 pb-14">
+    <div class="grid md:grid-cols-2 gap-8 items-start">
+      <div class="rounded-3xl border border-slate-200 dark:border-slate-800 p-6">
+        <h2 class="text-xl font-bold mb-4">About Me</h2>
+        <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+          Hi! I’m Olivia — a UX designer who turns complex problems into elegant, shippable experiences.
+          I connect research insights to interaction details and care deeply about accessibility and thoughtful visual systems.
+        </p>
+        <ul class="mt-4 space-y-2 text-slate-600 dark:text-slate-300">
+          <li>• Strengths: product sense, interaction, design systems, rapid prototyping</li>
+          <li>• Tools: Figma, Framer, HTML/CSS/JS, Python (viz), Notion</li>
+          <li>• Values: clarity, kindness, momentum</li>
+        </ul>
+      </div>
+      <div class="rounded-3xl border border-slate-200 dark:border-slate-800 p-6">
+        <h2 class="text-xl font-bold mb-4">Selected Highlights</h2>
+        <ul class="list-disc pl-6 space-y-2 text-slate-600 dark:text-slate-300">
+          <li>Led <strong>Paira</strong> product & UX; built playful referral + matching system.</li>
+          <li><strong>Merlin Bird ID</strong> capstone with Cornell Lab — boosting beginner confidence.</li>
+          <li><strong>EcoScan</strong> 0→1 in 24h; fast educational recycling decisions.</li>
+          <li>Game UX side project — behavior design + light social to sustain focus.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
 
+  <!-- Contact -->
+  <section id="contact" class="mx-auto max-w-6xl px-4 pb-20">
+    <div class="rounded-3xl border border-slate-200 dark:border-slate-800 p-6 md:p-10 text-center">
+      <h2 class="text-2xl font-bold">Let’s build something thoughtful ✨</h2>
+      <p class="mt-3 text-slate-600 dark:text-slate-300">Email me for the full case studies or resume.</p>
+      <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
+        <a class="px-5 py-3 rounded-2xl bg-primary-600 text-white hover:translate-y-0.5 transition" href="mailto:your.email@uw.edu">Email</a>
+        <a class="px-5 py-3 rounded-2xl border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition" href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn</a>
+        <a class="px-5 py-3 rounded-2xl border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition" href="/Olivia_Feng_Resume.pdf" target="_blank" rel="noreferrer">Resume</a>
+      </div>
+    </div>
+  </section>
 
-<script>
-document.getElementById('year').textContent = new Date().getFullYear();
-</script>
+  <footer class="py-10 text-center text-sm text-slate-500 border-t border-slate-200 dark:border-slate-800">
+    © <span id="year"></span> Olivia Yuchen Feng — All rights reserved.
+  </footer>
+
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Theme toggle with localStorage
+    const root = document.documentElement; const btn = document.getElementById('themeToggle');
+    const saved = localStorage.getItem('theme');
+    if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      root.classList.add('dark');
+    }
+    btn?.addEventListener('click', () => {
+      root.classList.toggle('dark');
+      localStorage.setItem('theme', root.classList.contains('dark') ? 'dark' : 'light');
+    });
+
+    // Mobile menu
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuBtn?.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+  </script>
 </body>
 </html>
