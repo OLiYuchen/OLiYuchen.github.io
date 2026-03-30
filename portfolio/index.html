@@ -3,249 +3,214 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Olivia Feng — UX Portfolio</title>
-  <meta name="description" content="Olivia (Yuchen) Feng — UX Portfolio" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <!-- Tailwind via CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { sans: ["Inter", "ui-sans-serif", "system-ui"] },
-          colors: {
-            primary: {
-              50: '#f3f4ff', 100: '#e8e9ff', 200: '#cfd2ff', 300: '#aeb3ff', 400: '#8a90ff',
-              500: '#6b6cff', 600: '#4d4df2', 700: '#3b3bcc', 800: '#2e2ea3', 900: '#26287f'
-            },
-            accent: { 500: '#F5C84B' }
-          },
-          boxShadow: { soft: '0 10px 30px -10px rgba(0,0,0,0.15)' }
-        }
-      },
-      darkMode: 'class'
-    }
-  </script>
-  <style>
-    :root { color-scheme: light dark; }
-    html { scroll-behavior: smooth; }
-    .glass { backdrop-filter: blur(10px); background: color-mix(in oklab, white 65%, transparent); }
-    .dark .glass { background: color-mix(in oklab, #0b1020 50%, transparent); }
-    .fade { animation: fade .5s ease both; }
-    @keyframes fade { from { opacity:0; transform: translateY(8px);} to {opacity:1; transform:none;} }
-    .focus-ring:focus { outline: 3px solid #6b6cff; outline-offset: 3px; border-radius: .75rem; }
-  </style>
+  <title>Olivia Feng | Portfolio</title>
+  <meta
+    name="description"
+    content="Olivia Feng creates calm, high-craft digital experiences shaped by clarity, research, and visual sensitivity."
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="./assets/style.css" />
 </head>
-<body class="bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100 font-sans">
-  <!-- Sticky Nav -->
-  <header class="sticky top-0 z-50 bg-white/70 dark:bg-slate-950/60 glass border-b border-slate-200/60 dark:border-slate-800">
-    <div class="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
-      <a href="#home" class="text-lg font-semibold tracking-tight">Olivia Feng</a>
-      <nav class="hidden md:flex items-center gap-6 text-sm">
-        <a class="hover:text-primary-600 focus-ring" href="#projects">Projects</a>
-        <a class="hover:text-primary-600 focus-ring" href="#about">About</a>
-        <a class="hover:text-primary-600 focus-ring" href="#contact">Contact</a>
-        <button id="themeToggle" class="px-3 py-1 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 focus-ring" aria-label="Toggle dark mode">🌓</button>
+<body class="portfolio-home">
+  <div class="page-orbit" aria-hidden="true"></div>
+
+  <header class="site-header home-header">
+    <div class="container header-row">
+      <a class="brand" href="#top">Olivia Feng</a>
+      <nav class="nav" aria-label="Primary">
+        <a href="#about">Home</a>
+        <a href="#selected-work">Work</a>
+        <a href="./about.html">About</a>
+        <a href="#contact" class="nav-accent">Contact</a>
       </nav>
-      <button id="menuBtn" class="md:hidden px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 focus-ring" aria-label="Open menu">☰</button>
-    </div>
-    <div id="mobileMenu" class="md:hidden hidden border-t border-slate-200 dark:border-slate-800 px-4 pb-4">
-      <a class="block py-2 hover:text-primary-600" href="#projects">Projects</a>
-      <a class="block py-2 hover:text-primary-600" href="#about">About</a>
-      <a class="block py-2 hover:text-primary-600" href="#contact">Contact</a>
     </div>
   </header>
 
-<!-- Hero -->
-<section id="home" class="relative overflow-hidden">
-  <!-- Hero background: same purple wave + soft calligraphy watermark -->
-  <div class="absolute inset-0 -z-10" aria-hidden="true">
-  <svg class="w-full h-full" viewBox="0 0 1440 560" preserveAspectRatio="none"
-       xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <!-- Wave clip is unchanged -->
-      <clipPath id="waveClip" clipPathUnits="userSpaceOnUse">
-        <path d="M0,320L60,298.7C120,277,240,235,360,229.3C480,224,600,256,720,272C840,288,960,288,1080,277.3C1200,267,1320,245,1380,234.7L1440,224L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"/>
-      </clipPath>
-
-      <!-- Soften + desaturate so text stays readable -->
-      <filter id="soften">
-        <feGaussianBlur stdDeviation="1.0" />
-        <feColorMatrix type="saturate" values="1" />
-        <feComponentTransfer>
-          <feFuncA type="linear" slope="0.8" />
-        </feComponentTransfer>
-      </filter>
-
-      <!-- Very subtle brand tint for cohesion -->
-      <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stop-color="#DBDAF9"/>
-        <stop offset="100%" stop-color="#7A7AF2"/>
-      </linearGradient>
-    </defs>
-
-    <g clip-path="url(#waveClip)">
-      <!-- Parchment base -->
-      <rect width="1640" height="560" fill="#EFEADF"/>
-
-      <!-- Your calligraphy: cropped like a hero image,
-           shifted right so it clears the headline. -->
-      <!-- TUNE these three numbers to position: x / width / opacity -->
-      <image href="/portfolio/assets/img/calligraphy.jpg"
-             x="-400" y="-30" width="1500" height="320"
-             preserveAspectRatio="xMidYMid slice"
-             opacity=".28" filter="url(#soften)"/>
-
-      <!-- Subtle brand tint (remove if you prefer pure parchment) -->
-      <rect width="1440" height="560" fill="url(#tint)"/>
-      <!-- Light/dark contrast layer -->
-      <rect width="1440" height="560" fill="#000" opacity="0.8"
-            class="hidden dark:block"/>
-    </g>
-  </svg>
-</div>
-
-  <!-- Hero content -->
-  <div class="mx-auto max-w-6xl px-4 py-16 md:py-24 grid md:grid-cols-[auto,1fr] gap-10 items-center">
-    <div class="w-36 h-36 md:w-44 md:h-44 rounded-full overflow-hidden ring-8 ring-white/70 dark:ring-slate-900/70 shadow-soft">
-      <img src="/portfolio/assets/img/olivia.jpg" alt="Olivia portrait" class="w-full h-full object-cover" />
-    </div>
-    <div class="fade">
-      <h1 class="text-4xl md:text-5xl font-extrabold leading-tight">Olivia (Yuchen) Feng</h1>
-      <p class="mt-4 text-lg text-slate-600 dark:text-slate-300 max-w-2xl">
-        UX Designer & product-minded researcher at UW HCDE. I turn complex problems into simple, elegant, shippable experiences.
-      </p>
-      <div class="mt-6 flex gap-3">
-        <a href="#projects" class="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-primary-600 text-white shadow-soft hover:translate-y-0.5 transition">View Projects</a>
-        <a href="#contact" class="inline-flex items-center gap-2 px-5 py-3 rounded-2xl border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition">Contact Me</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-  <!-- Projects -->
-  <section id="projects" class="mx-auto max-w-6xl px-4 py-14">
-    <div class="flex items-end justify-between mb-8">
-      <h2 class="text-2xl md:text-3xl font-bold">Featured Projects</h2>
-      <div class="text-sm text-slate-500">Click a card to view the full case study.</div>
-    </div>
-    <div class="grid md:grid-cols-2 gap-6">
-      <!-- Paira -->
-      <a href="/portfolio/projects/paira.html" class="group block rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden hover:shadow-soft transition">
-        <img src="/portfolio/assets/img/paira.png" alt="Paira" class="h-52 w-full object-cover">
-        <div class="p-5">
-          <div class="flex items-center justify-between">
-            <h3 class="text-lg font-semibold">Paira — New style of Networking </h3>
-            <span class="text-xs px-2 py-1 rounded-full bg-primary-50 text-primary-700 dark:bg-primary-900/30 dark:text-primary-200">Product + UX</span>
-          </div>
-          <p class="mt-2 text-slate-600 dark:text-slate-300"> Original app designed to make networking more fun and meaningful. I UX designed onboaring, logo and branding and Meaningful matches through referrals, badges, and playful micro-interactions.</p>
+  <main id="top">
+    <section id="about" class="home-hero">
+      <div class="container">
+        <div class="hero-banner reveal">
+          <img src="./assets/img/header-calligraphy.jpg" alt="Calligraphy tools and practice sheets by Olivia Feng" />
         </div>
-      </a>
 
-      <!-- Merlin Bird ID (Capstone) -->
-      <a href="/portfolio/projects/merlin.html" class="group block rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden hover:shadow-soft transition">
-        <img src="/portfolio/assets/img/merlin-bird-id.png" alt="Merlin Bird ID redesign" class="h-52 w-full object-cover">
-        <div class="p-5">
-          <div class="flex items-center justify-between">
-            <h3 class="text-lg font-semibold">Merlin Bird ID — Capstone with Cornell Lab</h3>
-            <span class="text-xs px-2 py-1 rounded-full bg-primary-50 text-primary-700 dark:bg-primary-900/30 dark:text-primary-200">UX • Research</span>
+        <div class="hero-shell">
+          <div class="hero-copy reveal">
+            <p class="eyebrow">UW HCDE MS · UX design · research-led craft</p>
+            <h1>
+              <span class="hero-line">Calm interfaces</span>
+              <span>with a bold hand.</span>
+            </h1>
+            <p class="hero-intro">
+              I design digital 
+            </p>
+            <div class="hero-about">
+              <p>
+                I’m Yuchen Feng, a University of Washington HCDE student with a minor in Neural
+                Computation & Engineering. My work sits between UX design, product thinking, and
+                research-informed systems.
+              </p>
+              <p>
+                I’m especially interested in complex products that need calm interaction design,
+                rigorous thinking, and community-centered decisions.
+              </p>
+              <p>
+                Placeholder
+              </p>
+            </div>
+            <div class="hero-actions">
+              <a class="btn primary" href="#selected-work">View selected work</a>
+              <a class="btn ghost" href="#contact">Start a conversation</a>
+            </div>
           </div>
-          <p class="mt-2 text-slate-600 dark:text-slate-300">Improving onboarding & match confidence for new birders.</p>
-        </div>
-      </a>
 
-      <!-- EcoScan -->
-      <a href="/portfolio/projects/ecoscan.html" class="group block rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden hover:shadow-soft transition">
-        <img src="/portfolio/assets/img/ecoscan.png" alt="EcoScan" class="h-52 w-full object-cover">
-        <div class="p-5">
-          <div class="flex items-center justify-between">
-            <h3 class="text-lg font-semibold">EcoScan — Hackathon Winner</h3>
-            <span class="text-xs px-2 py-1 rounded-full bg-primary-50 text-primary-700 dark:bg-primary-900/30 dark:text-primary-200">Hackathon</span>
+          <div class="hero-identity reveal">
+            <div class="hero-portrait">
+              <img src="./assets/img/olivia.jpg" alt="Portrait of Olivia Feng" />
+            </div>
+            <div class="hero-notes">
+              <div class="hero-note">
+                <p class="note-mark">01</p>
+                <p>
+                  I care about experiences that feel quiet in structure, but precise and
+                  unmistakable in their details.
+                </p>
+              </div>
+              <div class="hero-note">
+                <p class="note-mark">02</p>
+                <p>Placeholder: add a second short note here about your design values or focus.</p>
+              </div>
+            </div>
           </div>
-          <p class="mt-2 text-slate-600 dark:text-slate-300">Scan → Sort → Save. Fast, educational recycling decisions.</p>
         </div>
-      </a>
+      </div>
+    </section>
 
-      <!-- Game Design -->
-      <a href="/portfolio/projects/game.html" class="group block rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden hover:shadow-soft transition">
-        <img src="/portfolio/assets/img/game-cards.png" alt="Game UX" class="h-52 w-full object-cover">
-        <div class="p-5">
-          <div class="flex items-center justify-between">
-            <h3 class="text-lg font-semibold">Playful Habit — Game Design for Focus</h3>
-            <span class="text-xs px-2 py-1 rounded-full bg-primary-50 text-primary-700 dark:bg-primary-900/30 dark:text-primary-200">Game UX</span>
+    <section id="selected-work" class="section selected-work">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="section-label">Selected work</p>
+          <h2>Projects with clear intention and distinct tone.</h2>
+        </div>
+
+        <div class="project-composition">
+          <a href="./projects/paira.html" class="project-feature reveal">
+            <div class="project-media">
+              <img src="./assets/img/paira.png" alt="Paira product preview" />
+            </div>
+            <div class="project-body">
+              <p class="project-meta">Featured · Product strategy + UX design</p>
+              <h3>Paira</h3>
+              <p>
+                Founding Product Designer at an early-stage startup building a more meaningful
+                networking experience for young people.
+              </p>
+            </div>
+          </a>
+
+          <div class="project-stack">
+            <a href="./projects/merlin.html" class="project-card reveal">
+              <div class="project-card-media">
+                <img src="./assets/img/merlin-bird-id.png" alt="Merlin Bird ID project preview" />
+              </div>
+              <div class="project-card-body">
+                <p class="project-meta">Jan–Jun 2025 · Product manager & UX researcher</p>
+                <h3>Merlin Bird ID</h3>
+                <p>Capstone work with Cornell Lab of Ornithology and UW Ecofutures Lab.</p>
+              </div>
+            </a>
+
+            <a href="./projects/ecoscan.html" class="project-card reveal">
+              <div class="project-card-media">
+                <img src="./assets/img/ecoscan.png" alt="EcoScan project preview" />
+              </div>
+              <div class="project-card-body">
+                <p class="project-meta">Concept project · placeholder details</p>
+                <h3>EcoScan</h3>
+                <p>Recycling guidance concept focused on quick decisions, education, and clarity.</p>
+              </div>
+            </a>
+
+            <a href="./projects/game.html" class="project-card reveal">
+              <div class="project-card-media">
+                <img src="./assets/img/game-cards.png" alt="Playful Habit project preview" />
+              </div>
+              <div class="project-card-body">
+                <p class="project-meta">Interaction design · placeholder details</p>
+                <h3>Playful Habit</h3>
+                <p>A focus system shaped like a cozy loop rather than a productivity lecture.</p>
+              </div>
+            </a>
           </div>
-          <p class="mt-2 text-slate-600 dark:text-slate-300">Turning focus tracking into a cozy, rewarding loop.</p>
         </div>
-      </a>
-    </div>
-  </section>
-
-  <!-- About -->
-  <section id="about" class="mx-auto max-w-6xl px-4 pb-14">
-    <div class="grid md:grid-cols-2 gap-8 items-start">
-      <div class="rounded-3xl border border-slate-200 dark:border-slate-800 p-6">
-        <h2 class="text-xl font-bold mb-4">About Me</h2>
-        <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
-          Hi! I’m Olivia — a UX designer who turns complex problems into elegant, shippable experiences.
-          I connect research insights to interaction details and care deeply about accessibility and thoughtful visual systems.
-        </p>
-        <ul class="mt-4 space-y-2 text-slate-600 dark:text-slate-300">
-          <li>• Strengths: product sense, interaction, design systems, rapid prototyping</li>
-          <li>• Tools: Figma, Framer, HTML/CSS/JS, Python (viz), Notion</li>
-          <li>• Values: clarity, kindness, momentum</li>
-        </ul>
       </div>
-      <div class="rounded-3xl border border-slate-200 dark:border-slate-800 p-6">
-        <h2 class="text-xl font-bold mb-4">Selected Highlights</h2>
-        <ul class="list-disc pl-6 space-y-2 text-slate-600 dark:text-slate-300">
-          <li>Led <strong>Paira</strong> product & UX; built playful referral + matching system.</li>
-          <li><strong>Merlin Bird ID</strong> capstone with Cornell Lab — boosting beginner confidence.</li>
-          <li><strong>EcoScan</strong> 0→1 in 24h; fast educational recycling decisions.</li>
-          <li>Game UX side project — behavior design + light social to sustain focus.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Contact -->
-  <section id="contact" class="mx-auto max-w-6xl px-4 pb-20">
-    <div class="rounded-3xl border border-slate-200 dark:border-slate-800 p-6 md:p-10 text-center">
-      <h2 class="text-2xl font-bold">Let’s build something thoughtful ✨</h2>
-      <p class="mt-3 text-slate-600 dark:text-slate-300">Email me for the full case studies or resume.</p>
-      <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
-        <a class="px-5 py-3 rounded-2xl bg-primary-600 text-white hover:translate-y-0.5 transition" href="mailto:your.email@uw.edu">Email</a>
-        <a class="px-5 py-3 rounded-2xl border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition" href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn</a>
-        <a class="px-5 py-3 rounded-2xl border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition" href="/Olivia_Feng_Resume.pdf" target="_blank" rel="noreferrer">Resume</a>
+    <section class="section about-section">
+      <div class="container about-grid">
+        <div class="about-copy reveal">
+          <p class="section-label">About</p>
+          <h2>A fuller story deserves its own page.</h2>
+          <p>
+            I’ve added a dedicated about page so this homepage can stay focused on portfolio review
+            while still giving room for your background, interests, awards, and community work.
+          </p>
+          <p>
+            Placeholder: add your personal story, design philosophy, and the kinds of opportunities
+            you are actively looking for.
+          </p>
+          <div class="hero-actions">
+            <a class="btn primary" href="./about.html">Open about page</a>
+          </div>
+        </div>
+        <div class="about-portrait reveal">
+          <img src="./assets/img/olivia.jpg" alt="Portrait of Olivia Feng" />
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <footer class="py-10 text-center text-sm text-slate-500 border-t border-slate-200 dark:border-slate-800">
-    © <span id="year"></span> Olivia Yuchen Feng — All rights reserved.
+    <section id="contact" class="section contact-section reveal">
+      <div class="container contact-shell">
+        <div>
+          <p class="section-label">Contact</p>
+          <h2>If your team needs thoughtful work with a clear point of view, let’s talk.</h2>
+        </div>
+        <div class="contact-actions">
+          <a class="btn primary" href="mailto:fyc2003@uw.edu">Email</a>
+          <a class="btn ghost" href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn</a>
+          <a class="btn ghost" href="/Olivia_Feng_Resume.pdf" target="_blank" rel="noreferrer">Resume</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer home-footer">
+    <div class="container footer-row">
+      <p>© <span id="year"></span> Olivia Yuchen Feng</p>
+      <p>Calm systems. Sharp details.</p>
+    </div>
   </footer>
 
   <script>
-    // Year
-    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById("year").textContent = new Date().getFullYear();
 
-    // Theme toggle with localStorage
-    const root = document.documentElement; const btn = document.getElementById('themeToggle');
-    const saved = localStorage.getItem('theme');
-    if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      root.classList.add('dark');
-    }
-    btn?.addEventListener('click', () => {
-      root.classList.toggle('dark');
-      localStorage.setItem('theme', root.classList.contains('dark') ? 'dark' : 'light');
-    });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.18 }
+    );
 
-    // Mobile menu
-    const menuBtn = document.getElementById('menuBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-    menuBtn?.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+    document.querySelectorAll(".reveal").forEach((node) => observer.observe(node));
   </script>
 </body>
 </html>
