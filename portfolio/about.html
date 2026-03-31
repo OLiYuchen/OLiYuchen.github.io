@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About | Olivia Feng</title>
+  <meta
+    name="description"
+    content="About Yuchen Feng: interdisciplinary UX designer and researcher at the University of Washington."
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="./assets/style.css" />
+</head>
+<body>
+  <header class="site-header home-header">
+    <div class="container header-row">
+      <a class="brand" href="./index.html">Olivia Feng</a>
+      <nav class="nav" aria-label="Primary">
+        <div class="nav-links">
+          <a href="./index.html#selected-work">Work</a>
+          <a href="./about.html">About</a>
+          <a href="./index.html#contact">Contact</a>
+        </div>
+        <a class="btn btn-clear nav-cta" href="/Olivia_Feng_Resume.pdf" target="_blank" rel="noreferrer" download>
+          <span class="nav-cta-icon" aria-hidden="true">&#8595;</span>
+          <span>CV</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="project-hero">
+      <div class="container about-page-hero">
+        <div class="breadcrumbs"><a href="./index.html">Home</a> / About</div>
+        <div class="about-page-grid">
+          <div class="about-page-copy">
+            <p class="section-label">About Olivia</p>
+            <h1>Designing with research rigor, visual sensitivity, and interdisciplinary range.</h1>
+            <p>
+              I’m Yuchen Feng, an interdisciplinary designer and researcher studying Human-Centered
+              Design & Engineering at the University of Washington, with a minor in Neural
+              Computation & Engineering.
+            </p>
+            <p>
+              My work focuses on turning complex systems into understandable, human-centered
+              experiences through product framing, UX research, interaction design, and visual
+              storytelling.
+            </p>
+            <p>
+              Placeholder: add a more personal paragraph here about what drives you, what kinds of
+              teams you enjoy, and the environments where you do your best work.
+            </p>
+          </div>
+          <div class="about-page-photo">
+            <img src="./assets/img/Profile%20Pic.PNG" alt="Portrait of Olivia Feng" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container about-page-columns">
+        <section class="about-panel">
+          <p class="section-label">Education</p>
+          <h2>University of Washington</h2>
+          <p>B.S. in Human-Centered Design & Engineering</p>
+          <p>Minor in Neural Computation & Engineering</p>
+          <p>GPA: 3.94/4.00</p>
+          <p>2022–2026</p>
+        </section>
+
+        <section class="about-panel">
+          <p class="section-label">Positioning</p>
+          <h2>What I bring</h2>
+          <ul>
+            <li>Mixed-methods research, usability testing, A/B testing, and information architecture</li>
+            <li>Interaction design, wireframing, prototyping, storyboarding, and design systems</li>
+            <li>Figma, Adobe Creative Suite, Python, Java, SQL, R, MATLAB, HTML, Arduino, and Tableau</li>
+          </ul>
+        </section>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container about-page-columns">
+        <section class="about-panel">
+          <p class="section-label">Experience</p>
+          <h2>Selected roles</h2>
+          <ul>
+            <li>Founding Product Designer, Paira Technology Inc. — Aug 2025 to present</li>
+            <li>Product Manager & UX Researcher, Cornell Lab of Ornithology & UW Ecofutures Lab — Jan to Jun 2025</li>
+            <li>Product Design Lead, University of Washington Neural Computation & Engineering — Mar to Jun 2025</li>
+            <li>Product Designer & Researcher, University of Washington HCDE — Dec 2023 to May 2024</li>
+            <li>Experience Designer, Seattle Sichuan Hotpot — Oct 2023 to Mar 2025</li>
+          </ul>
+        </section>
+
+        <section class="about-panel">
+          <p class="section-label">Community & awards</p>
+          <h2>Beyond product work</h2>
+          <ul>
+            <li>Vice President, UW WeGet Magazine</li>
+            <li>Community organizer, UW Han Chinese Culture Club</li>
+            <li>Freelance calligrapher and designer in China and Seattle</li>
+            <li>YuanPei Young Scholar at Peking University</li>
+            <li>National Professional Level Certification of Chinese Calligraphy (Major Level)</li>
+          </ul>
+        </section>
+      </div>
+    </section>
+
+    <section class="section contact-section">
+      <div class="container contact-shell">
+        <div>
+          <p class="section-label">Next step</p>
+          <h2>If you want, this page can expand into a fuller narrative bio later.</h2>
+        </div>
+        <div class="contact-actions">
+          <a class="btn primary" href="./index.html#selected-work">Back to work</a>
+          <a class="btn ghost" href="mailto:fyc2003@uw.edu">Email me</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer home-footer">
+    <div class="container footer-row">
+      <p>© <span id="year"></span> Olivia Yuchen Feng</p>
+      <p>Interdisciplinary design, research, and calm systems thinking.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

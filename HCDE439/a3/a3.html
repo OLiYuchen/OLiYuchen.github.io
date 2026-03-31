@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+    <title>Assignment 3: Input Output Interaction!</title>
+    <link href="../style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <h1>Assignment 3: Input Output Interaction!</h1>
+    <p>
+      For this assignment, I created a circuit with three LEDs that light up in sequence
+      based on the light intensity detected by a photoresistor. Below, you can find the
+      schematic, circuit setup, firmware code, and answers to the additional questions.
+    </p>
+    <br><br><br><br>
+
+    <h2>Schematic & Voltage Divider Resistance Calculation</h2>
+    <br><img src="IO_Schematics.jpg" alt="Schematic for LED Circuit" />
+    <p><br>
+      This is the schematic of my LED circuit. The photoresistor is connected as part of a
+      voltage divider to pin A0, with a fixed resistor of 10kΩ. Each LED (blue) is
+      connected to a 220Ω resistor for current limiting and connected to digital pins 9, 10, and 11.
+    </p>
+    <br><br><br><br>
+
+    <h2>LED Resistance Calculation</h2>
+    <br><img src="IO_Resistance.jpg" alt="LED Resistance Calculation" />
+    <p><br>
+      For each LED circuit, 220Ω resistor was chosen for brightness and safety. The
+      resistors were calculated using Ohm's Law, as shown below.
+    <br><br><br><br>
+
+    <h2>Circuit Implementation</h2>
+    <br><img src="IO_firmware.jpg" alt="Circuit on Breadboard" />
+    <p><br>
+      This is the breadboard setup of my circuit. The photoresistor voltage is measured at
+      A0, and the three blue LEDs are controlled through pins 9, 10, and 11. The circuit
+      uses 220Ω resistors for the LEDs and a 10kΩ fixed resistor for the
+      photoresistor. For clearity, blue wires are used to connect the blue LEDs to pins while black wires are used to connect the GND side. White wire is where A0 is connected.
+    </p>
+    <br><br><br><br>
+
+    <h2>Firmware</h2>
+    <pre><code>int photopin = A0; // Photoresistor connected to A0
+int led1 = 9;      // First blue LED connected to pin 9
+int led2 = 10;     // Second blue LED connected to pin 10
+int led3 = 11;     // Third blue LED connected to pin 11
+
+void setup() {
+  Serial.begin(9600);             // Start serial monitor
+  pinMode(led1, OUTPUT);          // Set LED pins to output
+  pinMode(led2, OUTPUT);
+  pinMode(led3, OUTPUT);
+}
+
+void loop() {
+  int R_position = analogRead(photopin); // Read input from photoresistor
+  int val = constrain(R_position, 400, 650); // Restrain to 400–650
+  R_position = map(val, 400, 650, 0, 255);   // Map to 0–255
+
+  if (R_position < 50) { // First LED only
+    int R_low = map(R_position, 0, 50, 0, 255); // Map to enlarge gradual brightness effect
+    analogWrite(led1, R_low); // Led1 gradual brightness
+    analogWrite(led2, 0);
+    analogWrite(led3, 0);
+  } else if (R_position >= 50 && R_position < 150) { // First and second LEDs
+    int R_medium = map(R_position, 50, 150, 0, 255); // Map to enlarge gradual brightness effect
+    analogWrite(led1, 255); // Led1 max brightness
+    analogWrite(led2, R_medium); // Led2 gradual brightness
+    analogWrite(led3, 0);
+  } else if (R_position >= 150 && R_position <= 255) { // All LEDs
+    int R_high = map(R_position, 150, 255, 0, 255); // Map to enlarge gradual brightness effect
+    analogWrite(led1, 255); // Led1 max brightness
+    analogWrite(led2, 255); // Led2 max brightness
+    analogWrite(led3, R_high); // Led3 gradual brightness
+  }
+
+  Serial.print("photo: "); // Debugging output
+  Serial.println(R_position);
+  delay(100);
+}
+    </code></pre>
+    <p><br>
+      This firmware reads the photoresistor value, maps it to PWM values, and adjusts the
+      brightness of the LEDs accordingly. Each line is commented for clarity.
+    </p>
+    <br><br><br><br>
+
+    <h2>Animated GIF of Operation</h2>
+    <br><img src="IO.gif" alt="Circuit Operation Animation" />
+    <p><br>
+      This animated GIF demonstrates the operation of the circuit. The LEDs light up or fade in
+      sequence gradually with increasing or decreasing brightness as the light intensity on the photoresistor increases/decreases.
+    </p>
+    <br><br><br><br>
+
+    <h2>Additional Questions</h2>
+    <br><br>
+        <h3>1: Can the variable resistor be either R1 or R2?</h3>
+        <img src="IO_Q1.jpg" alt="Variable Resistor as R1 or R2" />
+        <p>
+          Technically, the variable resistor can be either R1 or R2. When the photoresistor is R1,
+          the output voltage increases with brightness. When it is R2, the output voltage
+          decreases with brightness. The configuration depends on the desired behavior, as
+          shown in the calculations above. 
+          <br><br>
+          However, with my current code configuration, the photoresistor
+          is R1, so the output voltage increases with brightness and LEDs light up with teh increase of brightness.
+        </p>
+        <br><br>
+        <h3>2: Voltage Over Time Graph</h3>
+        <img src="IO_Q2.jpg" alt="Voltage Over Time Graph" />
+        <p>
+          This graph shows the voltage at V<sub>measure</sub> over time as the light
+          intensity on the photoresistor changes. The X-axis represents time, and the
+          Y-axis represents voltage.
+        </p>
+        <br><br>
+        <h3>3: 10-bit PWM and a 16-bit analog-to-digital converter instead</h3>
+        <p><br>
+          <li>Current Configuration:</li>
+          AnalogWrite (PWM): 8-bit → Values range from 0 to 255.
+          <br> AnalogRead (ADC): 10-bit → Values range from 0 to 1023.
+          <li>New Configuration With 10-bit PWM and a 16-bit ADC:</li>
+            AnalogWrite (PWM): 10-bit → Values range from 0 to 1023.
+            <br>AnalogRead (ADC): 16-bit → Values range from 0 to 65535.
+          <br><br>With 10-bit PWM and a 16-bit ADC, the `map()` function would need to accommodate
+          the increased resolution. For example:
+        </p>
+        <pre><code><br> R_position = map(val, 16384, 32768, 0, 1023);</code></pre>
+        <p><br>
+          Here, the ADC range is mapped to the 10-bit PWM range. This provides finer
+          control over both input sensitivity and LED brightness.
+        </p>
+      </li>
+    </ol>
+
+    <br><br><br><br>
+    <a href="../index.html">Return to Main Page</a>
+  </body>
+</html>

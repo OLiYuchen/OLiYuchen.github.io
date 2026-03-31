@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+    <title>Assignment 4: Capacitive Sensing and Servo Control</title>
+    <link href="../style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <h1>Assignment 4: Capacitive Sensing and Servo Control</h1>
+    <p>For this assignment, I created a capacitive sensing circuit using an Arduino to control a servo motor based on touch input. Below, you can find the schematic, circuit setup, firmware code, and answers to the additional questions.</p>
+    <br><br><br><br>
+    <h2>Schematic</h2>
+    <br><img src="a4_schematics.png" alt="Schematic for Capacitive Sensing and Servo Circuit" />
+    <p><br>
+      This is the schematic of my capacitive sensing and servo motor circuit. The capacitive sensor is built using a 1MΩ resistor and a conductive lid, with pins 4 and 2 assigned for sending and receiving signals. The servo motor is connected to pin 6, with a 5V power supply and ground. 1MΩ resistor is chosen due to availability and desireability for sensitivity and response time.
+    </p>
+    <br><br><br><br>
+    <h2>Circuit Implementation</h2>
+    <br><img src="a4_Firmware.jpg" alt="Circuit on Breadboard" />
+    <p><br>
+      This is the breadboard setup of my circuit. The conductive lid acts as the capacitive touch sensor. The servo motor rotates based on the sensor's readings, mapping touch intensity to angular position. 
+    </p>
+    <br><br><br><br>
+    <h2>Firmware</h2>
+    <pre><code>
+        #include <Servo.h>  // Servo lib
+            #include <CapacitiveSensor.h> //capacitive sensor lib
+            
+            // Create a capacitive sensor object with pins 4 (send) and 2 (receive)
+            CapacitiveSensor   cs_4_2 = CapacitiveSensor(4,2);       
+            
+            Servo myServo; // Servo object to control the servo motor
+            
+            // For callibration
+            long minValue = 999999;  // Start with a high value 
+            long maxValue = 0;       // Start with a low value
+            
+            void setup()                    
+            {
+               cs_4_2.set_CS_AutocaL_Millis(0xFFFFFFFF);     // turn off autocalibrate 
+               Serial.begin(9600); // begin serial
+               myServo.attach(6); // servo pin 6
+            
+               Serial.println("Touch the sensor for calibration...");
+               delay(2000); // Wait for 2 seconds touch the conductor
+            
+            
+            
+               // Take 10 readings to set min and max
+               for (int i = 0; i < 10; i++) {
+                  long sensorValue = cs_4_2.capacitiveSensor(30); // Read sensor
+                  if (sensorValue > maxValue) {
+                    maxValue = sensorValue;} // compare max value
+                  if (sensorValue < minValue) {
+                    minValue = sensorValue;} //compare min value
+                  delay(100);
+                }
+            
+                Serial.println("Calibration done!");
+            
+            }
+            
+            void loop()               	 
+            {
+                long sensorValue = cs_4_2.capacitiveSensor(30); // Read sensor
+              int angle = map(sensorValue, minValue, maxValue, 0, 180); // Convert to servo angle
+              angle = constrain(angle, 0, 180); // Keep value within valid range
+            
+              myServo.write(angle); // Move servo by angle
+            
+              // Print values for debugging
+                Serial.print("Sensor: "); 
+                Serial.print(sensorValue);
+                Serial.print(" | Servo Angle: "); 
+                Serial.println(angle);
+            
+              delay(100);
+            
+            }
+            
+    </code></pre>
+    <p><br>
+      This firmware reads capacitive touch input and maps it to the servo motor's angular position. Calibration is performed at startup to adjust the sensitivity dynamically.
+    </p>
+    <br><br><br><br>
+    <h2>Animated GIF of Operation</h2>
+    <br><img src="a4.gif" alt="Capacitive Sensing and Servo Control Animation" />
+    <p><br>
+      This animated GIF demonstrates the operation of the circuit. It starts with callibration process. Then, as the conductive lid is touched, the servo motor responds by adjusting its position accordingly.
+    </p>
+    <br><br><br><br>
+    <h2>Additional Questions</h2>
+    <br><br>
+    <h4> 1: Graph for Servo Motor Voltage Over Time </h4>
+    <br><img src="a4_question1graph.png" alt="Voltage Graph for Servo Motor" />
+    <p><br>
+      This graph shows the voltage over time at pin 9 for the given loop "for (int i=0, i<180, i++){servo.write(i); delay(100);}". The X-axis represents time in seconds, while the Y-axis represents voltage. The servo motor moved 20 degrees in 2 second, with a 0.1s break betwwen each movement. 
+    </p>
+    <br><br>
+    <h4>2: Handling Erroneous Readings (1% error)</h4>
+    <pre><code>
+        // Question 2
+        long Calli_SensorReading() {
+            long readings[5]; // Store 5 readings
+        
+            for (int i = 0; i < 5; i++) {
+                readings[i] = cs_4_2.capacitiveSensor(30); // Read sensor multiple times
+                delay(5);  
+            }
+        
+            // sort the array and return the median value
+            for (int i = 0; i < 4; i++) {
+                for (int j = i + 1; j < 5; j++) {
+                    if (readings[i] > readings[j]) {
+                        long temp = readings[i];
+                        readings[i] = readings[j];
+                        readings[j] = temp;
+                    }
+                }
+            }
+            return readings[2]; // Return the middle value 
+        }
+    </code></pre>
+    <p><br>
+      To address the 1% error, I choose to take five readings and return the median value, reducing the impact of outliers (extreme values).
+    </p>
+    <br><br>
+    <h4>3: Handling Noisy Measurements (10% deviation)</h4>
+    <pre><code>
+        // Question 3
+        long Calli_SensorReading() {
+            long readings[10]; // Store 10 readings
+            long sum = 0; //initial sum = 0
+        
+            for (int i = 0; i < 10; i++) { // Take 10 readings
+                readings[i] = cs_4_2.capacitiveSensor(30); // Read sensor multiple times
+                sum += readings[i];
+                delay(5);  
+            }
+        
+            return sum/10; // Return the average value 
+        }
+    </code></pre>
+    <p><br>
+      To reduce noise, I choose to take 10 readings and return the average, which smooths out fluctuations.
+    </p>
+    <br><br><br><br>
+    <a href="../index.html">Return to Main Page</a>
+  </body>
+</html>

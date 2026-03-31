@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+    <title>Assignment 6: Joystick Controlled Game</title>
+    <link href="../style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <h1>Assignment 6: Joystick Controlled Game</h1>
+    <p>For this assignment, I created an interactive game controlled by a joystick and an Arduino. The joystick sends input signals, which are processed to move an element in a web-based game. Below, you can find the schematic, circuit setup, firmware code, and answers to the additional questions.</p>
+    <br><br><br><br>
+    
+    <h2>Schematic</h2>
+    <br><img src="IMG_1141.JPG" alt="Schematic for Joystick Controlled Game" />
+    <p><br>
+      This is the schematic of my joystick-controlled game setup. The joystick is connected to the Arduino, which communicates with the computer to control game movements. The circuit ensures accurate joystick readings for smooth gameplay.
+    </p>
+    <br><br><br><br>
+
+    <h2>Resistance Calculation</h2>
+    <br><img src="resistor calculation.png" alt="Resistance Calculation" />
+    <p><br>
+      Assuming voltage drop for red LED is 1.8V and a desired current of ~20mA, I calculated the resistance to be at least 107Ω and desired 160Ω. The final choice of 220Ω resistor is based on desirability and availability, which ensures safe operation of the LEDs while maintaining brightness.
+    </p>
+    <br><br><br><br>
+    
+    <h2>Circuit Implementation</h2>
+    <br><img src="a6 firm ware.JPG" alt="Circuit on Breadboard" />
+    <p><br>
+      This is the breadboard setup of my circuit. The joystick provides analog input, which is converted into digital movement commands for the game.
+    </p>
+    <br><br><br><br>
+    
+    
+    <h2>Animated GIF of Operation</h2>
+    <br><img src="a6.gif" alt="Joystick Controlled Game Animation" />
+    <p><br>
+      This animated GIF demonstrates the gameplay. As the joystick is moved, the game responds accordingly, allowing smooth control of the in-game object.
+    </p>
+    <br><br><br><br>
+    
+    <h2>Firmware</h2>
+    <pre><code>
+    //////////snake.js
+    
+        const BAUD_RATE = 9600; // Match with Arduino baud rate
+        let port, connectBtn; // Serial port and connect button
+        let snake, food, direction; // Snake, food, and movement direction
+        const gridSize = 40; // Grid size
+        let cols, rows; // Grid dimensions
+
+        function setup() {
+        setupSerial(); // Setup Web Serial connection
+
+        createCanvas(1000,600); // Canvas size
+        frameRate(10); // Snake speed
+
+        cols = floor(width / gridSize); // Calculate grid dimensions
+        rows = floor(height / gridSize); 
+
+        snake = [{ x: 5, y: 5 }]; // Initial snake position
+        food = createFood(); // Generate first food
+        direction = { x: 1, y: 0 }; // Initial movement (right)
+
+        }
+
+        function draw() {
+        if (!checkPort()) return; // Check if serial is connected
+        background(250, 180, 185); // background color
+
+        moveSnake(); // Update snake position
+        drawSnake(); // Draw snake
+        drawFood(); // Draw food
+
+        if (snakeEatsFood()) {
+            food = createFood(); // Generate new food
+            let lastSegment = snake[snake.length - 1]; // Get the last segment (the tail) of the snake
+            let newSegment = { x: lastSegment.x, y: lastSegment.y }; // Create a new segment at the same position as the tail
+            snake.push(newSegment); // Add the new segment to the snake to make it grow
+            if (port) port.write("blink\n"); // Send signal to blink LED
+        }
+        }
+
+        function moveSnake() {
+        let head = { x: snake[0].x + direction.x, y: snake[0].y + direction.y }; // Calculate new head position
+
+        // Wrap around edges
+        if (head.x >= cols) head.x = 0;
+        if (head.x < 0) head.x = cols - 1;
+        if (head.y >= rows) head.y = 0;
+        if (head.y < 0) head.y = rows - 1;
+
+        snake.unshift(head); // Move head
+        snake.pop(); // Remove tail
+        }
+
+        function drawSnake() {
+        fill(255, 255, 180); // snake color
+        for (let i = 0; i < snake.length; i++) {
+            let segment = snake[i]; // Get the current segment of the snake
+            let x = segment.x * gridSize; // Convert grid position to pixel position
+            let y = segment.y * gridSize; // Convert grid position to pixel position
+            rect(x, y, gridSize, gridSize); // Draw the segment as a rectangle
+        }
+        
+        }
+
+        function createFood() {
+        return { x: floor(random(cols)), y: floor(random(rows)) }; // Random food position
+        }
+
+        function drawFood() {
+        fill(255, 0, 0); // Red food
+        rect(food.x * gridSize, food.y * gridSize, gridSize, gridSize); // Draw food
+        }
+
+        function snakeEatsFood() {
+        return snake[0].x === food.x && snake[0].y === food.y; // check snake head and food position
+        }
+
+
+        function setupSerial() {
+            port = createSerial();
+        
+            // Check to see if there are any ports we have used previously
+            let usedPorts = usedSerialPorts();
+            if (usedPorts.length > 0) {
+            // If there are ports we've used, open the first one
+            port.open(usedPorts[0], BAUD_RATE);
+            }
+        
+            // create a connect button
+            connectBtn = createButton("Connect to Arduino");
+            connectBtn.position(5, 5); // Position the button in the top left of the screen.
+            connectBtn.mouseClicked(onConnectButtonClicked); // When the button is clicked, run the onConnectButtonClicked function
+        }
+
+        // Check serial connection
+        function checkPort() {
+        if (!port.opened()) {
+            // If the port is not open, change button text
+            connectBtn.html("Connect to Arduino");
+            return false;
+        } else {
+            // Otherwise we are connected
+            connectBtn.html("Disconnect");
+            readSerialData(); // Read joystick input
+            return true;
+        }
+        }
+
+
+        function onConnectButtonClicked() {
+            // When the connect button is clicked
+            if (!port.opened()) {
+            // If the port is not opened, we open it
+            port.open(BAUD_RATE);
+            } else {
+            // Otherwise, we close it!
+            port.close();
+            }
+        }
+
+        // Read joystick input
+        function readSerialData() {
+        let str = port.readUntil("\n").trim(); // Read from the port until the newline
+        if (str.length == 0) return; // If we didn't read anything, return
+
+        let values = str.split(","); // Split the string into an array
+        let a0 = Number(values[0]); // Convert the first value to a number
+        let a1 = Number(values[1]); // Convert the second value to a number
+
+        if (a0 < 450) direction = { x: -1, y: 0 }; // Left
+        if (a0 > 550) direction = { x: 1, y: 0 }; // Right
+        if (a1 < 450) direction = { x: 0, y: -1 }; // Up
+        if (a1 > 550) direction = { x: 0, y: 1 }; // Down
+        }
+
+
+    //////snake.ino
+
+        const int x = A0; // Joystick pins
+        const int y = A1; 
+        const int led = 13; // LED pin
+
+        void setup() {
+        pinMode(led, OUTPUT); // Set LED pin as output
+        Serial.begin(9600); // Start serial communication
+        }
+
+        void loop() {
+        int xValue = analogRead(x); // Read joystick values
+        int yValue = analogRead(y);
+
+        Serial.print(xValue); // Send values over serial
+        Serial.print(",");
+        Serial.println(yValue);
+
+        if (Serial.available()) {
+            String command = Serial.readStringUntil('\n'); // Read command
+
+            if (command == "blink") { // If command is "blink"， blink led once
+            digitalWrite(led, HIGH);
+            delay(700);
+            digitalWrite(led, LOW);
+            }
+        }
+
+        delay(100);
+        }
+
+
+    </code></pre>
+    <p><br>
+      This firmware reads joystick input and maps it to movement in the game. The code processes analog input values and transmits corresponding directional commands. LED blinks when the snake eat the food in the game. 
+    </p>
+    <br><br><br><br>
+    
+    
+    <a href="../index.html">Return to Main Page</a>
+  </body>
+</html>
