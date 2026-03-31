@@ -23,10 +23,15 @@
     <div class="container header-row">
       <a class="brand" href="#top">Olivia Feng</a>
       <nav class="nav" aria-label="Primary">
-        <a href="#about">Home</a>
-        <a href="#selected-work">Work</a>
-        <a href="./about.html">About</a>
-        <a href="#contact" class="nav-accent">Contact</a>
+        <div class="nav-links">
+          <a href="#selected-work">Work</a>
+          <a href="./about.html">About</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <a class="btn btn-clear nav-cta" href="/Olivia_Feng_Resume.pdf" target="_blank" rel="noreferrer" download>
+          <span class="nav-cta-icon" aria-hidden="true">&#8595;</span>
+          <span>CV</span>
+        </a>
       </nav>
     </div>
   </header>
@@ -64,13 +69,13 @@
             </div>
             <div class="hero-actions">
               <a class="btn primary" href="#selected-work">View selected work</a>
-              <a class="btn ghost" href="#contact">Start a conversation</a>
+              <a class="btn ghost" href="./about.html">More about me</a>
             </div>
           </div>
 
           <div class="hero-identity reveal">
             <div class="hero-portrait">
-              <img src="./assets/img/olivia.jpg" alt="Portrait of Olivia Feng" />
+              <img src="./assets/img/Profile%20Pic.PNG" alt="Portrait of Olivia Feng" />
             </div>
             <div class="hero-notes">
               <div class="hero-note">
@@ -98,11 +103,11 @@
         </div>
 
         <div class="project-composition">
-          <a href="./projects/paira.html" class="project-feature reveal">
-            <div class="project-media">
+          <a href="./projects/paira.html" class="project-card reveal">
+            <div class="project-card-media">
               <img src="./assets/img/paira.png" alt="Paira product preview" />
             </div>
-            <div class="project-body">
+            <div class="project-card-body">
               <p class="project-meta">Featured · Product strategy + UX design</p>
               <h3>Paira</h3>
               <p>
@@ -111,78 +116,71 @@
               </p>
             </div>
           </a>
+          <a href="./projects/merlin.html" class="project-card reveal">
+            <div class="project-card-media">
+              <img src="./assets/img/merlin-bird-id.png" alt="Merlin Bird ID project preview" />
+            </div>
+            <div class="project-card-body">
+              <p class="project-meta">Jan–Jun 2025 · Product manager & UX researcher</p>
+              <h3>Merlin Bird ID</h3>
+              <p>Capstone work with Cornell Lab of Ornithology and UW Ecofutures Lab.</p>
+            </div>
+          </a>
 
-          <div class="project-stack">
-            <a href="./projects/merlin.html" class="project-card reveal">
-              <div class="project-card-media">
-                <img src="./assets/img/merlin-bird-id.png" alt="Merlin Bird ID project preview" />
-              </div>
-              <div class="project-card-body">
-                <p class="project-meta">Jan–Jun 2025 · Product manager & UX researcher</p>
-                <h3>Merlin Bird ID</h3>
-                <p>Capstone work with Cornell Lab of Ornithology and UW Ecofutures Lab.</p>
-              </div>
-            </a>
+          <a href="./projects/ecoscan.html" class="project-card reveal">
+            <div class="project-card-media">
+              <img src="./assets/img/ecoscan.png" alt="EcoScan project preview" />
+            </div>
+            <div class="project-card-body">
+              <p class="project-meta">Concept project · placeholder details</p>
+              <h3>EcoScan</h3>
+              <p>Recycling guidance concept focused on quick decisions, education, and clarity.</p>
+            </div>
+          </a>
 
-            <a href="./projects/ecoscan.html" class="project-card reveal">
-              <div class="project-card-media">
-                <img src="./assets/img/ecoscan.png" alt="EcoScan project preview" />
-              </div>
-              <div class="project-card-body">
-                <p class="project-meta">Concept project · placeholder details</p>
-                <h3>EcoScan</h3>
-                <p>Recycling guidance concept focused on quick decisions, education, and clarity.</p>
-              </div>
-            </a>
-
-            <a href="./projects/game.html" class="project-card reveal">
-              <div class="project-card-media">
-                <img src="./assets/img/game-cards.png" alt="Playful Habit project preview" />
-              </div>
-              <div class="project-card-body">
-                <p class="project-meta">Interaction design · placeholder details</p>
-                <h3>Playful Habit</h3>
-                <p>A focus system shaped like a cozy loop rather than a productivity lecture.</p>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section about-section">
-      <div class="container about-grid">
-        <div class="about-copy reveal">
-          <p class="section-label">About</p>
-          <h2>A fuller story deserves its own page.</h2>
-          <p>
-            I’ve added a dedicated about page so this homepage can stay focused on portfolio review
-            while still giving room for your background, interests, awards, and community work.
-          </p>
-          <p>
-            Placeholder: add your personal story, design philosophy, and the kinds of opportunities
-            you are actively looking for.
-          </p>
-          <div class="hero-actions">
-            <a class="btn primary" href="./about.html">Open about page</a>
-          </div>
-        </div>
-        <div class="about-portrait reveal">
-          <img src="./assets/img/olivia.jpg" alt="Portrait of Olivia Feng" />
+          <a href="./projects/game.html" class="project-card reveal">
+            <div class="project-card-media">
+              <img src="./assets/img/game-cards.png" alt="Playful Habit project preview" />
+            </div>
+            <div class="project-card-body">
+              <p class="project-meta">Interaction design · placeholder details</p>
+              <h3>Playful Habit</h3>
+              <p>A focus system shaped like a cozy loop rather than a productivity lecture.</p>
+            </div>
+          </a>
         </div>
       </div>
     </section>
 
     <section id="contact" class="section contact-section reveal">
       <div class="container contact-shell">
-        <div>
-          <p class="section-label">Contact</p>
-          <h2>If your team needs thoughtful work with a clear point of view, let’s talk.</h2>
+        <div class="contact-photo" aria-hidden="true">
+          <img src="./assets/img/ContactMe.png" alt="" />
         </div>
-        <div class="contact-actions">
-          <a class="btn primary" href="mailto:fyc2003@uw.edu">Email</a>
-          <a class="btn ghost" href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn</a>
-          <a class="btn ghost" href="/Olivia_Feng_Resume.pdf" target="_blank" rel="noreferrer">Resume</a>
+        <div class="contact-copy">
+          <p class="section-label">Contact</p>
+          <h2>Hiring for thoughtful product design?</h2>
+          <p class="contact-intro">I’m open to roles where research, interaction craft, and calm systems thinking matter.</p>
+        </div>
+
+        <div class="contact-board">
+          <div class="contact-grid">
+            <a class="contact-card" href="mailto:fyc2003@uw.edu">
+              <span class="contact-icon contact-icon-email" aria-hidden="true">&#9993;</span>
+              <span class="contact-card-title">Email</span>
+              <span class="contact-card-detail">fyc2003@uw.edu</span>
+            </a>
+
+            <a class="contact-card" href="https://www.linkedin.com/" target="_blank" rel="noreferrer">
+              <span class="contact-icon contact-icon-linkedin" aria-hidden="true">in</span>
+              <span class="contact-card-title">LinkedIn</span>
+              <span class="contact-card-detail">Connect directly</span>
+            </a>
+          </div>
+
+          <div class="contact-actions">
+            <a class="btn ghost" href="/Olivia_Feng_Resume.pdf" target="_blank" rel="noreferrer">View CV</a>
+          </div>
         </div>
       </div>
     </section>
@@ -191,7 +189,7 @@
   <footer class="site-footer home-footer">
     <div class="container footer-row">
       <p>© <span id="year"></span> Olivia Yuchen Feng</p>
-      <p>Calm systems. Sharp details.</p>
+      <p>Designed with Love ᥫᩣ</p>
     </div>
   </footer>
 
