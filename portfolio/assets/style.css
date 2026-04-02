@@ -8,7 +8,16 @@
   --line-strong: rgba(43, 36, 30, 0.24);
   --accent: #cd5732;
   --accent-deep: #a53d1f;
+  --surface: rgba(248, 242, 233, 0.82);
+  --surface-soft: rgba(246, 240, 230, 0.78);
+  --surface-strong: rgba(246, 240, 230, 0.9);
+  --header-surface: rgba(244, 237, 227, 0.78);
   --shadow: 0 24px 70px rgba(52, 39, 27, 0.11);
+  --radius-card: 1.6rem;
+  --radius-card-lg: 2rem;
+  --radius-pill: 999px;
+  --transition-soft: 240ms ease;
+  --transition-card: 260ms ease;
   --font-display: "Cormorant Garamond", "Times New Roman", serif;
   --font-body: "Instrument Sans", "Helvetica Neue", sans-serif;
 }
@@ -20,7 +29,7 @@
 html {
   min-height: 100%;
   scroll-behavior: smooth;
-  background: #f5eee4;
+  background: var(--paper-soft);
 }
 
 body {
@@ -41,7 +50,7 @@ body::before {
   pointer-events: none;
   background:
     radial-gradient(circle at top right, rgba(205, 87, 50, 0.09), transparent 28rem),
-    linear-gradient(180deg, #f5eee4 0%, var(--paper) 26%, #e9e0d4 100%);
+    linear-gradient(180deg, var(--paper-soft) 0%, var(--paper) 26%, #e9e0d4 100%);
 }
 
 img {
@@ -101,7 +110,7 @@ dl {
 }
 
 .home-header {
-  background: rgba(244, 237, 227, 0.78);
+  background: var(--header-surface);
 }
 
 .header-row,
@@ -167,6 +176,13 @@ dl {
   transform: scaleX(1);
 }
 
+a:focus-visible,
+button:focus-visible,
+.btn:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--accent) 72%, white 28%);
+  outline-offset: 3px;
+}
+
 .home-hero {
   position: relative;
   padding: clamp(0.6rem, 1.4vw, 1rem) 0 clamp(2.4rem, 4vw, 3.4rem);
@@ -213,7 +229,7 @@ dl {
   position: relative;
   z-index: 1;
   padding: clamp(1.15rem, 2vw, 1.7rem);
-  background: rgba(246, 240, 230, 0.88);
+  background: var(--surface-strong);
   border: 1px solid rgba(43, 36, 30, 0.1);
   border-radius: 1.8rem;
   box-shadow: 0 18px 45px rgba(52, 39, 27, 0.1);
@@ -243,7 +259,7 @@ dl {
   font-family: var(--font-display);
   font-weight: 600;
   letter-spacing: -0.03em;
-  line-height: 1;
+  line-height: 1.06;
   text-wrap: balance;
 }
 
@@ -305,14 +321,14 @@ dl {
   justify-content: center;
   min-height: 3rem;
   padding: 0.85rem 1.3rem;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   border: 1px solid var(--line-strong);
   font-size: 0.96rem;
   transition:
-    transform 240ms ease,
-    border-color 240ms ease,
-    background-color 240ms ease,
-    color 240ms ease;
+    transform var(--transition-soft),
+    border-color var(--transition-soft),
+    background-color var(--transition-soft),
+    color var(--transition-soft);
 }
 
 .btn:hover,
@@ -327,7 +343,7 @@ dl {
 }
 
 .btn.ghost {
-  background: rgba(246, 240, 230, 0.78);
+  background: var(--surface-soft);
 }
 
 .btn-clear {
@@ -474,15 +490,15 @@ dl {
 .contact-shell,
 .project-cover {
   border: 1px solid rgba(43, 36, 30, 0.12);
-  background: rgba(248, 242, 233, 0.82);
+  background: var(--surface);
   box-shadow: var(--shadow);
 }
 
 .project-card {
   overflow: hidden;
   transition:
-    transform 260ms ease,
-    border-color 260ms ease;
+    transform var(--transition-card),
+    border-color var(--transition-card);
 }
 
 .project-card:hover {
@@ -518,7 +534,7 @@ dl {
   display: grid;
   grid-template-rows: minmax(13rem, 16rem) auto;
   min-height: 100%;
-  border-radius: 1.6rem;
+  border-radius: var(--radius-card);
 }
 
 .about-details {
@@ -550,10 +566,10 @@ dl {
   align-items: center;
   gap: clamp(1.8rem, 4vw, 4.5rem);
   padding: clamp(2.6rem, 6vw, 5rem);
-  border-radius: 2rem;
+  border-radius: var(--radius-card-lg);
   overflow: hidden;
   border: 1px solid rgba(43, 36, 30, 0.12);
-  background: rgba(248, 242, 233, 0.82);
+  background: var(--surface);
   box-shadow: var(--shadow);
 }
 
@@ -617,7 +633,7 @@ dl {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   border: 1px solid rgba(43, 36, 30, 0.12);
-  border-radius: 1.6rem;
+  border-radius: var(--radius-card);
   background: rgba(246, 240, 230, 0.72);
 }
 
@@ -657,7 +673,7 @@ dl {
   font-size: clamp(1.65rem, 2.2vw, 2rem);
   font-weight: 600;
   letter-spacing: -0.04em;
-  line-height: 1;
+  line-height: 1.04;
 }
 
 .contact-card-detail {
@@ -743,6 +759,10 @@ dl {
 
   .contact-board {
     width: 100%;
+  }
+
+  .about-banner-card {
+    width: clamp(15rem, 34vw, 22rem);
   }
 
   .hero-identity {
@@ -879,6 +899,30 @@ dl {
   .hero-banner {
     min-height: 6.2rem;
   }
+
+  .about-banner-frame {
+    width: 100%;
+    min-height: 16rem;
+    border-radius: 1.5rem;
+  }
+
+  .about-banner-shell {
+    min-height: 24rem;
+  }
+
+  .about-banner-overlays {
+    position: static;
+    display: grid;
+    gap: 0.9rem;
+    margin-top: 0.9rem;
+  }
+
+  .about-banner-card {
+    position: static;
+    width: 100%;
+    padding: 0.9rem 1rem;
+    border-radius: 1.2rem;
+  }
 }
 
 /* Shared project pages */
@@ -899,7 +943,7 @@ dl {
 
 .project-cover {
   overflow: hidden;
-  border-radius: 1.6rem;
+  border-radius: var(--radius-card);
 }
 
 .prose {
@@ -917,13 +961,13 @@ dl {
 .prose h1 {
   margin: 0.2em 0 0.3em;
   font-size: clamp(2.6rem, 5vw, 4.2rem);
-  line-height: 1;
+  line-height: 1.08;
 }
 
 .prose h2 {
   margin: 1.3em 0 0.4em;
   font-size: 1.8rem;
-  line-height: 1;
+  line-height: 1.08;
 }
 
 .prose p,
@@ -946,9 +990,9 @@ dl {
   align-items: center;
   min-height: 2.6rem;
   padding: 0.65rem 1rem;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   border: 1px solid var(--line-strong);
-  background: rgba(248, 242, 233, 0.82);
+  background: var(--surface);
 }
 
 .site-footer {
@@ -958,6 +1002,68 @@ dl {
 .about-page-hero {
   display: grid;
   gap: 1.5rem;
+}
+
+.about-banner-shell {
+  position: relative;
+  width: 100%;
+  min-height: clamp(22rem, 40vw, 30rem);
+}
+
+.about-banner-frame {
+  position: relative;
+  overflow: hidden;
+  width: min(100%, clamp(40rem, 74vw, 64rem));
+  min-height: inherit;
+  border: 1px solid rgba(43, 36, 30, 0.12);
+  border-radius: 2rem;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  margin: 0;
+}
+
+.about-banner-frame img {
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  object-fit: cover;
+  object-position: left center;
+}
+
+.about-banner-overlays {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.about-banner-card {
+  position: absolute;
+  right: 0;
+  width: clamp(20rem, 34vw, 32rem);
+  min-height: clamp(7rem, 11vw, 9rem);
+  padding: 1.15rem 1.25rem;
+  border: 1px solid rgba(43, 36, 30, 0.12);
+  border-radius: 1.6rem;
+  background: rgba(246, 240, 230, 0.9);
+  box-shadow: 0 16px 36px rgba(52, 39, 27, 0.1);
+  backdrop-filter: blur(12px);
+  pointer-events: auto;
+}
+
+.about-banner-card-primary {
+  top: clamp(2rem, 4vw, 2.8rem);
+}
+
+.about-banner-card-secondary {
+  top: clamp(12.5rem, 22vw, 17.5rem);
+  width: clamp(18rem, 30vw, 27rem);
+  min-height: clamp(8rem, 13vw, 10rem);
+}
+
+.about-banner-card p:last-child {
+  color: var(--ink-soft);
+  font-size: 1rem;
+  line-height: 1.7;
 }
 
 .about-page-grid,
@@ -1008,7 +1114,7 @@ dl {
   padding: 1.5rem;
   border: 1px solid rgba(43, 36, 30, 0.12);
   border-radius: 1.5rem;
-  background: rgba(248, 242, 233, 0.82);
+  background: var(--surface);
   box-shadow: var(--shadow);
 }
 
@@ -1077,7 +1183,7 @@ dl {
   min-height: 2.1rem;
   padding: 0.45rem 0.8rem;
   border: 1px solid rgba(43, 36, 30, 0.12);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: rgba(246, 240, 230, 0.75);
   color: var(--ink-soft);
   font-size: 0.88rem;
@@ -1096,7 +1202,7 @@ dl {
 .project-case-figure-card {
   border: 1px solid rgba(43, 36, 30, 0.12);
   border-radius: 1.5rem;
-  background: rgba(248, 242, 233, 0.82);
+  background: var(--surface);
   box-shadow: var(--shadow);
 }
 
@@ -1158,7 +1264,7 @@ dl {
   font-size: clamp(1.55rem, 2.2vw, 2rem);
   font-weight: 600;
   letter-spacing: -0.03em;
-  line-height: 1;
+  line-height: 1.08;
 }
 
 .project-case-detail-card p,
@@ -1274,7 +1380,7 @@ dl {
   min-height: 2.1rem;
   padding: 0.45rem 0.8rem;
   border: 1px solid rgba(43, 36, 30, 0.12);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: rgba(246, 240, 230, 0.75);
   color: var(--ink-soft);
   font-size: 0.88rem;
@@ -1292,7 +1398,7 @@ dl {
 .paira-principle {
   border: 1px solid rgba(43, 36, 30, 0.12);
   border-radius: 1.5rem;
-  background: rgba(248, 242, 233, 0.82);
+  background: var(--surface);
   box-shadow: var(--shadow);
 }
 
@@ -1356,7 +1462,7 @@ dl {
   font-size: clamp(1.55rem, 2.2vw, 2rem);
   font-weight: 600;
   letter-spacing: -0.03em;
-  line-height: 1;
+  line-height: 1.08;
 }
 
 .paira-detail-card p,
@@ -1454,7 +1560,7 @@ dl {
   min-height: 2.1rem;
   padding: 0.45rem 0.8rem;
   border: 1px solid rgba(43, 36, 30, 0.12);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: rgba(246, 240, 230, 0.75);
   color: var(--ink-soft);
   font-size: 0.88rem;
@@ -1472,7 +1578,7 @@ dl {
 .merlin-principle {
   border: 1px solid rgba(43, 36, 30, 0.12);
   border-radius: 1.5rem;
-  background: rgba(248, 242, 233, 0.82);
+  background: var(--surface);
   box-shadow: var(--shadow);
 }
 
@@ -1561,7 +1667,7 @@ dl {
   font-size: clamp(1.55rem, 2.2vw, 2rem);
   font-weight: 600;
   letter-spacing: -0.03em;
-  line-height: 1;
+  line-height: 1.08;
 }
 
 .merlin-detail-card p,
