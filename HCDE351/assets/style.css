@@ -519,7 +519,7 @@ dd {
 
 .exercise-overview-grid {
   grid-template-columns: minmax(0, 1.22fr) minmax(16rem, 0.78fr);
-  align-items: start;
+  align-items: stretch;
   gap: 1.35rem;
 }
 
@@ -598,7 +598,8 @@ dd {
 }
 
 .compact-detail-card {
-  padding: 1rem 1.05rem;
+  padding: 0.72rem 1.05rem 1rem;
+  height: 100%;
 }
 
 .compact-detail-card .detail-meta {
@@ -616,6 +617,11 @@ dd {
 .compact-detail-card .detail-meta dd {
   font-size: 0.98rem;
   line-height: 1.45;
+}
+
+.exercise-overview-grid .content-card,
+.exercise-overview-grid .detail-card {
+  height: 100%;
 }
 
 .exercise-single {
