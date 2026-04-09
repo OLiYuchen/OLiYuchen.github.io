@@ -751,6 +751,14 @@ dd {
   min-height: 18rem;
 }
 
+.assignment-review-image {
+  width: 100%;
+  height: 100%;
+  min-height: 18rem;
+  object-fit: contain;
+  background: rgba(255, 248, 239, 0.02);
+}
+
 .assignment-rationale-grid {
   align-items: stretch;
 }
@@ -764,6 +772,27 @@ dd {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
   margin-top: 1.4rem;
+}
+
+.exploration-gallery {
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr) minmax(0, 0.8fr);
+  align-items: stretch;
+}
+
+.exploration-frame {
+  min-height: 24rem;
+}
+
+.exploration-frame-landscape {
+  min-height: 24rem;
+}
+
+.exploration-frame-portrait {
+  min-height: 24rem;
+}
+
+.exploration-frame img {
+  object-fit: cover;
 }
 
 .process-scrolljack {
@@ -859,6 +888,15 @@ dd {
   min-height: 15rem;
   border-radius: 0;
   border: 0;
+  overflow: hidden;
+  background: rgba(255, 248, 239, 0.03);
+}
+
+.process-story-media img {
+  width: 100%;
+  height: 100%;
+  min-height: 15rem;
+  object-fit: cover;
 }
 
 .process-story-copy {
@@ -875,6 +913,7 @@ dd {
 .critique-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
   gap: 1rem;
   margin-top: 2rem;
 }
@@ -895,6 +934,7 @@ dd {
 
 .critique-note {
   display: grid;
+  align-content: start;
   gap: 0.45rem;
   padding-top: 0.9rem;
   border-top: 1px solid var(--line);
