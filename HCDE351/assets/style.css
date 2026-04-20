@@ -34,7 +34,7 @@ body {
   margin: 0;
   min-height: 100vh;
   color: var(--ink);
-  font: 16px/1.7 var(--font-body);
+  font: 17px/1.7 var(--font-body);
   background:
     radial-gradient(circle at top right, rgba(139, 149, 116, 0.13), transparent 26rem),
     radial-gradient(circle at 18% 12%, rgba(120, 92, 58, 0.12), transparent 24rem),
@@ -814,6 +814,32 @@ dd {
 }
 
 .exploration-frame img {
+  object-fit: cover;
+}
+
+.single-sketch-gallery {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.single-sketch-frame {
+  min-height: 32rem;
+}
+
+.single-sketch-frame img {
+  object-fit: contain;
+  background: rgba(255, 248, 239, 0.02);
+}
+
+.sketch-row-four {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: stretch;
+}
+
+.sketch-row-frame {
+  min-height: 18rem;
+}
+
+.sketch-row-frame img {
   object-fit: cover;
 }
 
