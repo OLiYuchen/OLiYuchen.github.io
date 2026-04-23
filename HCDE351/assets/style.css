@@ -374,6 +374,13 @@ dd {
   font-weight: 600;
 }
 
+.content-card p strong,
+.detail-card p strong,
+.post-process-block p strong {
+  display: inline;
+  margin-top: 0;
+}
+
 .section {
   padding: clamp(3rem, 6vw, 5rem) 0 0;
 }
