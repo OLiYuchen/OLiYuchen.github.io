@@ -379,6 +379,7 @@ dd {
 .post-process-block p strong {
   display: inline;
   margin-top: 0;
+  font-weight: 500;
 }
 
 .section {
@@ -466,6 +467,15 @@ dd {
   gap: 1.1rem;
 }
 
+.feature-review-spec-list {
+  margin-top: 0.9rem;
+}
+
+.feature-review-spec-item h4 {
+  font-size: clamp(1.35rem, 1.9vw, 1.7rem);
+  line-height: 1.12;
+}
+
 .feature-card {
   display: grid;
   gap: 0.55rem;
@@ -541,6 +551,12 @@ dd {
   max-width: none;
 }
 
+.assignment-3-hero-copy h1,
+.assignment-3-hero-copy h2 {
+  text-align: left;
+  justify-self: start;
+}
+
 .page-term {
   margin-top: 0.8rem;
 }
@@ -556,6 +572,10 @@ dd {
 .overview-grid {
   grid-template-columns: 1.1fr 0.9fr;
   margin-top: 2rem;
+}
+
+.assignment-3-overview-grid {
+  grid-template-columns: minmax(0, 1fr) minmax(16rem, 22rem);
 }
 
 .overview-grid-with-product {
@@ -584,6 +604,19 @@ dd {
 .detail-grid {
   grid-template-columns: 0.88fr 1.12fr;
   margin-top: 2rem;
+}
+
+.assignment-3-detail-grid {
+  grid-template-columns: 0.76fr 1.24fr;
+}
+
+.assignment-3-analysis-grid {
+  align-items: stretch;
+}
+
+.assignment-3-analysis-grid .post-process-block {
+  height: 100%;
+  align-content: start;
 }
 
 .exercise-reflection-grid {
@@ -675,6 +708,26 @@ dd {
 .compact-detail-card .detail-meta dd {
   font-size: 0.98rem;
   line-height: 1.45;
+}
+
+.assignment-3-details-card .detail-meta {
+  gap: 0.7rem;
+}
+
+.assignment-3-details-card .detail-meta div {
+  padding-top: 0.8rem;
+}
+
+.assignment-3-details-card .detail-meta dt {
+  line-height: 1;
+}
+
+.assignment-3-details-card .detail-meta dd {
+  margin-top: 0.34rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+  line-height: 1.18;
+  letter-spacing: 0;
 }
 
 .exercise-overview-grid .content-card,
