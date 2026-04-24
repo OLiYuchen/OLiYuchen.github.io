@@ -953,7 +953,7 @@ dd {
 .assignment-3-page .process-story-media {
   aspect-ratio: 3 / 4;
   min-height: 0;
-  background: #d9c9ae;
+  background: rgba(44, 28, 17, 0.48);
 }
 
 .assignment-3-page .media-frame img,
@@ -963,7 +963,11 @@ dd {
   min-height: 0;
   object-fit: contain;
   object-position: center;
-  background: #d9c9ae;
+  background: transparent;
+}
+
+.assignment-3-page .needs-beige-fill {
+  background: #d9c9ae !important;
 }
 
 .assignment-2-page .media-frame,
