@@ -10,7 +10,7 @@
   />
   <link rel="stylesheet" href="../assets/style.css" />
 </head>
-<body>
+<body class="assignment-3-page">
   <header class="site-header">
     <div class="container header-row">
       <a class="brand" href="../">Olivia Feng</a>
@@ -149,13 +149,35 @@
         <p class="section-label">Sketches</p>
         <h3>Sketches from different perspectives, scales, levels of detail, and early low-fidelity testing.</h3>
         <p>
-          Placeholder for 2 to 3 vertical sketch images showing the stand from different viewpoints
-          and early exploratory prototypes.
+          These images show the first dimensional sketch together with early low-fidelity cardboard
+          studies used to test form, storage volume, and the general supporting angle.
         </p>
-        <div class="portrait-gallery">
-          <div class="placeholder-frame tall"></div>
-          <div class="placeholder-frame tall"></div>
-          <div class="placeholder-frame tall"></div>
+        <div class="portrait-gallery sketch-row-four">
+          <div class="media-frame sketch-row-frame sketch-row-frame-contain">
+            <img
+              src="../assets/assignment-3/sketch.JPG"
+              class="sketch-row-image-contain"
+              alt="Initial sketch for the multifunctional laptop stand showing dimensions and possible functions."
+            />
+          </div>
+          <div class="media-frame sketch-row-frame">
+            <img
+              src="../assets/assignment-3/lowfi-1.JPG"
+              alt="Early low-fidelity cardboard prototype assembled into a rough storage-and-stand volume."
+            />
+          </div>
+          <div class="media-frame sketch-row-frame">
+            <img
+              src="../assets/assignment-3/lowfi-2.JPG"
+              alt="Low-fidelity cardboard pattern laid out flat to test how the stand could fold and assemble."
+            />
+          </div>
+          <div class="media-frame sketch-row-frame">
+            <img
+              src="../assets/assignment-3/lowfi-3.JPG"
+              alt="Another low-fidelity cardboard layout study showing the early cut pattern and structure logic."
+            />
+          </div>
         </div>
       </div>
     </section>
@@ -182,108 +204,84 @@
         <div class="process-carousel-viewport" data-carousel-viewport>
           <div class="process-carousel-track" data-carousel-track>
             <article class="process-story-card">
-              <div class="process-story-media"><div class="placeholder-frame medium"></div></div>
+              <div class="process-story-media">
+                <img src="../assets/assignment-3/process-1-set-variables.png" alt="Onshape variables panel with stand dimensions set as parameters." />
+              </div>
               <div class="process-story-copy">
                 <p class="card-meta">Step 01</p>
-                <p>Placeholder: early measurements and planning for the laptop size, working angle, and storage volume.</p>
+                <p>I started by setting the key dimensions as variables so the model could stay consistent while I adjusted the stand.</p>
               </div>
             </article>
             <article class="process-story-card">
-              <div class="process-story-media"><div class="placeholder-frame medium"></div></div>
+              <div class="process-story-media">
+                <img src="../assets/assignment-3/process-2-sketch-extrude.png" alt="Onshape sketch and extrude view showing the stand side profile." />
+              </div>
               <div class="process-story-copy">
                 <p class="card-meta">Step 02</p>
-                <p>Placeholder: first sketches translating desk-storage needs into a stand structure.</p>
+                <p>I sketched the most conplex geometry on the top surface and extruded it to create the side profile.</p>
               </div>
             </article>
             <article class="process-story-card">
-              <div class="process-story-media"><div class="placeholder-frame medium"></div></div>
+              <div class="process-story-media">
+                <img src="../assets/assignment-3/process-3-laser-joint.png" alt="Onshape laser joint interface applied to the stand parts." />
+              </div>
               <div class="process-story-copy">
                 <p class="card-meta">Step 03</p>
-                <p>Placeholder: low-fidelity testing of form, angle, and underneath usable space.</p>
+                <p>Similarly, I drew rectangles and extruded them to build a box. I used the laser joint tool to generate interlocking joints between the parts.</p>
               </div>
             </article>
             <article class="process-story-card">
-              <div class="process-story-media"><div class="placeholder-frame medium"></div></div>
+              <div class="process-story-media">
+                <img src="../assets/assignment-3/process-4-auto-layout.png" alt="Onshape auto layout view arranging the parts flat for cutting." />
+              </div>
               <div class="process-story-copy">
                 <p class="card-meta">Step 04</p>
-                <p>Placeholder: refining support logic so the stand can hold itself without glue or tape.</p>
+                <p>I used auto layout to flatten and arrange the parts for laser cutting, then exported the layout to Kiri:Moto, aligned the parts, and set the kerf to -0.05 for testing.</p>
               </div>
             </article>
             <article class="process-story-card">
-              <div class="process-story-media"><div class="placeholder-frame medium"></div></div>
+              <div class="process-story-media">
+                <img src="../assets/assignment-3/process-6-fit-tests.JPG" alt="Three early fit tests labeled with different kerf and allowance combinations." />
+              </div>
               <div class="process-story-copy">
                 <p class="card-meta">Step 05</p>
-                <p>Placeholder: translating the design into cuttable parts.</p>
+                <p>I compared multiple fit tests with different kerf and allowance combinations to see how tight the joints would become.</p>
               </div>
             </article>
             <article class="process-story-card">
-              <div class="process-story-media"><div class="placeholder-frame medium"></div></div>
+              <div class="process-story-media">
+                <img src="../assets/assignment-3/process-7-fourth-fit.JPG" alt="Fourth fit test showing a tighter near-final joint result." />
+              </div>
               <div class="process-story-copy">
                 <p class="card-meta">Step 06</p>
-                <p>Placeholder: early joint testing and fit adjustments.</p>
+                <p>The fourth fit test gave me a much tighter result and helped confirm the final parameter direction.</p>
               </div>
             </article>
             <article class="process-story-card">
-              <div class="process-story-media"><div class="placeholder-frame medium"></div></div>
+              <div class="process-story-media">
+                <img src="../assets/assignment-3/process-8-final-cut-sheet.JPG" alt="Final laser-cut sheet using the chosen kerf and allowance settings." />
+              </div>
               <div class="process-story-copy">
                 <p class="card-meta">Step 07</p>
-                <p>Placeholder: Onshape modeling and layout preparation.</p>
+                <p>I laser cut the final sheet using -0.05 kerf and -0.03 allowance.</p>
               </div>
             </article>
             <article class="process-story-card">
-              <div class="process-story-media"><div class="placeholder-frame medium"></div></div>
+              <div class="process-story-media">
+                <img src="../assets/assignment-3/process-9-final-pieces.JPG" alt="Final laser-cut pieces separated from the sheet and ready for assembly." />
+              </div>
               <div class="process-story-copy">
                 <p class="card-meta">Step 08</p>
-                <p>Placeholder: first laser-cut output and initial fit evaluation.</p>
+                <p>After cutting, I removed the final pieces from the sheet and prepared them for assembly.</p>
               </div>
             </article>
             <article class="process-story-card">
-              <div class="process-story-media"><div class="placeholder-frame medium"></div></div>
+              <div class="process-story-media">
+                <img src="../assets/assignment-3/process-10-assemble.JPG" alt="Final stand assembled into its multifunctional form." />
+              </div>
               <div class="process-story-copy">
                 <p class="card-meta">Step 09</p>
-                <p>Placeholder: observing loose joints caused by laser burn and cut tolerance.</p>
-              </div>
-            </article>
-            <article class="process-story-card">
-              <div class="process-story-media"><div class="placeholder-frame medium"></div></div>
-              <div class="process-story-copy">
-                <p class="card-meta">Step 10</p>
-                <p>Placeholder: testing kerf and allowance values across multiple cuts.</p>
-              </div>
-            </article>
-            <article class="process-story-card">
-              <div class="process-story-media"><div class="placeholder-frame medium"></div></div>
-              <div class="process-story-copy">
-                <p class="card-meta">Step 11</p>
-                <p>Placeholder: comparing hand-cut parts against laser-cut accuracy.</p>
-              </div>
-            </article>
-            <article class="process-story-card">
-              <div class="process-story-media"><div class="placeholder-frame medium"></div></div>
-              <div class="process-story-copy">
-                <p class="card-meta">Step 12</p>
-                <p>Placeholder: revising joint oversize and structure tightness.</p>
-              </div>
-            </article>
-            <article class="process-story-card">
-              <div class="process-story-media"><div class="placeholder-frame medium"></div></div>
-              <div class="process-story-copy">
-                <p class="card-meta">Step 13</p>
-                <p>Placeholder: assembling the storage and support structure together.</p>
-              </div>
-            </article>
-            <article class="process-story-card">
-              <div class="process-story-media"><div class="placeholder-frame medium"></div></div>
-              <div class="process-story-copy">
-                <p class="card-meta">Step 14</p>
-                <p>Placeholder: fitting the laptop and checking usable workspace underneath.</p>
-              </div>
-            </article>
-            <article class="process-story-card">
-              <div class="process-story-media"><div class="placeholder-frame medium"></div></div>
-              <div class="process-story-copy">
-                <p class="card-meta">Step 15</p>
-                <p>Placeholder: final med-fidelity prototype ready for critique and testing.</p>
+                <p>I assembled the final structure and checked that the joints held firmly through the geometry alone.</p>
               </div>
             </article>
           </div>
@@ -297,9 +295,10 @@
           <div class="content-card post-process-block">
             <p class="section-label">Fit testing</p>
             <h3>First three laser-cut fit tests using different kerf and allowance settings.</h3>
-            <div class="media-frame">
+            <div class="media-frame fit-testing-frame">
               <img
                 src="../assets/assignment-3/kerf-allowance-test.JPG"
+                class="fit-testing-image"
                 alt="Three early laser-cut fit tests labeled with different kerf and allowance combinations."
               />
             </div>
