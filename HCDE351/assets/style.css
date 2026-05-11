@@ -558,6 +558,12 @@ dd {
   justify-self: start;
 }
 
+.assignment-4-hero-copy h1,
+.assignment-4-hero-copy h2 {
+  text-align: left;
+  justify-self: start;
+}
+
 .assignment-2-hero-copy h1,
 .assignment-2-hero-copy h2 {
   text-align: left;
@@ -591,8 +597,14 @@ dd {
   gap: 1.35rem;
 }
 
+.assignment-4-overview-grid {
+  align-items: start;
+  grid-template-columns: minmax(10rem, 0.56fr) minmax(0, 0.98fr) minmax(22.5rem, 0.58fr);
+  gap: 1.35rem;
+}
+
 .overview-grid-with-product {
-  grid-template-columns: minmax(14rem, 0.7fr) minmax(0, 1.15fr) minmax(16rem, 0.85fr);
+  grid-template-columns: minmax(10rem, 0.52fr) minmax(0, 1.15fr) minmax(16rem, 0.85fr);
   align-items: stretch;
 }
 
@@ -609,7 +621,7 @@ dd {
 }
 
 .exercise-overview-grid {
-  grid-template-columns: minmax(0, 1.22fr) minmax(16rem, 0.78fr);
+  grid-template-columns: minmax(0, 1.22fr) minmax(12rem, 0.78fr);
   align-items: stretch;
   gap: 1.35rem;
 }
@@ -634,6 +646,10 @@ dd {
 .assignment-3-analysis-grid .post-process-block {
   height: 100%;
   align-content: start;
+}
+
+.assignment-4-analysis-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .exercise-reflection-grid {
@@ -735,6 +751,10 @@ dd {
   gap: 0.7rem;
 }
 
+.assignment-4-details-card .detail-meta {
+  gap: 0.7rem;
+}
+
 .assignment-3-details-card .detail-meta div {
   padding-top: 0.8rem;
 }
@@ -743,11 +763,19 @@ dd {
   padding-top: 0.8rem;
 }
 
+.assignment-4-details-card .detail-meta div {
+  padding-top: 0.8rem;
+}
+
 .assignment-3-details-card .detail-meta dt {
   line-height: 1;
 }
 
 .assignment-2-details-card .detail-meta dt {
+  line-height: 1;
+}
+
+.assignment-4-details-card .detail-meta dt {
   line-height: 1;
 }
 
@@ -760,6 +788,14 @@ dd {
 }
 
 .assignment-2-details-card .detail-meta dd {
+  margin-top: 0.34rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+  line-height: 1.18;
+  letter-spacing: 0;
+}
+
+.assignment-4-details-card .detail-meta dd {
   margin-top: 0.34rem;
   font-family: var(--font-display);
   font-size: clamp(1.05rem, 1.6vw, 1.25rem);
@@ -982,7 +1018,18 @@ dd {
   align-self: start;
 }
 
+.assignment-4-page .product-shot-card {
+  aspect-ratio: 3 / 4;
+  align-self: start;
+}
+
 .assignment-2-page .product-shot-image {
+  min-height: 0;
+  object-fit: cover;
+}
+
+.assignment-4-page .product-shot-image {
+  width: 100%;
   min-height: 0;
   object-fit: cover;
 }
@@ -1011,6 +1058,39 @@ dd {
   object-fit: contain;
   object-position: center;
   background: #d9c9ae;
+}
+
+.assignment-4-page .media-frame,
+.assignment-4-page .process-story-media {
+  aspect-ratio: 3 / 4;
+  min-height: 0;
+  background: rgba(44, 28, 17, 0.48);
+}
+
+.assignment-4-page .media-frame img,
+.assignment-4-page .process-story-media img {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  object-fit: contain;
+  object-position: center;
+  background: transparent;
+}
+
+.assignment-4-page .media-frame.needs-beige-fill,
+.assignment-4-page .process-story-media.needs-beige-fill,
+.assignment-4-page .media-frame img.needs-beige-fill,
+.assignment-4-page .process-story-media img.needs-beige-fill {
+  background: #d9c9ae !important;
+}
+
+.assignment-4-page .placeholder-frame {
+  min-height: 100%;
+  height: 100%;
+}
+
+.assignment-4-page .assignment-4-sketch-row {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .process-scrolljack {
