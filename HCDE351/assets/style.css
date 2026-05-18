@@ -652,6 +652,12 @@ dd {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.assignment-4-analysis-grid .post-process-block,
+.assignment-5-analysis-grid .post-process-block {
+  height: 100%;
+  align-content: start;
+}
+
 .exercise-reflection-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: stretch;
@@ -1093,6 +1099,14 @@ dd {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+.assignment-5-storyboard-row {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.assignment-5-reflection-row {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
 .process-scrolljack {
   position: relative;
   margin-top: 1.8rem;
@@ -1253,6 +1267,19 @@ dd {
   border: 0;
   display: block;
   margin: 0 auto;
+}
+
+.assignment-5-video-frame {
+  padding: 0;
+  background: rgba(44, 28, 17, 0.48);
+}
+
+.assignment-5-video-frame iframe {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  margin: 0;
+  border-radius: inherit;
 }
 
 .section-after-process {
