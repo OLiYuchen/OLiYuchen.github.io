@@ -1338,6 +1338,221 @@ dd {
   gap: 1rem;
 }
 
+.final-project-page {
+  --bg: #fff8f5;
+  --bg-soft: #fdebe6;
+  --panel: rgba(255, 250, 247, 0.94);
+  --panel-strong: rgba(255, 246, 242, 0.98);
+  --panel-muted: rgba(252, 224, 218, 0.78);
+  --ink: #4a252d;
+  --ink-soft: rgba(96, 54, 62, 0.76);
+  --line: rgba(196, 111, 130, 0.22);
+  --line-strong: rgba(178, 82, 106, 0.38);
+  --accent: #d86f8d;
+  --accent-strong: #a94d67;
+  --accent-soft: rgba(216, 111, 141, 0.13);
+  --shadow: 0 24px 64px rgba(149, 80, 87, 0.14);
+  color: var(--ink);
+  background:
+    linear-gradient(180deg, #fff9f6 0%, #fdece8 42%, #fff6f1 100%),
+    repeating-linear-gradient(90deg, rgba(216, 111, 141, 0.04) 0 1px, transparent 1px 22px);
+}
+
+.final-project-page::before {
+  background:
+    linear-gradient(135deg, rgba(255, 228, 222, 0.56), transparent 42%),
+    linear-gradient(225deg, rgba(255, 239, 232, 0.7), transparent 48%);
+  opacity: 0.75;
+  mix-blend-mode: normal;
+}
+
+.final-project-page .site-header {
+  border-bottom-color: rgba(196, 111, 130, 0.18);
+  background: rgba(255, 248, 245, 0.86);
+}
+
+.final-project-page .brand,
+.final-project-page h1,
+.final-project-page h2,
+.final-project-page h3,
+.final-project-page h4,
+.final-project-page h5,
+.final-project-page h6 {
+  color: #4a252d;
+}
+
+.final-project-page .nav,
+.final-project-page .breadcrumbs,
+.final-project-page .hero-intro,
+.final-project-page .footer-row,
+.final-project-page p,
+.final-project-page dd {
+  color: var(--ink-soft);
+}
+
+.final-project-page .nav .is-active,
+.final-project-page .accent-text,
+.final-project-page .eyebrow,
+.final-project-page .section-label,
+.final-project-page .card-meta,
+.final-project-page .detail-meta dt {
+  color: #b4526a;
+}
+
+.final-project-page .hero-highlight {
+  color: #9e415d;
+  text-shadow: none;
+}
+
+.final-project-page .hero-highlight::after {
+  background: linear-gradient(90deg, rgba(216, 111, 141, 0.86), rgba(244, 173, 166, 0.72));
+}
+
+.final-project-page .detail-card,
+.final-project-page .content-card,
+.final-project-page .callout-card,
+.final-project-page .note-panel {
+  border-color: var(--line);
+  background:
+    linear-gradient(180deg, rgba(255, 252, 249, 0.97), rgba(255, 245, 240, 0.94)),
+    linear-gradient(135deg, rgba(255, 224, 220, 0.36), rgba(255, 246, 240, 0));
+  box-shadow: var(--shadow);
+}
+
+.final-project-page .feature-spec-item,
+.final-project-page .detail-meta div,
+.final-project-page .critique-note,
+.final-project-page .footer-row {
+  border-color: var(--line);
+}
+
+.final-project-page .content-card p strong,
+.final-project-page .detail-card p strong,
+.final-project-page .post-process-block p strong {
+  color: #5a2b34;
+}
+
+.final-project-page .placeholder-frame,
+.final-project-page .catalog-visual {
+  border-color: rgba(216, 111, 141, 0.28);
+  background:
+    linear-gradient(135deg, rgba(255, 226, 221, 0.72), rgba(255, 247, 242, 0.88)),
+    linear-gradient(180deg, rgba(255, 250, 247, 0.96), rgba(250, 222, 216, 0.72));
+}
+
+.final-project-page .placeholder-frame::after,
+.final-project-page .catalog-visual::after {
+  color: rgba(156, 78, 96, 0.56);
+}
+
+.final-project-page .media-frame {
+  border-color: var(--line);
+  background: rgba(255, 242, 238, 0.72);
+}
+
+.final-project-page .assignment-5-video-frame {
+  background: #f8ded8;
+}
+
+.final-project-page .underlined-link {
+  color: #9e415d;
+  text-decoration-color: rgba(158, 65, 93, 0.42);
+}
+
+.final-project-page .underlined-link:hover,
+.final-project-page .underlined-link:focus-visible {
+  color: #7f3048;
+  text-decoration-color: currentColor;
+}
+
+.final-project-page .final-approach-list {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.1rem;
+}
+
+.final-project-page .final-approach-list .feature-spec-item {
+  padding: 0.95rem 1rem 0;
+  border-top: 1px solid var(--line);
+}
+
+.final-project-page .final-inventory-list {
+  margin: 0.1rem 0 0;
+  padding-left: 1.15rem;
+  color: var(--ink-soft);
+}
+
+.final-project-page .final-inventory-list li {
+  margin-top: 0.38rem;
+  line-height: 1.55;
+}
+
+.final-project-page .final-inventory-list li::marker {
+  color: #d86f8d;
+}
+
+.final-project-page .final-implementation-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(12rem, 18rem);
+  align-items: center;
+  gap: clamp(1.4rem, 4vw, 2.6rem);
+  max-width: 76rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 0.4rem;
+}
+
+.final-project-page .final-implementation-copy {
+  text-align: center;
+}
+
+.final-project-page .final-implementation-intro h3 {
+  max-width: 58rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.final-project-page .final-implementation-intro p:last-child {
+  max-width: 62rem;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0.85rem;
+}
+
+.final-project-page .final-implementation-sketch {
+  min-height: 0;
+  aspect-ratio: 4 / 3;
+  border-radius: 1.1rem;
+  opacity: 0.72;
+}
+
+.final-project-page .final-implementation-sketch img {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  object-fit: cover;
+}
+
+.final-project-page .final-page-placeholder {
+  width: 100%;
+  min-height: 0;
+  aspect-ratio: 16 / 9;
+  margin-top: 0.35rem;
+}
+
+.final-project-page .final-page-media {
+  width: 100%;
+  min-height: 0;
+  aspect-ratio: 16 / 9;
+  margin-top: 0.35rem;
+}
+
+.final-project-page .final-page-media img {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  object-fit: cover;
+}
+
 @media (max-width: 920px) {
   .landing-grid {
     grid-template-columns: 1fr;
@@ -1360,6 +1575,20 @@ dd {
   .portrait-gallery,
   .critique-grid {
     grid-template-columns: 1fr;
+  }
+
+  .final-project-page .final-approach-list {
+    grid-template-columns: 1fr;
+  }
+
+  .final-project-page .final-implementation-intro {
+    grid-template-columns: 1fr;
+    max-width: 64rem;
+  }
+
+  .final-project-page .final-implementation-sketch {
+    width: min(100%, 18rem);
+    justify-self: center;
   }
 
   .process-scrolljack {
