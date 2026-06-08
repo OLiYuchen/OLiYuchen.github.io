@@ -1546,17 +1546,21 @@ dd {
 }
 
 .final-project-page .final-page-media {
+  display: block;
   width: 100%;
+  height: auto;
   min-height: 0;
   aspect-ratio: auto;
   margin-top: 0.35rem;
   margin-bottom: 0.9rem;
   line-height: 0;
+  overflow: hidden;
 }
 
 .final-project-page .final-page-media img {
   display: block;
   width: 100%;
+  max-width: 100%;
   height: auto;
   min-height: 0;
   object-fit: contain;
@@ -1564,6 +1568,24 @@ dd {
 
 .final-project-page .final-page-media + .card-meta {
   margin-top: 0.15rem;
+}
+
+body.final-project-page.assignment-4-page .final-page-media {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  aspect-ratio: auto;
+  overflow: hidden;
+}
+
+body.final-project-page.assignment-4-page .final-page-media img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  min-height: 0;
+  object-fit: contain;
 }
 
 @media (max-width: 920px) {
