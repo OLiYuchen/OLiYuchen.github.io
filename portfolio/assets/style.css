@@ -1732,3 +1732,51 @@ button:focus-visible,
     white-space: normal;
   }
 }
+
+/* Merlin capstone — cropped report visuals used within the portfolio theme.
+   All-new class names, so other pages (incl. "merlin 2.html") are unaffected. */
+.merlin-illus {
+  display: flex;
+  justify-content: center;
+  margin: 1.6rem 0 0.4rem;
+  padding: 1.4rem;
+  border: 1px solid rgba(43, 36, 30, 0.12);
+  border-radius: 1.5rem;
+  background: rgba(248, 242, 233, 0.74);
+  box-shadow: var(--shadow);
+}
+.merlin-illus img { width: min(100%, 20rem); height: auto; }
+.merlin-illus-md img { width: min(100%, 30rem); }
+.merlin-illus-wide img { width: min(100%, 40rem); }
+
+.merlin-fig-title {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--ink);
+}
+
+.merlin-dir-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1.6rem;
+}
+.merlin-dir-grid .merlin-figure-card { background: rgba(248, 242, 233, 0.74); }
+.merlin-dir-index {
+  display: block;
+  margin-bottom: 0.2rem;
+  color: var(--accent-deep);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 760px) {
+  .merlin-dir-grid { grid-template-columns: 1fr; }
+}
