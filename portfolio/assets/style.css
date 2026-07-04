@@ -1732,3 +1732,276 @@ button:focus-visible,
     white-space: normal;
   }
 }
+
+/* Merlin case study — report-inspired green identity */
+.merlin-hero,
+.merlin-story-grid {
+  --merlin-green: #4a7c59;
+  --merlin-green-deep: #38624a;
+  --merlin-green-soft: #e3f0df;
+  --merlin-green-line: rgba(74, 124, 89, 0.24);
+}
+
+.merlin-story-label .section-label,
+.merlin-tag {
+  color: var(--merlin-green-deep, #38624a);
+}
+
+.merlin-tag {
+  border-color: rgba(74, 124, 89, 0.28);
+  background: rgba(227, 240, 223, 0.7);
+}
+
+.merlin-principle .project-meta {
+  color: var(--merlin-green-deep, #38624a);
+}
+
+/* Soft green callout (design question, key takeaways) */
+.merlin-callout {
+  margin: 1.5rem 0 0.4rem;
+  padding: 1.4rem 1.5rem;
+  border: 1px solid rgba(74, 124, 89, 0.22);
+  border-left: 4px solid #4a7c59;
+  border-radius: 1.4rem;
+  background: #e3f0df;
+  box-shadow: var(--shadow);
+}
+
+.merlin-callout p {
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(1.06rem, 1.45vw, 1.2rem);
+  line-height: 1.72;
+}
+
+.merlin-callout .merlin-callout-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #38624a;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Phase / process rail */
+.merlin-phases {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 0.4rem;
+}
+
+.merlin-phase {
+  position: relative;
+  padding: 1.4rem 1.35rem 1.5rem;
+  border: 1px solid rgba(43, 36, 30, 0.12);
+  border-radius: 1.5rem;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.merlin-phase .merlin-phase-step {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.1rem;
+  height: 2.1rem;
+  padding: 0 0.5rem;
+  border-radius: 999px;
+  background: #e3f0df;
+  color: #38624a;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.merlin-phase h3 {
+  margin-top: 0.8rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2vw, 1.7rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.merlin-phase p {
+  margin-top: 0.55rem;
+  color: var(--ink-soft);
+  font-size: 0.96rem;
+}
+
+/* Design directions gallery */
+.merlin-directions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1.6rem;
+}
+
+.merlin-direction-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(43, 36, 30, 0.12);
+  border-radius: 1.5rem;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  transition:
+    transform var(--transition-card),
+    border-color var(--transition-card);
+}
+
+.merlin-direction-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(74, 124, 89, 0.4);
+}
+
+.merlin-direction-media {
+  background: rgba(248, 242, 233, 0.6);
+  border-bottom: 1px solid rgba(43, 36, 30, 0.08);
+}
+
+.merlin-direction-media img {
+  width: 100%;
+  height: auto;
+}
+
+.merlin-direction-body {
+  padding: 1.2rem 1.35rem 1.4rem;
+}
+
+.merlin-direction-body .merlin-direction-index {
+  color: #38624a;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.merlin-direction-body h3 {
+  margin-top: 0.45rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2vw, 1.75rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+}
+
+.merlin-direction-body p {
+  margin-top: 0.6rem;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* Personal reflection */
+.merlin-reflection {
+  margin-top: 0.4rem;
+  padding: clamp(1.5rem, 3vw, 2.2rem);
+  border: 1px solid rgba(74, 124, 89, 0.22);
+  border-left: 4px solid #4a7c59;
+  border-radius: 1.5rem;
+  box-shadow: var(--shadow);
+  background:
+    linear-gradient(180deg, rgba(227, 240, 223, 0.6), rgba(246, 240, 230, 0.4));
+}
+
+.merlin-quote {
+  margin: 0 0 1.4rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 3vw, 2.5rem);
+  font-weight: 500;
+  font-style: italic;
+  line-height: 1.24;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+.merlin-quote span {
+  color: #38624a;
+}
+
+.merlin-reflection-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.merlin-reflection-item {
+  padding: 1.3rem 1.4rem;
+  border: 1px solid rgba(74, 124, 89, 0.2);
+  border-radius: 1.4rem;
+  background: rgba(248, 242, 233, 0.66);
+}
+
+.merlin-reflection-item h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2vw, 1.7rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.merlin-reflection-item p {
+  margin-top: 0.6rem;
+  color: var(--ink-soft);
+}
+
+/* Showcase */
+.merlin-showcase-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 1rem;
+  margin-top: 1.6rem;
+}
+
+.merlin-showcase-card {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid rgba(43, 36, 30, 0.12);
+  border-radius: 1.5rem;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.merlin-showcase-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.merlin-showcase-card figcaption {
+  padding: 0.9rem 1rem 1rem;
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.merlin-credits {
+  margin-top: 1.4rem;
+  padding: 1.2rem 1.35rem;
+  border: 1px solid rgba(43, 36, 30, 0.12);
+  border-radius: 1.4rem;
+  background: rgba(248, 242, 233, 0.6);
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.merlin-credits strong {
+  color: var(--ink);
+}
+
+@media (max-width: 1024px) {
+  .merlin-phases {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .merlin-directions,
+  .merlin-showcase-grid {
+    grid-template-columns: 1fr;
+  }
+}
