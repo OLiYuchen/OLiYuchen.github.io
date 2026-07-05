@@ -1852,3 +1852,23 @@ button:focus-visible,
   .mcs-note, .mcs-fnote, .mcs-frame.tilt-l, .mcs-frame.tilt-r { transform:none; }
   .mcs-banner{ min-height:9rem; }
 }
+
+/* Merlin — calmer headings + serif "lead" lines that echo the home page */
+.mcs-copy h1 { font-size: clamp(2.05rem, 3.5vw, 3rem); line-height: 1.08; text-wrap: balance; }
+.merlin-prose h2 {
+  font-size: clamp(1.4rem, 2vw, 1.85rem);
+  line-height: 1.16;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+.mcs-lead {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.18rem, 1.7vw, 1.5rem);
+  line-height: 1.5;
+  color: var(--ink-soft);
+  text-wrap: pretty;
+}
+.mcs-summary { text-wrap: pretty; }
+.mcs-fnote h3 { font-size: clamp(1.2rem, 1.7vw, 1.45rem); }
+.mcs-dtitle { font-size: clamp(1.3rem, 1.8vw, 1.6rem); }
