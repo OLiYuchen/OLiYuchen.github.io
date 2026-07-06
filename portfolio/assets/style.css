@@ -1732,3 +1732,1018 @@ button:focus-visible,
     white-space: normal;
   }
 }
+
+
+/* ===== Merlin capstone — soft editorial layout (mirrors the home page) ===== */
+.mcs-hero { padding: clamp(1rem,2vw,1.6rem) 0 clamp(2.2rem,4vw,3.2rem); }
+.mcs-breadcrumbs { color: var(--ink-soft); font-size: .92rem; margin-bottom: 1rem; }
+
+.mcs-banner {
+  position: relative; overflow: hidden;
+  min-height: clamp(12rem, 26vw, 19rem);
+  border-radius: 2.2rem; border: 1px solid rgba(43,36,30,.1);
+  box-shadow: var(--shadow);
+}
+.mcs-banner img { width:100%; height:100%; min-height:inherit; object-fit:cover; object-position:center 42%; }
+.mcs-banner::after { content:""; position:absolute; inset:0;
+  background:
+    linear-gradient(180deg, rgba(236,229,218,.04) 0%, rgba(236,229,218,.16) 45%, rgba(236,229,218,.72) 100%),
+    linear-gradient(90deg, rgba(33,28,24,.18) 0%, rgba(33,28,24,.02) 45%, transparent 66%); }
+
+.mcs-hero-shell {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0,1fr) minmax(14rem,.4fr);
+  gap: clamp(1rem,2vw,1.8rem);
+  align-items: start;
+  margin-top: clamp(-8rem,-10vw,-5rem);
+  padding-inline: clamp(.5rem,2vw,1.5rem);
+}
+.mcs-copy {
+  position: relative; z-index: 1;
+  padding: clamp(1.3rem,2.2vw,2rem);
+  background: var(--surface-strong);
+  border: 1px solid rgba(43,36,30,.1);
+  border-radius: 1.9rem;
+  box-shadow: 0 18px 45px rgba(52,39,27,.1);
+  backdrop-filter: blur(20px);
+}
+.mcs-tags { display:flex; flex-wrap:wrap; gap:.5rem; margin-bottom:.9rem; }
+.mcs-tag { display:inline-flex; align-items:center; padding:.38rem .78rem; border-radius:999px;
+  border:1px solid rgba(43,36,30,.14); background:rgba(246,240,230,.8); color:var(--accent-deep);
+  font-size:.79rem; letter-spacing:.02em; }
+.mcs-copy h1 {
+  margin: 0; font-family: var(--font-display); font-weight: 600;
+  letter-spacing: -.03em; line-height: 1.05;
+  font-size: clamp(2.3rem, 5vw, 4rem);
+  color: color-mix(in srgb, var(--ink) 100%, var(--accent) 8%);
+}
+.mcs-summary { margin-top:1.05rem; max-width:42rem; color:var(--ink-soft);
+  font-size: clamp(1.01rem,1.4vw,1.16rem); line-height:1.72; }
+
+.mcs-aside { position:relative; z-index:1; display:grid; gap:.9rem; margin-top: clamp(-3rem,-4vw,-.5rem); }
+.mcs-note {
+  padding:.95rem 1.05rem; border:1px solid rgba(43,36,30,.12); border-radius:1.2rem;
+  background: rgba(246,240,230,.94); box-shadow: 0 14px 34px rgba(52,39,27,.1);
+}
+.mcs-note:nth-child(odd){ transform: rotate(-1.5deg); }
+.mcs-note:nth-child(even){ transform: rotate(1.3deg); }
+.mcs-note .project-meta { color:var(--accent-deep); }
+.mcs-note p:last-child { margin-top:.3rem; color:var(--ink-soft); font-size:.9rem; line-height:1.5; }
+
+.mcs-frame {
+  margin: 1.6rem 0 .3rem; padding:.7rem;
+  background: color-mix(in srgb, var(--paper-soft) 88%, white 12%);
+  border:1px solid rgba(43,36,30,.12); border-radius:1.6rem; box-shadow: var(--shadow);
+}
+.mcs-frame img { width:100%; height:auto; border-radius:1.1rem; display:block; }
+.mcs-frame figcaption { padding:.65rem .4rem .1rem; color:var(--ink-soft); font-size:.9rem; line-height:1.5; }
+.mcs-frame.tilt-l { transform: rotate(-1deg); }
+.mcs-frame.tilt-r { transform: rotate(1deg); }
+
+.mcs-quote {
+  margin: 1.5rem 0 .3rem; padding: clamp(1.4rem,3vw,2.2rem);
+  border:1px solid rgba(43,36,30,.12); border-radius:1.7rem;
+  background: linear-gradient(180deg, rgba(227,240,223,.7), rgba(246,240,230,.5));
+  box-shadow: var(--shadow);
+}
+.mcs-quote .mcs-qlabel { display:block; margin-bottom:.5rem; color:color-mix(in srgb, var(--ink) 74%, #587742 26%);
+  font-size:.74rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; }
+.mcs-quote p { margin:0; font-family:var(--font-display); font-style:italic; font-weight:500;
+  font-size: clamp(1.35rem,2.5vw,2rem); line-height:1.32; color:var(--ink); letter-spacing:-.01em; }
+
+.mcs-notes-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1.1rem; margin-top:1.4rem; }
+.mcs-fnote {
+  padding:1.25rem 1.3rem 1.4rem; border:1px solid rgba(43,36,30,.12); border-radius:1.35rem;
+  background: rgba(248,242,233,.9); box-shadow: 0 14px 32px rgba(52,39,27,.08);
+}
+.mcs-fnote:nth-child(3n+1){ transform: rotate(-1deg); }
+.mcs-fnote:nth-child(3n+2){ transform: rotate(.7deg); }
+.mcs-fnote:nth-child(3n){ transform: rotate(-.4deg); }
+.mcs-fnote .project-meta { color:var(--accent-deep); }
+.mcs-fnote h3 { margin-top:.45rem; font-family:var(--font-display); font-weight:600;
+  font-size:clamp(1.3rem,1.9vw,1.6rem); letter-spacing:-.02em; line-height:1.08; }
+.mcs-fnote p { margin-top:.45rem; color:var(--ink-soft); font-size:.93rem; line-height:1.55; }
+
+.mcs-dir { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.6rem 1.3rem; margin-top:1.6rem; }
+.mcs-dcard .mcs-frame { margin:0 0 .85rem; }
+.mcs-dcard:nth-child(even){ margin-top:2.4rem; }
+.mcs-dindex { color:var(--accent-deep); font-size:.72rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; }
+.mcs-dtitle { display:block; margin:.2rem 0 .1rem; font-family:var(--font-display); font-weight:600;
+  font-size:clamp(1.35rem,2vw,1.75rem); letter-spacing:-.02em; line-height:1.06; }
+.mcs-dcard p { color:var(--ink-soft); font-size:.94rem; line-height:1.55; margin-top:.3rem; }
+
+.mcs-illus { display:flex; justify-content:center; margin:1.4rem 0 .3rem; }
+.mcs-illus img { width:min(100%, 21rem); height:auto; }
+.mcs-illus-md img { width:min(100%, 28rem); }
+
+.mcs-reveal { opacity:0; transition: opacity .8s ease; }
+.mcs-reveal.shown { opacity:1; }
+@media (prefers-reduced-motion: reduce){ .mcs-reveal{ opacity:1; transition:none; } }
+
+@media (max-width:1024px){
+  .mcs-hero-shell{ grid-template-columns:1fr; margin-top:.4rem; padding-inline:0; }
+  .mcs-aside{ margin-top:0; grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .mcs-notes-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media (max-width:760px){
+  .mcs-aside, .mcs-notes-grid, .mcs-dir{ grid-template-columns:1fr; }
+  .mcs-dcard:nth-child(even){ margin-top:0; }
+  .mcs-note, .mcs-fnote, .mcs-frame.tilt-l, .mcs-frame.tilt-r { transform:none; }
+  .mcs-banner{ min-height:9rem; }
+}
+
+/* Merlin — calmer headings + serif "lead" lines that echo the home page */
+.mcs-copy h1 { font-size: clamp(2.05rem, 3.5vw, 3rem); line-height: 1.08; text-wrap: balance; }
+.merlin-prose h2 {
+  font-size: clamp(1.4rem, 2vw, 1.85rem);
+  line-height: 1.16;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+.mcs-lead {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.18rem, 1.7vw, 1.5rem);
+  line-height: 1.5;
+  color: var(--ink-soft);
+  text-wrap: pretty;
+}
+.mcs-summary { text-wrap: pretty; }
+.mcs-fnote h3 { font-size: clamp(1.2rem, 1.7vw, 1.45rem); }
+.mcs-dtitle { font-size: clamp(1.3rem, 1.8vw, 1.6rem); }
+
+/* Merlin report page, rebuilt from the Figma report direction */
+.merlin-report-page {
+  --merlin-paper: #f8f4ea;
+  --merlin-paper-green: #e4efdc;
+  --merlin-paper-green-strong: #d5e7cd;
+  --merlin-ink: #252018;
+  --merlin-muted: #665f53;
+  --merlin-green: #3f9b62;
+  --merlin-green-deep: #17734e;
+  --merlin-line: rgba(37, 32, 24, 0.14);
+  --merlin-shadow: 0 18px 44px rgba(52, 39, 27, 0.08);
+  background: var(--merlin-paper);
+  color: var(--merlin-ink);
+}
+
+.merlin-report-page::before,
+.merlin-report-page .page-orbit {
+  content: none;
+}
+
+.merlin-report-page .home-header {
+  background: rgba(251, 250, 244, 0.88);
+}
+
+.merlin-report-page .section-label,
+.merlin-report-page .project-meta {
+  color: var(--merlin-green-deep);
+}
+
+.merlin-report {
+  background:
+    linear-gradient(90deg, rgba(23, 115, 78, 0.045) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(23, 115, 78, 0.035) 1px, transparent 1px),
+    var(--merlin-paper);
+  background-size: 4.5rem 4.5rem;
+}
+
+.merlin-report-hero {
+  padding: clamp(1.2rem, 2.4vw, 2rem) 0 clamp(2.4rem, 5vw, 4.6rem);
+}
+
+.merlin-report-shell {
+  display: grid;
+  gap: clamp(1.2rem, 2.5vw, 2rem);
+}
+
+.merlin-report-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.36fr);
+  gap: clamp(2rem, 5vw, 5.5rem);
+  align-items: start;
+  padding-top: clamp(1.1rem, 2vw, 1.8rem);
+  border-top: 2px solid var(--merlin-green);
+}
+
+.merlin-report-kicker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem 0.9rem;
+  margin-bottom: clamp(1rem, 2vw, 1.55rem);
+  color: var(--merlin-green-deep);
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
+.merlin-report-title h1,
+.merlin-report-lede h2 {
+  margin: 0;
+  color: var(--merlin-ink);
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.merlin-report-title h1 {
+  max-width: 16ch;
+  margin-top: 0.55rem;
+  font-size: clamp(3.35rem, 5.75vw, 5.9rem);
+  line-height: 0.95;
+}
+
+.merlin-hero-deck {
+  max-width: 50rem;
+  margin-top: clamp(1.1rem, 2vw, 1.55rem);
+  color: var(--merlin-muted);
+  font-size: clamp(1.04rem, 1.45vw, 1.22rem);
+  line-height: 1.72;
+  text-wrap: pretty;
+}
+
+.merlin-hero-focus {
+  position: relative;
+  max-width: 43rem;
+  margin-top: clamp(1rem, 2vw, 1.4rem);
+  padding-left: 1.05rem;
+  color: var(--merlin-muted);
+  font-size: 0.98rem;
+  line-height: 1.58;
+}
+
+.merlin-hero-focus::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--merlin-green) 72%, white 28%);
+}
+
+.merlin-hero-focus span {
+  display: block;
+  margin-bottom: 0.18rem;
+  color: var(--merlin-green-deep);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.merlin-hero-focus p {
+  margin: 0;
+}
+
+.merlin-report-meta {
+  position: relative;
+  min-height: clamp(22rem, 31vw, 28rem);
+}
+
+.merlin-report-meta dl {
+  position: relative;
+  min-height: inherit;
+  margin: 0;
+}
+
+.merlin-report-meta dt {
+  color: var(--merlin-green-deep);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.merlin-report-meta dd {
+  margin: 0;
+  color: var(--merlin-muted);
+  font-size: 0.96rem;
+  line-height: 1.45;
+}
+
+.merlin-meta-frame {
+  position: absolute;
+  display: grid;
+  width: min(19rem, 100%);
+  gap: 0.45rem;
+  padding: 1rem 1.05rem 1.05rem;
+  border: 1px solid rgba(43, 36, 30, 0.12);
+  border-radius: 1.18rem;
+  background: rgba(255, 252, 246, 0.92);
+  box-shadow: 0 18px 42px rgba(52, 39, 27, 0.08);
+}
+
+.merlin-meta-frame::before {
+  content: "";
+  position: absolute;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 999px;
+  background: rgba(23, 115, 78, 0.08);
+  pointer-events: none;
+}
+
+.merlin-meta-frame-sponsor {
+  top: 0.3rem;
+  right: 0.3rem;
+  z-index: 4;
+  transform: rotate(1.1deg);
+}
+
+.merlin-meta-frame-sponsor::before {
+  top: -0.85rem;
+  right: 1.6rem;
+}
+
+.merlin-meta-frame-role {
+  top: 7.1rem;
+  left: 0;
+  z-index: 3;
+  transform: rotate(-1.6deg);
+  background: color-mix(in srgb, var(--merlin-paper) 82%, white 18%);
+}
+
+.merlin-meta-frame-role::before {
+  right: -0.8rem;
+  bottom: -0.65rem;
+  background: rgba(205, 87, 50, 0.1);
+}
+
+.merlin-meta-frame-output {
+  top: 14rem;
+  right: 1.15rem;
+  z-index: 2;
+  transform: rotate(1.35deg);
+}
+
+.merlin-meta-frame-output::before {
+  top: -0.65rem;
+  left: -0.75rem;
+}
+
+.merlin-meta-frame-team {
+  top: 20.4rem;
+  left: 1.35rem;
+  z-index: 1;
+  width: min(16.5rem, 92%);
+  transform: rotate(-0.8deg);
+  background: rgba(232, 241, 224, 0.84);
+}
+
+.merlin-meta-frame-team::before {
+  content: none;
+}
+
+.merlin-flip-card {
+  cursor: pointer;
+  outline: none;
+  perspective: 1800px;
+}
+
+.merlin-flip-card:focus-visible {
+  border-radius: 1.6rem;
+  outline: 2px solid color-mix(in srgb, var(--merlin-green) 72%, white 28%);
+  outline-offset: 5px;
+}
+
+.merlin-flip-card-inner {
+  position: relative;
+  min-height: clamp(18rem, 33vw, 34rem);
+  transform-style: preserve-3d;
+  transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.merlin-flip-card.is-flipped .merlin-flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.merlin-flip-face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  margin: 0;
+  border: 1px solid var(--merlin-line);
+  border-radius: 1.6rem;
+  background: var(--merlin-paper);
+  box-shadow: var(--merlin-shadow);
+  backface-visibility: hidden;
+}
+
+.merlin-flip-face img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.merlin-flip-front img {
+  object-position: center 42%;
+}
+
+.merlin-flip-back {
+  background: #fffefa;
+  transform: rotateY(180deg);
+}
+
+.merlin-flip-back img {
+  padding: clamp(0.55rem, 1vw, 0.9rem);
+  object-fit: contain;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .merlin-flip-card-inner {
+    transition: none;
+  }
+}
+
+.merlin-report-section {
+  padding: clamp(4.2rem, 7vw, 7.2rem) 0;
+}
+
+.merlin-report-band {
+  background: rgba(230, 240, 223, 0.48);
+  border-block: 1px solid rgba(14, 94, 66, 0.12);
+}
+
+.merlin-report-layout {
+  display: grid;
+  grid-template-columns: minmax(9rem, 0.18fr) minmax(0, 1fr);
+  gap: clamp(1.6rem, 4.8vw, 5.2rem);
+  align-items: start;
+}
+
+.merlin-report-section-label {
+  position: sticky;
+  top: 6rem;
+  display: grid;
+  gap: 0.7rem;
+  padding-top: 0.2rem;
+}
+
+.merlin-report-section-label span {
+  display: inline-grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  border: 1px solid rgba(14, 94, 66, 0.28);
+  color: var(--merlin-green-deep);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  font-variant-numeric: tabular-nums;
+}
+
+.merlin-report-content {
+  display: grid;
+  gap: clamp(1.6rem, 3.2vw, 2.8rem);
+}
+
+.merlin-report-lede {
+  max-width: 72rem;
+}
+
+.merlin-report-lede h2 {
+  font-size: clamp(2.15rem, 3.6vw, 3.8rem);
+  line-height: 1.04;
+  max-width: 28ch;
+}
+
+.merlin-report-lede p {
+  max-width: 66ch;
+  margin-top: 1rem;
+  color: var(--merlin-muted);
+  font-size: clamp(1.03rem, 1.45vw, 1.22rem);
+  line-height: 1.68;
+}
+
+.merlin-video-embed {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  border-radius: 1.35rem;
+  background: #fffefa;
+  box-shadow: var(--merlin-shadow);
+}
+
+.merlin-video-embed iframe {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.merlin-report-question,
+.merlin-phase-grid article,
+.merlin-findings-grid article,
+.merlin-direction-grid article,
+.merlin-method-steps article,
+.merlin-outcome-panel {
+  border: 1px solid rgba(14, 94, 66, 0.13);
+  background: var(--merlin-paper-green);
+}
+
+.merlin-report-question {
+  max-width: 62rem;
+  padding: clamp(1.1rem, 2.6vw, 2rem);
+  border-radius: 1.6rem;
+  background: var(--merlin-green);
+}
+
+.merlin-report-question p {
+  color: #fffaf0;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.7vw, 2.35rem);
+  font-weight: 500;
+  line-height: 1.18;
+  letter-spacing: -0.015em;
+}
+
+.merlin-phase-grid,
+.merlin-findings-grid,
+.merlin-direction-grid,
+.merlin-method-steps,
+.merlin-outcome-panel {
+  display: grid;
+  gap: clamp(0.9rem, 1.8vw, 1.2rem);
+}
+
+.merlin-phase-grid,
+.merlin-direction-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.merlin-phase-grid article,
+.merlin-direction-grid article,
+.merlin-findings-grid article,
+.merlin-method-steps article {
+  padding: clamp(1rem, 2vw, 1.45rem);
+  border-radius: 1.45rem;
+}
+
+.merlin-phase-grid h3,
+.merlin-direction-grid h3,
+.merlin-findings-grid h3,
+.merlin-method-steps h3 {
+  margin: 0.15rem 0 0;
+  color: var(--merlin-ink);
+  font-family: var(--font-display);
+  font-size: clamp(1.45rem, 2vw, 1.9rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.merlin-phase-grid p:last-child,
+.merlin-direction-grid p,
+.merlin-findings-grid p,
+.merlin-method-steps p:last-child {
+  margin-top: 0.65rem;
+  color: var(--merlin-muted);
+  line-height: 1.62;
+}
+
+.merlin-artifact-figure,
+.merlin-report-image,
+.merlin-report-gallery figure,
+.merlin-method-spread figure,
+.merlin-concept-spread figure,
+.merlin-illustration-row figure,
+.merlin-wide-figure {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--merlin-line);
+  border-radius: 1.45rem;
+  background: #fffefa;
+  box-shadow: var(--merlin-shadow);
+}
+
+.merlin-artifact-figure img,
+.merlin-report-image img,
+.merlin-report-gallery img,
+.merlin-method-spread img,
+.merlin-concept-spread img,
+.merlin-illustration-row img,
+.merlin-wide-figure img {
+  width: 100%;
+  height: auto;
+}
+
+.merlin-artifact-figure figcaption,
+.merlin-report-image figcaption,
+.merlin-method-spread figcaption,
+.merlin-concept-spread figcaption,
+.merlin-illustration-row figcaption,
+.merlin-wide-figure figcaption {
+  padding: 0.9rem 1rem;
+  color: var(--merlin-muted);
+  font-size: 0.94rem;
+  line-height: 1.55;
+  border-top: 1px solid var(--merlin-line);
+}
+
+.merlin-artifact-figure {
+  background: rgba(255, 252, 246, 0.88);
+}
+
+.merlin-artifact-figure,
+.merlin-concept-spread figure {
+  scrollbar-color: rgba(23, 115, 78, 0.38) rgba(255, 252, 246, 0.6);
+}
+
+.merlin-embedded-figure {
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.merlin-illustration-row .merlin-embedded-figure,
+.merlin-concept-spread .merlin-embedded-figure {
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.merlin-embedded-figure img {
+  display: block;
+  border-radius: 1.25rem;
+}
+
+.merlin-embedded-figure-paper img {
+  background: #fffefa;
+}
+
+.merlin-embedded-figure-soft img {
+  background: rgba(125, 196, 129, 0.13);
+}
+
+.merlin-embedded-figure-dark img {
+  background: #050505;
+}
+
+.merlin-artifact-figure-soft {
+  background: rgba(125, 196, 129, 0.14);
+}
+
+.merlin-artifact-figure-dark {
+  background: #050505;
+}
+
+.merlin-artifact-figure-dark figcaption {
+  background: #fffefa;
+}
+
+.merlin-embedded-figure.merlin-artifact-figure-soft,
+.merlin-embedded-figure.merlin-artifact-figure-dark {
+  background: transparent;
+}
+
+.merlin-report-image-wide {
+  max-width: 62rem;
+}
+
+.merlin-poster-summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  max-width: 62rem;
+}
+
+.merlin-poster-summary > div {
+  padding: clamp(1rem, 2vw, 1.45rem);
+  border: 1px solid rgba(37, 32, 24, 0.12);
+  border-radius: 1.45rem;
+  background: rgba(255, 252, 246, 0.76);
+  box-shadow: var(--merlin-shadow);
+}
+
+.merlin-poster-summary p:last-child {
+  margin-top: 0.55rem;
+  color: var(--merlin-muted);
+  line-height: 1.65;
+}
+
+.merlin-source-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1.1rem, 2.4vw, 2rem);
+}
+
+.merlin-method-steps {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.merlin-method-steps article:nth-child(1),
+.merlin-method-steps article:nth-child(4),
+.merlin-method-steps article:nth-child(6) {
+  background: rgba(255, 252, 246, 0.78);
+}
+
+.merlin-illustration-row {
+  display: grid;
+  gap: clamp(0.9rem, 2vw, 1.2rem);
+  align-items: start;
+}
+
+.merlin-illustration-row-2 {
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+}
+
+.merlin-illustration-row figure {
+  background: rgba(255, 252, 246, 0.84);
+}
+
+.merlin-illustration-row img {
+  object-fit: contain;
+}
+
+.merlin-wide-figure {
+  background: rgba(255, 252, 246, 0.84);
+}
+
+.merlin-source-grid div {
+  min-height: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.merlin-source-grid strong {
+  display: block;
+  color: var(--merlin-green-deep);
+  font-family: var(--font-body), "Helvetica Neue", Arial, sans-serif;
+  font-size: clamp(2.7rem, 4.4vw, 4.2rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+  font-variant-numeric: tabular-nums;
+}
+
+.merlin-source-grid span {
+  display: block;
+  margin-top: 0.55rem;
+  color: var(--merlin-muted);
+  font-family: var(--font-body), "Helvetica Neue", Arial, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.merlin-poster-figure {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--merlin-line);
+  border-radius: 1.7rem;
+  background: #fffefa;
+  box-shadow: var(--merlin-shadow);
+}
+
+.merlin-poster-figure img {
+  width: 100%;
+  height: auto;
+}
+
+.merlin-poster-figure figcaption {
+  padding: 0.95rem 1rem 1.05rem;
+  color: var(--merlin-muted);
+  font-size: 0.94rem;
+  line-height: 1.55;
+  border-top: 1px solid var(--merlin-line);
+}
+
+.merlin-novice-types {
+  display: grid;
+  gap: 0.85rem;
+  padding: clamp(1rem, 2vw, 1.35rem);
+  border-top: 1px solid rgba(23, 115, 78, 0.2);
+  border-bottom: 1px solid rgba(23, 115, 78, 0.2);
+}
+
+.merlin-novice-types ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.merlin-novice-types li {
+  padding: 0.52rem 0.78rem;
+  border: 1px solid rgba(23, 115, 78, 0.16);
+  border-radius: 999px;
+  background: rgba(255, 252, 246, 0.78);
+  color: var(--merlin-green-deep);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.merlin-method-spread {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  align-items: start;
+}
+
+.merlin-method-reflection {
+  max-width: 62rem;
+  padding: clamp(1rem, 2vw, 1.45rem);
+  border-top: 1px solid rgba(23, 115, 78, 0.2);
+  border-bottom: 1px solid rgba(23, 115, 78, 0.2);
+}
+
+.merlin-method-reflection p:last-child {
+  margin-top: 0.55rem;
+  color: var(--merlin-muted);
+  line-height: 1.68;
+}
+
+.merlin-findings-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.merlin-findings-grid article span {
+  color: var(--merlin-green-deep);
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.merlin-report-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  align-items: start;
+}
+
+.merlin-concept-spread {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  align-items: start;
+}
+
+.merlin-outcome-panel {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  padding: clamp(1rem, 2vw, 1.5rem);
+  border-radius: 1.1rem;
+}
+
+.merlin-outcome-panel p:last-child {
+  margin-top: 0.5rem;
+  color: var(--merlin-muted);
+  line-height: 1.65;
+}
+
+.merlin-testing-reflection {
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.4rem);
+  max-width: 68rem;
+  padding-block: clamp(0.3rem, 1vw, 0.8rem);
+  border-top: 1px solid rgba(23, 115, 78, 0.18);
+  border-bottom: 1px solid rgba(23, 115, 78, 0.18);
+}
+
+.merlin-testing-reflection h3 {
+  max-width: 34rem;
+  margin: 0.3rem 0 0;
+  color: var(--merlin-ink);
+  font-family: var(--font-display);
+  font-size: clamp(1.55rem, 2.2vw, 2rem);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+}
+
+.merlin-testing-reflection p:last-child {
+  max-width: 62ch;
+  margin-top: 0.7rem;
+  color: var(--merlin-muted);
+  line-height: 1.68;
+}
+
+.merlin-testing-images {
+  display: grid;
+  gap: clamp(0.85rem, 1.7vw, 1.15rem);
+}
+
+.merlin-testing-images img {
+  width: 100%;
+  height: auto;
+  padding: clamp(0.25rem, 0.8vw, 0.55rem);
+  border-radius: 1rem;
+}
+
+.merlin-report-page .linkchip {
+  background: var(--merlin-green);
+  border-color: var(--merlin-green);
+  color: #fbfaf4;
+  font-weight: 700;
+}
+
+@media (max-width: 1024px) {
+  .merlin-report-grid,
+  .merlin-report-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .merlin-report-section-label {
+    position: static;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid var(--merlin-line);
+    padding-top: 1rem;
+  }
+
+  .merlin-report-meta {
+    max-width: none;
+    min-height: auto;
+  }
+
+  .merlin-report-meta dl {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.85rem;
+    min-height: auto;
+  }
+
+  .merlin-meta-frame {
+    position: relative;
+    inset: auto;
+    width: auto;
+    transform: none;
+  }
+
+  .merlin-method-spread,
+  .merlin-report-gallery,
+  .merlin-source-grid,
+  .merlin-method-steps,
+  .merlin-illustration-row-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .merlin-report {
+    background-size: 3rem 3rem;
+  }
+
+  .merlin-report-hero {
+    padding-top: 1rem;
+  }
+
+  .merlin-report-grid {
+    gap: 1rem;
+  }
+
+  .merlin-report-title h1 {
+    font-size: clamp(2.7rem, 14vw, 4.4rem);
+    max-width: 13ch;
+  }
+
+  .merlin-report-meta dl,
+  .merlin-phase-grid,
+  .merlin-findings-grid,
+  .merlin-direction-grid,
+  .merlin-method-spread,
+  .merlin-report-gallery,
+  .merlin-concept-spread,
+  .merlin-outcome-panel,
+  .merlin-poster-summary,
+  .merlin-source-grid,
+  .merlin-method-steps,
+  .merlin-illustration-row-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .merlin-flip-card-inner {
+    min-height: 16rem;
+  }
+
+  .merlin-artifact-figure,
+  .merlin-concept-spread figure {
+    overflow-x: auto;
+  }
+
+  .merlin-artifact-figure img[src$=".svg"],
+  .merlin-concept-spread .merlin-embedded-figure img {
+    min-width: 42rem;
+  }
+
+  .merlin-artifact-figure-dark img {
+    min-width: 100%;
+  }
+
+  .merlin-report-section {
+    padding: 3.3rem 0;
+  }
+}
