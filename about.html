@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About | Olivia Feng</title>
+  <meta
+    name="description"
+    content="About Yuchen Feng: interdisciplinary UX designer and researcher at the University of Washington."
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="icon" type="image/png" href="./assets/img/personal-logo.png" />
+  <link rel="stylesheet" href="./assets/style.css" />
+</head>
+<body class="about-redesign-page">
+  <header class="site-header home-header">
+    <div class="container header-row">
+      <a class="brand" href="/"><img class="brand-logo" src="./assets/img/personal-logo.png" alt="" aria-hidden="true" /><span>Olivia Feng</span></a>
+      <nav class="nav" aria-label="Primary">
+        <div class="nav-links">
+          <a href="/#selected-work">Work</a>
+          <a href="/about">About</a>
+          <a href="/#contact">Contact</a>
+        </div>
+        <a class="btn btn-clear nav-cta" href="/assets/Olivia-Feng-Resume.pdf" target="_blank" rel="noreferrer">
+          <span class="nav-cta-icon" aria-hidden="true">&#8595;</span>
+          <span>Resume</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="about-redesign">
+    <section class="about-portrait-hero" aria-labelledby="about-title">
+      <div class="container about-portrait-shell">
+        <a class="merlin-back-link about-back-link" href="/#selected-work"><span aria-hidden="true">←</span> Back to work</a>
+
+        <div class="about-portrait-grid">
+          <div class="about-title-lockup">
+            <h1 id="about-title">Hiiiii👋,</h1>
+            <p class="about-hero-note">
+              I'm Yuchen “Olivia” Feng, an interdisciplinary UX designer and researcher at the
+              University of Washington. My work moves between product strategy, research synthesis,
+              visual systems, and moments that make a digital experience feel more human.
+            </p>
+            <p class="about-location-note">Based in Seattle · Open to remote work and relocation</p>
+            <div class="about-title-actions" aria-label="Contact links">
+              <a class="btn btn-clear about-title-btn" href="mailto:fyc2003@uw.edu">Email me</a>
+              <a class="btn btn-clear about-title-btn" href="https://www.linkedin.com/in/yuchenoliviafeng" target="_blank" rel="noreferrer">LinkedIn</a>
+            </div>
+          </div>
+
+          <div class="about-bubble-stage" aria-label="Portrait and introduction notes">
+            <figure class="about-main-portrait">
+              <img src="./assets/img/about-banner.jpg" alt="Portrait of Olivia Feng" />
+            </figure>
+            <aside class="about-bubble about-bubble-01">
+              <span>currently</span>
+              <p>Incoming UW GIX (HCI) master's student in Fall 2026.</p>
+            </aside>
+            <aside class="about-bubble about-bubble-02">
+              <span>designer lens</span>
+              <p>Research rigor, visual sensitivity, and calm systems thinking.</p>
+            </aside>
+            <aside class="about-bubble about-bubble-03">
+              <span>favorite territory</span>
+              <p>Turning ambiguous questions into flows, stories, prototypes, and artifacts people can respond to.</p>
+            </aside>
+            <aside class="about-bubble about-bubble-04">
+              <span>outside the screen</span>
+              <p>Calligraphy, cultural storytelling, magazines, and handmade visual details.</p>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-skills-section" aria-labelledby="about-skills-title">
+      <div class="container about-skills-shell">
+        <div class="about-section-heading">
+          <span class="about-section-icon" aria-hidden="true">✦</span>
+          <div>
+            <!-- <p class="section-label">What I do</p> -->
+            <h2 id="about-skills-title">Skills I bring</h2>
+          </div>
+        </div>
+        <div class="about-skill-cloud" aria-label="Olivia Feng design skills">
+          <span>Product strategy</span>
+          <span>UX research</span>
+          <span>Research synthesis</span>
+          <span>Interaction design</span>
+          <span>Prototyping</span>
+          <span>Usability testing</span>
+          <span>Design systems</span>
+          <span>Information architecture</span>
+          <span>AI experience design</span>
+          <span>Visual storytelling</span>
+          <span>Cross-functional collaboration</span>
+          <span>Data-informed design</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-education-section" aria-labelledby="about-education-title">
+      <div class="container about-education-shell">
+        <div class="about-section-heading about-section-heading-simple">
+          <div>
+            <!-- <p class="section-label">Education</p> -->
+            <h2 id="about-education-title">Education</h2>
+          </div>
+        </div>
+        <div class="about-education-timeline">
+          <article class="about-education-card">
+            <p class="project-meta">Incoming · Fall 2026</p>
+            <h3>University of Washington GIX</h3>
+            <p>Master's student in HCI at the Global Innovation Exchange</p>
+          </article>
+          <article class="about-education-card">
+            <p class="project-meta">Graduated · 2026</p>
+            <h3>University of Washington</h3>
+            <p>B.S. in Human-Centered Design & Engineering</p>
+            <p>Minor in Neural Computation & Engineering</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer home-footer">
+    <div class="container footer-row">
+      <p>© <span id="year"></span> Olivia Yuchen Feng</p>
+      <p>Interdisciplinary design, research, and calm systems thinking.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    (() => {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("arrange") !== "bubbles") return;
+
+      const stage = document.querySelector(".about-portrait-grid");
+      const bubbles = [...document.querySelectorAll(".about-bubble")];
+      if (!stage || bubbles.length === 0) return;
+
+      document.body.classList.add("about-arrange-mode");
+
+      const panel = document.createElement("aside");
+      panel.className = "about-arrange-panel";
+      panel.innerHTML = `
+        <strong>Bubble arrange mode</strong>
+        <p>Drag the four bubbles where you want them. Send me the generated positions below.</p>
+        <textarea class="about-arrange-output" readonly aria-label="Bubble position output"></textarea>
+        <div class="about-arrange-actions">
+          <button type="button" data-action="copy">Copy positions</button>
+          <button type="button" data-action="reset">Reset draft</button>
+        </div>
+      `;
+      document.body.appendChild(panel);
+
+      const output = panel.querySelector(".about-arrange-output");
+      const storageKey = "aboutBubbleDraftPositions";
+      const saved = JSON.parse(localStorage.getItem(storageKey) || "{}");
+      const labelMap = {
+        "about-bubble-01": "currently",
+        "about-bubble-02": "designer lens",
+        "about-bubble-03": "favorite territory",
+        "about-bubble-04": "outside the screen",
+      };
+
+      const getBubbleKey = (bubble) =>
+        [...bubble.classList].find((name) => name.startsWith("about-bubble-") && name !== "about-bubble");
+
+      const applyPosition = (bubble, position) => {
+        if (!position) return;
+        bubble.style.left = `${position.left}%`;
+        bubble.style.top = `${position.top}%`;
+        bubble.style.right = "auto";
+        bubble.style.bottom = "auto";
+      };
+
+      bubbles.forEach((bubble) => {
+        const key = getBubbleKey(bubble);
+        applyPosition(bubble, saved[key]);
+      });
+
+      const readPositions = () => {
+        const stageRect = stage.getBoundingClientRect();
+        const positions = {};
+        bubbles.forEach((bubble) => {
+          const key = getBubbleKey(bubble);
+          const rect = bubble.getBoundingClientRect();
+          positions[key] = {
+            label: labelMap[key] || key,
+            left: Number((((rect.left - stageRect.left) / stageRect.width) * 100).toFixed(1)),
+            top: Number((((rect.top - stageRect.top) / stageRect.height) * 100).toFixed(1)),
+          };
+        });
+        return positions;
+      };
+
+      const updateOutput = () => {
+        const positions = readPositions();
+        localStorage.setItem(storageKey, JSON.stringify(positions));
+        output.value = JSON.stringify(positions, null, 2);
+      };
+
+      bubbles.forEach((bubble) => {
+        bubble.addEventListener("pointerdown", (event) => {
+          event.preventDefault();
+          const stageRect = stage.getBoundingClientRect();
+          const rect = bubble.getBoundingClientRect();
+          const offsetX = event.clientX - rect.left;
+          const offsetY = event.clientY - rect.top;
+
+          bubble.classList.add("is-dragging");
+          bubble.setPointerCapture(event.pointerId);
+          bubble.style.right = "auto";
+          bubble.style.bottom = "auto";
+
+          const moveBubble = (moveEvent) => {
+            const maxX = stageRect.width - rect.width;
+            const maxY = stageRect.height - rect.height;
+            const nextX = Math.min(Math.max(moveEvent.clientX - stageRect.left - offsetX, 0), maxX);
+            const nextY = Math.min(Math.max(moveEvent.clientY - stageRect.top - offsetY, 0), maxY);
+            bubble.style.left = `${(nextX / stageRect.width) * 100}%`;
+            bubble.style.top = `${(nextY / stageRect.height) * 100}%`;
+            updateOutput();
+          };
+
+          const endDrag = () => {
+            bubble.classList.remove("is-dragging");
+            bubble.removeEventListener("pointermove", moveBubble);
+            bubble.removeEventListener("pointerup", endDrag);
+            bubble.removeEventListener("pointercancel", endDrag);
+            updateOutput();
+          };
+
+          bubble.addEventListener("pointermove", moveBubble);
+          bubble.addEventListener("pointerup", endDrag);
+          bubble.addEventListener("pointercancel", endDrag);
+        });
+      });
+
+      panel.addEventListener("click", async (event) => {
+        const action = event.target.dataset.action;
+        if (action === "copy") {
+          await navigator.clipboard.writeText(output.value);
+        }
+        if (action === "reset") {
+          localStorage.removeItem(storageKey);
+          bubbles.forEach((bubble) => {
+            bubble.removeAttribute("style");
+          });
+          updateOutput();
+        }
+      });
+
+      updateOutput();
+    })();
+  </script>
+</body>
+</html>
