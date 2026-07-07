@@ -30,6 +30,7 @@ html {
   min-height: 100%;
   scroll-behavior: smooth;
   background: var(--paper-soft);
+  overflow-x: clip;
 }
 
 body {
@@ -37,6 +38,7 @@ body {
   isolation: isolate;
   margin: 0;
   min-height: 100vh;
+  overflow-x: clip;
   background: transparent;
   color: var(--ink);
   font: 16px/1.65 var(--font-body);
@@ -126,15 +128,26 @@ dl {
 }
 
 .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
   font-family: var(--font-display);
   font-size: 1.8rem;
   font-weight: 600;
   letter-spacing: 0.02em;
+  line-height: 1;
   color: var(--ink);
 }
 
 .site-header .brand {
   color: var(--ink);
+}
+
+.brand-logo {
+  width: 2.35rem;
+  height: 2.45rem;
+  object-fit: contain;
+  flex: 0 0 auto;
 }
 
 .nav {
@@ -801,17 +814,51 @@ button:focus-visible,
 
 @media (max-width: 760px) {
   .container {
-    width: min(100vw - 1.4rem, 1180px);
+    width: min(100vw - 1.15rem, 1180px);
   }
 
   .header-row,
   .footer-row {
     flex-direction: column;
     align-items: flex-start;
+    gap: 0.85rem;
+  }
+
+  .header-row {
+    padding: 0.85rem 0;
+  }
+
+  .brand {
+    gap: 0.45rem;
+    font-size: 1.55rem;
+  }
+
+  .brand-logo {
+    width: 2rem;
+    height: 2.1rem;
   }
 
   .nav {
-    gap: 0.9rem 1.15rem;
+    width: 100%;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.75rem 1rem;
+    font-size: 0.92rem;
+  }
+
+  .nav-links {
+    gap: 0.75rem 1rem;
+  }
+
+  .nav a {
+    min-height: 2.4rem;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .nav-cta {
+    min-height: 2.4rem;
+    padding: 0.52rem 0.85rem;
   }
 
   .home-hero {
@@ -852,7 +899,12 @@ button:focus-visible,
   }
 
   .hero-copy h1 {
-    font-size: clamp(3rem, 15vw, 5rem);
+    font-size: clamp(2.55rem, 12vw, 4.4rem);
+  }
+
+  .hero-copy h1 .hero-line,
+  .hero-copy h1 span {
+    white-space: normal;
   }
 
   .hero-copy {
@@ -922,6 +974,31 @@ button:focus-visible,
     width: 100%;
     padding: 0.9rem 1rem;
     border-radius: 1.2rem;
+  }
+
+  .about-page-grid,
+  .about-page-columns,
+  .details-list,
+  .about-note-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-page-copy h1,
+  .project-hero h1,
+  .paira-intro h1,
+  .merlin-intro h1 {
+    font-size: clamp(2.35rem, 12vw, 3.55rem);
+    line-height: 1.06;
+    max-width: 100%;
+  }
+
+  .paira-summary,
+  .merlin-summary,
+  .project-case-summary,
+  .hero-intro,
+  .hero-about,
+  .about-page-copy {
+    max-width: 100%;
   }
 }
 
@@ -1331,6 +1408,25 @@ button:focus-visible,
     min-height: auto;
   }
 
+  .project-case-intro h1 {
+    font-size: clamp(2.35rem, 12vw, 3.55rem);
+    line-height: 1.06;
+  }
+
+  .project-case-tags,
+  .paira-tags,
+  .merlin-tags {
+    gap: 0.55rem;
+  }
+
+  .project-case-tag,
+  .paira-tag,
+  .merlin-tag {
+    min-height: 2.25rem;
+    padding: 0.48rem 0.76rem;
+    font-size: 0.84rem;
+  }
+
   .project-case-cover-frame {
     border-radius: 1.5rem;
   }
@@ -1501,6 +1597,12 @@ button:focus-visible,
 
   .paira-fact {
     min-height: auto;
+  }
+
+  .paira-detail-card,
+  .paira-principle {
+    border-radius: 1.2rem;
+    padding: 1.1rem 1.15rem;
   }
 
   .paira-cover-frame {
@@ -1724,6 +1826,12 @@ button:focus-visible,
     min-height: auto;
   }
 
+  .merlin-detail-card,
+  .merlin-principle {
+    border-radius: 1.2rem;
+    padding: 1.1rem 1.15rem;
+  }
+
   .merlin-cover-frame {
     border-radius: 1.5rem;
   }
@@ -1910,21 +2018,70 @@ button:focus-visible,
   background-size: 4.5rem 4.5rem;
 }
 
+.merlin-reveal {
+  opacity: 0;
+  transform: translateY(1.1rem);
+  transition:
+    opacity 640ms ease,
+    transform 640ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(var(--merlin-reveal-index, 0) * 55ms);
+}
+
+.merlin-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .merlin-report-hero {
-  padding: clamp(1.2rem, 2.4vw, 2rem) 0 clamp(2.4rem, 5vw, 4.6rem);
+  padding: clamp(1rem, 2vw, 1.8rem) 0 clamp(3.2rem, 6vw, 5.6rem);
 }
 
 .merlin-report-shell {
   display: grid;
-  gap: clamp(1.2rem, 2.5vw, 2rem);
+  gap: clamp(0.9rem, 1.7vw, 1.25rem);
+}
+
+.merlin-back-link {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42rem;
+  min-height: 2.2rem;
+  padding: 0.42rem 0.76rem;
+  border: 1px solid rgba(23, 115, 78, 0.18);
+  border-radius: 999px;
+  background: rgba(255, 252, 246, 0.76);
+  color: var(--merlin-green-deep);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  text-transform: uppercase;
+  box-shadow: 0 8px 18px rgba(52, 39, 27, 0.04);
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+.merlin-back-link:hover {
+  transform: translateY(-1px);
+  border-color: rgba(23, 115, 78, 0.3);
+  background: rgba(255, 252, 246, 0.94);
+}
+
+.merlin-back-link span {
+  font-size: 0.95em;
 }
 
 .merlin-report-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.36fr);
-  gap: clamp(2rem, 5vw, 5.5rem);
-  align-items: start;
-  padding-top: clamp(1.1rem, 2vw, 1.8rem);
+  grid-template-columns: minmax(0, 1.12fr) minmax(17rem, 0.32fr);
+  gap: clamp(2rem, 4vw, 4.5rem);
+  align-items: center;
+  min-height: clamp(34rem, calc(100svh - 9rem), 48rem);
+  padding-top: clamp(0.8rem, 1.4vw, 1.15rem);
   border-top: 2px solid var(--merlin-green);
 }
 
@@ -1933,13 +2090,35 @@ button:focus-visible,
   flex-wrap: wrap;
   gap: 0.45rem 0.9rem;
   margin-bottom: clamp(1rem, 2vw, 1.55rem);
-  color: var(--merlin-green-deep);
   font-family: var(--font-body);
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.16em;
   line-height: 1.35;
   text-transform: uppercase;
+}
+
+.merlin-report-kicker span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.25rem;
+  padding: 0.48rem 0.86rem;
+  border: 1px solid rgba(23, 115, 78, 0.24);
+  border-radius: 999px;
+  background: rgba(255, 252, 246, 0.82);
+  color: var(--merlin-green-deep);
+  box-shadow: 0 8px 18px rgba(52, 39, 27, 0.045);
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+.merlin-report-kicker span:hover {
+  transform: translateY(-1px);
+  border-color: rgba(23, 115, 78, 0.34);
+  background: rgba(255, 252, 246, 0.94);
 }
 
 .merlin-report-title h1,
@@ -1953,9 +2132,9 @@ button:focus-visible,
 }
 
 .merlin-report-title h1 {
-  max-width: 16ch;
-  margin-top: 0.55rem;
-  font-size: clamp(3.35rem, 5.75vw, 5.9rem);
+  max-width: 26ch;
+  margin-top: 0;
+  font-size: clamp(3.18rem, 4.85vw, 5.25rem);
   line-height: 0.95;
 }
 
@@ -1971,7 +2150,7 @@ button:focus-visible,
 .merlin-hero-focus {
   position: relative;
   max-width: 43rem;
-  margin-top: clamp(1rem, 2vw, 1.4rem);
+  margin-top: clamp(1.65rem, 3vw, 2.45rem);
   padding-left: 1.05rem;
   color: var(--merlin-muted);
   font-size: 0.98rem;
@@ -2003,7 +2182,7 @@ button:focus-visible,
 
 .merlin-report-meta {
   position: relative;
-  min-height: clamp(22rem, 31vw, 28rem);
+  min-height: clamp(22rem, 29vw, 27rem);
 }
 
 .merlin-report-meta dl {
@@ -2027,10 +2206,63 @@ button:focus-visible,
   line-height: 1.45;
 }
 
+.merlin-sponsor-tags {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.6rem;
+}
+
+.merlin-sponsor-tag {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 3.15rem;
+  padding: 0.48rem 0.82rem;
+  border: 1px solid rgba(23, 115, 78, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 252, 246, 0.7);
+}
+
+.merlin-sponsor-tag img {
+  width: auto;
+  object-fit: contain;
+}
+
+.merlin-sponsor-tag-cornell img {
+  height: 2rem;
+}
+
+.merlin-sponsor-tag-eco img {
+  height: 2.1rem;
+}
+
+.merlin-project-scope {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.42rem;
+  padding-top: 0.28rem;
+}
+
+.merlin-project-scope span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.85rem;
+  padding: 0.32rem 0.58rem;
+  border: 1px solid rgba(23, 115, 78, 0.18);
+  border-radius: 999px;
+  background: rgba(232, 241, 224, 0.58);
+  color: var(--merlin-green-deep);
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
 .merlin-meta-frame {
   position: absolute;
   display: grid;
-  width: min(19rem, 100%);
+  width: min(21rem, 100%);
   gap: 0.45rem;
   padding: 1rem 1.05rem 1.05rem;
   border: 1px solid rgba(43, 36, 30, 0.12);
@@ -2053,7 +2285,7 @@ button:focus-visible,
   top: 0.3rem;
   right: 0.3rem;
   z-index: 4;
-  transform: rotate(1.1deg);
+  transform: rotate(1.1deg) translateY(0.4rem);
 }
 
 .merlin-meta-frame-sponsor::before {
@@ -2061,49 +2293,157 @@ button:focus-visible,
   right: 1.6rem;
 }
 
-.merlin-meta-frame-role {
-  top: 7.1rem;
-  left: 0;
+.merlin-meta-frame-summary {
+  top: 13rem;
+  left: 0.15rem;
   z-index: 3;
-  transform: rotate(-1.6deg);
-  background: color-mix(in srgb, var(--merlin-paper) 82%, white 18%);
+  transform: rotate(-1.2deg);
 }
 
-.merlin-meta-frame-role::before {
-  right: -0.8rem;
-  bottom: -0.65rem;
-  background: rgba(205, 87, 50, 0.1);
+.merlin-meta-frame-summary::before {
+  right: -0.85rem;
+  bottom: -0.7rem;
+  background: rgba(125, 196, 129, 0.12);
 }
 
-.merlin-meta-frame-output {
-  top: 14rem;
-  right: 1.15rem;
-  z-index: 2;
-  transform: rotate(1.35deg);
+.merlin-meta-frame-summary dd:not(.merlin-project-scope) {
+  max-width: 17.5rem;
+  color: var(--merlin-muted);
+  font-size: 0.92rem;
+  line-height: 1.52;
 }
 
-.merlin-meta-frame-output::before {
-  top: -0.65rem;
-  left: -0.75rem;
+.merlin-project-details {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(0.9rem, 1.7vw, 1.2rem);
+  margin-top: clamp(0.25rem, 1vw, 0.8rem);
 }
 
-.merlin-meta-frame-team {
-  top: 20.4rem;
-  left: 1.35rem;
-  z-index: 1;
-  width: min(16.5rem, 92%);
-  transform: rotate(-0.8deg);
-  background: rgba(232, 241, 224, 0.84);
+.merlin-project-detail-card {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: clamp(11rem, 13vw, 13.2rem);
+  padding: clamp(1.05rem, 1.9vw, 1.45rem);
+  border: 1px solid rgba(23, 115, 78, 0.14);
+  border-radius: 1.18rem;
+  background:
+    linear-gradient(180deg, rgba(255, 252, 246, 0.86), rgba(248, 244, 234, 0.72)),
+    var(--merlin-paper);
+  box-shadow: 0 16px 34px rgba(52, 39, 27, 0.075);
+  transition:
+    transform 260ms ease,
+    border-color 260ms ease,
+    box-shadow 260ms ease;
 }
 
-.merlin-meta-frame-team::before {
-  content: none;
+.merlin-project-detail-card:hover {
+  transform: translateY(-0.18rem);
+  border-color: rgba(23, 115, 78, 0.24);
+  box-shadow: 0 20px 42px rgba(52, 39, 27, 0.1);
+}
+
+.merlin-project-detail-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 2px;
+  background: color-mix(in srgb, var(--merlin-green) 52%, white 48%);
+}
+
+.merlin-detail-label {
+  display: block;
+  color: var(--merlin-green-deep);
+}
+
+.merlin-detail-label h2 {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
+.merlin-detail-primary {
+  margin-top: clamp(1rem, 1.8vw, 1.35rem);
+  color: var(--merlin-ink);
+  font-family: var(--font-display);
+  font-size: clamp(1.32rem, 2vw, 1.72rem);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.06;
+  text-wrap: balance;
+}
+
+.merlin-detail-secondary {
+  margin-top: auto;
+  padding-top: 0.9rem;
+  color: var(--merlin-muted);
+  font-size: 0.88rem;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.merlin-project-detail-card ul {
+  display: grid;
+  gap: 0.38rem;
+  margin: clamp(1rem, 1.8vw, 1.35rem) 0 0;
+  padding: 0;
+  color: var(--merlin-muted);
+  font-size: 0.9rem;
+  line-height: 1.38;
+  list-style: none;
+}
+
+.merlin-project-detail-card li {
+  padding-top: 0.38rem;
+  border-top: 1px solid rgba(23, 115, 78, 0.12);
+}
+
+.merlin-project-detail-card li:first-child {
+  padding-top: 0;
+  border-top: 0;
 }
 
 .merlin-flip-card {
+  position: relative;
   cursor: pointer;
   outline: none;
   perspective: 1800px;
+}
+
+.merlin-flip-hint {
+  position: absolute;
+  top: clamp(0.85rem, 1.4vw, 1.15rem);
+  right: clamp(0.85rem, 1.4vw, 1.15rem);
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  padding: 0.38rem 0.68rem;
+  border: 1px solid rgba(23, 115, 78, 0.16);
+  border-radius: 999px;
+  background: rgba(255, 252, 246, 0.82);
+  color: var(--merlin-green-deep);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  text-transform: uppercase;
+  box-shadow: 0 10px 22px rgba(52, 39, 27, 0.06);
+  transition:
+    opacity 220ms ease,
+    transform 220ms ease;
+}
+
+.merlin-flip-card:hover .merlin-flip-hint,
+.merlin-flip-card.is-flipped .merlin-flip-hint {
+  opacity: 0;
+  transform: translateY(-0.25rem);
 }
 
 .merlin-flip-card:focus-visible {
@@ -2121,6 +2461,28 @@ button:focus-visible,
 
 .merlin-flip-card.is-flipped .merlin-flip-card-inner {
   transform: rotateY(180deg);
+}
+
+.merlin-flip-card.is-previewing .merlin-flip-card-inner {
+  animation: merlin-flip-preview 1700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.merlin-flip-card:not(.is-previewing):hover .merlin-flip-card-inner {
+  transform: translateY(-0.12rem);
+}
+
+.merlin-flip-card.is-flipped:not(.is-previewing):hover .merlin-flip-card-inner {
+  transform: rotateY(180deg) translateY(-0.12rem);
+}
+
+@keyframes merlin-flip-preview {
+  0%, 100% {
+    transform: rotateY(0deg);
+  }
+
+  38%, 62% {
+    transform: rotateY(18deg);
+  }
 }
 
 .merlin-flip-face {
@@ -2151,12 +2513,42 @@ button:focus-visible,
 }
 
 .merlin-flip-back img {
-  padding: clamp(0.55rem, 1vw, 0.9rem);
-  object-fit: contain;
+  padding: 0;
+  object-fit: cover;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .merlin-flip-card-inner {
+  .merlin-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .merlin-report-section-label span,
+  .merlin-project-detail-card,
+  .merlin-phase-grid article,
+  .merlin-findings-grid article,
+  .merlin-direction-grid article,
+  .merlin-method-steps article,
+  .merlin-outcome-panel > div,
+  .merlin-testing-points > div,
+  .merlin-artifact-figure,
+  .merlin-report-image,
+  .merlin-report-gallery figure,
+  .merlin-method-spread figure,
+  .merlin-concept-spread figure,
+  .merlin-illustration-row figure,
+  .merlin-wide-figure {
+    transition: none;
+  }
+
+  .merlin-flip-card-inner,
+  .merlin-insight-flip-inner {
+    animation: none !important;
+    transition: none;
+  }
+
+  .merlin-flip-hint {
     transition: none;
   }
 }
@@ -2198,6 +2590,20 @@ button:focus-visible,
   font-weight: 700;
   letter-spacing: 0.08em;
   font-variant-numeric: tabular-nums;
+  transition:
+    transform 260ms ease,
+    border-color 260ms ease,
+    background-color 260ms ease;
+}
+
+.merlin-report-section.is-current .merlin-report-section-label span {
+  transform: translateY(-0.15rem);
+  border-color: rgba(23, 115, 78, 0.42);
+  background: rgba(232, 241, 224, 0.68);
+}
+
+.merlin-report-section.is-current .merlin-report-section-label .section-label {
+  color: var(--merlin-green-deep);
 }
 
 .merlin-report-content {
@@ -2251,6 +2657,27 @@ button:focus-visible,
   background: var(--merlin-paper-green);
 }
 
+.merlin-phase-grid article,
+.merlin-findings-grid article,
+.merlin-direction-grid article,
+.merlin-method-steps article,
+.merlin-outcome-panel > div,
+.merlin-testing-points > div {
+  transition:
+    transform 240ms ease,
+    border-color 240ms ease,
+    background-color 240ms ease;
+}
+
+.merlin-phase-grid article:hover,
+.merlin-findings-grid article:hover,
+.merlin-direction-grid article:hover,
+.merlin-method-steps article:hover,
+.merlin-outcome-panel > div:hover,
+.merlin-testing-points > div:hover {
+  transform: translateY(-0.14rem);
+}
+
 .merlin-report-question {
   max-width: 62rem;
   padding: clamp(1.1rem, 2.6vw, 2rem);
@@ -2289,24 +2716,31 @@ button:focus-visible,
   border-radius: 1.45rem;
 }
 
+.merlin-phase-grid article .project-meta,
+.merlin-direction-grid article .project-meta,
+.merlin-findings-grid article .project-meta,
+.merlin-method-steps article .project-meta {
+  margin: 0 0 clamp(0.58rem, 1vw, 0.8rem);
+}
+
 .merlin-phase-grid h3,
 .merlin-direction-grid h3,
 .merlin-findings-grid h3,
 .merlin-method-steps h3 {
-  margin: 0.15rem 0 0;
+  margin: 0;
   color: var(--merlin-ink);
   font-family: var(--font-display);
   font-size: clamp(1.45rem, 2vw, 1.9rem);
   font-weight: 600;
   letter-spacing: -0.02em;
-  line-height: 1.05;
+  line-height: 1.08;
 }
 
 .merlin-phase-grid p:last-child,
 .merlin-direction-grid p,
 .merlin-findings-grid p,
 .merlin-method-steps p:last-child {
-  margin-top: 0.65rem;
+  margin-top: clamp(0.78rem, 1.2vw, 1rem);
   color: var(--merlin-muted);
   line-height: 1.62;
 }
@@ -2324,6 +2758,10 @@ button:focus-visible,
   border-radius: 1.45rem;
   background: #fffefa;
   box-shadow: var(--merlin-shadow);
+  transition:
+    transform 260ms ease,
+    border-color 260ms ease,
+    box-shadow 260ms ease;
 }
 
 .merlin-artifact-figure img,
@@ -2335,6 +2773,29 @@ button:focus-visible,
 .merlin-wide-figure img {
   width: 100%;
   height: auto;
+  transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.merlin-artifact-figure:hover,
+.merlin-report-image:hover,
+.merlin-report-gallery figure:hover,
+.merlin-method-spread figure:hover,
+.merlin-concept-spread figure:hover,
+.merlin-illustration-row figure:hover,
+.merlin-wide-figure:hover {
+  transform: translateY(-0.16rem);
+  border-color: rgba(23, 115, 78, 0.2);
+  box-shadow: 0 20px 44px rgba(52, 39, 27, 0.1);
+}
+
+.merlin-artifact-figure:hover img,
+.merlin-report-image:hover img,
+.merlin-report-gallery figure:hover img,
+.merlin-method-spread figure:hover img,
+.merlin-concept-spread figure:hover img,
+.merlin-illustration-row figure:hover img,
+.merlin-wide-figure:hover img {
+  transform: scale(1.008);
 }
 
 .merlin-artifact-figure figcaption,
@@ -2377,6 +2838,29 @@ button:focus-visible,
   border-radius: 1.25rem;
 }
 
+.merlin-section-chip {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  margin: 0;
+  padding: 0.42rem 0.75rem;
+  border: 1px solid rgba(23, 115, 78, 0.18);
+  border-radius: 999px;
+  background: rgba(255, 252, 246, 0.76);
+  color: var(--merlin-green-deep);
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.merlin-section-chip + .merlin-embedded-figure {
+  margin-top: clamp(-2rem, -2.4vw, -1rem);
+}
+
 .merlin-embedded-figure-paper img {
   background: #fffefa;
 }
@@ -2404,6 +2888,130 @@ button:focus-visible,
 .merlin-embedded-figure.merlin-artifact-figure-soft,
 .merlin-embedded-figure.merlin-artifact-figure-dark {
   background: transparent;
+}
+
+.merlin-insight-flip {
+  cursor: pointer;
+  outline: none;
+  perspective: 1800px;
+}
+
+.merlin-insight-flip:focus-visible {
+  border-radius: 1.45rem;
+  outline: 2px solid color-mix(in srgb, var(--merlin-green) 72%, white 28%);
+  outline-offset: 5px;
+}
+
+.merlin-insight-flip-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 0.7rem;
+}
+
+.merlin-insight-flip-header .project-meta {
+  margin: 0;
+}
+
+.merlin-insight-flip-header span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  padding: 0.38rem 0.68rem;
+  border: 1px solid rgba(23, 115, 78, 0.18);
+  border-radius: 999px;
+  background: rgba(255, 252, 246, 0.78);
+  color: var(--merlin-green-deep);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  text-transform: uppercase;
+  transition:
+    border-color 220ms ease,
+    background-color 220ms ease,
+    transform 220ms ease;
+}
+
+.merlin-insight-flip:hover .merlin-insight-flip-header span {
+  transform: translateY(-0.1rem);
+  border-color: rgba(23, 115, 78, 0.3);
+  background: rgba(255, 252, 246, 0.95);
+}
+
+.merlin-insight-flip-inner {
+  position: relative;
+  min-height: clamp(24rem, 46vw, 42rem);
+  transform-style: preserve-3d;
+  transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.merlin-insight-flip.is-flipped .merlin-insight-flip-inner {
+  transform: rotateY(180deg);
+}
+
+.merlin-insight-flip.is-previewing .merlin-insight-flip-inner {
+  animation: merlin-flip-preview 1700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.merlin-insight-flip:not(.is-previewing):hover .merlin-insight-flip-inner {
+  transform: translateY(-0.12rem);
+}
+
+.merlin-insight-flip.is-flipped:not(.is-previewing):hover .merlin-insight-flip-inner {
+  transform: rotateY(180deg) translateY(-0.12rem);
+}
+
+.merlin-insight-face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  margin: 0;
+  border-radius: 1.45rem;
+  background: #fffefa;
+  box-shadow: var(--merlin-shadow);
+  backface-visibility: hidden;
+}
+
+.merlin-insight-face img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.merlin-insight-back {
+  transform: rotateY(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .merlin-project-detail-card:hover,
+  .merlin-phase-grid article:hover,
+  .merlin-findings-grid article:hover,
+  .merlin-direction-grid article:hover,
+  .merlin-method-steps article:hover,
+  .merlin-outcome-panel > div:hover,
+  .merlin-testing-points > div:hover,
+  .merlin-artifact-figure:hover,
+  .merlin-report-image:hover,
+  .merlin-report-gallery figure:hover,
+  .merlin-method-spread figure:hover,
+  .merlin-concept-spread figure:hover,
+  .merlin-illustration-row figure:hover,
+  .merlin-wide-figure:hover {
+    transform: none;
+  }
+
+  .merlin-flip-card:not(.is-flipped):hover .merlin-flip-card-inner,
+  .merlin-insight-flip:not(.is-flipped):hover .merlin-insight-flip-inner {
+    transform: none;
+  }
+
+  .merlin-flip-card.is-flipped:hover .merlin-flip-card-inner,
+  .merlin-insight-flip.is-flipped:hover .merlin-insight-flip-inner {
+    transform: rotateY(180deg);
+  }
 }
 
 .merlin-report-image-wide {
@@ -2441,10 +3049,55 @@ button:focus-visible,
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-.merlin-method-steps article:nth-child(1),
-.merlin-method-steps article:nth-child(4),
-.merlin-method-steps article:nth-child(6) {
-  background: rgba(255, 252, 246, 0.78);
+.merlin-method-pair {
+  display: grid;
+  grid-template-columns: minmax(0, 1.16fr) minmax(18rem, 0.84fr);
+  gap: clamp(1rem, 2.2vw, 1.7rem);
+  align-items: stretch;
+}
+
+.merlin-method-pair-reverse {
+  grid-template-columns: minmax(18rem, 0.84fr) minmax(0, 1.16fr);
+}
+
+.merlin-method-pair .merlin-embedded-figure {
+  height: 100%;
+  min-height: 100%;
+}
+
+.merlin-method-pair .merlin-embedded-figure img {
+  height: 100%;
+  min-height: 100%;
+  object-fit: contain;
+}
+
+.merlin-method-pair .merlin-method-steps {
+  grid-template-columns: 1fr;
+  gap: 0.7rem;
+}
+
+.merlin-method-pair .merlin-method-steps article {
+  display: grid;
+  align-content: start;
+  padding: clamp(0.9rem, 1.55vw, 1.15rem);
+  border-radius: 1.1rem;
+}
+
+.merlin-method-pair .merlin-method-steps .project-meta {
+  margin-bottom: clamp(0.5rem, 0.9vw, 0.72rem);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+}
+
+.merlin-method-pair .merlin-method-steps h3 {
+  font-size: clamp(1.1rem, 1.45vw, 1.34rem);
+  line-height: 1.08;
+}
+
+.merlin-method-pair .merlin-method-steps p:last-child {
+  margin-top: clamp(0.62rem, 1vw, 0.82rem);
+  font-size: 0.85rem;
+  line-height: 1.46;
 }
 
 .merlin-illustration-row {
@@ -2597,24 +3250,34 @@ button:focus-visible,
   border-radius: 1.1rem;
 }
 
+.merlin-outcome-panel .project-meta {
+  margin: 0 0 clamp(0.58rem, 1vw, 0.8rem);
+}
+
 .merlin-outcome-panel p:last-child {
-  margin-top: 0.5rem;
+  margin-top: 0;
   color: var(--merlin-muted);
   line-height: 1.65;
 }
 
-.merlin-testing-reflection {
+.merlin-testing-summary {
   display: grid;
-  gap: clamp(1rem, 2vw, 1.4rem);
+  grid-template-columns: minmax(14rem, 0.5fr) minmax(0, 1fr);
+  gap: clamp(1.2rem, 2.5vw, 2rem);
+  align-items: start;
   max-width: 68rem;
-  padding-block: clamp(0.3rem, 1vw, 0.8rem);
-  border-top: 1px solid rgba(23, 115, 78, 0.18);
-  border-bottom: 1px solid rgba(23, 115, 78, 0.18);
+  padding-block: clamp(0.4rem, 1vw, 0.8rem);
+  border-top: 1px solid rgba(23, 115, 78, 0.16);
+  border-bottom: 1px solid rgba(23, 115, 78, 0.16);
 }
 
-.merlin-testing-reflection h3 {
+.merlin-testing-summary .project-meta {
+  margin: 0 0 clamp(0.58rem, 1vw, 0.8rem);
+}
+
+.merlin-testing-summary h3 {
   max-width: 34rem;
-  margin: 0.3rem 0 0;
+  margin: 0;
   color: var(--merlin-ink);
   font-family: var(--font-display);
   font-size: clamp(1.55rem, 2.2vw, 2rem);
@@ -2623,11 +3286,27 @@ button:focus-visible,
   letter-spacing: -0.02em;
 }
 
-.merlin-testing-reflection p:last-child {
-  max-width: 62ch;
-  margin-top: 0.7rem;
+.merlin-testing-points {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.merlin-testing-points > div {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.merlin-testing-points .project-meta {
+  margin: 0;
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+}
+
+.merlin-testing-points p:not(.project-meta) {
+  margin: 0;
   color: var(--merlin-muted);
-  line-height: 1.68;
+  font-size: 0.94rem;
+  line-height: 1.55;
 }
 
 .merlin-testing-images {
@@ -2655,6 +3334,11 @@ button:focus-visible,
     grid-template-columns: 1fr;
   }
 
+  .merlin-report-grid {
+    min-height: auto;
+    align-items: start;
+  }
+
   .merlin-report-section-label {
     position: static;
     display: flex;
@@ -2671,9 +3355,10 @@ button:focus-visible,
 
   .merlin-report-meta dl {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1fr);
     gap: 0.85rem;
     min-height: auto;
+    max-width: 26rem;
   }
 
   .merlin-meta-frame {
@@ -2681,6 +3366,15 @@ button:focus-visible,
     inset: auto;
     width: auto;
     transform: none;
+  }
+
+  .merlin-project-details {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .merlin-method-pair,
+  .merlin-method-pair-reverse {
+    grid-template-columns: 1fr;
   }
 
   .merlin-method-spread,
@@ -2698,22 +3392,64 @@ button:focus-visible,
   }
 
   .merlin-report-hero {
-    padding-top: 1rem;
+    padding-top: 0.7rem;
+  }
+
+  .merlin-back-link {
+    min-height: 2rem;
+    padding: 0.36rem 0.65rem;
+    font-size: 0.68rem;
   }
 
   .merlin-report-grid {
     gap: 1rem;
+    padding-top: 0.75rem;
   }
 
   .merlin-report-title h1 {
-    font-size: clamp(2.7rem, 14vw, 4.4rem);
-    max-width: 13ch;
+    font-size: clamp(2.55rem, 12vw, 4rem);
+    max-width: 100%;
+    line-height: 1;
+  }
+
+  .merlin-hero-deck {
+    font-size: 1rem;
+    line-height: 1.62;
+  }
+
+  .merlin-report-meta dl {
+    max-width: none;
+  }
+
+  .merlin-meta-frame {
+    padding: 0.95rem;
+  }
+
+  .merlin-sponsor-tags {
+    gap: 0.5rem;
+  }
+
+  .merlin-sponsor-tag {
+    min-height: 3rem;
+    border-radius: 1rem;
+  }
+
+  .merlin-project-detail-card {
+    min-height: auto;
+    padding: 1rem 1.05rem 1.1rem;
+  }
+
+  .merlin-detail-primary {
+    font-size: clamp(1.35rem, 7vw, 1.7rem);
   }
 
   .merlin-report-meta dl,
+  .merlin-project-details,
   .merlin-phase-grid,
   .merlin-findings-grid,
   .merlin-direction-grid,
+  .merlin-testing-summary,
+  .merlin-method-pair .merlin-method-steps,
   .merlin-method-spread,
   .merlin-report-gallery,
   .merlin-concept-spread,
@@ -2736,7 +3472,7 @@ button:focus-visible,
 
   .merlin-artifact-figure img[src$=".svg"],
   .merlin-concept-spread .merlin-embedded-figure img {
-    min-width: 42rem;
+    min-width: min(36rem, 160vw);
   }
 
   .merlin-artifact-figure-dark img {
@@ -2745,5 +3481,49 @@ button:focus-visible,
 
   .merlin-report-section {
     padding: 3.3rem 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    width: min(100vw - 1rem, 1180px);
+  }
+
+  .nav {
+    display: grid;
+    grid-template-columns: 1fr auto;
+  }
+
+  .nav-links {
+    max-width: 100%;
+  }
+
+  .hero-identity {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-portrait {
+    max-width: 8rem;
+  }
+
+  .contact-shell {
+    padding: 1.25rem 1rem;
+  }
+
+  .merlin-report-kicker {
+    letter-spacing: 0.14em;
+  }
+
+  .merlin-sponsor-tag-cornell img {
+    height: 1.55rem;
+  }
+
+  .merlin-sponsor-tag-eco img {
+    height: 1.7rem;
+  }
+
+  .merlin-artifact-figure img[src$=".svg"],
+  .merlin-concept-spread .merlin-embedded-figure img {
+    min-width: min(30rem, 150vw);
   }
 }
