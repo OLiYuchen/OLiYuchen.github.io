@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Technique Explorations | Olivia Feng</title>
+  <meta
+    name="description"
+    content="Skill and technique explorations by Olivia Feng across physical computing, prototyping, fabrication, and tactile interaction design."
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="icon" type="image/png" href="/assets/img/personal-logo.png" />
+  <link rel="stylesheet" href="/assets/style.css" />
+</head>
+<body class="portfolio-home exploration-page">
+  <div class="page-orbit" aria-hidden="true"></div>
+
+  <header class="site-header home-header">
+    <div class="container header-row">
+      <a class="brand" href="/"><img class="brand-logo" src="/assets/img/personal-logo.png" alt="" aria-hidden="true" /><span>Olivia Feng</span></a>
+      <nav class="nav" aria-label="Primary">
+        <div class="nav-links">
+          <a href="/#selected-work">Work</a>
+          <a href="/about/">About</a>
+          <a href="/#contact">Contact</a>
+        </div>
+        <a class="btn btn-clear nav-cta" href="/assets/Olivia-Feng-Resume.pdf" target="_blank" rel="noreferrer">
+          <span class="nav-cta-icon" aria-hidden="true">&#8595;</span>
+          <span>Resume</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="section exploration-hero">
+      <div class="container exploration-hero-shell">
+        <a class="merlin-back-link exploration-back-link" href="/#technique-explorations"><span aria-hidden="true">←</span> Back to skill gallery</a>
+        <p class="section-label">Technique explorations</p>
+        <h1>Prototypes, circuits, and material studies that shaped my craft.</h1>
+        <p>
+          These are not primary case studies. They are focused explorations in making ideas testable:
+          quick interface models, soft goods, laser-cut structures, video prototypes, tactile learning tools,
+          and Arduino-based physical computing.
+        </p>
+      </div>
+    </section>
+
+    <section class="section exploration-section exploration-prototypes" aria-labelledby="prototype-gallery-title">
+      <div class="container">
+        <article id="physical-computing" class="exploration-feature-detail">
+          <div class="exploration-detail-media">
+            <img src="/HCDE439/final/cover.jpg" alt="Cat-proof charging station physical computing prototype" />
+          </div>
+          <div class="exploration-detail-copy">
+            <p class="project-meta">Physical computing · Arduino systems</p>
+            <h2 id="physical-computing-title">Sensor-driven hardware studies</h2>
+            <p>
+              A sequence of Arduino studies covering LED timing, PWM fading, photoresistor input, capacitive touch,
+              servo control, MOSFET load switching, joystick-to-web control, and a final cat-proof charging station.
+            </p>
+            <div class="exploration-chip-row" aria-label="Physical computing techniques">
+              <span>Arduino</span>
+              <span>Capacitive sensing</span>
+              <span>Input/output logic</span>
+              <span>Web serial</span>
+            </div>
+            <a class="exploration-original-link" href="/HCDE439/" target="_blank" rel="noreferrer">Open original full page</a>
+          </div>
+          <div class="exploration-evidence-grid" aria-label="Physical computing project evidence">
+            <figure><img src="/HCDE439/Blink_schematic.png" alt="LED blink circuit schematic" /><figcaption>LED timing and resistor calculation.</figcaption></figure>
+            <figure><img src="/HCDE439/a2/fading.gif" alt="PWM LED fading circuit with button input" /><figcaption>PWM fading and pushbutton-controlled LED behavior.</figcaption></figure>
+            <figure><img src="/HCDE439/a3/IO.gif" alt="Photoresistor input controlling LEDs" /><figcaption>Photoresistor input mapped to sequential LED feedback.</figcaption></figure>
+            <figure><img src="/HCDE439/a4/a4.gif" alt="Capacitive touch servo control prototype" /><figcaption>Capacitive touch mapped to servo motion.</figcaption></figure>
+            <figure><img src="/HCDE439/a5/a5.gif" alt="Capacitive touch controlling LED strip brightness through transistor circuit" /><figcaption>MOSFET load switching for capacitive LED strip control.</figcaption></figure>
+            <figure><img src="/HCDE439/a6/a6.gif" alt="Joystick controlled web game prototype" /><figcaption>Joystick input driving a web game through serial communication.</figcaption></figure>
+            <figure><img src="/HCDE439/final/schematics.png" alt="Cat-proof charging station schematic" /><figcaption>Final PIR, capacitive touch, LED strip, buzzer, and safety logic.</figcaption></figure>
+          </div>
+          <div class="exploration-text-grid">
+            <div>
+              <h3>Context</h3>
+              <p>I explored how physical inputs can shape digital or environmental feedback, starting with simple LED timing and building toward sensed interaction systems.</p>
+            </div>
+            <div>
+              <h3>Process</h3>
+              <p>Each circuit paired a schematic, breadboard implementation, firmware, and operation test. The final study combined a PIR motion sensor, capacitive touch, LED strip, and buzzer into one safety-oriented prototype.</p>
+            </div>
+            <div>
+              <h3>Outcome</h3>
+              <p>The work strengthened my technical fluency with sensors, PWM control, calibration, serial communication, and translating interaction intent into hardware behavior.</p>
+            </div>
+          </div>
+        </article>
+
+        <div class="section-heading exploration-detail-heading">
+          <p class="section-label">Prototyping gallery</p>
+          <h2 id="prototype-gallery-title">A compact record of technique-led prototype work.</h2>
+        </div>
+
+        <div class="exploration-detail-list">
+          <article id="thermostat-flow" class="exploration-detail-card">
+            <div class="exploration-card-main">
+              <img src="/HCDE351/assets/exercise-1/IMG_4218.jpeg" alt="Paper thermostat interface prototype" />
+            </div>
+            <div class="exploration-card-copy">
+              <p class="project-meta">Paper interface</p>
+              <h3>Thermostat Flow Sprint</h3>
+              <p>Design a thermostat interface that supports core home programming tasks.</p>
+              <dl class="exploration-mini-meta">
+                <div><dt>Method</dt><dd>Paper screens, flow diagram, rapid group synthesis</dd></div>
+                <div><dt>Takeaway</dt><dd>Paper prototyping exposed the logic quickly and made missing states easy to discuss.</dd></div>
+              </dl>
+              <div class="exploration-thumb-row" aria-label="Thermostat prototype details">
+                <img src="/HCDE351/assets/exercise-1/IMG_4220.jpeg" alt="Thermostat paper prototype screen" />
+                <img src="/HCDE351/assets/exercise-1/IMG_4221.jpeg" alt="Thermostat prototype testing setup" />
+                <img src="/HCDE351/assets/exercise-1/IMG_4222.jpeg" alt="Thermostat user flow diagram" />
+              </div>
+              <a class="exploration-original-link" href="/HCDE351/exercises/exercise-1.html" target="_blank" rel="noreferrer">Open original full page</a>
+            </div>
+          </article>
+
+          <article id="voting-interaction" class="exploration-detail-card">
+            <div class="exploration-card-main">
+              <img src="/HCDE351/assets/exercise-2/voting-machine-cover.JPG" alt="Low-fidelity voting machine prototype" />
+            </div>
+            <div class="exploration-card-copy">
+              <p class="project-meta">Low-fidelity system</p>
+              <h3>Voting Interaction Model</h3>
+              <p>Design a low-fidelity voting machine prototype with fewer steps and moving parts.</p>
+              <dl class="exploration-mini-meta">
+                <div><dt>Method</dt><dd>Sketch merging, physical low-fi model, class-scale testing</dd></div>
+                <div><dt>Outcome</dt><dd>Testing surfaced usability edge cases quickly and clarified where the interaction needed stronger feedback.</dd></div>
+              </dl>
+              <div class="exploration-thumb-row" aria-label="Voting prototype details">
+                <img src="/HCDE351/assets/exercise-2/voting-machine-prototype.JPG" alt="Voting machine prototype detail" />
+                <img src="/HCDE351/assets/exercise-2/user-flow.png" alt="Voting machine user flow" />
+                <img src="/HCDE351/assets/exercise-2/early-sketches.png" alt="Voting machine early sketches" />
+              </div>
+              <a class="exploration-original-link" href="/HCDE351/exercises/exercise-2.html" target="_blank" rel="noreferrer">Open original full page</a>
+            </div>
+          </article>
+
+          <article id="pet-care-appliance" class="exploration-detail-card">
+            <div class="exploration-card-main">
+              <img src="/HCDE351/assets/assignment-1/prompt-product-shot.jpeg" alt="All-in-one pet grooming appliance prototype" />
+            </div>
+            <div class="exploration-card-copy">
+              <p class="project-meta">3D low-fi product</p>
+              <h3>Pet Care Appliance</h3>
+              <p>A compact grooming concept built around usability, comfort, and multi-function pet care.</p>
+              <dl class="exploration-mini-meta">
+                <div><dt>Features</dt><dd>Fur brushing, nail filing, massage, calming sounds, and removable comb attachments.</dd></div>
+                <div><dt>Critique</dt><dd>Six testers liked the realistic weight and manual comb, but wanted clearer controls and simpler speed settings.</dd></div>
+              </dl>
+              <div class="exploration-thumb-row" aria-label="Pet care appliance process">
+                <img src="/HCDE351/assets/assignment-1/design-exploration-1.jpg" alt="Pet grooming appliance design exploration" />
+                <img src="/HCDE351/assets/assignment-1/design-exploration-2.jpg" alt="Pet grooming appliance alternate sketch" />
+                <img src="/HCDE351/assets/assignment-1/feature-review-map.jpg" alt="Pet grooming feature review map" />
+              </div>
+              <a class="exploration-original-link" href="/HCDE351/assignments/assignment-1.html" target="_blank" rel="noreferrer">Open original full page</a>
+            </div>
+          </article>
+
+          <article id="sewn-chalk-bag" class="exploration-detail-card">
+            <div class="exploration-card-main">
+              <img src="/HCDE351/assignments/a2/final13.JPG" alt="Sewn Jellycat-inspired bouldering chalk bag prototype" />
+            </div>
+            <div class="exploration-card-copy">
+              <p class="project-meta">Soft goods</p>
+              <h3>Sewn Chalk Bag</h3>
+              <p>A sewn chalk bag that remixes the visual language of a Jellycat gift bag.</p>
+              <dl class="exploration-mini-meta">
+                <div><dt>Method</dt><dd>Sketching, paper structure studies, muslin testing, machine sewing, drawstring closure.</dd></div>
+                <div><dt>Outcome</dt><dd>The final bag used layered construction to reduce chalk leakage while keeping a playful outer shell.</dd></div>
+              </dl>
+              <div class="exploration-thumb-row" aria-label="Sewn chalk bag process">
+                <img src="/HCDE351/assets/assignment-2/sketch.jpg" alt="Chalk bag initial sketch" />
+                <img src="/HCDE351/assignments/a2/muslin3.JPG" alt="Chalk bag muslin prototype" />
+                <img src="/HCDE351/assignments/a2/final10.JPG" alt="Chalk bag final construction detail" />
+              </div>
+              <a class="exploration-original-link" href="/HCDE351/assignments/assignment-2.html" target="_blank" rel="noreferrer">Open original full page</a>
+            </div>
+          </article>
+
+          <article id="flat-pack-laptop-stand" class="exploration-detail-card">
+            <div class="exploration-card-main">
+              <img src="/HCDE351/assets/assignment-3/process-10-assemble.JPG" alt="Laser-cut flat-pack laptop stand prototype" />
+            </div>
+            <div class="exploration-card-copy">
+              <p class="project-meta">Laser-cut fabrication</p>
+              <h3>Flat-Pack Laptop Stand</h3>
+              <p>One structure supporting laptop use, flat-pack storage, book display, and desk organization.</p>
+              <dl class="exploration-mini-meta">
+                <div><dt>Method</dt><dd>Parametric Onshape modeling, auto laser joints, Kiri:Moto layout, kerf and allowance tests.</dd></div>
+                <div><dt>Outcome</dt><dd>The final -0.05 kerf and -0.03 allowance combination created firm joints without glue or tape.</dd></div>
+              </dl>
+              <div class="exploration-thumb-row" aria-label="Laptop stand fabrication process">
+                <img src="/HCDE351/assets/assignment-3/sketch.JPG" alt="Laptop stand sketch" />
+                <img src="/HCDE351/assets/assignment-3/kerf-allowance-test.JPG" alt="Laser cut kerf allowance tests" />
+                <img src="/HCDE351/assets/assignment-3/multifunction-laptop-stand.JPG" alt="Laptop stand in use" />
+              </div>
+              <a class="exploration-original-link" href="/HCDE351/assignments/assignment-3.html" target="_blank" rel="noreferrer">Open original full page</a>
+            </div>
+          </article>
+
+          <article id="climbing-recovery-concept" class="exploration-detail-card">
+            <div class="exploration-card-main">
+              <img src="/HCDE351/assets/assignment-5/storyboard-final.JPG" alt="Storyboard for climbing recovery video prototype" />
+            </div>
+            <div class="exploration-card-copy">
+              <p class="project-meta">Video prototype</p>
+              <h3>Climbing Recovery Concept</h3>
+              <p>A novel interaction for a wellness product communicated through a scenario-based video prototype.</p>
+              <dl class="exploration-mini-meta">
+                <div><dt>Concept</dt><dd>A bracelet records climbing force, reports session metrics, and recommends recovery timing.</dd></div>
+                <div><dt>Outcome</dt><dd>Viewers understood the concept clearly because the video made the interaction feel realistic and situated.</dd></div>
+              </dl>
+              <div class="exploration-thumb-row" aria-label="Video prototype storyboard process">
+                <img src="/HCDE351/assets/assignment-5/storyboard-brainstorm.JPG" alt="Climbing recovery storyboard brainstorm" />
+                <img src="/HCDE351/assets/assignment-5/reflection-figma-components.png" alt="Video prototype Figma components" />
+                <img src="/HCDE351/assets/assignment-5/reflection-editing.png" alt="Video editing reflection artifact" />
+              </div>
+              <a class="exploration-original-link" href="/HCDE351/assignments/assignment-5.html" target="_blank" rel="noreferrer">Open original full page</a>
+            </div>
+          </article>
+
+          <article id="bloom-fabric-book" class="exploration-detail-card exploration-detail-card-featured">
+            <div class="exploration-card-main">
+              <img src="/HCDE351/assets/final/cover-process.jpeg" alt="Bloom tactile puberty education prototype book" />
+            </div>
+            <div class="exploration-card-copy">
+              <p class="project-meta">Tactile learning · multi-material prototype</p>
+              <h3>Bloom Fabric Book</h3>
+              <p>
+                A group final prototype using fabric pages, soft anatomical models, 3D prints, and laser-cut pieces
+                to make puberty education approachable, tactile, and easier to explore safely.
+              </p>
+              <dl class="exploration-mini-meta">
+                <div><dt>Approach</dt><dd>Paper planning, sewn plush models, 3D-printed anatomy, laser-cut supports, and repeated interaction testing.</dd></div>
+                <div><dt>Evaluation</dt><dd>We tested whether tactile pages helped people understand anatomy, period products, and placement tasks without heavy instruction.</dd></div>
+              </dl>
+              <div class="exploration-thumb-row" aria-label="Bloom tactile education prototype process">
+                <img src="/HCDE351/assets/final/vulva-page-process.jpeg" alt="Bloom vulva plush page process" />
+                <img src="/HCDE351/assets/final/uterus-page-process.png" alt="Bloom 3D printed uterus page process" />
+                <img src="/HCDE351/assets/final/pad-placement-process.jpeg" alt="Bloom pad placement page process" />
+                <img src="/HCDE351/assets/final/book-structure-process.jpeg" alt="Bloom fabric book structure process" />
+              </div>
+              <a class="exploration-original-link" href="/HCDE351/final/" target="_blank" rel="noreferrer">Open original full page</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer home-footer">
+    <div class="container footer-row">
+      <p>© <span id="year"></span> Olivia Yuchen Feng</p>
+      <p>Technique explorations and prototype craft.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
