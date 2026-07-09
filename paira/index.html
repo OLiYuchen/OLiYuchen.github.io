@@ -148,27 +148,19 @@
   <section class="merlin-report-section">
     <div class="container merlin-report-layout">
       <aside class="merlin-report-section-label">
-        <p class="section-label">Design Principles</p>
+        <p class="section-label">Live Product</p>
         <span>03</span>
       </aside>
       <div class="merlin-report-content">
         <div class="merlin-report-lede">
-          <h2>The product direction was guided by three startup design principles.</h2>
-          <p>These principles helped me evaluate flows, design system choices, and growth mechanics beyond whether a screen looked polished.</p>
+          <h2>The public website shows the product voice and current market-facing story.</h2>
+          <p>For the portfolio page, I keep unreleased app flows private and use the live Paira site as the public-facing artifact. It gives interviewers a quick sense of the product positioning without exposing internal roadmap details.</p>
         </div>
-        <div class="merlin-direction-grid">
-          <article>
-            <h3>Lower the social cost</h3>
-            <p>Help users understand who is relevant, why the connection matters, and what a natural first step could be.</p>
-          </article>
-          <article>
-            <h3>Make AI feel assistive</h3>
-            <p>Use AI-native support to reduce friction without replacing user agency, identity, or authentic expression.</p>
-          </article>
-          <article>
-            <h3>Keep momentum visible</h3>
-            <p>Make progress feel concrete across profile setup, discovery, invitation, referral, and paid conversion moments.</p>
-          </article>
+        <div class="case-site-embed" aria-label="Paira website preview">
+          <iframe src="https://www.paira.org/" title="Paira official website preview" loading="lazy"></iframe>
+        </div>
+        <div class="links">
+          <a class="linkchip" href="https://www.paira.org/" target="_blank" rel="noreferrer">Open Paira website</a>
         </div>
       </div>
     </div>
@@ -182,21 +174,21 @@
       </aside>
       <div class="merlin-report-content">
         <div class="merlin-report-lede">
-          <h2>The outcome is a clearer product story, beta-ready UX, and a scalable visual foundation.</h2>
-          <p>Paira is still in progress, so this page stays at a preview level. The interview value is showing how I work through early product ambiguity: defining the value proposition, translating it into growth and retention flows, and building a design system that supports the product thesis.</p>
+          <h2>The strongest public story is the role I played in taking Paira from idea toward beta.</h2>
+          <p>Because Paira is an active startup, I am intentionally not publishing detailed internal flows, roadmap decisions, or private product artifacts here. The public version focuses on my role, product framing, traction, and design ownership.</p>
         </div>
         <div class="merlin-outcome-panel">
           <div>
-            <p class="project-meta">What this shows</p>
-            <p>0-1 product design, startup product strategy, design system building, and the ability to design for emotional barriers such as awkwardness, trust, and uncertainty.</p>
+            <p class="project-meta">Public takeaway</p>
+            <p>0-1 product design, startup product strategy, design system building, and growth-flow thinking.</p>
           </div>
           <div>
-            <p class="project-meta">What I can walk through</p>
-            <p>In an interview, I can discuss product framing, beta launch preparation, growth-flow tradeoffs, and how the interface direction evolved with the team.</p>
+            <p class="project-meta">Available on request</p>
+            <p>In conversation, I can walk through product framing, beta launch preparation, growth-flow tradeoffs, and design system decisions.</p>
           </div>
         </div>
         <div class="links">
-          <a class="linkchip" href="/#contact">Request the fuller walkthrough</a>
+          <a class="linkchip" href="/#contact">Request the full story</a>
         </div>
       </div>
     </div>
@@ -207,7 +199,7 @@
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const revealTargets = document.querySelectorAll('.merlin-report-lede, .merlin-hero-focus, .merlin-meta-frame, .merlin-project-detail-card, .case-cover-image, .merlin-report-question, .merlin-poster-summary > div, .merlin-method-pair, .merlin-method-steps article, .merlin-direction-grid article, .merlin-outcome-panel');
+  const revealTargets = document.querySelectorAll('.merlin-report-lede, .merlin-hero-focus, .merlin-meta-frame, .merlin-project-detail-card, .case-cover-image, .merlin-report-question, .merlin-poster-summary > div, .merlin-method-pair, .merlin-method-steps article, .case-site-embed, .merlin-outcome-panel');
   revealTargets.forEach((node, index) => {
     node.classList.add('merlin-reveal');
     node.style.setProperty('--merlin-reveal-index', String(index % 4));
