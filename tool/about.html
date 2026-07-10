@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>关于与反馈 · 投资情报助手</title>
+  <link rel="stylesheet" href="/tool/styles.css" />
+</head>
+<body>
+  <header class="tool-header">
+    <a class="tool-logo" href="/tool">投资情报助手</a>
+    <div class="tool-search-wrap">
+      <input id="searchInput" class="tool-search-input" type="text" placeholder="搜索公司或代码，如 拼多多 / PDD / 600519 / 00700.HK" autocomplete="off" />
+      <div id="searchDropdown" class="search-dropdown" hidden></div>
+    </div>
+    <a class="tool-nav-link" href="/tool/about">关于与反馈</a>
+  </header>
+
+  <main class="tool-main about-main">
+
+    <section class="about-block">
+      <h1>关于本工具</h1>
+      <p>投资情报助手是一个面向投资研究团队的公司动态监控与信息核查工具。输入公司名称或股票代码，即可查看该公司近期的新闻、公告、监管动态，并附带可追溯到原文的来源标注。</p>
+      <p class="about-usecase"><strong>适用场景：</strong>持续跟踪重点关注企业的动态，尤其是并购、监管调查等重大事件；帮助研究/投资团队在几分钟内掌握目标公司近况，减少人工逐个搜索、核对来源的时间。</p>
+      <p class="about-disclaimer">
+        <strong>重要声明：</strong>本工具不构成投资建议。页面上的"重要度"标签与"是否可能影响投资判断"要点均来自确定性的关键词/事件类型规则，<strong>不是 AI 生成的分析</strong>，也不保证覆盖所有相关信息。最终判断请以核实后的原始来源为准。
+      </p>
+    </section>
+
+    <section class="about-block">
+      <h2>数据范围与更新方式</h2>
+      <table class="about-table">
+        <thead>
+          <tr><th>市场</th><th>覆盖内容</th><th>数据来源</th><th>说明</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>美股（含中概股 ADR）</td>
+            <td>公司信息、公告(filings)、财务数据、行情快照</td>
+            <td>SEC EDGAR 官方接口；行情来自 Nasdaq 公开接口</td>
+            <td>覆盖最完整、最可靠的一层</td>
+          </tr>
+          <tr>
+            <td>A股</td>
+            <td>公司公告（重大事项、定期报告等）</td>
+            <td>巨潮资讯网 (cninfo.com.cn) 公开接口</td>
+            <td>不含结构化财务数字与实时行情</td>
+          </tr>
+          <tr>
+            <td>港股</td>
+            <td>公司公告</td>
+            <td>巨潮资讯网聚合的港股披露信息</td>
+            <td>覆盖有限，建议同时查阅港交所披露易官网核实</td>
+          </tr>
+          <tr>
+            <td>三个市场通用</td>
+            <td>新闻</td>
+            <td>Google News（中英文皆可检索）</td>
+            <td>按权威度分级展示，不代表逐条人工核实</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="about-note">数据在每次打开首页或公司页面时<strong>实时抓取</strong>，不是后台持续监控——这是当前版本的已知限制，关注列表也仅保存在你当前使用的浏览器里（localStorage），换设备或清缓存需要重新添加。</p>
+    </section>
+
+    <section class="about-block">
+      <h2>使用说明</h2>
+      <ul class="about-list">
+        <li><strong>搜索：</strong>支持公司中/英文名称、常见别名、美股 ticker、6 位 A 股代码（如 600519）、带 .HK 后缀的港股代码（如 00700.HK）。</li>
+        <li><strong>关注：</strong>在公司工作台点击「加入关注」，该公司的动态会汇总到首页「关键更新日志」。</li>
+        <li><strong>来源核查：</strong>点击任意「来源」标签，会从右侧展开完整来源信息与原文链接，新标签页打开查看原文。</li>
+        <li><strong>重要度标签：</strong>高 / 中 / 低，来自关键词（如"立案调查""问询函"）与事件类型（如高优先级监管表格）的确定性规则判断，会存在误判，仅作为初筛参考。</li>
+      </ul>
+    </section>
+
+    <section class="about-block">
+      <h2>开发者说明</h2>
+      <p>本工具由 <strong>Olivia Feng</strong> 独立开发与维护，目前仍在持续迭代中。</p>
+      <p>联系方式：<a href="mailto:fyc2003@uw.edu">fyc2003@uw.edu</a></p>
+    </section>
+
+    <section class="about-block" id="feedback">
+      <h2>问题反馈</h2>
+      <p class="about-note">遇到 Bug 或有改进建议，欢迎在下面填写并提交——点击提交后会自动打开你的邮件客户端，预填好标题和内容发送给开发者；如果勾选了诊断信息，会一并附上当前页面、浏览器信息和最近捕获到的报错，方便定位问题。</p>
+
+      <form id="feedbackForm" class="feedback-form">
+        <label class="feedback-field">
+          <span>类型</span>
+          <select id="feedbackType">
+            <option value="Bug反馈">Bug 反馈</option>
+            <option value="功能建议">功能建议</option>
+            <option value="其他">其他</option>
+          </select>
+        </label>
+
+        <label class="feedback-field">
+          <span>标题</span>
+          <input id="feedbackTitle" type="text" placeholder="一句话描述问题或建议" required maxlength="100" />
+        </label>
+
+        <label class="feedback-field">
+          <span>内容</span>
+          <textarea id="feedbackContent" rows="5" placeholder="具体描述：发生了什么、期望是什么、如果是 Bug 请说明复现步骤" required maxlength="2000"></textarea>
+        </label>
+
+        <label class="feedback-checkbox">
+          <input id="feedbackDiagnostics" type="checkbox" checked />
+          <span>自动附上诊断信息（当前页面、浏览器信息、最近的页面报错）</span>
+        </label>
+
+        <div class="feedback-actions">
+          <button type="submit" class="watch-btn">提交并发送邮件</button>
+          <button type="button" id="copyFeedback" class="ghost-btn">复制反馈内容</button>
+        </div>
+        <p id="feedbackStatus" class="feedback-status" hidden></p>
+      </form>
+    </section>
+
+  </main>
+
+  <script src="/tool/shared.js"></script>
+  <script src="/tool/about.js"></script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>公司工作台 · 投资情报助手</title>
+  <link rel="stylesheet" href="/tool/styles.css" />
+</head>
+<body>
+  <header class="tool-header">
+    <a class="tool-logo" href="/tool">投资情报助手</a>
+    <div class="tool-search-wrap">
+      <input id="searchInput" class="tool-search-input" type="text" placeholder="搜索公司或代码，如 拼多多 / PDD / 600519 / 00700.HK" autocomplete="off" />
+      <div id="searchDropdown" class="search-dropdown" hidden></div>
+    </div>
+    <a class="tool-nav-link" href="/tool/about">关于与反馈</a>
+  </header>
+
+  <main class="tool-main">
+    <div id="loadingState" class="loading-state">
+      <div class="skeleton-card skeleton-header"></div>
+      <div class="skeleton-card"></div>
+      <div class="skeleton-card"></div>
+    </div>
+
+    <div id="errorState" class="error-state" hidden>
+      <p id="errorMessage"></p>
+    </div>
+
+    <div id="companyContent" hidden>
+      <section class="company-header" id="companyHeader"></section>
+
+      <div id="coverageNotice" class="coverage-notice" hidden></div>
+
+      <section class="screening-block">
+        <h2>是否可能影响投资判断</h2>
+        <p class="screening-disclaimer">
+          <span class="rule-badge">规则筛选结果</span>
+          基于关键词与事件类型的确定性规则判断，<strong>非 AI 生成的投资分析</strong>。
+        </p>
+        <ul id="screeningList" class="screening-list"></ul>
+        <p id="screeningEmpty" class="screening-empty" hidden>近期没有触发重要度规则的事件。</p>
+      </section>
+
+      <section class="feed-section">
+        <div class="filter-chips" id="filterChips">
+          <button class="chip active" data-type="all">全部</button>
+          <button class="chip" data-type="news">新闻</button>
+          <button class="chip" data-type="filing">公告</button>
+          <button class="chip" data-type="regulatory">监管动态</button>
+          <button class="chip" data-type="industry">行业</button>
+        </div>
+        <div id="eventList" class="event-list"></div>
+        <p id="feedEmpty" class="empty-state-sub" hidden>该类型下暂无近期动态。</p>
+      </section>
+    </div>
+  </main>
+
+  <script src="/tool/shared.js"></script>
+  <script src="/tool/company-page.js"></script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>投资情报助手</title>
+  <link rel="stylesheet" href="/tool/styles.css" />
+</head>
+<body>
+  <header class="tool-header">
+    <a class="tool-logo" href="/tool">投资情报助手</a>
+    <div class="tool-search-wrap">
+      <input id="searchInput" class="tool-search-input" type="text" placeholder="搜索公司或代码，如 拼多多 / PDD / 600519 / 00700.HK" autocomplete="off" />
+      <div id="searchDropdown" class="search-dropdown" hidden></div>
+    </div>
+    <a class="tool-nav-link" href="/tool/about">关于与反馈</a>
+  </header>
+
+  <main class="tool-main">
+    <section class="watchlist-bar">
+      <div class="watchlist-bar-head">
+        <h2>已关注公司</h2>
+        <span class="watchlist-hint">保存于本设备浏览器，换设备或清缓存后需要重新添加</span>
+      </div>
+      <div id="watchlistChips" class="watchlist-chips"></div>
+    </section>
+
+    <section class="log-section">
+      <div class="log-header">
+        <h1>关键更新日志</h1>
+        <div class="log-meta">
+          <span id="lastUpdated"></span>
+          <button id="refreshBtn" class="ghost-btn" type="button">刷新</button>
+        </div>
+      </div>
+      <p class="log-disclaimer">此列表为你打开页面时对已关注公司的实时抓取结果，不代表后台持续监控。</p>
+
+      <div id="logFeed" class="event-list"></div>
+
+      <div id="emptyState" class="empty-state" hidden>
+        <p>还没有关注任何公司</p>
+        <p class="empty-state-sub">搜索一家公司，进入工作台后点击「加入关注」，它的最新动态就会出现在这里。</p>
+      </div>
+
+      <div id="loadingState" class="loading-state" hidden>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/tool/shared.js"></script>
+  <script src="/tool/home.js"></script>
+</body>
+</html>
