@@ -4,6 +4,76 @@
 const API_BASE = "/api/tool";
 const WATCHLIST_KEY = "tool.watchlist.v1";
 
+/* ---------- password gate ---------- */
+/* Real enforcement lives server-side (middleware.js checks the HttpOnly
+   tool_auth cookie on every /api/tool/* call). This overlay is the UX layer:
+   the page shell loads normally, but everything is blurred and inert until
+   the visitor enters the password — no username field, matching the ask
+   for a single-secret gate rather than a browser-native Basic Auth prompt. */
+
+function hasPassedGate() {
+  return document.cookie.split("; ").some((c) => c === "tool_gate=1" || c.startsWith("tool_gate=1;"));
+}
+
+function unlockGate() {
+  document.body.classList.remove("gate-locked");
+  const overlay = document.getElementById("gateOverlay");
+  if (overlay) overlay.remove();
+}
+
+function showGateOverlay(onUnlocked) {
+  const overlay = document.createElement("div");
+  overlay.id = "gateOverlay";
+  overlay.className = "gate-overlay";
+  overlay.innerHTML = `
+    <div class="gate-card">
+      <p class="gate-title">投资情报助手</p>
+      <p class="gate-sub">请输入访问口令</p>
+      <form id="gateForm" autocomplete="off">
+        <input id="gatePassword" type="password" placeholder="口令" autocomplete="current-password" />
+        <button type="submit">进入</button>
+      </form>
+      <p id="gateError" class="gate-error" hidden>口令不正确，请重试。</p>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+
+  const input = overlay.querySelector("#gatePassword");
+  const errorEl = overlay.querySelector("#gateError");
+  input.focus();
+
+  overlay.querySelector("#gateForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    errorEl.hidden = true;
+    try {
+      const response = await fetch(`${API_BASE}/auth`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password: input.value }),
+      });
+      if (!response.ok) throw new Error("unauthorized");
+      unlockGate();
+      onUnlocked();
+    } catch (error) {
+      errorEl.hidden = false;
+      input.value = "";
+      input.focus();
+    }
+  });
+}
+
+// Call this instead of running page init code directly — it either unlocks
+// immediately (cookie already present) or shows the gate first and only
+// calls onUnlocked() once the password is accepted.
+function initPasswordGate(onUnlocked) {
+  if (hasPassedGate()) {
+    unlockGate();
+    onUnlocked();
+    return;
+  }
+  showGateOverlay(onUnlocked);
+}
+
 /* ---------- lightweight runtime diagnostics (for bug reports) ---------- */
 /* Session-only, capped, never persisted or sent anywhere unless the user
    explicitly attaches it to a feedback submission. */
@@ -130,44 +200,55 @@ async function fetchJSON(url) {
   return data;
 }
 
-/* ---------- event card component ---------- */
+/* ---------- event row component ---------- */
 
-// events carry exactly one source each in this data model, so the card's
-// citation chip opens that source directly.
+// events carry exactly one source each in this data model, so clicking
+// anywhere on the row opens that source directly — no separate chip needed
+// as the primary click target.
 function renderEventCard(event, { showCompany = false } = {}) {
-  const card = document.createElement("article");
-  card.className = "event-card";
-  card.dataset.eventType = event.eventType;
-  card.dataset.importance = event.importance;
+  const row = document.createElement("article");
+  row.className = "event-row";
+  row.dataset.eventType = event.eventType;
+  row.dataset.importance = event.importance;
 
   const source = event.sources && event.sources[0];
   const companyTag = showCompany
     ? `<button class="event-company-link" data-market="${escapeHtml(event.market)}" data-id="${escapeHtml(event.ticker)}">${escapeHtml(event.company)}</button>`
     : "";
 
-  card.innerHTML = `
-    <div class="event-row-top">
+  row.innerHTML = `
+    <div class="event-row-head">
       <span class="event-type-badge event-type-${escapeHtml(event.eventType)}">${escapeHtml(EVENT_TYPE_LABEL[event.eventType] || event.eventType)}</span>
+      <span class="importance-badge importance-${escapeHtml(event.importance)}">重要度：${escapeHtml(IMPORTANCE_LABEL[event.importance] || event.importance)}</span>
       ${companyTag}
       <time class="event-time">${escapeHtml(formatRelativeTime(event.timestamp))}</time>
     </div>
     <p class="event-title">${escapeHtml(event.title)}</p>
-    <div class="event-row-bottom">
-      <span class="importance-badge importance-${escapeHtml(event.importance)}">重要度：${escapeHtml(IMPORTANCE_LABEL[event.importance] || event.importance)}</span>
-      ${source ? `<button class="source-chip" data-source-id="${escapeHtml(source.id)}">${escapeHtml(source.publisher)}</button>` : ""}
-    </div>
+    ${source ? `<div class="event-row-foot"><span class="event-source-name">来源：${escapeHtml(source.publisher)}</span><span class="event-more-hint">查看详情与原文 →</span></div>` : ""}
   `;
 
   if (source) {
-    card.querySelector(".source-chip").addEventListener("click", () => openSourcePanel(source));
+    row.classList.add("event-row-clickable");
+    row.tabIndex = 0;
+    row.setAttribute("role", "button");
+    row.setAttribute("aria-label", `查看来源详情：${event.title}`);
+    const openThisSource = () => openSourcePanel(source, event);
+    row.addEventListener("click", openThisSource);
+    row.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        openThisSource();
+      }
+    });
   }
   if (showCompany) {
-    card.querySelector(".event-company-link").addEventListener("click", (e) => {
+    row.querySelector(".event-company-link").addEventListener("click", (e) => {
+      e.stopPropagation();
       const { market, id } = e.currentTarget.dataset;
       navigateToCompany(market, id);
     });
   }
-  return card;
+  return row;
 }
 
 function renderScreeningBullet(bullet, sourcesById) {
@@ -222,18 +303,29 @@ function ensureSourcePanel() {
   return { panel, overlay };
 }
 
-function openSourcePanel(source) {
+function openSourcePanel(source, event) {
   const { panel, overlay } = ensureSourcePanel();
   const credibility = CREDIBILITY_LABEL[source.credibility] || "一般来源";
+
+  // event.summary carries real added context for filings (e.g. "PDD 提交了
+  // 6-K，建议复核最新财务与风险披露变化"). For news it's currently identical
+  // to the title (V1 does not fabricate summaries), so skip showing it twice.
+  const hasExtraSummary = event && event.summary && event.summary.trim() !== source.title.trim();
+
   document.getElementById("sourcePanelBody").innerHTML = `
     <span class="credibility-badge credibility-${escapeHtml(source.credibility || "general-media")}">${escapeHtml(credibility)}</span>
     <h3>${escapeHtml(source.title)}</h3>
+    ${hasExtraSummary ? `<p class="source-summary">${escapeHtml(event.summary)}</p>` : ""}
     <dl class="source-meta">
       <dt>发布方</dt><dd>${escapeHtml(source.publisher)}</dd>
       <dt>发布时间</dt><dd>${escapeHtml(source.publishedAt ? new Date(source.publishedAt).toLocaleString("zh-CN") : "时间未知")}</dd>
       <dt>来源类型</dt><dd>${escapeHtml(source.sourceType === "regulatory" ? "监管公告 / 官方披露" : "新闻媒体")}</dd>
     </dl>
-    ${source.url ? `<a class="source-open-link" href="${escapeHtml(source.url)}" target="_blank" rel="noopener noreferrer">查看原文 ↗</a>` : `<p class="source-unavailable">无法独立核实此信息的原文链接。</p>`}
+    ${
+      source.url
+        ? `<a class="source-open-link" href="${escapeHtml(source.url)}" target="_blank" rel="noopener noreferrer">查看完整原文 ↗</a>${!hasExtraSummary ? `<p class="source-note">此处仅展示标题与来源元信息，本工具不生成新闻摘要 —— 完整内容请点击查看原文。</p>` : ""}`
+        : `<p class="source-unavailable">无法独立核实此信息的原文链接。</p>`
+    }
   `;
   panel.hidden = false;
   overlay.hidden = false;
@@ -259,9 +351,12 @@ function navigateToCompany(market, id) {
 
 /* ---------- global search box (shared header) ---------- */
 
+const searchResultCache = new Map();
+
 function setupGlobalSearch(inputEl, dropdownEl) {
   let debounceTimer = null;
   let latestCandidates = [];
+  let latestQuery = "";
 
   function renderDropdown(candidates) {
     latestCandidates = candidates;
@@ -289,22 +384,40 @@ function setupGlobalSearch(inputEl, dropdownEl) {
     });
   }
 
+  function renderLoading() {
+    dropdownEl.hidden = false;
+    dropdownEl.innerHTML = `<div class="search-result-loading">搜索中…</div>`;
+  }
+
   async function runSearch(query) {
-    if (!query.trim()) {
+    const trimmed = query.trim();
+    latestQuery = trimmed;
+    if (!trimmed) {
       renderDropdown([]);
       return;
     }
+
+    const cached = searchResultCache.get(trimmed);
+    if (cached) {
+      renderDropdown(cached);
+      return;
+    }
+
+    renderLoading();
     try {
-      const data = await fetchJSON(`${API_BASE}/search?q=${encodeURIComponent(query)}`);
-      renderDropdown(data.candidates || []);
+      const data = await fetchJSON(`${API_BASE}/search?q=${encodeURIComponent(trimmed)}`);
+      const candidates = data.candidates || [];
+      searchResultCache.set(trimmed, candidates);
+      // Guard against a slower earlier request resolving after a newer one.
+      if (latestQuery === trimmed) renderDropdown(candidates);
     } catch (error) {
-      renderDropdown([]);
+      if (latestQuery === trimmed) renderDropdown([]);
     }
   }
 
   inputEl.addEventListener("input", () => {
     clearTimeout(debounceTimer);
-    debounceTimer = setTimeout(() => runSearch(inputEl.value), 250);
+    debounceTimer = setTimeout(() => runSearch(inputEl.value), 150);
   });
 
   inputEl.addEventListener("keydown", (e) => {

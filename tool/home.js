@@ -38,6 +38,40 @@
     });
   }
 
+  // A short, deterministic status line per company — real counts and the
+  // single latest headline, not an AI-written narrative.
+  function buildCompanySummary(events) {
+    if (!events.length) return "近期没有可用动态。";
+    const sorted = [...events].sort((a, b) => String(b.timestamp || "").localeCompare(String(a.timestamp || "")));
+    const latest = sorted[0];
+    const highCount = events.filter((e) => e.importance === "high").length;
+    let text = `共 ${events.length} 条动态`;
+    if (highCount > 0) text += `，其中 ${highCount} 条为高优先级`;
+    text += `。最新：《${latest.title}》`;
+    return text;
+  }
+
+  function renderCompanyLogBlock(company, events, failed) {
+    const block = document.createElement("article");
+    block.className = "company-log-block";
+
+    const sorted = [...events].sort((a, b) => String(b.timestamp || "").localeCompare(String(a.timestamp || "")));
+    const latestTime = sorted.length ? formatRelativeTime(sorted[0].timestamp) : "";
+    const summaryText = failed ? "本次未能获取到最新数据，可点击「刷新」重试。" : buildCompanySummary(events);
+
+    block.innerHTML = `
+      <div class="company-log-head">
+        <button class="company-log-name">${escapeHtml(company.name)}</button>
+        <span class="search-result-market">${escapeHtml(marketLabel(company.market))}</span>
+        ${latestTime ? `<time class="event-time">${escapeHtml(latestTime)}</time>` : ""}
+      </div>
+      <p class="company-log-summary">${escapeHtml(summaryText)}</p>
+      <a class="company-log-link" href="/tool/company?m=${encodeURIComponent(company.market)}&id=${encodeURIComponent(company.id)}">查看全部动态与来源 →</a>
+    `;
+    block.querySelector(".company-log-name").addEventListener("click", () => navigateToCompany(company.market, company.id));
+    return block;
+  }
+
   async function loadLog() {
     const watchlist = getWatchlist();
 
@@ -59,38 +93,28 @@
 
     loadingStateEl.hidden = true;
 
-    const allEvents = [];
-    const failed = [];
-    results.forEach((result, index) => {
-      if (result.status === "fulfilled") {
-        allEvents.push(...result.value.events);
-      } else {
-        failed.push(watchlist[index].name);
-      }
+    // Companies with the most recent activity surface first.
+    const blocks = watchlist.map((company, index) => {
+      const result = results[index];
+      const events = result.status === "fulfilled" ? result.value.events : [];
+      const latestTimestamp = events.length
+        ? events.reduce((max, e) => (String(e.timestamp || "") > max ? String(e.timestamp || "") : max), "")
+        : "";
+      return { company, events, failed: result.status !== "fulfilled", latestTimestamp };
     });
+    blocks.sort((a, b) => b.latestTimestamp.localeCompare(a.latestTimestamp));
 
-    allEvents.sort((a, b) => String(b.timestamp || "").localeCompare(String(a.timestamp || "")));
-
-    if (!allEvents.length) {
-      logFeedEl.innerHTML = `<p class="empty-state-sub">已关注公司近期没有可用动态。</p>`;
-    } else {
-      allEvents.slice(0, 60).forEach((event) => {
-        logFeedEl.appendChild(renderEventCard(event, { showCompany: true }));
-      });
-    }
-
-    if (failed.length) {
-      const notice = document.createElement("p");
-      notice.className = "empty-state-sub";
-      notice.textContent = `以下公司本次未能获取到最新数据，可点击“刷新”重试：${failed.join("、")}`;
-      logFeedEl.prepend(notice);
-    }
+    blocks.forEach(({ company, events, failed }) => {
+      logFeedEl.appendChild(renderCompanyLogBlock(company, events, failed));
+    });
 
     lastUpdatedEl.textContent = `最后更新于 ${new Date().toLocaleTimeString("zh-CN", { hour: "2-digit", minute: "2-digit" })}`;
   }
 
   refreshBtn.addEventListener("click", loadLog);
 
-  renderWatchlistChips();
-  loadLog();
+  initPasswordGate(() => {
+    renderWatchlistChips();
+    loadLog();
+  });
 })();

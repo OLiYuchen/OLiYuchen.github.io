@@ -141,5 +141,5 @@
     }
   }
 
-  load();
+  initPasswordGate(load);
 })();

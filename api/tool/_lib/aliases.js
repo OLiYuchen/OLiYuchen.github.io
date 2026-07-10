@@ -37,6 +37,7 @@ const ALIASES = [
   { ticker: "DOYU", names: ["斗鱼", "douyu"] },
   { ticker: "GOTU", names: ["高途", "gaotu"] },
   { ticker: "BEKE", names: ["贝壳", "beike", "ke holdings"] },
+  { ticker: "LANV", names: ["朗万", "浪凡", "lanvin", "lanvin group"] },
   { ticker: "AAPL", names: ["苹果", "apple"] },
   { ticker: "MSFT", names: ["微软", "microsoft"] },
   { ticker: "GOOGL", names: ["谷歌", "google", "alphabet"] },

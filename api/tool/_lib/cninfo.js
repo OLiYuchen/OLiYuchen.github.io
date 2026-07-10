@@ -23,11 +23,29 @@ function columnForCode(code, category) {
   return "szse";
 }
 
+const VALID_CATEGORIES = new Set(["A股", "港股"]);
+
+// cninfo's search endpoint only accepts a bare numeric code (e.g. "600519"
+// or "00700") — it silently returns zero results for a suffixed query like
+// "600519.SH" or "00700.HK", even though that's the format documented in
+// this app's own UI. Strip the suffix here and use it as a market hint to
+// filter/prioritize results instead.
+function normalizeQuery(query) {
+  const match = query.match(/^(\d+)\.(sh|sz|hk)$/i);
+  if (!match) return { keyword: query, marketHint: null, exactCode: null };
+  const [, digits, suffix] = match;
+  const marketHint = suffix.toUpperCase() === "HK" ? "港股" : "A股";
+  const exactCode = marketHint === "港股" ? digits.padStart(5, "0") : digits;
+  return { keyword: exactCode, marketHint, exactCode };
+}
+
 // Returns candidates like { code, name, category: "A股"|"港股", orgId, column }
 async function searchCompanies(query) {
   const cleaned = String(query || "").trim();
   if (!cleaned) return [];
-  const body = new URLSearchParams({ keyWord: cleaned, maxNum: "10" }).toString();
+  const { keyword, marketHint, exactCode } = normalizeQuery(cleaned);
+
+  const body = new URLSearchParams({ keyWord: keyword, maxNum: "10" }).toString();
   let raw;
   try {
     raw = await fetchText(SEARCH_URL, { method: "POST", headers: HEADERS, body }, 8000);
@@ -41,8 +59,10 @@ async function searchCompanies(query) {
     return [];
   }
   if (!Array.isArray(list)) return [];
-  return list
+
+  let results = list
     .filter((item) => item.delisted !== "true")
+    .filter((item) => VALID_CATEGORIES.has(item.category)) // exclude bonds/ABS/other non-equity noise
     .map((item) => ({
       code: item.code,
       name: item.zwjc,
@@ -50,6 +70,16 @@ async function searchCompanies(query) {
       orgId: item.orgId,
       column: columnForCode(item.code, item.category),
     }));
+
+  if (marketHint) results = results.filter((item) => item.category === marketHint);
+
+  if (exactCode) {
+    // An explicit code query should put the exact match first, ahead of
+    // cninfo's fuzzy substring matches (e.g. "700" also matching "002700").
+    results.sort((a, b) => (b.code === exactCode ? 1 : 0) - (a.code === exactCode ? 1 : 0));
+  }
+
+  return results;
 }
 
 async function findByCode(code) {

@@ -5,6 +5,7 @@
 
 const sec = require("./_lib/sec");
 const cninfo = require("./_lib/cninfo");
+const { resolveAlias } = require("./_lib/aliases");
 const { settleAll, send, setCors } = require("./_lib/util");
 
 function toCandidate(source, item) {
@@ -13,6 +14,22 @@ function toCandidate(source, item) {
   }
   const market = item.category === "港股" ? "hk" : "cn";
   return { market, id: item.code, name: item.name, ticker: item.code, exchange: market === "hk" ? "HKEX" : "A股" };
+}
+
+const A_SHARE_CODE = /^\d{6}(\.(sh|sz))?$/i;
+const HK_CODE = /^\d{3,5}\.hk$/i;
+const PURE_CJK = /^[一-鿿]+$/;
+
+// The SEC ticker map is a large file (~1MB+, thousands of entries) that's
+// only useful for English tickers/names or a known Chinese alias — skip
+// fetching it entirely for queries that structurally can't be a US ticker,
+// since that fetch (especially on a cold Vercel function instance) is the
+// slowest part of a search request.
+function shouldQuerySec(query) {
+  if (A_SHARE_CODE.test(query)) return false;
+  if (HK_CODE.test(query)) return false;
+  if (PURE_CJK.test(query)) return Boolean(resolveAlias(query));
+  return true;
 }
 
 module.exports = async function handler(req, res) {
@@ -33,7 +50,15 @@ module.exports = async function handler(req, res) {
     return;
   }
 
-  const [usResults, cnResults] = await settleAll([sec.searchCompanies(query), cninfo.searchCompanies(query)]);
+  // Entity resolution results barely change minute to minute, so let
+  // Vercel's edge cache serve repeat/popular queries instantly instead of
+  // re-hitting SEC/cninfo every keystroke across every user.
+  res.setHeader("Cache-Control", "public, max-age=30, s-maxage=300, stale-while-revalidate=600");
+
+  const [usResults, cnResults] = await settleAll([
+    shouldQuerySec(query) ? sec.searchCompanies(query) : Promise.resolve([]),
+    cninfo.searchCompanies(query),
+  ]);
 
   const candidates = [
     ...((usResults || []).map((item) => toCandidate("us", item))),

@@ -7,14 +7,13 @@
   <title>投资情报助手</title>
   <link rel="stylesheet" href="/tool/styles.css" />
 </head>
-<body>
+<body class="gate-locked">
   <header class="tool-header">
     <a class="tool-logo" href="/tool">投资情报助手</a>
     <div class="tool-search-wrap">
       <input id="searchInput" class="tool-search-input" type="text" placeholder="搜索公司或代码，如 拼多多 / PDD / 600519 / 00700.HK" autocomplete="off" />
       <div id="searchDropdown" class="search-dropdown" hidden></div>
     </div>
-    <a class="tool-nav-link" href="/tool/about">关于与反馈</a>
   </header>
 
   <main class="tool-main">
@@ -49,6 +48,11 @@
       </div>
     </section>
   </main>
+
+  <footer class="tool-footer">
+    <p class="tool-footer-text">对结果有疑问，或发现了 Bug？</p>
+    <a class="tool-footer-cta" href="/tool/about#feedback">关于本工具与问题反馈 →</a>
+  </footer>
 
   <script src="/tool/shared.js"></script>
   <script src="/tool/home.js"></script>

@@ -2,6 +2,9 @@
   const searchInput = document.getElementById("searchInput");
   const searchDropdown = document.getElementById("searchDropdown");
   setupGlobalSearch(searchInput, searchDropdown);
+  // Nothing on this page fetches data on load — the gate is shown purely
+  // for a consistent "enter password before seeing anything" experience.
+  initPasswordGate(() => {});
 
   const FEEDBACK_EMAIL = "fyc2003@uw.edu";
 
