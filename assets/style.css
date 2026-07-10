@@ -74,6 +74,24 @@ dl {
   margin: 0;
 }
 
+p,
+li,
+figcaption,
+dd {
+  text-wrap: pretty;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+.project-context,
+.project-capabilities,
+.technique-scroll-card span {
+  text-wrap: balance;
+}
+
 .container {
   width: min(1180px, calc(100vw - 2.5rem));
   margin: 0 auto;
@@ -590,7 +608,6 @@ button:focus-visible,
   font-size: clamp(0.98rem, 1.22vw, 1.08rem);
   font-weight: 400;
   line-height: 1.48;
-  text-wrap: pretty;
 }
 
 .project-capabilities {
@@ -602,6 +619,7 @@ button:focus-visible,
   font-size: 0.84rem;
   font-weight: 500;
   line-height: 1.55;
+  text-wrap: pretty;
 }
 
 .project-capabilities span {
@@ -1796,6 +1814,10 @@ article#physical-computing .exploration-detail-copy p:not(.project-meta) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  #physical-computing .exploration-evidence-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .hero-copy {
     padding-top: clamp(1.5rem, 3vw, 2.6rem);
   }
@@ -1857,7 +1879,7 @@ article#physical-computing .exploration-detail-copy p:not(.project-meta) {
 
 @media (max-width: 760px) {
   .container {
-    width: min(100vw - 1.15rem, 1180px);
+    width: min(100% - 1.15rem, 1180px);
   }
 
   .header-row,
@@ -1908,6 +1930,10 @@ article#physical-computing .exploration-detail-copy p:not(.project-meta) {
     padding: 0.4rem 0 2.6rem;
   }
 
+  .hero-banner img {
+    transform: none;
+  }
+
   .hero-shell {
     gap: 1rem;
     margin-top: -1rem;
@@ -1942,7 +1968,7 @@ article#physical-computing .exploration-detail-copy p:not(.project-meta) {
   }
 
   .hero-copy h1 {
-    font-size: clamp(2.55rem, 12vw, 4.4rem);
+    font-size: clamp(2.45rem, 11vw, 4rem);
   }
 
   .hero-copy h1 .hero-line,
@@ -1953,6 +1979,17 @@ article#physical-computing .exploration-detail-copy p:not(.project-meta) {
   .hero-copy {
     transform: none;
     padding: 1.15rem 1rem 1.1rem;
+  }
+
+  .hero-copy h1 .hero-role {
+    font-size: clamp(1.05rem, 5.1vw, 1.42rem);
+    letter-spacing: 0.025em;
+  }
+
+  .hero-intro {
+    max-width: 31rem;
+    font-size: 1rem;
+    line-height: 1.58;
   }
 
   .hero-about {
@@ -1969,6 +2006,27 @@ article#physical-computing .exploration-detail-copy p:not(.project-meta) {
 
   .project-composition {
     grid-template-columns: 1fr;
+    gap: 1.15rem;
+  }
+
+  .project-card-body {
+    min-height: auto;
+    padding: 1.2rem 1.05rem 1.3rem;
+  }
+
+  .project-card h3 {
+    font-size: clamp(2rem, 12vw, 2.8rem);
+  }
+
+  .project-context {
+    max-width: 28rem;
+    font-size: 0.96rem;
+    line-height: 1.52;
+  }
+
+  .project-capabilities {
+    font-size: 0.78rem;
+    line-height: 1.5;
   }
 
   .technique-explorations {
@@ -2011,7 +2069,8 @@ article#physical-computing .exploration-detail-copy p:not(.project-meta) {
   }
 
   .exploration-jump-nav a {
-    padding: 0.45rem 0.72rem;
+    min-height: 2.25rem;
+    padding: 0.5rem 0.78rem;
     scroll-snap-align: start;
     white-space: nowrap;
   }
@@ -2085,8 +2144,12 @@ article#physical-computing .exploration-detail-copy p:not(.project-meta) {
   }
 
   .exploration-evidence-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr;
     padding-inline: 0.7rem;
+  }
+
+  #physical-computing .exploration-evidence-grid {
+    grid-template-columns: 1fr;
   }
 
   .exploration-text-grid {
@@ -2136,10 +2199,14 @@ article#physical-computing .exploration-detail-copy p:not(.project-meta) {
   }
 
   .contact-photo {
-    right: -0.4rem;
+    right: 0;
     bottom: 0;
     width: 8.8rem;
     opacity: 0.82;
+  }
+
+  .contact-photo img {
+    transform: none;
   }
 
   .contact-board {
@@ -2197,6 +2264,17 @@ article#physical-computing .exploration-detail-copy p:not(.project-meta) {
   .hero-about,
   .about-page-copy {
     max-width: 100%;
+  }
+}
+
+@media (max-width: 520px) {
+  .exploration-detail-card,
+  .exploration-detail-card-featured {
+    grid-template-columns: 1fr;
+  }
+
+  .exploration-card-main img {
+    aspect-ratio: 4 / 3;
   }
 }
 
@@ -6068,6 +6146,7 @@ article#physical-computing .exploration-detail-copy p:not(.project-meta) {
   font-size: clamp(0.94rem, 1.25vw, 1.08rem);
   font-weight: 700;
   line-height: 1;
+  white-space: nowrap;
   transition:
     transform 260ms ease,
     border-color 260ms ease,
@@ -6702,13 +6781,13 @@ article#physical-computing .exploration-detail-copy p:not(.project-meta) {
   }
 
   .about-skill-cloud {
-    gap: 0.58rem;
+    gap: 0.52rem;
   }
 
   .about-skill-cloud span {
     min-height: 2.45rem;
-    padding: 0.62rem 0.85rem;
-    font-size: 0.88rem;
+    padding: 0.58rem 0.76rem;
+    font-size: 0.82rem;
   }
 
   .about-experience-timeline {
