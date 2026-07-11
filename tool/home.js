@@ -69,6 +69,9 @@
       <a class="company-log-link" href="/tool/company?m=${encodeURIComponent(company.market)}&id=${encodeURIComponent(company.id)}">查看全部动态与来源 →</a>
     `;
     block.querySelector(".company-log-name").addEventListener("click", () => navigateToCompany(company.market, company.id));
+    if (failed) {
+      block.appendChild(renderQuickReportLink(`首页日志获取失败（${company.market}/${company.id} ${company.name}）`));
+    }
     return block;
   }
 

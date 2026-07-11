@@ -7,6 +7,7 @@
   const companyContentEl = document.getElementById("companyContent");
   const companyHeaderEl = document.getElementById("companyHeader");
   const coverageNoticeEl = document.getElementById("coverageNotice");
+  const screeningBlockEl = document.getElementById("screeningBlock");
   const screeningListEl = document.getElementById("screeningList");
   const screeningEmptyEl = document.getElementById("screeningEmpty");
   const filterChipsEl = document.getElementById("filterChips");
@@ -26,12 +27,18 @@
     loadingStateEl.hidden = true;
     errorStateEl.hidden = false;
     errorMessageEl.textContent = message;
+    errorStateEl.querySelector(".quick-report-link")?.remove();
+    errorStateEl.appendChild(renderQuickReportLink(`公司页加载失败（${market}/${id}）：${message}`));
   }
 
   function renderCompanyHeader(company) {
     const watched = isWatched(company.market, company.id);
 
-    let quoteHtml = `<span class="empty-state-sub">行情数据当前不可用</span>`;
+    const quoteTip =
+      company.market === "us"
+        ? "美股行情来自一个非官方公开接口，偶尔会临时失效，不代表该公司数据整体不可用——新闻、公告等信息不受影响。"
+        : "A股/港股目前没有接入免费的实时行情数据源，所以这里始终不显示股价，仅代表这一项功能限制，不影响公告与新闻的准确性。";
+    let quoteHtml = `<span class="empty-state-sub">行情数据当前不可用${infoTipHtml(quoteTip)}</span>`;
     if (company.quote && company.quote.available) {
       const changeClass = company.quote.changePercent >= 0 ? "change-up" : "change-down";
       const changeSign = company.quote.changePercent >= 0 ? "+" : "";
@@ -85,6 +92,7 @@
 
   function renderScreening(screening, sourcesById) {
     screeningListEl.innerHTML = "";
+    screeningBlockEl.classList.toggle("is-empty", !screening.length);
     if (!screening.length) {
       screeningEmptyEl.hidden = false;
       return;

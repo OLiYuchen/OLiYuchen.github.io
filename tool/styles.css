@@ -48,13 +48,23 @@ a { color: var(--accent); }
   position: sticky;
   top: 0;
   z-index: 20;
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  padding: 14px 32px;
   background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--border);
+}
+
+/* The header spans the full viewport width (for the sticky bar look), but
+   its content aligns to the same max-width column as .tool-main/.tool-footer
+   below — otherwise the logo/search sit flush against the left edge while
+   the body content is centered in a narrower column, which reads as
+   misaligned on wide screens. */
+.tool-header-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 14px 32px;
 }
 
 .tool-logo {
@@ -70,6 +80,17 @@ a { color: var(--accent); }
   flex: 1;
   max-width: 520px;
 }
+
+.tool-nav-link {
+  flex-shrink: 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.tool-nav-link:hover { color: var(--accent); }
 
 .tool-search-input {
   width: 100%;
@@ -139,7 +160,7 @@ a { color: var(--accent); }
 }
 
 @media (max-width: 720px) {
-  .tool-header {
+  .tool-header-inner {
     flex-wrap: wrap;
     padding: 12px 16px;
     row-gap: 10px;
@@ -150,6 +171,7 @@ a { color: var(--accent); }
 }
 
 @media (min-width: 1080px) {
+  .tool-header-inner { max-width: 1040px; }
   .tool-main { max-width: 1040px; }
 }
 
@@ -415,9 +437,10 @@ a { color: var(--accent); }
   align-items: flex-start;
   justify-content: space-between;
   gap: 20px;
-  padding-bottom: 20px;
-  margin-bottom: 20px;
-  border-bottom: 1px solid var(--border);
+  padding: 20px 24px;
+  margin-bottom: 24px;
+  background: var(--bg-elevated);
+  border-radius: var(--radius-lg);
 }
 
 .company-header-left h1 { margin: 0 0 6px; font-size: 22px; }
@@ -466,8 +489,16 @@ a { color: var(--accent); }
 }
 
 /* ---------- screening block ---------- */
+/* This is the single highest-value answer on the page ("does this matter?"),
+   so it gets a distinct tinted panel instead of blending into the plain
+   event feed below it. */
 
-.screening-block { margin-bottom: 28px; }
+.screening-block {
+  margin-bottom: 28px;
+  padding: 20px 24px;
+  background: var(--accent-soft);
+  border-radius: var(--radius-lg);
+}
 
 .screening-block h2 { font-size: 16px; margin: 0 0 8px; }
 
@@ -485,7 +516,7 @@ a { color: var(--accent); }
   font-size: 11px;
   padding: 2px 8px;
   border-radius: 999px;
-  background: var(--bg-elevated);
+  background: var(--bg);
   color: var(--text-secondary);
   border: 1px solid var(--border);
 }
@@ -497,7 +528,7 @@ a { color: var(--accent); }
   border-left: 3px solid var(--low);
   border-radius: var(--radius);
   padding: 12px 14px;
-  background: var(--bg-elevated);
+  background: var(--bg);
 }
 
 .screening-item.importance-high { border-left-color: var(--high); }
@@ -507,7 +538,20 @@ a { color: var(--accent); }
 
 .screening-sources { display: flex; gap: 6px; flex-wrap: wrap; }
 
-.screening-empty { font-size: 13px; color: var(--text-tertiary); }
+.screening-empty { font-size: 13px; color: var(--text-tertiary); margin: 0; }
+
+/* Collapsed to a single muted line when there's nothing to flag — the full
+   tinted panel + heading + disclaimer would just be empty visual weight. */
+.screening-block.is-empty {
+  padding: 0;
+  margin-bottom: 20px;
+  background: none;
+}
+
+.screening-block.is-empty h2,
+.screening-block.is-empty .screening-disclaimer {
+  display: none;
+}
 
 /* ---------- filter chips ---------- */
 
@@ -817,3 +861,100 @@ body.gate-locked > .tool-footer {
 }
 
 .gate-error { margin: 12px 0 0; font-size: 12px; color: var(--high); }
+
+/* ---------- one-click bug report ---------- */
+
+.quick-report-link {
+  display: inline-block;
+  margin-top: 10px;
+  border: 1px solid var(--high);
+  background: var(--high-bg);
+  color: var(--high);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 12.5px;
+  font-weight: 500;
+}
+
+.quick-report-link:hover { opacity: 0.85; }
+
+.crash-banner {
+  position: fixed;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--text);
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  font-size: 13px;
+  box-shadow: 0 12px 32px rgba(20, 24, 32, 0.25);
+  max-width: calc(100vw - 32px);
+}
+
+.crash-banner-report {
+  margin: 0;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: none;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.crash-banner-close {
+  border: none;
+  background: none;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 16px;
+  line-height: 1;
+  padding: 0 2px;
+}
+
+.crash-banner-close:hover { color: #fff; }
+
+/* ---------- info tooltip ---------- */
+
+.info-tip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+  margin-left: 4px;
+  border-radius: 50%;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-strong);
+  color: var(--text-tertiary);
+  font-size: 10px;
+  line-height: 1;
+  cursor: help;
+  vertical-align: middle;
+}
+
+.info-tip-bubble {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;
+  background: var(--text);
+  color: #fff;
+  font-size: 12px;
+  line-height: 1.6;
+  padding: 8px 10px;
+  border-radius: var(--radius);
+  z-index: 15;
+  text-align: left;
+  font-weight: 400;
+}
+
+.info-tip:hover .info-tip-bubble,
+.info-tip:focus .info-tip-bubble,
+.info-tip:focus-visible .info-tip-bubble {
+  display: block;
+}

@@ -86,11 +86,15 @@ function pushDiagnostic(text) {
 }
 
 window.addEventListener("error", (e) => {
-  pushDiagnostic(`JS 错误：${e.message}（${e.filename ? e.filename.split("/").pop() : "未知文件"}:${e.lineno}）`);
+  const msg = `JS 错误：${e.message}（${e.filename ? e.filename.split("/").pop() : "未知文件"}:${e.lineno}）`;
+  pushDiagnostic(msg);
+  showCrashBanner(msg);
 });
 
 window.addEventListener("unhandledrejection", (e) => {
-  pushDiagnostic(`未处理的 Promise 异常：${e.reason}`);
+  const msg = `未处理的 Promise 异常：${e.reason}`;
+  pushDiagnostic(msg);
+  showCrashBanner(msg);
 });
 
 function collectDiagnosticsText() {
@@ -115,6 +119,82 @@ function collectDiagnosticsText() {
     lines.push("本次会话未捕获到页面错误。");
   }
   return lines.join("\n");
+}
+
+/* ---------- one-click bug report ---------- */
+/* Skips the feedback form entirely: builds the report from context + the
+   diagnostics buffer above and hands it straight to the user's mail client,
+   while best-effort syncing the same content to Notion in the background. */
+
+const FEEDBACK_EMAIL_ADDRESS = "fyc2003@uw.edu";
+
+function quickReportMailto(context) {
+  const subject = `[投资情报助手反馈][Bug-一键上报] ${context || "页面错误"}`.slice(0, 150);
+  const body = [
+    "此报告由「一键上报」自动生成，未经手动编辑。",
+    "",
+    `问题：${context || "页面出现异常"}`,
+    "",
+    "---- 诊断信息 ----",
+    collectDiagnosticsText(),
+  ].join("\n");
+  return `mailto:${FEEDBACK_EMAIL_ADDRESS}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
+function submitQuickReport(context) {
+  fetch(`${API_BASE}/feedback`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      type: "Bug反馈",
+      title: `一键上报：${context || "页面错误"}`.slice(0, 150),
+      content: context || "用户通过一键上报按钮提交，未手动填写描述。",
+      diagnostics: collectDiagnosticsText(),
+      pageUrl: location.href,
+    }),
+  }).catch(() => {
+    // Best-effort only — the mailto below is the guaranteed delivery path.
+  });
+  window.location.href = quickReportMailto(context);
+}
+
+function renderQuickReportLink(context) {
+  const link = document.createElement("button");
+  link.type = "button";
+  link.className = "quick-report-link";
+  link.textContent = "一键上报此问题 →";
+  link.addEventListener("click", () => submitQuickReport(context));
+  return link;
+}
+
+let crashBannerShown = false;
+
+function showCrashBanner(context) {
+  if (crashBannerShown) return;
+  crashBannerShown = true;
+
+  const banner = document.createElement("div");
+  banner.className = "crash-banner";
+  const message = document.createElement("span");
+  message.textContent = "页面出现异常，可能影响当前功能。";
+  banner.appendChild(message);
+
+  const reportLink = renderQuickReportLink(context);
+  reportLink.classList.add("crash-banner-report");
+  banner.appendChild(reportLink);
+
+  const closeBtn = document.createElement("button");
+  closeBtn.type = "button";
+  closeBtn.className = "crash-banner-close";
+  closeBtn.setAttribute("aria-label", "关闭");
+  closeBtn.textContent = "×";
+  closeBtn.addEventListener("click", () => {
+    banner.remove();
+    crashBannerShown = false;
+  });
+  banner.appendChild(closeBtn);
+
+  document.body.appendChild(banner);
 }
 
 /* ---------- localStorage watchlist (V1 has no server persistence) ---------- */
@@ -184,6 +264,15 @@ function escapeHtml(text) {
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
+}
+
+/* ---------- info tooltip ---------- */
+/* Works on both hover (desktop) and tap (mobile, via :focus from a real
+   tabbable element) — plain `title=""` tooltips are slow and invisible on
+   touch devices, which doesn't work for "I don't understand this label". */
+
+function infoTipHtml(text) {
+  return `<span class="info-tip" tabindex="0" role="button" aria-label="说明">?<span class="info-tip-bubble">${escapeHtml(text)}</span></span>`;
 }
 
 /* ---------- fetch helper ---------- */

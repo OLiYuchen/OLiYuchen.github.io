@@ -100,6 +100,13 @@ module.exports = async function handler(req, res) {
       generatedAt: new Date().toISOString(),
     });
   } catch (error) {
+    if (error.message === "SEC_TICKER_MAP_UNAVAILABLE") {
+      send(res, 503, {
+        error: "SEC data source unavailable",
+        message: "美股数据源（SEC EDGAR）暂时无法访问，这通常是几分钟内会恢复的临时限流，请稍后重试。",
+      });
+      return;
+    }
     send(res, 500, {
       error: "Company intelligence request failed",
       message: error.message,

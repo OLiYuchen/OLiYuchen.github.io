@@ -22,16 +22,46 @@ function normalizeCik(cik) {
   return String(cik).padStart(10, "0");
 }
 
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+// SEC occasionally 403s requests that hit it from a shared serverless IP,
+// even with a compliant User-Agent — this looks like coarse, IP-level rate
+// limiting on SEC's side rather than anything wrong with the request itself,
+// and it tends to clear within seconds. One short retry absorbs most of
+// these; if both attempts fail, prefer serving a stale cached copy (ticker/
+// CIK/name mappings barely change day to day) over a hard failure.
+async function fetchTickerMapRaw() {
+  try {
+    return await fetchJson(`${SEC_WWW_BASE}/files/company_tickers.json`, { headers: secHeaders() }, 12000);
+  } catch (firstError) {
+    await sleep(400);
+    try {
+      return await fetchJson(`${SEC_WWW_BASE}/files/company_tickers.json`, { headers: secHeaders() }, 12000);
+    } catch (secondError) {
+      throw secondError;
+    }
+  }
+}
+
 async function getTickerMap() {
   if (tickerCache && Date.now() - tickerCacheAt < TICKER_CACHE_TTL_MS) return tickerCache;
-  const raw = await fetchJson(`${SEC_WWW_BASE}/files/company_tickers.json`, { headers: secHeaders() }, 12000);
-  tickerCache = Object.values(raw).map((item) => ({
-    cik: normalizeCik(item.cik_str),
-    ticker: String(item.ticker || "").toUpperCase(),
-    title: item.title || "",
-  }));
-  tickerCacheAt = Date.now();
-  return tickerCache;
+  try {
+    const raw = await fetchTickerMapRaw();
+    tickerCache = Object.values(raw).map((item) => ({
+      cik: normalizeCik(item.cik_str),
+      ticker: String(item.ticker || "").toUpperCase(),
+      title: item.title || "",
+    }));
+    tickerCacheAt = Date.now();
+    return tickerCache;
+  } catch (error) {
+    if (tickerCache) return tickerCache; // serve stale rather than fail outright
+    const labeled = new Error("SEC_TICKER_MAP_UNAVAILABLE");
+    labeled.cause = error;
+    throw labeled;
+  }
 }
 
 // Resolves a free-text query (ticker, English legal name, or a Chinese alias
