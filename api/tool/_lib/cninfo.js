@@ -113,8 +113,41 @@ async function getAnnouncements(company) {
   }
 }
 
+// Some announcement types recur with the exact same title (HK companies
+// file 翌日披露报表 daily during buyback programs; A-share companies repeat
+// 股票交易异常波动公告 etc.) — as individual rows they read as accidental
+// duplicates. Identical titles collapse into one row carrying the latest
+// filing's link plus a count and the covered dates, so it's clear these are
+// separate filings over time and where to find the rest.
+function clusterIdenticalTitles(events) {
+  const byTitle = new Map();
+  const order = [];
+  for (const event of events) {
+    const key = event.title;
+    if (!byTitle.has(key)) {
+      byTitle.set(key, []);
+      order.push(key);
+    }
+    byTitle.get(key).push(event);
+  }
+
+  return order.map((key) => {
+    const group = byTitle.get(key);
+    if (group.length === 1) return group[0];
+    // Announcements arrive newest-first, so group[0] is the latest one.
+    const latest = group[0];
+    const dates = group.map((g) => (g.timestamp || "").slice(5, 10).replace("-", "/")).filter(Boolean);
+    return {
+      ...latest,
+      id: `${latest.id}-cluster`,
+      title: `${latest.title} · 近期共 ${group.length} 份`,
+      summary: `${latest.company} 近期披露了 ${group.length} 份同名公告《${latest.title}》，日期：${dates.join("、")}。已合并为一条展示，点击来源查看最新一份原文。`,
+    };
+  });
+}
+
 function buildAnnouncementEvents(announcements, company, market) {
-  return announcements.map((item) => {
+  return clusterIdenticalTitles(announcements.map((item) => {
     const sourceId = `cninfo-${item.announcementId}`;
     const timestamp = item.announcementTime ? new Date(Number(item.announcementTime)).toISOString() : null;
     const url = item.adjunctUrl
@@ -144,7 +177,7 @@ function buildAnnouncementEvents(announcements, company, market) {
         },
       ],
     };
-  });
+  }));
 }
 
 // No free real-time quote source is wired up for A股/港股 in V1 — always

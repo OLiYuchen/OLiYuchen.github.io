@@ -37,7 +37,7 @@ const INDUSTRY_KEYWORDS = [
 // issuers' catch-all, used for routine matters by most Chinese ADRs) and
 // SC 13G (passive >5%-holder filings, often just index funds crossing a
 // threshold) were previously here too and are removed for the same reason.
-const HIGH_PRIORITY_FORMS = new Set(["10-K", "10-Q", "20-F", "SC 13D", "SC 13D/A"]);
+const HIGH_PRIORITY_FORMS = new Set(["10-K", "10-Q", "20-F", "SC 13D", "SC 13D/A", "SCHEDULE 13D", "SCHEDULE 13D/A"]);
 
 function findKeyword(text, list) {
   const lower = String(text || "").toLowerCase();
@@ -74,8 +74,11 @@ function classifyEvent(event) {
     eventType = "industry";
   }
 
+  // Recency bump — but not for routine insider filings (Form 4 etc.,
+  // flagged upstream in sec.js): being filed yesterday doesn't make an
+  // ordinary stock-grant report any less routine.
   const isRecent = daysAgo(event.timestamp) <= 3;
-  if (isRecent && importance === "low") importance = "medium";
+  if (isRecent && importance === "low" && !event.routine) importance = "medium";
 
   return { ...event, eventType, importance, trigger };
 }

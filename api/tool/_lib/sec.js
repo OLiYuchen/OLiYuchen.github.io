@@ -192,7 +192,7 @@ async function getQuote(ticker) {
 // index funds submit routinely — neither is reliably high-signal on its
 // own. 8-K is handled separately below via its item codes instead of a
 // blanket flag, since "8-K" alone says almost nothing (see SEC_8K_ITEMS).
-const HIGH_PRIORITY_FORMS = new Set(["10-K", "10-Q", "20-F", "SC 13D", "SC 13D/A"]);
+const HIGH_PRIORITY_FORMS = new Set(["10-K", "10-Q", "20-F", "SC 13D", "SC 13D/A", "SCHEDULE 13D", "SCHEDULE 13D/A"]);
 
 // SEC's own item-code taxonomy for Form 8-K (publicly documented, stable
 // since 2004). "8-K" alone is not a useful title — EDGAR's own
@@ -239,10 +239,93 @@ function classify8kItems(itemsField) {
   return known[0];
 }
 
+// Plain-Chinese names for common form types. EDGAR's own
+// primaryDocDescription is usually just the form code repeated ("FORM 4"),
+// which reads as meaningless duplication to anyone who doesn't know SEC
+// form numbers by heart.
+const FORM_LABELS = {
+  "4": "内部人持股变动申报",
+  "3": "内部人初始持股申报",
+  "5": "内部人年度持股申报",
+  "144": "拟出售受限证券通知",
+  "10-K": "年度报告",
+  "10-Q": "季度报告",
+  "20-F": "年度报告（外国发行人）",
+  "6-K": "临时报告（外国发行人）",
+  "S-8": "员工持股计划证券注册",
+  SD: "特殊披露（冲突矿产等）",
+  "SC 13G": "被动大额持股申报（≥5%）",
+  "SC 13G/A": "被动大额持股申报（修订）",
+  "SC 13D": "主动大额持股申报（≥5%）",
+  "SC 13D/A": "主动大额持股申报（修订）",
+  "SCHEDULE 13G": "被动大额持股申报（≥5%）",
+  "SCHEDULE 13G/A": "被动大额持股申报（修订）",
+  "SCHEDULE 13D": "主动大额持股申报（≥5%）",
+  "SCHEDULE 13D/A": "主动大额持股申报（修订）",
+  "DEF 14A": "股东大会委托投票说明书",
+  "DEFA14A": "委托投票补充材料",
+  "424B2": "发行说明书补充文件",
+  "S-3ASR": "证券货架注册（自动生效）",
+};
+
+// Insider-ownership forms arrive in bursts (every executive's grant/sale is
+// a separate filing) and are individually near-identical rows with zero
+// distinguishing text — the submissions API doesn't expose the insider's
+// name. Individually they're noise; collapsed into one row with a count
+// they're honest signal ("内部人这两周有 5 笔申报").
+const ROUTINE_CLUSTER_FORMS = new Set(["4", "3", "5", "144"]);
+
+function clusterRoutineFilings(events, company) {
+  const kept = [];
+  const groups = new Map();
+  for (const event of events) {
+    if (ROUTINE_CLUSTER_FORMS.has(event.formType)) {
+      if (!groups.has(event.formType)) groups.set(event.formType, []);
+      groups.get(event.formType).push(event);
+    } else {
+      kept.push(event);
+    }
+  }
+
+  for (const [form, group] of groups) {
+    if (group.length === 1) {
+      kept.push(group[0]);
+      continue;
+    }
+    // Events arrive newest-first from EDGAR, so group[0] is the latest.
+    const latest = group[0];
+    const label = FORM_LABELS[form] || form;
+    const dates = group
+      .map((g) => (g.timestamp || "").slice(5, 10).replace("-", "/"))
+      .filter(Boolean);
+    const sourceId = `sec-cluster-${form}-${company.cik}`;
+    kept.push({
+      ...latest,
+      id: `filing-cluster-${form}-${company.cik}`,
+      title: `${form}：${label} · 近期共 ${group.length} 份`,
+      summary: `${company.title} 近期提交了 ${group.length} 份 ${form}（${label}），日期：${dates.join("、")}。此类申报多为例行披露，已合并为一条展示，点击来源可在 SEC EDGAR 查看该类型的全部原始文件。`,
+      sourceIds: [sourceId],
+      sources: [
+        {
+          id: sourceId,
+          sourceType: "regulatory",
+          credibility: "official",
+          publisher: "U.S. Securities and Exchange Commission (SEC)",
+          title: `${company.title} 的全部 ${form}（${label}）申报列表`,
+          publishedAt: latest.timestamp,
+          url: `${SEC_WWW_BASE}/cgi-bin/browse-edgar?action=getcompany&CIK=${company.cik}&type=${encodeURIComponent(form)}&dateb=&owner=include&count=40`,
+        },
+      ],
+    });
+  }
+
+  return kept.sort((a, b) => String(b.timestamp || "").localeCompare(String(a.timestamp || "")));
+}
+
 function buildFilingEvents(submissions, company) {
   const recent = submissions?.filings?.recent;
   if (!recent?.accessionNumber) return [];
-  return recent.accessionNumber.slice(0, 20).map((accession, index) => {
+  const events = recent.accessionNumber.slice(0, 20).map((accession, index) => {
     const accessionNoDash = accession.replace(/-/g, "");
     const doc = recent.primaryDocument[index];
     const form = recent.form[index];
@@ -252,8 +335,19 @@ function buildFilingEvents(submissions, company) {
     const sourceId = `sec-${accession}`;
 
     const topItem = form === "8-K" ? classify8kItems(recent.items?.[index]) : null;
-    const displayLabel = topItem ? `${form}：${topItem.label}` : `${form}：${description}`;
-    const importance = topItem ? topItem.importance : (HIGH_PRIORITY_FORMS.has(form) ? "high" : "medium");
+    const formLabel = FORM_LABELS[form];
+    const displayLabel = topItem
+      ? `${form}：${topItem.label}`
+      : formLabel
+        ? `${form}：${formLabel}`
+        : `${form}：${description}`;
+    const importance = topItem
+      ? topItem.importance
+      : HIGH_PRIORITY_FORMS.has(form)
+        ? "high"
+        : ROUTINE_CLUSTER_FORMS.has(form)
+          ? "low"
+          : "medium";
 
     return {
       id: `filing-${accession}`,
@@ -263,9 +357,13 @@ function buildFilingEvents(submissions, company) {
       ticker: company.ticker,
       formType: form,
       itemLabel: topItem ? topItem.label : null,
+      // Routine insider forms shouldn't get the "recent → bump low to
+      // medium" treatment in scoring.js — recency doesn't make them less
+      // routine.
+      routine: ROUTINE_CLUSTER_FORMS.has(form),
       timestamp: filingDate ? `${filingDate}T00:00:00Z` : null,
       title: displayLabel,
-      summary: `${company.title} 提交了 ${form}${reportDate ? `，报告期截至 ${reportDate}` : ""}。`,
+      summary: `${company.title} 提交了 ${form}${formLabel ? `（${formLabel}）` : ""}${reportDate ? `，报告期截至 ${reportDate}` : ""}。`,
       importance,
       sourceIds: [sourceId],
       sources: [
@@ -281,6 +379,7 @@ function buildFilingEvents(submissions, company) {
       ],
     };
   });
+  return clusterRoutineFilings(events, company);
 }
 
 function buildOverview(company, submissions, facts, quote) {
