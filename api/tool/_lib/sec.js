@@ -183,7 +183,61 @@ async function getQuote(ticker) {
   }
 }
 
-const HIGH_PRIORITY_FORMS = new Set(["8-K", "10-K", "10-Q", "20-F", "6-K", "SC 13D", "SC 13D/A", "SC 13G", "SC 13G/A"]);
+// 10-K/20-F (annual reports) and activist ownership filings are always
+// worth flagging. 10-Q genuinely is too (it's the quarterly financial
+// update this tool exists to surface) — but 6-K and SC 13G were previously
+// lumped in here as blanket "high", which was wrong: 6-K is used by foreign
+// private issuers (most Chinese ADRs) for routine matters, not just
+// material events, and SC 13G is the *passive* >5%-holder filing that large
+// index funds submit routinely — neither is reliably high-signal on its
+// own. 8-K is handled separately below via its item codes instead of a
+// blanket flag, since "8-K" alone says almost nothing (see SEC_8K_ITEMS).
+const HIGH_PRIORITY_FORMS = new Set(["10-K", "10-Q", "20-F", "SC 13D", "SC 13D/A"]);
+
+// SEC's own item-code taxonomy for Form 8-K (publicly documented, stable
+// since 2004). "8-K" alone is not a useful title — EDGAR's own
+// primaryDocDescription for 8-Ks is almost always just the literal string
+// "8-K", which is why every 8-K in the feed used to look identical. The
+// item code says what actually happened.
+const SEC_8K_ITEMS = {
+  "1.01": { label: "签订重大协议", importance: "high" },
+  "1.02": { label: "终止重大协议", importance: "high" },
+  "1.03": { label: "破产或接管程序", importance: "high" },
+  "1.04": { label: "矿业安全事项", importance: "medium" },
+  "2.01": { label: "完成收购或资产处置", importance: "high" },
+  "2.02": { label: "经营业绩（财报发布）", importance: "medium" },
+  "2.03": { label: "产生重大直接财务义务", importance: "high" },
+  "2.04": { label: "表外安排触发事件", importance: "high" },
+  "2.05": { label: "退出/处置相关成本", importance: "high" },
+  "2.06": { label: "资产重大减值", importance: "high" },
+  "3.01": { label: "退市/不再符合上市要求", importance: "high" },
+  "3.02": { label: "未注册证券发行", importance: "medium" },
+  "3.03": { label: "股东权利变更", importance: "medium" },
+  "4.01": { label: "变更会计师事务所", importance: "high" },
+  "4.02": { label: "此前财报不可依赖（重述）", importance: "high" },
+  "5.01": { label: "控制权变更", importance: "high" },
+  "5.02": { label: "董事/高管变动", importance: "medium" },
+  "5.03": { label: "公司章程修订", importance: "low" },
+  "5.04": { label: "员工福利计划变更", importance: "low" },
+  "5.05": { label: "道德准则修订", importance: "low" },
+  "5.07": { label: "股东大会投票结果", importance: "medium" },
+  "6.01": { label: "资产支持证券相关信息", importance: "low" },
+  "7.01": { label: "Regulation FD 披露", importance: "low" },
+  "8.01": { label: "其他事项", importance: "medium" },
+  "9.01": { label: "财务报表与附件", importance: "low" },
+};
+
+// Picks the highest-importance item on a (possibly multi-item) 8-K, e.g.
+// "2.02,9.01" — 9.01 (exhibits) almost always rides along with something
+// else and shouldn't be what the label/importance is based on.
+function classify8kItems(itemsField) {
+  const codes = String(itemsField || "").split(",").map((c) => c.trim()).filter(Boolean);
+  const known = codes.map((code) => ({ code, ...SEC_8K_ITEMS[code] })).filter((x) => x.label);
+  if (!known.length) return null;
+  const rank = { high: 3, medium: 2, low: 1 };
+  known.sort((a, b) => rank[b.importance] - rank[a.importance]);
+  return known[0];
+}
 
 function buildFilingEvents(submissions, company) {
   const recent = submissions?.filings?.recent;
@@ -196,6 +250,11 @@ function buildFilingEvents(submissions, company) {
     const reportDate = recent.reportDate[index];
     const description = recent.primaryDocDescription?.[index] || `${form} filing`;
     const sourceId = `sec-${accession}`;
+
+    const topItem = form === "8-K" ? classify8kItems(recent.items?.[index]) : null;
+    const displayLabel = topItem ? `${form}：${topItem.label}` : `${form}：${description}`;
+    const importance = topItem ? topItem.importance : (HIGH_PRIORITY_FORMS.has(form) ? "high" : "medium");
+
     return {
       id: `filing-${accession}`,
       market: "us",
@@ -203,10 +262,11 @@ function buildFilingEvents(submissions, company) {
       company: company.title,
       ticker: company.ticker,
       formType: form,
+      itemLabel: topItem ? topItem.label : null,
       timestamp: filingDate ? `${filingDate}T00:00:00Z` : null,
-      title: `${form}：${description}`,
+      title: displayLabel,
       summary: `${company.title} 提交了 ${form}${reportDate ? `，报告期截至 ${reportDate}` : ""}。`,
-      importance: HIGH_PRIORITY_FORMS.has(form) ? "high" : "medium",
+      importance,
       sourceIds: [sourceId],
       sources: [
         {
@@ -214,7 +274,7 @@ function buildFilingEvents(submissions, company) {
           sourceType: "regulatory",
           credibility: "official",
           publisher: "U.S. Securities and Exchange Commission (SEC)",
-          title: `${form}：${description}`,
+          title: displayLabel,
           publishedAt: filingDate ? `${filingDate}T00:00:00Z` : null,
           url: `${SEC_WWW_BASE}/Archives/edgar/data/${Number(company.cik)}/${accessionNoDash}/${doc}`,
         },

@@ -64,8 +64,36 @@ async function fetchNews(query, locale, limit = 15) {
   }
 }
 
+// The same wire story is routinely republished verbatim by multiple
+// outlets (brokerage apps like Moomoo/富途牛牛 syndicate identical
+// headlines from the same underlying feed) — without this, they'd show up
+// as separate, apparently-duplicate rows. Keeps the authoritative source
+// when a duplicate pair includes one; drops the rest.
+function normalizeTitleForDedup(title) {
+  return String(title || "")
+    .toLowerCase()
+    .replace(/[\s　]+/g, " ")
+    .replace(/[，,。.！!？?：:；;""''「」『』（）()]/g, "")
+    .trim();
+}
+
+function dedupeByTitle(items) {
+  const authoritativeFirst = [...items].sort(
+    (a, b) => (isAuthoritative(b.publisherName, b.link) ? 1 : 0) - (isAuthoritative(a.publisherName, a.link) ? 1 : 0),
+  );
+  const seen = new Set();
+  const kept = [];
+  for (const item of authoritativeFirst) {
+    const key = normalizeTitleForDedup(item.title);
+    if (key && seen.has(key)) continue;
+    if (key) seen.add(key);
+    kept.push(item);
+  }
+  return kept.sort((a, b) => new Date(b.publishedAt || 0) - new Date(a.publishedAt || 0));
+}
+
 function buildNewsEvents(items, company, market) {
-  return items.map((item, index) => {
+  return dedupeByTitle(items).map((item, index) => {
     const sourceId = `news-${market}-${company.id}-${index}`;
     const authoritative = isAuthoritative(item.publisherName, item.link);
     return {
