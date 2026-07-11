@@ -11,6 +11,7 @@
   const screeningListEl = document.getElementById("screeningList");
   const screeningEmptyEl = document.getElementById("screeningEmpty");
   const filterChipsEl = document.getElementById("filterChips");
+  const sortToggleEl = document.getElementById("sortToggle");
   const eventListEl = document.getElementById("eventList");
   const feedEmptyEl = document.getElementById("feedEmpty");
 
@@ -22,6 +23,8 @@
 
   let currentEvents = [];
   let activeFilter = "all";
+  let activeSort = "time";
+  const IMPORTANCE_RANK = { high: 3, medium: 2, low: 1 };
 
   function showError(message) {
     loadingStateEl.hidden = true;
@@ -38,7 +41,10 @@
       company.market === "us"
         ? "美股行情来自一个非官方公开接口，偶尔会临时失效，不代表该公司数据整体不可用——新闻、公告等信息不受影响。"
         : "A股/港股目前没有接入免费的实时行情数据源，所以这里始终不显示股价，仅代表这一项功能限制，不影响公告与新闻的准确性。";
-    let quoteHtml = `<span class="empty-state-sub">行情数据当前不可用${infoTipHtml(quoteTip)}</span>`;
+    const externalQuoteLink = company.externalQuoteUrl
+      ? ` · <a class="external-ref-link" href="${escapeHtml(company.externalQuoteUrl)}" target="_blank" rel="noopener noreferrer">去${company.market === "us" ? "Nasdaq" : "东方财富"}查看实时行情 ↗</a>`
+      : "";
+    let quoteHtml = `<span class="empty-state-sub">行情数据当前不可用${infoTipHtml(quoteTip)}${externalQuoteLink}</span>`;
     if (company.quote && company.quote.available) {
       const changeClass = company.quote.changePercent >= 0 ? "change-up" : "change-down";
       const changeSign = company.quote.changePercent >= 0 ? "+" : "";
@@ -65,7 +71,7 @@
       <div class="company-header-left">
         <h1>${escapeHtml(company.name)}</h1>
         <div class="company-meta">
-          <span>${escapeHtml(marketLabel(company.market))}</span>
+          ${marketBadgeHtml(company.market)}
           <span>${escapeHtml(company.ticker)}</span>
           <span>${escapeHtml(company.exchange)}</span>
           <span>${escapeHtml(company.industry)}</span>
@@ -102,7 +108,13 @@
   }
 
   function renderEvents() {
-    const filtered = activeFilter === "all" ? currentEvents : currentEvents.filter((e) => e.eventType === activeFilter);
+    let filtered = activeFilter === "all" ? currentEvents : currentEvents.filter((e) => e.eventType === activeFilter);
+    if (activeSort === "importance") {
+      filtered = [...filtered].sort((a, b) => {
+        const rank = IMPORTANCE_RANK[b.importance] - IMPORTANCE_RANK[a.importance];
+        return rank !== 0 ? rank : String(b.timestamp || "").localeCompare(String(a.timestamp || ""));
+      });
+    }
     eventListEl.innerHTML = "";
     if (!filtered.length) {
       feedEmptyEl.hidden = false;
@@ -121,6 +133,15 @@
     renderEvents();
   });
 
+  sortToggleEl.addEventListener("click", (e) => {
+    const btn = e.target.closest(".sort-option");
+    if (!btn) return;
+    sortToggleEl.querySelectorAll(".sort-option").forEach((b) => b.classList.remove("active"));
+    btn.classList.add("active");
+    activeSort = btn.dataset.sort;
+    renderEvents();
+  });
+
   async function load() {
     if (!market || !id || !["us", "cn", "hk"].includes(market)) {
       showError("链接参数缺失，请通过搜索进入公司工作台。");
@@ -136,7 +157,11 @@
 
       if (data.coverageNotice) {
         coverageNoticeEl.hidden = false;
-        coverageNoticeEl.textContent = data.coverageNotice;
+        const officialLink =
+          market === "hk"
+            ? ` <a class="external-ref-link" href="https://www1.hkexnews.hk/search/titlesearch.xhtml" target="_blank" rel="noopener noreferrer">去披露易官网查看 ↗</a>`
+            : "";
+        coverageNoticeEl.innerHTML = `<span>${escapeHtml(data.coverageNotice)}</span>${officialLink}`;
       }
 
       const sourcesById = new Map(data.sources.map((s) => [s.id, s]));

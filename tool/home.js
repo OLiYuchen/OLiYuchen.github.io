@@ -62,7 +62,7 @@
     block.innerHTML = `
       <div class="company-log-head">
         <button class="company-log-name">${escapeHtml(company.name)}</button>
-        <span class="search-result-market">${escapeHtml(marketLabel(company.market))}</span>
+        ${marketBadgeHtml(company.market)}
         ${latestTime ? `<time class="event-time">${escapeHtml(latestTime)}</time>` : ""}
       </div>
       <p class="company-log-summary">${escapeHtml(summaryText)}</p>

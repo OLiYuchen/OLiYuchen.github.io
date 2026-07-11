@@ -147,6 +147,14 @@ function buildAnnouncementEvents(announcements, company, market) {
   });
 }
 
+// No free real-time quote source is wired up for A股/港股 in V1 — always
+// point to a real, working external quote site instead of a dead end.
+function externalQuoteUrl(company, market) {
+  if (market === "hk") return `http://quote.eastmoney.com/hk/${company.code}.html`;
+  const prefix = company.column === "sse" ? "sh" : "sz";
+  return `http://quote.eastmoney.com/${prefix}${company.code}.html`;
+}
+
 function buildOverview(company, market) {
   return {
     market,
@@ -156,6 +164,7 @@ function buildOverview(company, market) {
     exchange: market === "hk" ? "HKEX" : company.column === "sse" ? "上交所" : "深交所",
     industry: "N/A",
     quote: { available: false, reason: "行情数据当前不可用" },
+    externalQuoteUrl: externalQuoteUrl(company, market),
     financials: { revenue: null, netIncome: null },
   };
 }

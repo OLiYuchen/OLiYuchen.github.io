@@ -245,6 +245,10 @@ function marketLabel(market) {
   return MARKET_LABEL[market] || market;
 }
 
+function marketBadgeHtml(market) {
+  return `<span class="market-badge market-badge-${escapeHtml(market)}">${escapeHtml(marketLabel(market))}</span>`;
+}
+
 function formatRelativeTime(iso) {
   if (!iso) return "时间未知";
   const date = new Date(iso);
@@ -458,7 +462,7 @@ function setupGlobalSearch(inputEl, dropdownEl) {
       .map(
         (c, i) => `
       <button class="search-result-item" data-index="${i}">
-        <span class="search-result-market">${escapeHtml(marketLabel(c.market))}</span>
+        ${marketBadgeHtml(c.market)}
         <span class="search-result-name">${escapeHtml(c.name)}</span>
         <span class="search-result-code">${escapeHtml(c.ticker)}</span>
       </button>`,

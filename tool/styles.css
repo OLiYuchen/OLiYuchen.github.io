@@ -20,6 +20,12 @@
   --medium-bg: #fdf2e3;
   --low: #6b7280;
   --low-bg: #f1f2f4;
+  --market-us: #2451c4;
+  --market-us-bg: #eaf0ff;
+  --market-cn: #7c3aed;
+  --market-cn-bg: #f3ecfe;
+  --market-hk: #0f8b8d;
+  --market-hk-bg: #e6f5f5;
   --radius: 10px;
   --radius-lg: 14px;
   --shadow-panel: -8px 0 32px rgba(20, 24, 32, 0.08);
@@ -137,14 +143,23 @@ a { color: var(--accent); }
 .search-result-item:last-child { border-bottom: none; }
 .search-result-item:hover { background: var(--bg-elevated); }
 
-.search-result-market {
+/* Each market gets its own hue so the eye can sort by market at a glance
+   across search results, company headers, and the home log — without
+   colliding with the importance colors (red/amber/gray) used right next
+   to these badges. */
+.market-badge {
   font-size: 12px;
-  color: var(--text-secondary);
-  background: var(--bg-elevated);
+  font-weight: 500;
   padding: 2px 8px;
   border-radius: 999px;
   flex-shrink: 0;
+  color: var(--text-secondary);
+  background: var(--bg-elevated);
 }
+
+.market-badge-us { color: var(--market-us); background: var(--market-us-bg); }
+.market-badge-cn { color: var(--market-cn); background: var(--market-cn-bg); }
+.market-badge-hk { color: var(--market-hk); background: var(--market-hk-bg); }
 
 .search-result-name { font-size: 14px; color: var(--text); }
 .search-result-code { margin-left: auto; font-size: 12px; color: var(--text-tertiary); }
@@ -447,11 +462,13 @@ a { color: var(--accent); }
 
 .company-meta { display: flex; flex-wrap: wrap; gap: 8px; font-size: 13px; color: var(--text-secondary); }
 
-.company-meta span {
+.company-meta span:not(.market-badge) {
   padding: 3px 10px;
   background: var(--bg-elevated);
   border-radius: 999px;
 }
+
+.company-meta .market-badge { padding: 3px 10px; font-size: 13px; }
 
 .company-quote { margin-top: 12px; font-size: 13px; color: var(--text-secondary); }
 .company-quote .price { font-size: 20px; font-weight: 600; color: var(--text); margin-right: 8px; }
@@ -479,7 +496,9 @@ a { color: var(--accent); }
 
 .coverage-notice {
   display: flex;
-  gap: 8px;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 8px;
   padding: 12px 14px;
   background: var(--medium-bg);
   color: var(--medium);
@@ -487,6 +506,15 @@ a { color: var(--accent); }
   font-size: 13px;
   margin-bottom: 20px;
 }
+
+.external-ref-link {
+  font-weight: 500;
+  white-space: nowrap;
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.coverage-notice .external-ref-link { color: var(--medium); }
 
 /* ---------- screening block ---------- */
 /* This is the single highest-value answer on the page ("does this matter?"),
@@ -553,9 +581,18 @@ a { color: var(--accent); }
   display: none;
 }
 
-/* ---------- filter chips ---------- */
+/* ---------- filter chips + sort toggle ---------- */
 
-.filter-chips { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+.feed-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.filter-chips { display: flex; gap: 8px; flex-wrap: wrap; }
 
 .chip {
   border: 1px solid var(--border-strong);
@@ -567,6 +604,25 @@ a { color: var(--accent); }
 }
 
 .chip.active { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
+
+.sort-toggle {
+  display: inline-flex;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  padding: 2px;
+  flex-shrink: 0;
+}
+
+.sort-option {
+  border: none;
+  background: none;
+  color: var(--text-secondary);
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-size: 12.5px;
+}
+
+.sort-option.active { background: var(--text); color: #fff; }
 
 /* ---------- source panel ---------- */
 

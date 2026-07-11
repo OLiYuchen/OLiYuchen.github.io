@@ -239,6 +239,9 @@ function buildOverview(company, submissions, facts, quote) {
     industry: submissions?.sicDescription || "N/A",
     cik: company.cik,
     quote,
+    // Shown whenever the live quote fetch fails or is unavailable, so the
+    // user always has somewhere real to check instead of a dead end.
+    externalQuoteUrl: `https://www.nasdaq.com/market-activity/stocks/${company.ticker.toLowerCase()}`,
     financials: {
       revenue: revenue ? { label: revenue.label, value: revenue.value, formatted: formatLargeNumber(revenue.value), end: revenue.end } : null,
       netIncome: netIncome ? { label: netIncome.label, value: netIncome.value, formatted: formatLargeNumber(netIncome.value), end: netIncome.end } : null,

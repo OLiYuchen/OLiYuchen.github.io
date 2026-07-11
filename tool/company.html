@@ -46,12 +46,18 @@
       </section>
 
       <section class="feed-section">
-        <div class="filter-chips" id="filterChips">
-          <button class="chip active" data-type="all">全部</button>
-          <button class="chip" data-type="news">新闻</button>
-          <button class="chip" data-type="filing">公告</button>
-          <button class="chip" data-type="regulatory">监管动态</button>
-          <button class="chip" data-type="industry">行业</button>
+        <div class="feed-controls">
+          <div class="filter-chips" id="filterChips">
+            <button class="chip active" data-type="all">全部</button>
+            <button class="chip" data-type="news">新闻</button>
+            <button class="chip" data-type="filing">公告</button>
+            <button class="chip" data-type="regulatory">监管动态</button>
+            <button class="chip" data-type="industry">行业</button>
+          </div>
+          <div class="sort-toggle" id="sortToggle">
+            <button class="sort-option active" data-sort="time" type="button">最新优先</button>
+            <button class="sort-option" data-sort="importance" type="button">重要度优先</button>
+          </div>
         </div>
         <div id="eventList" class="event-list"></div>
         <p id="feedEmpty" class="empty-state-sub" hidden>该类型下暂无近期动态。</p>
