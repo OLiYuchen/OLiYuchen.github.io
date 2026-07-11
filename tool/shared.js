@@ -298,7 +298,34 @@ async function fetchJSON(url) {
 // events carry exactly one source each in this data model, so clicking
 // anywhere on the row opens that source directly — no separate chip needed
 // as the primary click target.
-function renderEventCard(event, { showCompany = false } = {}) {
+// The AI gloss is deliberately styled and labeled apart from the
+// rule-based "重要度" badge above it — different color family (violet,
+// matching the A股 market color rather than any importance color), a
+// distinct label, and a tooltip disclaimer, so nobody mistakes one for the
+// other. See aiInsightDisclaimerText() for the exact wording.
+function aiInsightBlockHtml(insightText) {
+  if (!insightText) return "";
+  return `
+    <div class="ai-insight">
+      <span class="ai-insight-label">AI研判（仅供参考）${infoTipHtml(aiInsightDisclaimerText())}</span>
+      <p class="ai-insight-text">${escapeHtml(insightText)}</p>
+    </div>
+  `;
+}
+
+function aiInsightDisclaimerText() {
+  return "由 Claude 根据标题自动生成的简短研判，不是阅读了原文全文得出的结论，可能存在误判，不构成投资建议——请以原始来源为准。";
+}
+
+// Called once the async /api/tool/insights response arrives, well after the
+// event rows already rendered with real data — fills in just this one slot
+// rather than re-rendering the whole list, so scroll position etc. survive.
+function applyAiInsight(eventId, insightText) {
+  const slot = document.querySelector(`.ai-insight-slot[data-event-id="${CSS.escape(eventId)}"]`);
+  if (slot) slot.innerHTML = aiInsightBlockHtml(insightText);
+}
+
+function renderEventCard(event, { showCompany = false, insight = null } = {}) {
   const row = document.createElement("article");
   row.className = "event-row";
   row.dataset.eventType = event.eventType;
@@ -317,6 +344,7 @@ function renderEventCard(event, { showCompany = false } = {}) {
       <time class="event-time">${escapeHtml(formatRelativeTime(event.timestamp))}</time>
     </div>
     <p class="event-title">${escapeHtml(event.title)}</p>
+    <div class="ai-insight-slot" data-event-id="${escapeHtml(event.id)}">${insight ? aiInsightBlockHtml(insight) : ""}</div>
     ${source ? `<div class="event-row-foot"><span class="event-source-name">来源：${escapeHtml(source.publisher)}</span><span class="event-more-hint">查看详情与原文 →</span></div>` : ""}
   `;
 

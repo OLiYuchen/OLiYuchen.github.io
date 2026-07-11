@@ -24,6 +24,7 @@
   let currentEvents = [];
   let activeFilter = "all";
   let activeSort = "time";
+  let aiInsights = {};
   const IMPORTANCE_RANK = { high: 3, medium: 2, low: 1 };
 
   function showError(message) {
@@ -40,7 +41,7 @@
     const quoteTip =
       company.market === "us"
         ? "美股行情来自一个非官方公开接口，偶尔会临时失效，不代表该公司数据整体不可用——新闻、公告等信息不受影响。"
-        : "A股/港股目前没有接入免费的实时行情数据源，所以这里始终不显示股价，仅代表这一项功能限制，不影响公告与新闻的准确性。";
+        : "行情来自新浪财经公开接口，偶尔会临时失效，不代表该公司数据整体不可用——新闻、公告等信息不受影响。";
     const externalQuoteLink = company.externalQuoteUrl
       ? ` · <a class="external-ref-link" href="${escapeHtml(company.externalQuoteUrl)}" target="_blank" rel="noopener noreferrer">去${company.market === "us" ? "Nasdaq" : "东方财富"}查看实时行情 ↗</a>`
       : "";
@@ -121,7 +122,32 @@
       return;
     }
     feedEmptyEl.hidden = true;
-    filtered.forEach((event) => eventListEl.appendChild(renderEventCard(event)));
+    filtered.forEach((event) => eventListEl.appendChild(renderEventCard(event, { insight: aiInsights[event.id] })));
+  }
+
+  // Fires only after the real event data is already rendered — a slow or
+  // failed LLM call must never delay or break the core page. Fills in
+  // insight slots in place (see applyAiInsight) rather than re-rendering,
+  // so it doesn't disturb whatever filter/sort state the user is on.
+  async function loadAiInsightsProgressively() {
+    if (!currentEvents.length) return;
+    try {
+      const payload = {
+        events: currentEvents.map((e) => ({ id: e.id, title: e.title, company: e.company, eventType: e.eventType, formType: e.formType })),
+      };
+      const response = await fetch(`${API_BASE}/insights`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (!response.ok) return;
+      const data = await response.json();
+      if (!data.insights) return;
+      aiInsights = { ...aiInsights, ...data.insights };
+      Object.entries(data.insights).forEach(([eventId, text]) => applyAiInsight(eventId, text));
+    } catch (error) {
+      // Silent — this is a nice-to-have layer, not core functionality.
+    }
   }
 
   filterChipsEl.addEventListener("click", (e) => {
@@ -169,6 +195,7 @@
 
       currentEvents = data.events;
       renderEvents();
+      loadAiInsightsProgressively();
     } catch (error) {
       showError(error.status === 404 ? "未找到匹配公司，请检查名称或代码格式。" : (error.message || "加载失败，请稍后重试。"));
     }

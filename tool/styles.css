@@ -370,6 +370,32 @@ a { color: var(--accent); }
 
 .event-title { margin: 0 0 6px; font-size: 14.5px; line-height: 1.6; color: var(--text); }
 
+/* AI-generated gloss — deliberately a different visual language (violet,
+   left-rule block, own label) from the red/amber/gray 重要度 badges above,
+   so the two are never mistaken for each other. Empty until the async
+   /api/tool/insights response fills it in (see applyAiInsight in shared.js);
+   an empty slot takes up no space. */
+.ai-insight-slot:empty { display: none; }
+
+.ai-insight {
+  margin: 2px 0 8px;
+  padding: 7px 10px;
+  background: var(--market-cn-bg);
+  border-left: 2px solid var(--market-cn);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+.ai-insight-label {
+  display: inline-flex;
+  align-items: center;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--market-cn);
+  margin-bottom: 2px;
+}
+
+.ai-insight-text { margin: 0; font-size: 12.5px; line-height: 1.6; color: var(--text-secondary); }
+
 .event-row-foot {
   display: flex;
   align-items: center;

@@ -5,6 +5,7 @@
 const sec = require("./_lib/sec");
 const cninfo = require("./_lib/cninfo");
 const news = require("./_lib/news");
+const marketData = require("./_lib/marketData");
 const scoring = require("./_lib/scoring");
 const { settleAll, send, setCors } = require("./_lib/util");
 
@@ -41,10 +42,15 @@ async function loadCnHkCompany(id, marketHint) {
   const market = company.category === "港股" ? "hk" : "cn";
   const overview = cninfo.buildOverview(company, market);
 
-  const [announcements, zhNews] = await settleAll([
+  const [announcements, zhNews, quote, financials] = await settleAll([
     cninfo.getAnnouncements(company),
     news.fetchNews(`"${company.name}"`, { hl: "zh-CN", gl: "CN", ceid: "CN:zh-Hans" }),
+    marketData.getQuote(company, market),
+    market === "cn" ? marketData.getFinancials(company) : Promise.resolve(null),
   ]);
+
+  if (quote) overview.quote = quote;
+  if (financials) overview.financials = financials;
 
   const filingEvents = cninfo.buildAnnouncementEvents(announcements || [], company, market);
   const newsEvents = news.buildNewsEvents(zhNews || [], { id: company.code, name: company.name }, market);
