@@ -60,6 +60,15 @@ module.exports = async function handler(req, res) {
     .filter((e) => e && typeof e.id === "string" && typeof e.title === "string")
     .slice(0, MAX_EVENTS_PER_REQUEST);
 
-  const insights = await aiInsight.generateInsights(validEvents);
-  send(res, 200, { ok: true, insights });
+  const companyName = typeof payload.company === "string" ? payload.company : "";
+
+  // Per-event glosses and the company-level digest are independent LLM calls;
+  // run them together so the digest doesn't add a second round-trip. Either
+  // can fail on its own without affecting the other.
+  const [insights, digest] = await Promise.all([
+    aiInsight.generateInsights(validEvents),
+    companyName ? aiInsight.generateDigest(companyName, validEvents) : Promise.resolve(""),
+  ]);
+
+  send(res, 200, { ok: true, insights, digest });
 };

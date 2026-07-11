@@ -124,4 +124,67 @@ async function generateInsights(events) {
   return results;
 }
 
-module.exports = { isConfigured, generateInsights };
+const DIGEST_SYSTEM_PROMPT = `你是投资研究团队使用的辅助工具。用户会给你一家公司近期的新闻/公告标题列表（含事件类型），请你合成一句话的中文「近期速读」，帮分析师30秒内了解"这家公司近期主要在忙什么"。
+
+严格规则，必须遵守：
+1. 只能依据用户提供的标题和事件类型进行归纳，绝对不能引用、推测或编造任何未在输入中出现的具体数字、金额、日期、人名、交易对手等事实细节。
+2. 归纳"主题/动作"（如回购、子公司分拆、高管变动、发债、诉讼、财报发布等），不要逐条复述标题。
+3. 1-2句中文，不超过80字，语气克制、中性。不给出买入/卖出/持有等投资建议，不做价格或走势预测，不做好坏评价。
+4. 如果标题信息太少或过于零散、无法归纳出主题，就只回复：近期动态较少或较分散，建议直接浏览下方列表。
+5. 只输出这段中文本身，不要有引号、前缀、解释或 JSON。`;
+
+async function callClaudeDigest(companyName, events) {
+  const userContent = JSON.stringify({
+    company: companyName,
+    items: events.map((e) => ({ title: e.title, eventType: e.eventType })),
+  });
+
+  const response = await fetchWithTimeout(
+    ANTHROPIC_API_URL,
+    {
+      method: "POST",
+      headers: {
+        "x-api-key": process.env.ANTHROPIC_API_KEY,
+        "anthropic-version": ANTHROPIC_VERSION,
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        model: MODEL,
+        max_tokens: 300,
+        system: DIGEST_SYSTEM_PROMPT,
+        messages: [{ role: "user", content: userContent }],
+      }),
+    },
+    20000,
+  );
+
+  const data = await response.json();
+  return (data?.content?.[0]?.text || "").trim();
+}
+
+const digestCache = new Map();
+
+// events: array of { title, eventType }. Returns a one-line Chinese digest
+// string, or "" if unconfigured / failed / not enough to summarize. Uses the
+// top events by importance (passed in already-sorted by the caller); capped
+// so the prompt stays small and cheap.
+async function generateDigest(companyName, events) {
+  if (!isConfigured() || !events.length) return "";
+
+  const top = events.slice(0, 15);
+  const cacheKey = `${companyName}|${top.map((e) => e.title).join("|")}`;
+  if (digestCache.has(cacheKey)) return digestCache.get(cacheKey);
+
+  try {
+    const text = (await callClaudeDigest(companyName, top)).slice(0, 200);
+    if (digestCache.size >= CACHE_MAX_SIZE) {
+      digestCache.delete(digestCache.keys().next().value);
+    }
+    digestCache.set(cacheKey, text);
+    return text;
+  } catch (error) {
+    return "";
+  }
+}
+
+module.exports = { isConfigured, generateInsights, generateDigest };

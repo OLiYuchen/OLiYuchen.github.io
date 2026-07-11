@@ -317,6 +317,34 @@ function aiInsightDisclaimerText() {
   return "由 Claude 根据标题自动生成的简短研判，不是阅读了原文全文得出的结论，可能存在误判，不构成投资建议——请以原始来源为准。";
 }
 
+function aiDigestDisclaimerText() {
+  return "由 Claude 根据下方事件的标题自动归纳的一句话概览，只反映近期动态的主题分布，不是对公司基本面的评价、也不是投资建议——具体以原始来源为准。";
+}
+
+// Tiny inline SVG price sparkline (~20 daily closes). Pure decoration next to
+// the live quote — colored by net direction over the window (red up / green
+// down, matching the CN-market convention used elsewhere in this tool).
+function sparklineSvgHtml(series) {
+  if (!Array.isArray(series) || series.length < 3) return "";
+  const w = 72;
+  const h = 22;
+  const pad = 2;
+  const min = Math.min(...series);
+  const max = Math.max(...series);
+  const range = max - min || 1;
+  const stepX = (w - pad * 2) / (series.length - 1);
+  const points = series
+    .map((v, i) => {
+      const x = pad + i * stepX;
+      const y = pad + (h - pad * 2) * (1 - (v - min) / range);
+      return `${x.toFixed(1)},${y.toFixed(1)}`;
+    })
+    .join(" ");
+  const up = series[series.length - 1] >= series[0];
+  const cls = up ? "spark-up" : "spark-down";
+  return `<svg class="quote-spark ${cls}" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" aria-hidden="true"><polyline points="${points}" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg>`;
+}
+
 // Called once the async /api/tool/insights response arrives, well after the
 // event rows already rendered with real data — fills in just this one slot
 // rather than re-rendering the whole list, so scroll position etc. survive.

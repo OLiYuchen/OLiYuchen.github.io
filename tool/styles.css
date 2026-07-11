@@ -396,6 +396,28 @@ a { color: var(--accent); }
 
 .ai-insight-text { margin: 0; font-size: 12.5px; line-height: 1.6; color: var(--text-secondary); }
 
+/* Company-level AI digest at the top of the workspace — same violet AI
+   family as the per-event gloss so it reads as "AI, not rules", but sized
+   as a header-level callout. Hidden until the async digest arrives. */
+.digest-block {
+  margin-bottom: 24px;
+  padding: 12px 16px;
+  background: var(--market-cn-bg);
+  border-left: 3px solid var(--market-cn);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+.digest-label {
+  display: inline-flex;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--market-cn);
+  margin-bottom: 4px;
+}
+
+.digest-text { margin: 0; font-size: 14px; line-height: 1.65; color: var(--text); }
+
 .event-row-foot {
   display: flex;
   align-items: center;
@@ -496,10 +518,13 @@ a { color: var(--accent); }
 
 .company-meta .market-badge { padding: 3px 10px; font-size: 13px; }
 
-.company-quote { margin-top: 12px; font-size: 13px; color: var(--text-secondary); }
-.company-quote .price { font-size: 20px; font-weight: 600; color: var(--text); margin-right: 8px; }
-.company-quote .change-up { color: var(--positive); }
-.company-quote .change-down { color: var(--negative); }
+.company-quote { margin-top: 12px; font-size: 13px; color: var(--text-secondary); display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.company-quote .price { font-size: 20px; font-weight: 600; color: var(--text); }
+.company-quote .change-up { color: var(--positive); font-weight: 500; }
+.company-quote .change-down { color: var(--negative); font-weight: 500; }
+.quote-spark { display: inline-block; vertical-align: middle; }
+.quote-spark.spark-up { color: var(--positive); }
+.quote-spark.spark-down { color: var(--negative); }
 
 .company-financials { margin-top: 10px; display: flex; gap: 20px; font-size: 13px; color: var(--text-secondary); }
 .company-financials strong { color: var(--text); font-weight: 600; }

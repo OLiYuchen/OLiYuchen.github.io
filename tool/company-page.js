@@ -25,7 +25,18 @@
   let activeFilter = "all";
   let activeSort = "time";
   let aiInsights = {};
+  let companyName = "";
+  const digestBlockEl = document.getElementById("digestBlock");
   const IMPORTANCE_RANK = { high: 3, medium: 2, low: 1 };
+
+  function renderDigest(text) {
+    if (!text) return;
+    digestBlockEl.hidden = false;
+    digestBlockEl.innerHTML = `
+      <span class="digest-label">AI 近期速读（仅供参考）${infoTipHtml(aiDigestDisclaimerText())}</span>
+      <p class="digest-text">${escapeHtml(text)}</p>
+    `;
+  }
 
   function showError(message) {
     loadingStateEl.hidden = true;
@@ -47,11 +58,16 @@
       : "";
     let quoteHtml = `<span class="empty-state-sub">行情数据当前不可用${infoTipHtml(quoteTip)}${externalQuoteLink}</span>`;
     if (company.quote && company.quote.available) {
-      const changeClass = company.quote.changePercent >= 0 ? "change-up" : "change-down";
-      const changeSign = company.quote.changePercent >= 0 ? "+" : "";
+      const pct = company.quote.changePercent;
+      const hasPct = Number.isFinite(pct);
+      const up = hasPct && pct >= 0;
+      const changeClass = up ? "change-up" : "change-down";
+      const arrow = hasPct ? (up ? "▲" : "▼") : "";
+      const changeText = hasPct ? `${arrow} ${up ? "+" : ""}${pct}%` : "";
       quoteHtml = `
         <span class="price">${company.quote.close}</span>
-        <span class="${changeClass}">${changeSign}${company.quote.changePercent}%</span>
+        ${hasPct ? `<span class="${changeClass}">${changeText}</span>` : ""}
+        ${sparklineSvgHtml(company.sparkline)}
         <span class="empty-state-sub"> · ${escapeHtml(company.quote.source)}</span>
       `;
     }
@@ -133,6 +149,7 @@
     if (!currentEvents.length) return;
     try {
       const payload = {
+        company: companyName,
         events: currentEvents.map((e) => ({ id: e.id, title: e.title, company: e.company, eventType: e.eventType, formType: e.formType })),
       };
       const response = await fetch(`${API_BASE}/insights`, {
@@ -142,6 +159,7 @@
       });
       if (!response.ok) return;
       const data = await response.json();
+      if (data.digest) renderDigest(data.digest);
       if (!data.insights) return;
       aiInsights = { ...aiInsights, ...data.insights };
       Object.entries(data.insights).forEach(([eventId, text]) => applyAiInsight(eventId, text));
@@ -178,6 +196,7 @@
       loadingStateEl.hidden = true;
       companyContentEl.hidden = false;
 
+      companyName = data.company.name;
       document.title = `${data.company.name} · 投资情报助手`;
       renderCompanyHeader(data.company);
 

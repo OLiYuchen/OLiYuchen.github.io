@@ -6,6 +6,7 @@ const sec = require("./_lib/sec");
 const cninfo = require("./_lib/cninfo");
 const news = require("./_lib/news");
 const marketData = require("./_lib/marketData");
+const quoteHistory = require("./_lib/quoteHistory");
 const scoring = require("./_lib/scoring");
 const { settleAll, send, setCors } = require("./_lib/util");
 
@@ -13,14 +14,16 @@ async function loadUsCompany(id) {
   const company = await sec.getByTicker(id);
   if (!company) return null;
 
-  const [submissions, facts, quote] = await settleAll([
+  const [submissions, facts, quote, spark] = await settleAll([
     sec.getSubmissions(company.cik),
     sec.getFacts(company.cik),
     sec.getQuote(company.ticker),
+    quoteHistory.getSparkline("us", { ticker: company.ticker }),
   ]);
   if (!submissions) return null;
 
   const overview = sec.buildOverview(company, submissions, facts, quote || { available: false, reason: "行情数据当前不可用" });
+  if (spark) overview.sparkline = spark;
   const filingEvents = sec.buildFilingEvents(submissions, company);
 
   const [enNews, zhNews] = await settleAll([
@@ -42,15 +45,17 @@ async function loadCnHkCompany(id, marketHint) {
   const market = company.category === "港股" ? "hk" : "cn";
   const overview = cninfo.buildOverview(company, market);
 
-  const [announcements, zhNews, quote, financials] = await settleAll([
+  const [announcements, zhNews, quote, financials, spark] = await settleAll([
     cninfo.getAnnouncements(company),
     news.fetchNews(`"${company.name}"`, { hl: "zh-CN", gl: "CN", ceid: "CN:zh-Hans" }),
     marketData.getQuote(company, market),
     market === "cn" ? marketData.getFinancials(company) : Promise.resolve(null),
+    quoteHistory.getSparkline(market, company),
   ]);
 
   if (quote) overview.quote = quote;
   if (financials) overview.financials = financials;
+  if (spark) overview.sparkline = spark;
 
   const filingEvents = cninfo.buildAnnouncementEvents(announcements || [], company, market);
   const newsEvents = news.buildNewsEvents(zhNews || [], { id: company.code, name: company.name }, market);
