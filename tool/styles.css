@@ -746,6 +746,31 @@ a { color: var(--accent); }
   margin: 0 0 16px;
 }
 
+/* AI interpretation of the real SEC filing body — violet AI family (same as
+   the digest / per-event gloss) so it reads as AI, not rules. */
+.filing-ai:empty { display: none; }
+
+.filing-ai-inner {
+  margin: 0 0 16px;
+  padding: 10px 12px;
+  background: var(--market-cn-bg);
+  border-left: 3px solid var(--market-cn);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+.filing-ai-label {
+  display: inline-flex;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--market-cn);
+  margin-bottom: 4px;
+}
+
+.filing-ai-text { margin: 0; font-size: 13px; line-height: 1.7; color: var(--text); white-space: pre-wrap; }
+.filing-ai-inner.is-loading .filing-ai-text { color: var(--text-tertiary); }
+.filing-ai-note { margin: 8px 0 0; font-size: 11.5px; color: var(--text-tertiary); line-height: 1.5; }
+
 .source-meta { font-size: 13px; margin: 0 0 20px; }
 .source-meta dt { color: var(--text-tertiary); margin-top: 10px; }
 .source-meta dd { margin: 2px 0 0; color: var(--text); }

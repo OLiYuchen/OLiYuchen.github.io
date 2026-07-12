@@ -452,6 +452,22 @@ function ensureSourcePanel() {
   return { panel, overlay };
 }
 
+// A US SEC filing is the one source type whose real body text is fetchable
+// (EDGAR serves it directly), so it's the only one that gets the on-demand
+// "AI 解读原文" — the AI actually reads the linked document, not just its
+// title. News/cninfo bodies are JS shells / PDFs, so they don't qualify.
+function isSecFilingSource(source) {
+  // Must be an actual filing *document* (…/Archives/edgar/data/…), not a
+  // browse-edgar list page like the clustered Form-4 row's link — those are
+  // indexes, not readable filing text.
+  return (
+    source &&
+    source.sourceType === "regulatory" &&
+    typeof source.url === "string" &&
+    /\/\/(www\.)?sec\.gov\/Archives\/edgar\/data\//.test(source.url)
+  );
+}
+
 function openSourcePanel(source, event) {
   const { panel, overlay } = ensureSourcePanel();
   const credibility = CREDIBILITY_LABEL[source.credibility] || "一般来源";
@@ -460,11 +476,13 @@ function openSourcePanel(source, event) {
   // 6-K，建议复核最新财务与风险披露变化"). For news it's currently identical
   // to the title (V1 does not fabricate summaries), so skip showing it twice.
   const hasExtraSummary = event && event.summary && event.summary.trim() !== source.title.trim();
+  const canInterpret = isSecFilingSource(source);
 
   document.getElementById("sourcePanelBody").innerHTML = `
     <span class="credibility-badge credibility-${escapeHtml(source.credibility || "general-media")}">${escapeHtml(credibility)}</span>
     <h3>${escapeHtml(source.title)}</h3>
     ${hasExtraSummary ? `<p class="source-summary">${escapeHtml(event.summary)}</p>` : ""}
+    ${canInterpret ? `<div class="filing-ai" id="filingAiSlot"></div>` : ""}
     <dl class="source-meta">
       <dt>发布方</dt><dd>${escapeHtml(source.publisher)}</dd>
       <dt>发布时间</dt><dd>${escapeHtml(source.publishedAt ? new Date(source.publishedAt).toLocaleString("zh-CN") : "时间未知")}</dd>
@@ -472,13 +490,63 @@ function openSourcePanel(source, event) {
     </dl>
     ${
       source.url
-        ? `<a class="source-open-link" href="${escapeHtml(source.url)}" target="_blank" rel="noopener noreferrer">查看完整原文 ↗</a>${!hasExtraSummary ? `<p class="source-note">此处仅展示标题与来源元信息，本工具不生成新闻摘要 —— 完整内容请点击查看原文。</p>` : ""}`
+        ? `<a class="source-open-link" href="${escapeHtml(source.url)}" target="_blank" rel="noopener noreferrer">查看完整原文 ↗</a>${!hasExtraSummary && !canInterpret ? `<p class="source-note">此处仅展示标题与来源元信息，本工具不生成新闻摘要 —— 完整内容请点击查看原文。</p>` : ""}`
         : `<p class="source-unavailable">无法独立核实此信息的原文链接。</p>`
     }
   `;
   panel.hidden = false;
   overlay.hidden = false;
   requestAnimationFrame(() => panel.classList.add("open"));
+
+  if (canInterpret) loadFilingInterpretation(source, event);
+}
+
+// Lazy: only fires when a SEC-filing source panel actually opens, so we pay
+// the fetch+LLM cost per filing the user chooses to inspect, not per page.
+async function loadFilingInterpretation(source, event) {
+  const slot = document.getElementById("filingAiSlot");
+  if (!slot) return;
+  slot.innerHTML = `
+    <div class="filing-ai-inner is-loading">
+      <span class="filing-ai-label">AI 解读原文（仅供参考）${infoTipHtml(filingSummaryDisclaimerText())}</span>
+      <p class="filing-ai-text">正在读取 SEC 原文并解读，请稍候…</p>
+    </div>`;
+
+  try {
+    const response = await fetch(`${API_BASE}/filing-summary`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        url: source.url,
+        formType: event ? event.formType : "",
+        itemLabel: event ? event.itemLabel : "",
+        company: event ? event.company : source.publisher,
+        title: source.title,
+      }),
+    });
+    const data = response.ok ? await response.json() : null;
+    // Panel may have been closed / switched to another source meanwhile.
+    if (document.getElementById("filingAiSlot") !== slot) return;
+
+    if (data && data.ok && data.summary) {
+      slot.innerHTML = `
+        <div class="filing-ai-inner">
+          <span class="filing-ai-label">AI 解读原文（仅供参考）${infoTipHtml(filingSummaryDisclaimerText())}</span>
+          <p class="filing-ai-text">${escapeHtml(data.summary)}</p>
+          ${data.truncated ? `<p class="filing-ai-note">原文较长，AI 仅读取了前一部分，完整内容请查看原文。</p>` : ""}
+        </div>`;
+    } else {
+      // Unconfigured or failed — collapse silently rather than show an error,
+      // consistent with the rest of the AI layer being best-effort.
+      slot.innerHTML = "";
+    }
+  } catch (error) {
+    if (document.getElementById("filingAiSlot") === slot) slot.innerHTML = "";
+  }
+}
+
+function filingSummaryDisclaimerText() {
+  return "由 Claude 读取该 SEC 文件的真实正文后生成的中文摘要，只依据原文、不编造原文之外的数字或事实；长文档可能仅读取前一部分。仅供快速判断，不构成投资建议——以原文为准。";
 }
 
 function closeSourcePanel() {
