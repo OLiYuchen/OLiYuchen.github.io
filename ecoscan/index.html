@@ -10,6 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600;700;800&family=Jost:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 <link rel="icon" type="image/png" href="../assets/img/personal-logo.png" />
 <link rel="stylesheet" href="../assets/style.css" />
+<script src="../assets/case-progress.js" defer></script>
 </head>
 <body class="merlin-report-page case-study-page ecoscan-case-page">
 <header class="site-header home-header"><div class="container header-row"><a class="brand" href="/"><img class="brand-logo" src="../assets/img/personal-logo.png" alt="" aria-hidden="true" /><span>Olivia Feng</span></a><nav class="nav" aria-label="Primary"><div class="nav-links"><a href="/#selected-work">Work</a><a href="/about/">About</a><a href="/#contact">Contact</a></div><a class="btn btn-clear nav-cta" href="/assets/Olivia-Feng-Resume.pdf" target="_blank" rel="noreferrer"><span class="nav-cta-icon" aria-hidden="true">&#8595;</span><span>Resume</span></a></nav></div></header>
@@ -17,7 +18,6 @@
 <main class="merlin-report">
   <section class="merlin-report-hero" aria-labelledby="ecoscan-title">
     <div class="container merlin-report-shell">
-      <a class="merlin-back-link" href="/#selected-work"><span aria-hidden="true">←</span> Back to projects</a>
       <div class="merlin-report-grid">
         <div class="merlin-report-title">
           <h1 id="ecoscan-title">EcoScan turns confusing food labels into personalized sustainability guidance.</h1>
@@ -72,9 +72,17 @@
         </article>
       </div>
 
-      <figure class="case-cover-image case-cover-image-ecoscan">
-        <img src="../assets/img/ecoscan/hero-main.svg" alt="EcoScan hero board with mobile screens and sustainability product concept visuals" />
-      </figure>
+      <div class="merlin-flip-card ecoscan-hero-flip" role="button" tabindex="0" aria-pressed="false" aria-label="Toggle between the EcoScan interface concept and its grocery-store context">
+        <span class="merlin-flip-hint">Flip to see in context</span>
+        <div class="merlin-flip-card-inner">
+          <figure class="merlin-flip-face merlin-flip-front">
+            <img src="../assets/img/ecoscan/overview-hero.svg" alt="EcoScan interface concept showing shopper preferences and product guidance across mobile screens" />
+          </figure>
+          <figure class="merlin-flip-face merlin-flip-back" aria-hidden="true">
+            <img src="../assets/img/ecoscan/hero-flip.svg" alt="EcoScan product guidance shown on a phone while shopping in a grocery aisle" />
+          </figure>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -118,7 +126,7 @@
     </div>
   </section>
 
-  <section class="merlin-report-section merlin-report-band">
+  <section class="merlin-report-section merlin-report-band ecoscan-research-section">
     <div class="container merlin-report-layout">
       <aside class="merlin-report-section-label">
         <p class="section-label">Research Framing</p>
@@ -163,10 +171,10 @@
         <span>03</span>
       </aside>
       <div class="merlin-report-content">
-        <!-- <div class="merlin-report-lede ecoscan-system-lede">
-          <h3>Jost, muted greens, rounded surfaces, and bubble-like preference tokens helped the product feel sustainable.</h3>
-          <p>Jost, muted greens, rounded surfaces, and bubble-like preference tokens helped the product feel trustworthy without becoming clinical.</p>
-        </div> -->
+        <div class="merlin-report-lede ecoscan-system-lede">
+          <h2>A calm visual system makes dense sustainability information easier to approach.</h2>
+          <p>Rounded type, muted greens, and a concentric scan mark keep the product clear without making it feel clinical.</p>
+        </div>
         <div class="ecoscan-system-board" aria-label="EcoScan design system summary">
           <article class="ecoscan-type-specimen">
             <div class="ecoscan-type-heading">
@@ -202,7 +210,7 @@
     </div>
   </section>
 
-  <section class="merlin-report-section">
+  <section class="merlin-report-section" id="product-flow">
     <div class="container merlin-report-layout">
       <aside class="merlin-report-section-label">
         <p class="section-label">Product Flow</p>
@@ -210,59 +218,46 @@
       </aside>
       <div class="merlin-report-content">
         <div class="merlin-report-lede">
-          <h2>EcoScan works by connecting personal priorities to scan-based product feedback.</h2>
-          <p>The core interaction is intentionally simple: shoppers tell the app what they care about, scan a product QR code, and receive a readable product summary with personalized recommendation logic and local context.</p>
+          <h2>One product system supports two decision-making moments.</h2>
+          <p>The flow connects what a shopper cares about with what they see after scanning a product. Personal priorities become the logic behind each result, rather than a separate onboarding exercise.</p>
         </div>
-        <figure class="ecoscan-artifact-card ecoscan-flow-board">
-          <img src="../assets/img/ecoscan/prototype-board.png" alt="EcoScan Figma prototype flow showing onboarding, preference setup, scan flow, and result screens" />
-          <figcaption>Interactive prototype map. The flow moves from preference setup to QR scanning, then into product impact, farmer context, and bookmarkable recommendations.</figcaption>
+        <figure class="ecoscan-flow-overview">
+          <img src="../assets/img/ecoscan/app-flow.png" alt="Complete EcoScan product flow connecting onboarding preferences, scanning, product details, and farmer information" />
+          <figcaption>End-to-end product map connecting account setup, preference modeling, product scanning, personalized results, and local sourcing context.</figcaption>
         </figure>
-        <div class="merlin-method-pair">
-          <figure class="merlin-report-image">
-            <img src="../assets/img/ecoscan/product-result.png" alt="EcoScan product result screen showing product information and sustainability keywords" />
-            <figcaption>The product result screen needed to answer two questions quickly: “Does this fit my priorities?” and “Why?”</figcaption>
-          </figure>
-          <div class="merlin-method-steps">
-            <article>
-              <p class="project-meta">Onboarding</p>
-              <h3>Choose priority bubbles</h3>
-              <p>Users select concerns such as water pollution, animal welfare, nutrition facts, biodiversity, packaging, and chemical use.</p>
-            </article>
-            <article>
-              <p class="project-meta">Scan</p>
-              <h3>Recognize product data</h3>
-              <p>The camera/QR interaction keeps the experience anchored in a real shopping behavior instead of asking users to search manually.</p>
-            </article>
-            <article>
-              <p class="project-meta">Result</p>
-              <h3>Show impact and context</h3>
-              <p>The product result combines personalized metrics, map/farm information, and plain-language explanations.</p>
-            </article>
-          </div>
-        </div>
-        <div class="ecoscan-screen-grid ecoscan-screen-grid-four" aria-label="EcoScan product flow screens">
-          <figure class="ecoscan-phone-card">
-            <img src="../assets/img/ecoscan/preference-bubbles.png" alt="EcoScan preference bubble setup" />
-            <figcaption>Priority setup</figcaption>
-          </figure>
-          <figure class="ecoscan-phone-card">
-            <img src="../assets/img/ecoscan/qr-scan.png" alt="EcoScan QR scan screen" />
-            <figcaption>Scan moment</figcaption>
-          </figure>
-          <figure class="ecoscan-phone-card">
-            <img src="../assets/img/ecoscan/farmer-profile.png" alt="EcoScan farmer profile and impact metrics screen" />
-            <figcaption>Product context</figcaption>
-          </figure>
-          <figure class="ecoscan-phone-card">
-            <img src="../assets/img/ecoscan/farm-detail.png" alt="EcoScan farm detail screen" />
-            <figcaption>Local story</figcaption>
-          </figure>
+        <div class="ecoscan-feature-flows">
+          <article class="ecoscan-feature-flow">
+            <div class="ecoscan-feature-flow-copy">
+              <p class="project-meta">Main feature 01</p>
+              <h3>Turn personal values into a usable preference model.</h3>
+              <div class="ecoscan-feature-flow-details">
+                <p>During onboarding, shoppers choose the sustainability concerns they care about and collect them into a simple visual profile. These selections become inputs for later recommendations, giving the scan result a clear personal rationale.</p>
+                <p class="ecoscan-feature-outcome">Design focus: make abstract concerns feel approachable, selectable, and easy to revise.</p>
+              </div>
+            </div>
+            <figure>
+              <img src="../assets/img/ecoscan/onboarding-user-preference.svg" alt="EcoScan onboarding flow showing users selecting sustainability concerns and saving them as personal preferences" />
+            </figure>
+          </article>
+          <article class="ecoscan-feature-flow">
+            <div class="ecoscan-feature-flow-copy">
+              <p class="project-meta">Main feature 02</p>
+              <h3>Scan a product, then understand why it fits.</h3>
+              <div class="ecoscan-feature-flow-details">
+                <p>A QR scan opens a product summary that prioritizes matches with the shopper's profile. Impact metrics, local sourcing, and farmer context appear as progressive layers, keeping the first answer fast without removing supporting evidence.</p>
+                <p class="ecoscan-feature-outcome">Design focus: surface relevance first, then let shoppers inspect the data behind it.</p>
+              </div>
+            </div>
+            <figure>
+              <img src="../assets/img/ecoscan/scan-product-detail.svg" alt="EcoScan scan flow showing QR recognition, personalized product details, impact metrics, and farm information" />
+            </figure>
+          </article>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="merlin-report-section merlin-report-band">
+  <section class="merlin-report-section merlin-report-band ecoscan-reflection-section">
     <div class="container merlin-report-layout">
       <aside class="merlin-report-section-label">
         <p class="section-label">Reflection</p>
@@ -275,8 +270,8 @@
         </div>
         <div class="merlin-outcome-panel">
           <div>
-            <p class="project-meta">Key takeaway</p>
-            <p>Good sustainability UX is not just about showing more data. It requires deciding what context a shopper needs first, what can be layered later, and how to make recommendations feel trustworthy.</p>
+            <p class="project-meta">Impact</p>
+            <p>EcoScan aims to transform how consumers interact with food labels by promoting transparency and sustainability. It empowers shoppers to make informed decisions while encouraging ethical, environmentally responsible food production.</p>
           </div>
           <div>
             <p class="project-meta">Next step</p>
@@ -292,7 +287,7 @@
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const revealTargets = document.querySelectorAll('.merlin-report-lede, .merlin-hero-focus, .merlin-meta-frame, .merlin-project-detail-card, .case-cover-image, .merlin-report-question, .merlin-method-pair, .merlin-method-steps article, .merlin-findings-grid article, .merlin-outcome-panel, .ecoscan-artifact-card, .ecoscan-phone-card, .ecoscan-system-card, .ecoscan-timeline article, .ecoscan-type-specimen');
+  const revealTargets = document.querySelectorAll('.merlin-report-lede, .merlin-hero-focus, .merlin-meta-frame, .merlin-project-detail-card, .merlin-flip-card, .merlin-report-question, .merlin-method-pair, .merlin-method-steps article, .merlin-findings-grid article, .merlin-outcome-panel, .ecoscan-artifact-card, .ecoscan-phone-card, .ecoscan-system-card, .ecoscan-timeline article, .ecoscan-type-specimen');
   revealTargets.forEach((node, index) => {
     node.classList.add('merlin-reveal');
     node.style.setProperty('--merlin-reveal-index', String(index % 4));
@@ -316,6 +311,39 @@
     }, { threshold: 0.34 });
     sections.forEach((section) => sectionObserver.observe(section));
   }
+  document.querySelectorAll('.merlin-flip-card').forEach((card) => {
+    let userInteracted = false;
+
+    const toggleCard = () => {
+      userInteracted = true;
+      const isFlipped = card.classList.toggle('is-flipped');
+      card.setAttribute('aria-pressed', String(isFlipped));
+    };
+
+    card.addEventListener('click', toggleCard);
+    card.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        toggleCard();
+      }
+    });
+
+    if (!prefersReducedMotion && 'IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting || userInteracted || card.dataset.previewed === 'true') return;
+          card.dataset.previewed = 'true';
+          card.classList.add('is-previewing');
+          window.setTimeout(() => {
+            card.classList.remove('is-previewing');
+          }, 1700);
+          observer.unobserve(card);
+        });
+      }, { threshold: 0.42 });
+
+      observer.observe(card);
+    }
+  });
 </script>
 </body>
 </html>

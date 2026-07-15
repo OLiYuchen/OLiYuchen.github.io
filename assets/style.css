@@ -634,6 +634,20 @@ button:focus-visible,
   border-radius: var(--radius-card);
 }
 
+.project-card.project-card-ecoscan {
+  grid-template-rows: auto auto;
+}
+
+.project-card-ecoscan .project-card-media {
+  aspect-ratio: 3593 / 1552;
+  background: #70aaa5;
+}
+
+.project-card-ecoscan .project-card-media img {
+  object-fit: cover;
+  transform: scale(1.006);
+}
+
 .technique-explorations {
   padding-top: clamp(4rem, 6.5vw, 6rem);
   padding-bottom: clamp(4.2rem, 6.5vw, 6rem);
@@ -4697,6 +4711,55 @@ article#physical-computing .exploration-detail-copy p:not(.project-meta) {
   background-size: 100% 100%, 4.5rem 4.5rem, 4.5rem 4.5rem, auto;
 }
 
+/* EcoScan uses a tighter editorial rhythm than the longer Merlin report. */
+.ecoscan-case-page .merlin-report-hero {
+  padding-bottom: clamp(2.5rem, 4.5vw, 4.5rem);
+}
+
+.ecoscan-case-page .merlin-report-grid {
+  min-height: clamp(29rem, calc(82svh - 9rem), 40rem);
+}
+
+.ecoscan-case-page .merlin-report-section {
+  padding: clamp(4.75rem, 6.8vw, 7.15rem) 0;
+}
+
+.ecoscan-case-page .merlin-report-layout {
+  grid-template-columns: minmax(7.5rem, 0.15fr) minmax(0, 1fr);
+  gap: clamp(1.75rem, 3.6vw, 3.9rem);
+}
+
+.ecoscan-case-page .merlin-report-content {
+  gap: clamp(2rem, 3vw, 2.85rem);
+}
+
+.ecoscan-case-page .merlin-report-lede {
+  max-width: 67rem;
+}
+
+.ecoscan-case-page .merlin-report-lede h2 {
+  max-width: 25ch;
+  font-size: clamp(2.35rem, 3.4vw, 3.55rem);
+  line-height: 1.03;
+}
+
+.ecoscan-case-page .merlin-report-lede p {
+  max-width: 64ch;
+  margin-top: clamp(0.72rem, 1.2vw, 0.95rem);
+}
+
+.ecoscan-case-page .merlin-project-detail-card {
+  min-height: clamp(10rem, 11.5vw, 11.5rem);
+  border-color: rgba(52, 95, 90, 0.12);
+  background: rgba(251, 255, 252, 0.68);
+  box-shadow: none;
+}
+
+.ecoscan-case-page .merlin-project-detail-card:hover {
+  border-color: rgba(52, 95, 90, 0.22);
+  box-shadow: 0 14px 30px rgba(52, 95, 90, 0.07);
+}
+
 .case-study-page .merlin-report-band {
   background: var(--case-paper-deep);
   border-block-color: var(--case-line);
@@ -4708,23 +4771,14 @@ article#physical-computing .exploration-detail-copy p:not(.project-meta) {
 }
 
 .ecoscan-case-page .merlin-report-question {
-  background:
-    linear-gradient(180deg, rgba(91, 165, 156, 0.96), #5ba59c);
+  background: #5ba59c;
   border-color: rgba(52, 95, 90, 0.14);
-  padding: clamp(1.45rem, 2.7vw, 2.2rem);
 }
 
 .ecoscan-case-page .merlin-report-question .merlin-section-chip {
-  margin-bottom: clamp(0.85rem, 1.4vw, 1.05rem);
-  padding: 0.42rem 0.75rem;
   border-color: rgba(255, 252, 246, 0.74);
-  background: rgba(255, 252, 246, 0.9);
-  color: #345f5a;
-  font-family: var(--font-body);
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  text-transform: none;
+  background: rgba(255, 252, 246, 0.94);
+  color: #2d4f45;
 }
 
 .case-study-page .merlin-report-question > p:not(.merlin-section-chip) {
@@ -4810,6 +4864,33 @@ article#physical-computing .exploration-detail-copy p:not(.project-meta) {
   object-position: center center;
 }
 
+.ecoscan-hero-flip .merlin-flip-card-inner {
+  min-height: 0;
+  aspect-ratio: 3593 / 1552;
+}
+
+.ecoscan-hero-flip .merlin-flip-face {
+  border: 0;
+  background: #5ba59c;
+}
+
+.ecoscan-hero-flip .merlin-flip-hint {
+  border-color: color-mix(in srgb, #5ba59c 28%, transparent);
+  color: #2d4f45;
+}
+
+.ecoscan-hero-flip .merlin-flip-front img {
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.006);
+}
+
+.ecoscan-hero-flip .merlin-flip-back img {
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.006);
+}
+
 .ecoscan-artifact-card,
 .ecoscan-phone-card,
 .ecoscan-system-card {
@@ -4826,7 +4907,7 @@ article#physical-computing .exploration-detail-copy p:not(.project-meta) {
 }
 
 .ecoscan-overview-section .merlin-report-content {
-  gap: clamp(2.35rem, 4vw, 3.6rem);
+  gap: clamp(2.15rem, 3.3vw, 3rem);
 }
 
 .ecoscan-overview-section .ecoscan-artifact-card {
@@ -4870,11 +4951,154 @@ article#physical-computing .exploration-detail-copy p:not(.project-meta) {
   padding: clamp(1rem, 2.6vw, 2rem);
 }
 
+.ecoscan-flow-overview {
+  overflow: hidden;
+  margin: 0;
+  border-radius: 1rem;
+  background: #2d4f45;
+}
+
+.ecoscan-flow-overview img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.ecoscan-flow-overview figcaption {
+  padding: 0.9rem clamp(1rem, 2vw, 1.35rem) 1rem;
+  background: #f8fbf8;
+  color: #526861;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+.ecoscan-feature-flows {
+  display: grid;
+  gap: clamp(2.75rem, 5vw, 4.5rem);
+  margin-top: 0;
+}
+
+#product-flow .merlin-report-content {
+  gap: clamp(2rem, 3.5vw, 3rem);
+}
+
+.ecoscan-feature-flow {
+  display: grid;
+  gap: clamp(1.35rem, 2.8vw, 2.2rem);
+  padding-top: clamp(1.4rem, 2.4vw, 1.9rem);
+  border-top: 1px solid color-mix(in srgb, var(--case-accent-deep) 20%, transparent);
+}
+
+.ecoscan-feature-flow-copy {
+  display: grid;
+  grid-template-columns: minmax(15rem, 0.72fr) minmax(18rem, 1.28fr);
+  grid-template-areas:
+    "meta meta"
+    "title details";
+  column-gap: clamp(1.5rem, 4vw, 4rem);
+  row-gap: 0.75rem;
+  align-items: start;
+}
+
+.ecoscan-feature-flow-copy .project-meta {
+  grid-area: meta;
+  margin: 0;
+  color: var(--case-accent-deep);
+}
+
+.ecoscan-feature-flow-copy h3 {
+  grid-area: title;
+  max-width: 19ch;
+  margin: 0;
+  color: var(--merlin-ink);
+  font-family: var(--font-display);
+  font-size: clamp(1.85rem, 3.2vw, 3rem);
+  font-weight: 560;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.ecoscan-feature-flow-details {
+  grid-area: details;
+  display: grid;
+  gap: 0.9rem;
+}
+
+.ecoscan-feature-flow-details > p {
+  max-width: 62ch;
+  margin: 0;
+  color: var(--merlin-muted);
+  font-size: clamp(0.96rem, 1.25vw, 1.08rem);
+  line-height: 1.68;
+  text-wrap: pretty;
+}
+
+.ecoscan-feature-flow-details > .ecoscan-feature-outcome {
+  padding-top: 0.78rem;
+  border-top: 1px solid color-mix(in srgb, var(--case-accent-deep) 14%, transparent);
+  color: var(--case-accent-deep);
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+.ecoscan-feature-flow figure {
+  overflow: hidden;
+  margin: 0;
+  border-radius: 0.9rem;
+  background: #2d4f45;
+  scrollbar-color: #88bcb6 #2d4f45;
+  scrollbar-width: thin;
+}
+
+.ecoscan-feature-flow figure:focus-visible {
+  outline: 3px solid color-mix(in srgb, #5ba59c 65%, white);
+  outline-offset: 4px;
+}
+
+.ecoscan-feature-flow img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 .ecoscan-inline-illustration {
   display: block;
-  width: min(100%, 64rem);
+  width: min(100%, 58rem);
   height: auto;
-  margin: clamp(1.4rem, 3vw, 2.4rem) auto 0;
+  margin: clamp(0.6rem, 1.4vw, 1.1rem) auto 0;
+}
+
+.ecoscan-research-section .merlin-report-content {
+  gap: clamp(2.15rem, 3.4vw, 3.15rem);
+}
+
+.ecoscan-research-section .merlin-findings-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.ecoscan-research-section .merlin-findings-grid article:last-child {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(12rem, 0.58fr) minmax(0, 1fr);
+  column-gap: clamp(1.25rem, 3vw, 3rem);
+  align-items: end;
+  background: #5ba59c;
+}
+
+.ecoscan-research-section .merlin-findings-grid article:last-child .project-meta,
+.ecoscan-research-section .merlin-findings-grid article:last-child h3,
+.ecoscan-research-section .merlin-findings-grid article:last-child p {
+  color: #fffdf8;
+}
+
+.ecoscan-research-section .merlin-findings-grid article:last-child .project-meta {
+  grid-column: 1 / -1;
+}
+
+.ecoscan-research-section .merlin-findings-grid article:last-child p {
+  margin-top: 0;
 }
 
 .ecoscan-timeline {
@@ -5025,7 +5249,7 @@ article#physical-computing .exploration-detail-copy p:not(.project-meta) {
 }
 
 .ecoscan-system-section {
-  padding-top: clamp(4.8rem, 7.2vw, 7.6rem);
+  padding-block: clamp(4.4rem, 6.2vw, 6.5rem);
 }
 
 .ecoscan-system-section .merlin-report-section-label {
@@ -5037,7 +5261,7 @@ article#physical-computing .exploration-detail-copy p:not(.project-meta) {
 }
 
 .ecoscan-system-section .merlin-report-content {
-  gap: clamp(1.45rem, 2.6vw, 2.15rem);
+  gap: clamp(1.65rem, 2.8vw, 2.4rem);
 }
 
 .ecoscan-system-section .project-meta {
@@ -5048,17 +5272,17 @@ article#physical-computing .exploration-detail-copy p:not(.project-meta) {
 }
 
 .ecoscan-system-lede {
-  gap: clamp(0.55rem, 1vw, 0.8rem);
+  max-width: 58rem;
 }
 
 .ecoscan-system-lede h2 {
-  max-width: 47rem;
-  font-size: clamp(2.7rem, 5.4vw, 5.25rem);
-  line-height: 0.96;
+  max-width: 24ch;
+  font-size: clamp(2.05rem, 3vw, 3.1rem);
+  line-height: 1.05;
 }
 
 .ecoscan-system-lede p {
-  max-width: 43rem;
+  max-width: 58ch;
 }
 
 .ecoscan-type-specimen h3 {
@@ -5128,9 +5352,18 @@ article#physical-computing .exploration-detail-copy p:not(.project-meta) {
 
 .ecoscan-system-logo img {
   display: block;
-  width: min(13.5rem, 68%);
+  width: min(11.25rem, 62%);
   height: auto;
   margin: clamp(0.25rem, 1vw, 0.7rem) auto clamp(0.15rem, 0.7vw, 0.45rem);
+}
+
+.ecoscan-reflection-section .merlin-report-content {
+  gap: clamp(2rem, 3vw, 2.75rem);
+}
+
+.ecoscan-reflection-section .merlin-outcome-panel {
+  padding: clamp(1.25rem, 2.3vw, 1.8rem);
+  gap: clamp(1.25rem, 2.6vw, 2.4rem);
 }
 
 .ecoscan-swatch-grid {
@@ -5300,6 +5533,18 @@ article#physical-computing .exploration-detail-copy p:not(.project-meta) {
     grid-template-columns: minmax(0, 1.25fr) minmax(14rem, 0.75fr);
   }
 
+  .ecoscan-feature-flow-copy {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "meta"
+      "title"
+      "details";
+  }
+
+  .ecoscan-feature-flow-copy h3 {
+    max-width: 22ch;
+  }
+
   .ecoscan-type-specimen {
     grid-row: auto;
     grid-template-columns: 1fr;
@@ -5335,6 +5580,25 @@ article#physical-computing .exploration-detail-copy p:not(.project-meta) {
   .ecoscan-type-specimen {
     grid-template-columns: 1fr;
     gap: 1rem;
+  }
+
+  .ecoscan-flow-overview figcaption {
+    font-size: 0.78rem;
+  }
+
+  .ecoscan-feature-flows {
+    gap: 2.75rem;
+  }
+
+  .ecoscan-feature-flow-copy h3 {
+    max-width: 18ch;
+    font-size: clamp(1.75rem, 8vw, 2.35rem);
+  }
+
+  .ecoscan-feature-flow figure img {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
   }
 
   .ecoscan-timeline {
@@ -6957,5 +7221,1089 @@ article#physical-computing .exploration-detail-copy p:not(.project-meta) {
     inset: auto;
     width: 100%;
     transform: none;
+  }
+}
+
+/* ===================================================================
+   Common Ground — game design case study components
+   Scoped to .game-case-page so nothing else is affected.
+   =================================================================== */
+
+.game-case-page {
+  --card-resource: #3f7fd6;
+  --card-challenge: #d15455;
+  --card-principle: #5ba36f;
+  --card-shenanigans: #e0a53a;
+}
+
+/* Hero flip. The container takes the hero artwork's native 1211x571 (~2.12:1,
+   the same proportion as the merlin hero), so the front artwork lands exactly
+   1:1 and is never cropped. The back is a 4:3 photograph, which `cover` crops
+   to the same band — fine for a photo, unlike the designed artwork. */
+.game-hero-flip .merlin-flip-card-inner {
+  min-height: 0;
+  aspect-ratio: 1211 / 571;
+}
+
+.game-hero-flip .merlin-flip-hint {
+  border-color: color-mix(in srgb, var(--case-accent) 32%, transparent);
+  color: var(--case-accent-deep);
+}
+
+.game-hero-flip .merlin-flip-face {
+  border-radius: 1.6rem;
+  overflow: hidden;
+}
+
+.game-hero-flip .merlin-flip-face img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.game-hero-flip .merlin-flip-front {
+  background: #fef5e6; /* the hero artwork's own background */
+}
+
+/* keep the card rows, player mats and hands in frame when the 4:3 photo is
+   cropped to the hero band */
+.game-hero-flip .merlin-flip-back img {
+  object-position: center 42%;
+}
+
+/* This page stacks more blocks per section than merlin does, so it needs a
+   more generous rhythm to still read calmly. */
+.game-case-page .merlin-report-content {
+  gap: clamp(2.9rem, 5vw, 4.9rem);
+}
+
+.game-case-page .merlin-report-lede p {
+  line-height: 1.75;
+}
+
+.game-case-page .merlin-report-lede + .game-figure,
+.game-case-page .game-figure + .game-figure {
+  margin-top: 0;
+}
+
+/* this page shows three headline numbers, not merlin's four */
+.game-case-page .merlin-source-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: 52rem;
+}
+
+/* --- What the player holds: energy / cardholder / progress --- */
+.game-token-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.8rem, 1.6vw, 1.25rem);
+  margin-top: clamp(1.4rem, 2.6vw, 2rem);
+}
+
+.game-token {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: clamp(1rem, 2vw, 1.35rem);
+  border: 1px solid var(--case-line);
+  border-radius: 1.2rem;
+  background: linear-gradient(180deg, var(--case-surface-strong), var(--case-surface));
+}
+
+.game-token-icon {
+  width: 2.4rem;
+  height: 2.4rem;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--case-accent-soft);
+  color: var(--case-accent-deep);
+}
+
+.game-token-icon svg { width: 1.35rem; height: 1.35rem; }
+
+.game-token h4 {
+  margin: 0;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.24rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.game-token p {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--merlin-muted);
+}
+
+/* --- The turn engine: numbered, connected loop --- */
+.game-loop {
+  --loop-line: color-mix(in srgb, var(--case-accent) 34%, transparent);
+  list-style: none;
+  margin: clamp(1.4rem, 2.6vw, 2rem) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(0.9rem, 1.8vw, 1.5rem);
+  counter-reset: loop;
+}
+
+.game-loop-step {
+  position: relative;
+  counter-increment: loop;
+  padding: clamp(1.05rem, 2vw, 1.5rem);
+  padding-top: clamp(1.9rem, 3vw, 2.4rem);
+  border: 1px solid var(--case-line);
+  border-radius: 1.2rem;
+  background: linear-gradient(180deg, var(--case-surface-strong), var(--case-surface));
+}
+
+.game-loop-step::before {
+  content: counter(loop, decimal-leading-zero);
+  position: absolute;
+  top: clamp(0.85rem, 1.6vw, 1.15rem);
+  left: clamp(1.05rem, 2vw, 1.5rem);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--case-accent-deep);
+}
+
+/* connector arrow to the next node (desktop only) */
+.game-loop-step:not(:last-child)::after {
+  content: "→";
+  position: absolute;
+  right: -0.95rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  color: var(--loop-line);
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+.game-loop-step:nth-child(4)::after { content: none; }
+
+.game-loop-step h4 {
+  margin: 0 0 0.4rem;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.28rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.game-loop-step p {
+  margin: 0;
+  font-size: 0.93rem;
+  line-height: 1.58;
+  color: var(--merlin-muted);
+}
+
+.game-loop-note {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: var(--merlin-muted);
+  text-align: center;
+  font-style: italic;
+}
+
+/* --- Card-type legend --- */
+.game-legend {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(0.85rem, 1.6vw, 1.25rem);
+  margin-top: clamp(1.4rem, 2.6vw, 2rem);
+}
+
+.game-type-card {
+  --c: var(--case-accent);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: clamp(1rem, 1.9vw, 1.35rem);
+  border: 1px solid color-mix(in srgb, var(--c) 32%, var(--case-line));
+  border-top: 4px solid var(--c);
+  border-radius: 0.5rem 0.5rem 1.1rem 1.1rem;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--c) 8%, #fffdfa), var(--case-surface));
+  transition: transform 0.28s ease, box-shadow 0.28s ease;
+}
+
+.game-type-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 38px color-mix(in srgb, var(--c) 22%, transparent);
+}
+
+.game-type-tag {
+  align-self: flex-start;
+  padding: 0.22rem 0.66rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--c);
+}
+
+.game-type-card h4 {
+  margin: 0;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.34rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.game-type-card p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--merlin-muted);
+}
+
+.game-type-card.is-resource { --c: var(--card-resource); }
+.game-type-card.is-challenge { --c: var(--card-challenge); }
+.game-type-card.is-principle { --c: var(--card-principle); }
+.game-type-card.is-shenanigans { --c: var(--card-shenanigans); }
+
+/* --- Tuckman stage progression --- */
+.game-stages {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.55rem;
+  margin-top: clamp(1.4rem, 2.6vw, 2rem);
+}
+
+.game-stage {
+  position: relative;
+  padding: clamp(0.85rem, 1.6vw, 1.15rem);
+  border: 1px solid var(--case-line);
+  border-radius: 0.95rem;
+  background: linear-gradient(180deg, var(--case-surface-strong), var(--case-surface));
+  text-align: center;
+}
+
+.game-stage::after {
+  content: "›";
+  position: absolute;
+  right: -0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  color: color-mix(in srgb, var(--case-accent) 46%, transparent);
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+.game-stage:last-child::after { content: none; }
+
+.game-stage span {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--case-accent-deep);
+  margin-bottom: 0.3rem;
+}
+
+.game-stage strong {
+  display: block;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.16rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.game-stage em {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: 0.78rem;
+  font-style: normal;
+  line-height: 1.5;
+  color: var(--merlin-muted);
+}
+
+/* --- Playtest result bars --- */
+.game-stats {
+  display: grid;
+  gap: clamp(0.9rem, 1.8vw, 1.3rem);
+  margin-top: clamp(1.4rem, 2.6vw, 2rem);
+  max-width: 46rem;
+}
+
+.game-stat {
+  display: grid;
+  grid-template-columns: minmax(9rem, 15rem) 1fr auto;
+  align-items: center;
+  gap: clamp(0.7rem, 1.6vw, 1.1rem);
+}
+
+.game-stat-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.game-stat-track {
+  position: relative;
+  height: 0.72rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--case-accent) 12%, #fff);
+  overflow: hidden;
+}
+
+.game-stat-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--case-accent), var(--case-accent-deep));
+  transition: width 1.1s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.game-stat.is-visible .game-stat-fill {
+  width: calc(var(--v, 0) * 20%);
+}
+
+.game-stat-value {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--case-accent-deep);
+  min-width: 3.2rem;
+  text-align: right;
+}
+
+.game-stat-value small {
+  font-size: 0.78rem;
+  color: var(--merlin-muted);
+  font-weight: 500;
+}
+
+@media (max-width: 900px) {
+  .game-token-row,
+  .game-loop,
+  .game-legend { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  .game-loop-step::after,
+  .game-loop-step:nth-child(3)::after { content: none; }
+
+  .game-stages { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .game-stage::after { content: none; }
+}
+
+@media (max-width: 560px) {
+  .game-token-row,
+  .game-loop,
+  .game-legend,
+  .game-stages { grid-template-columns: 1fr; }
+
+  .game-stat {
+    grid-template-columns: 1fr auto;
+    grid-template-areas: "label value" "track track";
+  }
+  .game-stat-label { grid-area: label; }
+  .game-stat-value { grid-area: value; }
+  .game-stat-track { grid-area: track; }
+}
+
+/* --- The design process timeline (nodes on a line) --- */
+.game-process-block {
+  margin-top: clamp(1.6rem, 3vw, 2.4rem);
+}
+
+.game-tl {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 0.4rem;
+  margin-top: clamp(1.1rem, 2.2vw, 1.7rem);
+  /* room for a two-line label + stem + dot on each side */
+  padding: 6.2rem 0;
+}
+
+.game-tl-step {
+  --pc: var(--case-accent);
+  --pt: #5f3436;
+  position: relative;
+}
+
+/* the segment bar */
+.game-tl-bar {
+  display: grid;
+  place-items: center;
+  height: clamp(2.2rem, 3.2vw, 2.9rem);
+  border-radius: 0.6rem;
+  background: var(--pc);
+  font-family: "Instrument Sans", system-ui, sans-serif;
+  font-size: clamp(0.76rem, 0.95vw, 0.88rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--pt);
+  transition: translate 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* stem from the bar out to the dot */
+.game-tl-step::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  translate: -50% 0;
+  width: 3px;
+  height: 1.5rem;
+  background: var(--pc);
+}
+
+/* dot, centred on the stem tip */
+.game-tl-step::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  translate: -50% 0;
+  width: 0.95rem;
+  height: 0.95rem;
+  border-radius: 999px;
+  background: var(--pc);
+}
+
+.game-tl-step.is-above::before { bottom: 100%; }
+.game-tl-step.is-above::after  { bottom: calc(100% + 1.025rem); }
+.game-tl-step.is-below::before { top: 100%; }
+.game-tl-step.is-below::after  { top: calc(100% + 1.025rem); }
+
+.game-tl-step:hover .game-tl-bar {
+  translate: 0 -3px;
+  box-shadow: 0 12px 24px color-mix(in srgb, var(--pc) 40%, transparent);
+}
+
+.game-tl-label {
+  position: absolute;
+  left: 50%;
+  translate: -50% 0;
+  width: 122%;
+  text-align: center;
+}
+
+.game-tl-step.is-above .game-tl-label { bottom: calc(100% + 2.5rem); }
+.game-tl-step.is-below .game-tl-label { top: calc(100% + 2.5rem); }
+
+.game-tl-label small {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--case-accent-deep);
+}
+
+.game-tl-label span {
+  display: block;
+  font-size: clamp(0.76rem, 0.95vw, 0.88rem);
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--ink);
+}
+
+/* Phase colours: a tonal ramp of this page's own rose accent. */
+.game-tl-step.is-research  { --pc: color-mix(in srgb, var(--case-accent) 34%, #ffffff); --pt: var(--case-accent-deep); }
+.game-tl-step.is-design    { --pc: color-mix(in srgb, var(--case-accent) 66%, #ffffff); --pt: #5f3436; }
+.game-tl-step.is-test      { --pc: var(--case-accent); --pt: #5f3436; }
+.game-tl-step.is-synthesis { --pc: var(--case-accent-deep); --pt: #fffdf9; }
+
+@media (max-width: 860px) {
+  .game-tl {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+    padding: 0.4rem 0 0;
+  }
+
+  .game-tl-step {
+    display: grid;
+    grid-template-columns: 0.42rem minmax(0, 1fr);
+    align-items: center;
+    gap: 0.9rem;
+  }
+
+  .game-tl-bar {
+    height: 100%;
+    min-height: 2.7rem;
+    border-radius: 999px;
+    font-size: 0;
+  }
+
+  .game-tl-step::before,
+  .game-tl-step::after { content: none; }
+
+  .game-tl-label,
+  .game-tl-step.is-above .game-tl-label,
+  .game-tl-step.is-below .game-tl-label {
+    position: static;
+    translate: none;
+    width: auto;
+    text-align: left;
+    top: auto;
+    bottom: auto;
+  }
+
+  .game-tl-label small { margin-bottom: 0.12rem; }
+}
+
+/* --- Common Ground: real card art in the type legend --- */
+.game-type-art {
+  margin: -0.2rem -0.35rem 0.1rem;
+}
+
+.game-type-art img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* --- Common Ground: editorial figures (native aspect ratios) --- */
+.game-figure {
+  margin: clamp(1.4rem, 2.6vw, 2rem) 0 0;
+  overflow: hidden;
+  border: 1px solid var(--case-line);
+  border-radius: 1.35rem;
+  background: linear-gradient(180deg, var(--case-surface-strong), var(--case-surface));
+  box-shadow: var(--merlin-shadow);
+}
+
+.game-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.game-figure figcaption {
+  padding: 0.95rem 1.15rem 1.05rem;
+  border-top: 1px solid var(--case-line);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--merlin-muted);
+}
+
+.game-figure figcaption strong {
+  display: block;
+  margin-bottom: 0.2rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--case-accent-deep);
+}
+
+/* two figures whose rendered heights match: 3:2 beside 3:4 at 2fr/1fr */
+.game-figure-pair {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: clamp(0.9rem, 1.8vw, 1.4rem);
+  align-items: start;
+  margin-top: clamp(1.4rem, 2.6vw, 2rem);
+}
+
+/* 3:4 portrait beside 4:3 landscape. For the two photos to render at the same
+   height the columns must be 1 : (1.333 / 0.75) = 1 : 1.78. */
+.game-figure-pair-final {
+  grid-template-columns: 1fr 1.78fr;
+}
+
+/* 1392x1175 beside 1593x1175: equal height needs 1 : (1.356 / 1.185) */
+.game-figure-pair-concept {
+  grid-template-columns: 1fr 1.144fr;
+}
+
+.game-figure-pair .game-figure { margin-top: 0; }
+
+/* text block beside a figure (stats + evidence photo, reflection + photo) */
+.game-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: clamp(1.2rem, 2.6vw, 2.2rem);
+  align-items: center;
+  margin-top: clamp(1.4rem, 2.6vw, 2rem);
+}
+
+.game-split .game-figure { margin-top: 0; }
+.game-split .game-stats { margin-top: 0; }
+
+/* evidence pair: the data and the room it came from, side by side and equal —
+   both stay subordinate to the synthesis that follows */
+.game-split-evidence {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+}
+
+.game-split-evidence .game-figure figcaption {
+  font-size: 0.84rem;
+}
+
+@media (max-width: 900px) {
+  .game-split,
+  .game-figure-pair { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 360px) {
+  .ecoscan-case-page .merlin-project-details {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Shared case-study reader navigation */
+.case-progress-enabled {
+  --case-reader-accent: #347447;
+  --case-reader-tint: rgba(63, 155, 98, 0.12);
+  --case-reader-paper: rgba(252, 250, 244, 0.92);
+}
+
+.merlin-case-page {
+  --case-reader-accent: var(--merlin-green-deep);
+  --case-reader-tint: color-mix(in srgb, var(--merlin-green) 13%, transparent);
+  --case-reader-paper: rgba(248, 244, 234, 0.92);
+}
+
+.paira-case-page {
+  --case-reader-accent: #4f5b94;
+  --case-reader-tint: rgba(105, 120, 201, 0.14);
+  --case-reader-paper: rgba(248, 248, 255, 0.9);
+}
+
+.ecoscan-case-page {
+  --case-reader-accent: #39766f;
+  --case-reader-tint: rgba(91, 165, 156, 0.16);
+  --case-reader-paper: rgba(248, 252, 249, 0.92);
+}
+
+.game-case-page {
+  --case-reader-accent: #985f64;
+  --case-reader-tint: rgba(218, 139, 143, 0.16);
+  --case-reader-paper: rgba(255, 249, 247, 0.92);
+}
+
+.case-reader-tools {
+  --case-read-progress: 0%;
+  position: fixed;
+  inset: 0;
+  z-index: 19;
+  pointer-events: none;
+}
+
+.case-reader-back,
+.case-reader-nav {
+  pointer-events: auto;
+  border: 1px solid color-mix(in srgb, var(--case-reader-accent) 18%, transparent);
+  background: var(--case-reader-paper);
+  -webkit-backdrop-filter: blur(14px) saturate(115%);
+  backdrop-filter: blur(14px) saturate(115%);
+}
+
+.case-reader-back {
+  display: inline-flex;
+  gap: 0.45rem;
+  align-items: center;
+  justify-content: center;
+  color: var(--case-reader-accent);
+  white-space: nowrap;
+}
+
+.case-reader-back-icon {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.case-reader-back-label {
+  font-size: 0.66rem;
+  font-weight: 650;
+  letter-spacing: 0.03em;
+}
+
+.case-reader-nav {
+  position: absolute;
+  top: 5.35rem;
+  left: 50%;
+  width: min(54vw, 47rem);
+  padding: 0.34rem 0.44rem 0.5rem;
+  border-radius: 999px;
+  transform: translateX(-50%);
+  box-shadow: 0 4px 8px rgba(42, 35, 29, 0.05);
+}
+
+.case-reader-list {
+  display: flex;
+  gap: 0.14rem;
+  align-items: center;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.case-reader-list li {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.case-reader-link {
+  display: flex;
+  gap: 0.35rem;
+  align-items: center;
+  justify-content: center;
+  min-height: 2rem;
+  padding: 0.34rem 0.45rem;
+  border-radius: 999px;
+  color: color-mix(in srgb, var(--merlin-muted, #746b62) 88%, var(--case-reader-accent));
+  font-size: clamp(0.58rem, 0.62vw, 0.68rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.015em;
+  white-space: nowrap;
+  transition: color 180ms ease, background-color 180ms ease, transform 180ms ease;
+}
+
+.case-reader-link:hover,
+.case-reader-link:focus-visible,
+.case-reader-link.is-current {
+  color: var(--case-reader-accent);
+  background: var(--case-reader-tint);
+}
+
+.case-reader-link:hover {
+  transform: translateY(-1px);
+}
+
+.case-reader-link:focus-visible {
+  outline: 2px solid var(--case-reader-accent);
+  outline-offset: 2px;
+}
+
+.case-reader-back:focus-visible {
+  outline: 2px solid var(--case-reader-accent);
+  outline-offset: 2px;
+}
+
+.case-reader-dot {
+  flex: 0 0 auto;
+  width: 0.32rem;
+  height: 0.32rem;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.32;
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.case-reader-link.is-current .case-reader-dot {
+  opacity: 1;
+  transform: scale(1.3);
+}
+
+.case-reader-meter {
+  position: absolute;
+  right: 0.72rem;
+  bottom: 0.22rem;
+  left: 0.72rem;
+  height: 2px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--case-reader-accent) 12%, transparent);
+}
+
+.case-reader-meter > span {
+  display: block;
+  width: var(--case-read-progress);
+  height: 100%;
+  border-radius: inherit;
+  background: var(--case-reader-accent);
+  transition: width 120ms linear;
+}
+
+.case-progress-enabled .merlin-report-hero {
+  padding-top: clamp(4.6rem, 6vw, 5.35rem);
+  scroll-margin-top: 8rem;
+}
+
+.case-progress-enabled .merlin-report-section {
+  scroll-margin-top: 8.5rem;
+}
+
+@media (max-width: 980px) {
+  .case-reader-tools {
+    inset: auto 0.5rem calc(0.5rem + env(safe-area-inset-bottom)) 0.5rem;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.35rem;
+    align-items: center;
+    padding: 0.4rem;
+    border: 1px solid color-mix(in srgb, var(--case-reader-accent) 18%, transparent);
+    border-radius: 1rem;
+    background: var(--case-reader-paper);
+    box-shadow: 0 4px 8px rgba(42, 35, 29, 0.08);
+    -webkit-backdrop-filter: blur(14px) saturate(115%);
+    backdrop-filter: blur(14px) saturate(115%);
+    pointer-events: auto;
+  }
+
+  .case-reader-back,
+  .case-reader-nav {
+    position: static;
+    transform: none;
+  }
+
+  .case-reader-back {
+    width: 2.65rem;
+    min-height: 2.65rem;
+    border: 0;
+    border-radius: 0.72rem;
+    background: var(--case-reader-tint);
+  }
+
+  .case-reader-back-label {
+    display: none;
+  }
+
+  .case-reader-nav {
+    width: 100%;
+    min-width: 0;
+    padding: 0 0 0.16rem;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  .case-reader-list {
+    overflow-x: auto;
+    padding-right: 0.2rem;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+  }
+
+  .case-reader-list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .case-reader-list li {
+    flex: 0 0 auto;
+  }
+
+  .case-reader-link {
+    min-height: 2.65rem;
+    padding: 0.5rem 0.72rem;
+    font-size: 0.67rem;
+  }
+
+  .case-reader-meter {
+    right: 0.35rem;
+    bottom: 0;
+    left: 0.35rem;
+  }
+
+  .case-progress-enabled .merlin-report-hero {
+    padding-top: 1rem;
+    scroll-margin-top: 6.5rem;
+  }
+
+  .case-progress-enabled .merlin-report-section {
+    scroll-margin-top: 6.5rem;
+  }
+
+  .case-progress-enabled .site-footer {
+    padding-bottom: calc(5.25rem + env(safe-area-inset-bottom));
+  }
+}
+
+@media (max-width: 520px) {
+  .case-reader-tools {
+    right: 0.35rem;
+    bottom: calc(0.35rem + env(safe-area-inset-bottom));
+    left: 0.35rem;
+  }
+
+  .case-reader-link {
+    padding-inline: 0.62rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .case-reader-back,
+  .case-reader-link,
+  .case-reader-dot,
+  .case-reader-meter > span,
+  .case-reader-list {
+    scroll-behavior: auto;
+    transition: none;
+  }
+}
+
+/* Keep the compact desktop rail after the shared mobile-first reader rules. */
+@media (min-width: 981px) {
+  .case-progress-enabled .site-header,
+  .case-progress-enabled .site-header .header-row,
+  .case-progress-enabled .site-header .brand-logo,
+  .case-progress-enabled .site-header .brand {
+    transition: padding 200ms ease, background-color 200ms ease, height 200ms ease, width 200ms ease, font-size 200ms ease;
+  }
+
+  .case-progress-enabled.case-reader-scrolled .site-header {
+    background: color-mix(in srgb, var(--case-reader-paper) 88%, transparent);
+    -webkit-backdrop-filter: blur(18px) saturate(120%);
+    backdrop-filter: blur(18px) saturate(120%);
+  }
+
+  .case-progress-enabled.case-reader-scrolled .site-header .header-row {
+    padding-block: 0.55rem;
+  }
+
+  .case-progress-enabled.case-reader-scrolled .site-header .brand {
+    font-size: 1.55rem;
+  }
+
+  .case-progress-enabled.case-reader-scrolled .site-header .brand-logo {
+    width: 2rem;
+    height: 2.08rem;
+  }
+
+  .case-reader-back {
+    position: absolute;
+    top: calc(50% - 4.4rem);
+    left: 0.7rem;
+    width: 2.9rem;
+    min-height: 2.9rem;
+    padding: 0.55rem;
+    overflow: hidden;
+    border-radius: 0.85rem;
+    transition: width 200ms ease, background-color 200ms ease;
+  }
+
+  .case-reader-back-label {
+    display: none;
+  }
+
+  .case-reader-back:hover,
+  .case-reader-back:focus-visible {
+    justify-content: flex-start;
+    width: 10rem;
+    background: color-mix(in srgb, var(--case-reader-paper) 86%, var(--case-reader-tint));
+  }
+
+  .case-reader-back:hover .case-reader-back-label,
+  .case-reader-back:focus-visible .case-reader-back-label {
+    display: inline;
+  }
+
+  .case-reader-nav {
+    top: calc(50% - 1rem);
+    right: auto;
+    left: 0.7rem;
+    width: 2.9rem;
+    padding: 0.58rem 0.38rem 0.68rem;
+    border-radius: 0.85rem;
+    transform: none;
+    box-shadow: none;
+    transition: width 200ms ease, border-radius 200ms ease, background-color 200ms ease;
+  }
+
+  .case-reader-nav::before {
+    content: "";
+    display: block;
+    width: 1.05rem;
+    height: 1.75rem;
+    margin: 0 auto;
+    color: color-mix(in srgb, var(--case-reader-accent) 78%, var(--merlin-muted, #746b62));
+    background:
+      radial-gradient(circle at 50% 12%, currentColor 0 0.14rem, transparent 0.16rem),
+      radial-gradient(circle at 50% 50%, currentColor 0 0.14rem, transparent 0.16rem),
+      radial-gradient(circle at 50% 88%, currentColor 0 0.14rem, transparent 0.16rem),
+      linear-gradient(currentColor, currentColor) center / 1px 76% no-repeat;
+  }
+
+  .case-reader-list {
+    display: grid;
+    gap: 0.12rem;
+    overflow: visible;
+  }
+
+  .case-reader-list li {
+    display: none;
+    flex: none;
+  }
+
+  .case-reader-nav:hover .case-reader-list li,
+  .case-reader-nav:focus-within .case-reader-list li {
+    display: block;
+  }
+
+  .case-reader-nav:hover,
+  .case-reader-nav:focus-within {
+    display: block;
+    width: 12rem;
+    padding: 0.68rem 0.62rem 0.72rem;
+    border-radius: 0.85rem;
+  }
+
+  .case-reader-nav:hover::before,
+  .case-reader-nav:focus-within::before {
+    content: "Sections";
+    width: auto;
+    height: auto;
+    margin: 0 0.42rem 0.42rem;
+    background: none;
+    font-size: 0.52rem;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .case-reader-link {
+    justify-content: flex-start;
+    min-height: 2rem;
+    padding: 0.42rem 0.48rem;
+    font-size: 0.66rem;
+  }
+
+  .case-reader-nav:not(:hover):not(:focus-within) .case-reader-list,
+  .case-reader-nav:not(:hover):not(:focus-within) .case-reader-meter {
+    display: none;
+  }
+
+  .case-reader-link.is-neighbor {
+    color: color-mix(in srgb, var(--merlin-muted, #746b62) 76%, var(--case-reader-accent));
+    opacity: 0.72;
+  }
+
+  .case-reader-link.is-current {
+    font-weight: 700;
+  }
+
+  .case-reader-nav:hover .case-reader-link,
+  .case-reader-nav:focus-within .case-reader-link {
+    opacity: 1;
+  }
+
+  .case-reader-meter {
+    top: auto;
+    right: 0.55rem;
+    bottom: 0.2rem;
+    left: 0.55rem;
+    width: auto;
+    height: 2px;
+  }
+
+  .case-reader-meter > span {
+    width: var(--case-read-progress);
+    height: 100%;
+  }
+
+  .case-progress-enabled .merlin-report-hero {
+    padding-top: clamp(1rem, 2vw, 1.8rem);
+    scroll-margin-top: 5.5rem;
+  }
+
+  .case-progress-enabled .merlin-report-section {
+    scroll-margin-top: 5.5rem;
   }
 }
