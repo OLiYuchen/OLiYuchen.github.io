@@ -7538,7 +7538,8 @@ article#physical-computing .exploration-detail-copy p:not(.project-meta) {
   display: grid;
   gap: clamp(0.9rem, 1.8vw, 1.3rem);
   margin-top: clamp(1.4rem, 2.6vw, 2rem);
-  max-width: 46rem;
+  width: 100%;
+  max-width: none;
 }
 
 .game-stat {
@@ -7818,9 +7819,173 @@ article#physical-computing .exploration-detail-copy p:not(.project-meta) {
   grid-template-columns: 1fr 1.78fr;
 }
 
-/* 1392x1175 beside 1593x1175: equal height needs 1 : (1.356 / 1.185) */
+/* The concept sketches are a pair, so their frames share one visual measure. */
 .game-figure-pair-concept {
-  grid-template-columns: 1fr 1.144fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+}
+
+.game-figure-pair-concept .game-figure {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100%;
+}
+
+.game-figure-pair-concept .game-figure img {
+  aspect-ratio: 4 / 3;
+  height: auto;
+  object-fit: cover;
+}
+
+/* Concept origin is one argument, not two unrelated image cards. */
+.game-concept-origin {
+  display: grid;
+  gap: clamp(1.4rem, 2.8vw, 2.2rem);
+  padding-block: clamp(1.5rem, 3vw, 2.4rem);
+  border-block: 1px solid var(--case-line);
+}
+
+.game-concept-origin > header {
+  display: grid;
+  grid-template-columns: minmax(8rem, 0.32fr) minmax(0, 0.9fr) minmax(16rem, 0.68fr);
+  gap: clamp(1rem, 2.5vw, 2.2rem);
+  align-items: start;
+}
+
+.game-concept-origin > header .project-meta {
+  padding-top: 0.3rem;
+  color: var(--case-accent-deep);
+}
+
+.game-concept-origin > header h3 {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(1.55rem, 2.5vw, 2.35rem);
+  font-weight: 600;
+  line-height: 1.06;
+  text-wrap: balance;
+}
+
+.game-concept-origin > header > p:last-child {
+  max-width: 52ch;
+  margin: 0;
+  color: var(--merlin-muted);
+  font-size: 0.92rem;
+  line-height: 1.7;
+  text-wrap: pretty;
+}
+
+.game-concept-origin-spread {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(5.5rem, 0.18fr) minmax(0, 1fr);
+  gap: clamp(0.8rem, 1.8vw, 1.4rem);
+  align-items: start;
+}
+
+.game-concept-origin-spread figure {
+  min-width: 0;
+  margin: 0;
+}
+
+.game-concept-origin-image {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.85rem;
+  background: #f6efea;
+}
+
+.game-concept-origin-image img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  mix-blend-mode: multiply;
+}
+
+.game-concept-origin-image .game-number {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  display: grid;
+  place-items: center;
+  width: 2.15rem;
+  aspect-ratio: 1;
+  border-radius: 999px;
+  color: var(--case-accent-deep);
+  background: rgba(255, 250, 247, 0.9);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.game-concept-origin-spread figcaption {
+  display: grid;
+  gap: 0.25rem;
+  padding-top: 0.85rem;
+}
+
+.game-concept-origin-spread figcaption strong {
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 1.5vw, 1.35rem);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.game-concept-origin-spread figcaption span {
+  max-width: 45ch;
+  color: var(--merlin-muted);
+  font-size: 0.82rem;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+.game-concept-origin-transfer {
+  display: grid;
+  justify-items: center;
+  gap: 0.65rem;
+  align-self: center;
+  color: var(--case-accent-deep);
+  text-align: center;
+}
+
+.game-concept-origin-transfer span {
+  max-width: 12ch;
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.game-concept-origin-transfer i {
+  font-family: var(--font-body);
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-style: normal;
+  font-weight: 400;
+}
+
+.game-concept-origin-outcome {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem 0.85rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem 1rem;
+  color: var(--merlin-muted);
+  background: color-mix(in srgb, var(--case-accent) 8%, transparent);
+  font-size: 0.82rem;
+}
+
+.game-concept-origin-outcome strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.game-concept-origin-outcome i {
+  color: var(--case-accent-deep);
+  font-family: var(--font-body);
+  font-style: normal;
 }
 
 .game-figure-pair .game-figure { margin-top: 0; }
@@ -8387,5 +8552,1601 @@ article#physical-computing .exploration-detail-copy p:not(.project-meta) {
   .case-reader-dot,
   .case-reader-meter > span {
     forced-color-adjust: auto;
+  }
+}
+
+/* Common Ground narrative rebuild: explain the design through the system itself. */
+.game-case-page .merlin-report-content {
+  gap: clamp(2rem, 3.4vw, 3.1rem);
+}
+
+.game-brief-path,
+.game-design-path {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-block: 1px solid var(--case-line);
+}
+
+.game-brief-path > div,
+.game-design-path > div {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 0.35rem;
+  padding: clamp(1rem, 2.3vw, 1.6rem);
+}
+
+.game-brief-path > div + div,
+.game-design-path > div + div {
+  border-left: 1px solid var(--case-line);
+}
+
+.game-brief-path span,
+.game-design-path span,
+.game-system-equation figcaption span,
+.game-goal-board > div > span,
+.game-iteration-decision span {
+  color: var(--case-accent-deep);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.game-brief-path strong {
+  max-width: 18ch;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 1.8vw, 1.5rem);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.game-ownership {
+  display: flex;
+  gap: 1rem 1.5rem;
+  align-items: center;
+  padding: 0.9rem 0;
+  border-block: 1px solid var(--case-line);
+}
+
+.game-ownership .project-meta {
+  flex: 0 0 auto;
+}
+
+.game-ownership ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.game-ownership li {
+  position: relative;
+  padding-left: 0.8rem;
+  color: var(--ink);
+  font-size: 0.9rem;
+}
+
+.game-ownership li::before {
+  content: "";
+  position: absolute;
+  top: 0.67em;
+  left: 0;
+  width: 0.3rem;
+  height: 0.3rem;
+  border-radius: 50%;
+  background: var(--case-accent);
+}
+
+.game-design-path {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.game-design-path > div::after {
+  content: "→";
+  position: absolute;
+  top: 50%;
+  right: -0.55rem;
+  z-index: 1;
+  transform: translateY(-50%);
+  color: var(--case-accent);
+  font-size: 1rem;
+}
+
+.game-design-path > div:last-child::after {
+  content: none;
+}
+
+.game-design-path strong {
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 1.8vw, 1.5rem);
+  line-height: 1;
+}
+
+.game-design-path small {
+  color: var(--merlin-muted);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.game-system-equation {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: clamp(0.6rem, 1.6vw, 1.2rem);
+  align-items: center;
+  padding: clamp(1.1rem, 2.8vw, 2rem);
+  border-block: 1px solid var(--case-line);
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--case-accent) 7%, transparent), transparent);
+}
+
+.game-system-equation figure {
+  display: grid;
+  gap: 0.85rem;
+  margin: 0;
+  text-align: center;
+}
+
+.game-system-equation img {
+  width: min(100%, 12rem);
+  max-height: 15rem;
+  margin-inline: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 14px 18px rgba(103, 61, 63, 0.12));
+}
+
+.game-system-equation figcaption {
+  display: grid;
+  gap: 0.12rem;
+}
+
+.game-system-equation figcaption strong {
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+  line-height: 1.1;
+}
+
+.game-system-equation figcaption small {
+  color: var(--merlin-muted);
+  font-size: 0.78rem;
+}
+
+.game-equation-symbol {
+  color: color-mix(in srgb, var(--case-accent) 70%, var(--ink));
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3vw, 2.5rem);
+}
+
+.game-process-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
+  gap: clamp(0.9rem, 1.8vw, 1.4rem);
+  align-items: stretch;
+}
+
+.game-process-gallery .game-figure {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100%;
+  margin: 0;
+}
+
+.game-process-gallery .game-figure img {
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.game-design-principle {
+  display: grid;
+  grid-template-columns: minmax(8rem, 0.3fr) minmax(0, 1fr);
+  gap: clamp(1rem, 3vw, 2.5rem);
+  align-items: center;
+  padding: clamp(1.25rem, 3vw, 2.1rem) 0;
+  border-block: 1px solid var(--case-line);
+}
+
+.game-design-principle span {
+  color: var(--case-accent-deep);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.game-design-principle p {
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(1.55rem, 3vw, 2.45rem);
+  font-weight: 500;
+  line-height: 1.06;
+}
+
+.game-goal-board {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(16rem, 0.7fr);
+  overflow: hidden;
+  border: 1px solid var(--case-line);
+  border-radius: 1.35rem;
+  background: var(--case-surface-strong);
+  box-shadow: var(--merlin-shadow);
+}
+
+.game-goal-board figure {
+  min-height: 22rem;
+  margin: 0;
+}
+
+.game-goal-board img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.game-goal-board > div {
+  display: grid;
+  align-content: center;
+  gap: 0.8rem;
+  padding: clamp(1.2rem, 3vw, 2rem);
+}
+
+.game-goal-board h3 {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 600;
+  line-height: 1;
+}
+
+.game-goal-board ul {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0;
+  padding-left: 1.1rem;
+  color: var(--merlin-muted);
+  font-size: 0.9rem;
+}
+
+.game-case-page .game-loop-step {
+  display: grid;
+  align-content: start;
+  gap: 0.42rem;
+  padding: clamp(0.85rem, 1.6vw, 1.15rem);
+}
+
+.game-case-page .game-loop-step::before {
+  content: none;
+}
+
+.game-loop-step img,
+.game-loop-score {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  margin-bottom: 0.35rem;
+  border-radius: 0.7rem;
+  object-fit: contain;
+  background: color-mix(in srgb, var(--case-accent) 6%, #fffdfa);
+}
+
+.game-loop-score {
+  display: grid;
+  place-items: center;
+  color: var(--case-accent-deep);
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 5vw, 4.2rem);
+  font-weight: 700;
+}
+
+.game-loop-step > span {
+  color: var(--case-accent-deep);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.game-legend-compact .game-type-card {
+  gap: 0.4rem;
+  padding: 0.8rem;
+  border-top-width: 1px;
+  border-radius: 1rem;
+}
+
+.game-legend-compact .game-type-card h4 {
+  min-height: 2.2em;
+  font-size: 1.08rem;
+  line-height: 1.1;
+}
+
+.game-stage-story {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  border-block: 1px solid var(--case-line);
+}
+
+.game-stage-story > div {
+  display: grid;
+  gap: 0.15rem;
+  padding: 1rem clamp(0.65rem, 1.5vw, 1rem);
+}
+
+.game-stage-story > div + div {
+  border-left: 1px solid var(--case-line);
+}
+
+.game-stage-story span {
+  color: var(--case-accent-deep);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.game-stage-story strong {
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+}
+
+.game-stage-story > p {
+  grid-column: 1 / -1;
+  padding: 0.85rem 1rem;
+  border-top: 1px solid var(--case-line);
+  color: var(--merlin-muted);
+  font-size: 0.86rem;
+  text-align: center;
+}
+
+.game-iteration-decision {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-block: 1px solid var(--case-line);
+}
+
+.game-iteration-decision > div {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 0.35rem;
+  padding: clamp(1rem, 2.2vw, 1.5rem);
+}
+
+.game-iteration-decision > div + div {
+  border-left: 1px solid var(--case-line);
+}
+
+.game-iteration-decision > div:not(:last-child)::after {
+  content: "→";
+  position: absolute;
+  top: 50%;
+  right: -0.55rem;
+  z-index: 1;
+  transform: translateY(-50%);
+  color: var(--case-accent);
+}
+
+.game-iteration-decision strong {
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 1.8vw, 1.5rem);
+  line-height: 1.05;
+}
+
+.game-iteration-decision small {
+  color: var(--merlin-muted);
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 760px) {
+  .game-brief-path,
+  .game-design-path,
+  .game-process-gallery,
+  .game-goal-board,
+  .game-iteration-decision {
+    grid-template-columns: 1fr;
+  }
+
+  .game-brief-path > div + div,
+  .game-design-path > div + div,
+  .game-iteration-decision > div + div {
+    border-left: 0;
+    border-top: 1px solid var(--case-line);
+  }
+
+  .game-design-path > div::after,
+  .game-iteration-decision > div:not(:last-child)::after {
+    top: auto;
+    right: 1rem;
+    bottom: -0.7rem;
+    transform: rotate(90deg);
+  }
+
+  .game-ownership {
+    display: grid;
+  }
+
+  .game-ownership ul {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .game-system-equation {
+    grid-template-columns: 1fr;
+  }
+
+  .game-equation-symbol {
+    transform: rotate(90deg);
+    text-align: center;
+  }
+
+  .game-system-equation .game-equation-symbol:first-of-type {
+    transform: none;
+  }
+
+  .game-design-principle {
+    grid-template-columns: 1fr;
+  }
+
+  .game-goal-board figure {
+    min-height: 15rem;
+  }
+
+  .game-stage-story {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .game-stage-story > div + div {
+    border-left: 0;
+  }
+
+  .game-stage-story > div:nth-child(even) {
+    border-left: 1px solid var(--case-line);
+  }
+
+  .game-stage-story > div:nth-child(n + 3) {
+    border-top: 1px solid var(--case-line);
+  }
+}
+
+@media (max-width: 480px) {
+  .game-ownership ul,
+  .game-stage-story {
+    grid-template-columns: 1fr;
+  }
+
+  .game-stage-story > div:nth-child(even) {
+    border-left: 0;
+  }
+
+  .game-stage-story > div + div {
+    border-top: 1px solid var(--case-line);
+  }
+}
+
+/* --- Common Ground: tighter grouping of a lede and the figure it explains ---
+   The section grid uses one gap for everything, which makes a caption sit as
+   far from its own heading as from an unrelated block. Pull related pieces up
+   so the page groups visually instead of reading as an even stack. */
+.game-case-page .merlin-report-lede + .game-figure,
+.game-case-page .merlin-report-lede + .game-figure-pair,
+.game-case-page .merlin-report-lede + .game-details,
+.game-case-page .merlin-report-lede + .game-stages,
+.game-case-page .merlin-report-lede + .game-legend,
+.game-case-page .game-stats + .game-gauge,
+.game-case-page .merlin-report-content > .game-figure + .game-figure {
+  margin-top: calc(clamp(2.9rem, 5vw, 4.9rem) * -0.55);
+}
+
+/* Remove accidental double-spacing where a component's own top margin was
+   added to the report grid gap. These pairs are one continuous thought. */
+.game-case-page .game-concept-map + .game-token-row,
+.game-case-page .game-goal-board + .game-loop,
+.game-case-page .game-deck-inventory + .game-legend,
+.game-case-page .merlin-report-lede + .game-split,
+.game-case-page .game-iteration-decision + .game-figure,
+.game-case-page .game-figure + .game-figure-pair {
+  margin-top: 0;
+}
+
+/* Captions and synthesis belong to the evidence directly above them. */
+.game-case-page .game-gauge + .game-loop-note {
+  margin-top: clamp(-2rem, -2.2vw, -1.25rem);
+}
+
+.game-case-page .game-testing-verdict + .game-iteration-decision,
+.game-case-page .game-figure + .merlin-outcome-panel,
+.game-case-page .merlin-outcome-panel + .links {
+  margin-top: clamp(-1rem, -1.1vw, -0.65rem);
+}
+
+.game-case-page .merlin-report-content > .game-split-evidence + .game-stats,
+.game-case-page .merlin-report-content > .game-iteration-decision + figure.game-figure {
+  margin-top: clamp(-1rem, -1.1vw, -0.65rem);
+}
+
+.game-visual-system-section .game-color-system + .game-system-note {
+  margin-top: clamp(-2rem, -2.2vw, -1.25rem);
+}
+
+/* --- Collapsible design trail --- */
+.game-details {
+  border: 1px solid var(--case-line);
+  border-radius: 1.35rem;
+  background: linear-gradient(180deg, var(--case-surface-strong), var(--case-surface));
+  overflow: hidden;
+}
+
+.game-details > summary {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(0.85rem, 1.8vw, 1.35rem);
+  padding: clamp(0.85rem, 1.6vw, 1.1rem) clamp(1rem, 2vw, 1.35rem);
+  cursor: pointer;
+  list-style: none;
+  transition: background 0.2s ease;
+}
+
+.game-details > summary::-webkit-details-marker { display: none; }
+
+.game-details > summary:hover { background: var(--case-accent-soft); }
+
+.game-details > summary:focus-visible {
+  outline: 2px solid var(--case-accent);
+  outline-offset: -3px;
+}
+
+/* the point of the thumbnails: you can see what is folded away */
+.game-details-thumbs {
+  display: flex;
+  align-items: center;
+}
+
+.game-details-thumbs img {
+  width: clamp(3.4rem, 6vw, 4.6rem);
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border: 2px solid var(--case-paper);
+  border-radius: 0.55rem;
+  box-shadow: 0 4px 12px rgba(146, 89, 91, 0.16);
+  rotate: -3deg;
+  transition: rotate 0.25s ease, translate 0.25s ease;
+}
+
+.game-details-thumbs img + img {
+  margin-left: -1.1rem;
+  rotate: 3deg;
+}
+
+.game-details > summary:hover .game-details-thumbs img { rotate: 0deg; }
+.game-details > summary:hover .game-details-thumbs img + img { translate: 0.25rem 0; }
+
+.game-details-copy { display: grid; gap: 0.12rem; }
+
+.game-details-title {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(1.15rem, 1.5vw, 1.38rem);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.game-details-hint {
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--merlin-muted);
+}
+
+.game-details-cue {
+  flex: none;
+  padding: 0.38rem 0.85rem;
+  border: 1px solid color-mix(in srgb, var(--case-accent) 40%, transparent);
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--case-accent-deep);
+  white-space: nowrap;
+}
+
+.game-details-cue-close { display: none; }
+.game-details[open] .game-details-cue-open { display: none; }
+.game-details[open] .game-details-cue-close { display: inline; }
+.game-details[open] > summary { background: var(--case-accent-soft); }
+.game-details[open] .game-details-thumbs { display: none; }
+
+.game-details-body {
+  display: grid;
+  gap: clamp(0.9rem, 1.8vw, 1.4rem);
+  padding: 0 clamp(1.15rem, 2.2vw, 1.6rem) clamp(1.15rem, 2.2vw, 1.6rem);
+  border-top: 1px solid var(--case-line);
+  padding-top: clamp(1.15rem, 2.2vw, 1.6rem);
+}
+
+.game-details-body .game-figure,
+.game-details-body .game-figure-pair { margin-top: 0; }
+
+/* --- Difficulty gauge: the one score where mid-range is the goal --- */
+.game-gauge {
+  width: 100%;
+  max-width: none;
+  padding: clamp(1.1rem, 2.2vw, 1.6rem);
+  border: 1px solid var(--case-line);
+  border-radius: 1.2rem;
+  background: linear-gradient(180deg, var(--case-surface-strong), var(--case-surface));
+}
+
+.game-gauge-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  margin: 0 0 0.85rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.game-gauge-head strong {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.35rem;
+  color: var(--case-accent-deep);
+}
+
+.game-gauge-head small {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--merlin-muted);
+}
+
+.game-gauge-track {
+  position: relative;
+  height: 0.72rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--case-accent) 12%, #fff);
+}
+
+/* the band we were aiming for: 2 to 4 on a 1-5 scale, i.e. (v-1)/4 = 25%..75% */
+.game-gauge-zone {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 25%;
+  right: 25%;
+  border-radius: 0.2rem;
+  background: color-mix(in srgb, var(--card-principle) 34%, transparent);
+}
+
+/* the reading: position = (v - 1) / 4 */
+.game-gauge-pin {
+  position: absolute;
+  top: 50%;
+  left: calc((var(--v) - 1) / 4 * 100%);
+  translate: -50% -50%;
+  width: 1.05rem;
+  height: 1.05rem;
+  border-radius: 999px;
+  background: var(--case-accent-deep);
+  box-shadow: 0 0 0 0.28rem var(--case-paper), 0 4px 10px rgba(146, 89, 91, 0.3);
+}
+
+.game-gauge-scale {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.6rem 0 0;
+  font-size: 0.72rem;
+  color: var(--merlin-muted);
+}
+
+.game-gauge-target {
+  font-weight: 700;
+  color: color-mix(in srgb, var(--card-principle) 80%, #000);
+}
+
+.game-gauge-note {
+  margin: 0.75rem 0 0;
+  font-size: 0.86rem;
+  line-height: 1.6;
+  color: var(--merlin-muted);
+}
+
+@media (max-width: 620px) {
+  .game-details > summary { gap: 0.35rem; }
+  .game-details-hint { flex-basis: 100%; padding-left: 2.05rem; }
+}
+
+/* --- Before/after: what survived from the design board --- */
+.game-becomes {
+  border: 1px solid var(--case-line);
+  border-radius: 1.2rem;
+  background: linear-gradient(180deg, var(--case-surface-strong), var(--case-surface));
+  overflow: hidden;
+}
+
+.game-becomes-head,
+.game-becomes-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: clamp(0.9rem, 2vw, 1.8rem);
+  align-items: center;
+  padding: clamp(0.75rem, 1.5vw, 1rem) clamp(1rem, 2vw, 1.4rem);
+}
+
+.game-becomes-head {
+  margin: 0;
+  border-bottom: 1px solid var(--case-line);
+  background: var(--case-accent-soft);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--case-accent-deep);
+}
+
+.game-becomes-row + .game-becomes-row {
+  border-top: 1px solid color-mix(in srgb, var(--case-line) 60%, transparent);
+}
+
+/* left side reads as the handwriting it came from */
+.game-becomes-from {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(1rem, 1.3vw, 1.15rem);
+  font-style: italic;
+  line-height: 1.45;
+  color: var(--merlin-muted);
+}
+
+.game-becomes-from em { font-style: normal; opacity: 0.75; }
+
+/* right side is the shipped thing */
+.game-becomes-to {
+  position: relative;
+  padding-left: 1.5rem;
+  font-size: clamp(0.9rem, 1.1vw, 1rem);
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.game-becomes-to::before {
+  content: "\2192";
+  position: absolute;
+  left: 0;
+  color: var(--case-accent);
+  font-weight: 400;
+}
+
+@media (max-width: 620px) {
+  .game-becomes-head { display: none; }
+  .game-becomes-row { grid-template-columns: 1fr; gap: 0.3rem; }
+}
+
+/* Common Ground: theory-to-mechanic bridge and real game tokens. */
+.game-case-page .merlin-report-content > * {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.game-case-page .merlin-source-grid {
+  max-width: none;
+}
+
+.game-case-page img {
+  max-width: 100%;
+}
+
+.game-concept-bridge {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) auto minmax(0, 1.1fr);
+  gap: clamp(1rem, 2.4vw, 2rem);
+  align-items: center;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border-block: 1px solid var(--case-line);
+  background: color-mix(in srgb, var(--case-accent) 5%, transparent);
+}
+
+.game-concept-source,
+.game-concept-output {
+  display: grid;
+  gap: 0.85rem;
+  min-width: 0;
+}
+
+.game-concept-source > span,
+.game-concept-output > span {
+  color: var(--case-accent-deep);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.game-concept-source h3 {
+  max-width: 18ch;
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(1.55rem, 2.8vw, 2.25rem);
+  font-weight: 600;
+  line-height: 1.05;
+  text-wrap: balance;
+}
+
+.game-concept-lenses {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.42rem;
+}
+
+.game-concept-lenses span {
+  padding: 0.38rem 0.7rem;
+  border: 1px solid color-mix(in srgb, var(--case-accent) 34%, var(--case-line));
+  border-radius: 999px;
+  color: var(--ink);
+  background: var(--case-surface-strong);
+  font-size: 0.74rem;
+}
+
+.game-concept-arrow {
+  color: var(--case-accent);
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3vw, 2.7rem);
+}
+
+.game-concept-output ul {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.game-concept-output li {
+  padding: 0.55rem 0;
+  color: var(--merlin-muted);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.game-concept-output li + li {
+  border-top: 1px solid var(--case-line);
+}
+
+.game-concept-output strong {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.game-concept-map {
+  border-block: 1px solid var(--case-line);
+}
+
+.game-concept-map > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 0;
+  cursor: pointer;
+  list-style: none;
+}
+
+.game-concept-map > summary::-webkit-details-marker {
+  display: none;
+}
+
+.game-concept-map > summary > span {
+  display: grid;
+  gap: 0.16rem;
+}
+
+.game-concept-map summary small {
+  color: var(--case-accent-deep);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.game-concept-map summary strong {
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 1.8vw, 1.45rem);
+  font-weight: 600;
+}
+
+.game-concept-map summary em {
+  color: var(--merlin-muted);
+  font-size: 0.78rem;
+  font-style: normal;
+  line-height: 1.45;
+}
+
+.game-concept-map summary b {
+  flex: none;
+  color: var(--case-accent-deep);
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  font-weight: 400;
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.game-concept-map[open] summary b {
+  transform: rotate(45deg);
+}
+
+.game-concept-map-viewport {
+  max-height: min(70vh, 44rem);
+  overflow: auto;
+  padding: clamp(0.8rem, 2vw, 1.25rem) 0;
+  border-top: 1px solid var(--case-line);
+  overscroll-behavior: contain;
+}
+
+.game-concept-map-viewport img {
+  display: block;
+  width: max(100%, 88rem);
+  max-width: none;
+  height: auto;
+}
+
+.game-deck-inventory {
+  display: grid;
+  grid-template-columns: minmax(10rem, 0.36fr) minmax(0, 1fr);
+  gap: clamp(0.9rem, 2vw, 1.5rem) clamp(1.2rem, 3vw, 2.4rem);
+  align-items: center;
+  padding-block: clamp(1rem, 2vw, 1.4rem);
+  border-block: 1px solid var(--case-line);
+}
+
+.game-deck-inventory > div {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.game-deck-inventory > div strong {
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2.2vw, 1.8rem);
+  font-weight: 600;
+  line-height: 1.05;
+}
+
+.game-deck-inventory > div span,
+.game-deck-inventory > p {
+  color: var(--merlin-muted);
+  font-size: 0.78rem;
+  line-height: 1.55;
+}
+
+.game-deck-inventory ul {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.game-deck-inventory li {
+  display: grid;
+  gap: 0.08rem;
+  padding-inline: clamp(0.55rem, 1.4vw, 1rem);
+}
+
+.game-deck-inventory li + li {
+  border-left: 1px solid var(--case-line);
+}
+
+.game-deck-inventory li strong {
+  color: var(--case-accent-deep);
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2vw, 1.7rem);
+  font-weight: 600;
+  line-height: 1;
+}
+
+.game-deck-inventory li span {
+  color: var(--ink);
+  font-size: 0.7rem;
+}
+
+.game-deck-inventory > p {
+  grid-column: 2;
+  max-width: 70ch;
+  margin: 0;
+}
+
+.game-token {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.game-token-visual,
+.game-token-row .game-token-icon {
+  display: flex;
+  width: 100%;
+  height: 7rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 0.8rem;
+  background: color-mix(in srgb, var(--case-accent) 6%, #fffdfa);
+}
+
+.game-token-row .game-token-icon svg {
+  width: 2.8rem;
+  height: 2.8rem;
+}
+
+.game-token-visual img {
+  display: block;
+  width: auto;
+  height: min(4.5rem, 80%);
+  object-fit: contain;
+}
+
+.game-token-energy img {
+  width: min(4.25rem, 34%);
+  height: auto;
+  aspect-ratio: 1;
+}
+
+.game-token-energy > span {
+  color: var(--case-accent-deep);
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+}
+
+.game-token-authority .game-token-visual img {
+  width: min(5rem, 64%);
+  height: auto;
+  aspect-ratio: 136 / 134;
+}
+
+.game-token-progress .game-token-visual img {
+  height: 6.2rem;
+}
+
+.game-legend-compact .game-type-card {
+  display: grid;
+  grid-template-rows: auto auto auto 1fr auto;
+  min-width: 0;
+}
+
+.game-legend-compact .game-type-art {
+  overflow: hidden;
+}
+
+.game-legend-compact .game-type-art img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.game-legend-compact .game-type-card p {
+  font-size: 0.78rem;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.game-card-origin {
+  display: block;
+  margin-top: 0.25rem;
+  padding-top: 0.55rem;
+  border-top: 1px solid color-mix(in srgb, var(--c) 24%, var(--case-line));
+  color: color-mix(in srgb, var(--c) 72%, var(--ink));
+  font-size: 0.68rem;
+  line-height: 1.35;
+}
+
+/* Numerals are functional information; keep them in the sans system even
+   when they sit inside editorial serif headings or captions. */
+.game-case-page .game-number,
+.game-case-page .game-numeric-line {
+  font-family: var(--font-body);
+  font-style: normal;
+  letter-spacing: 0;
+  font-variant-numeric: lining-nums tabular-nums;
+  font-feature-settings: "lnum" 1, "tnum" 1;
+}
+
+.game-case-page .game-number {
+  color: inherit;
+  font-weight: 600;
+}
+
+.game-case-page .game-numeric-line {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.game-case-page .merlin-report-section-label .game-number {
+  color: var(--case-accent-deep);
+  font-weight: 600;
+}
+
+.game-case-page .merlin-source-grid .game-number,
+.game-case-page .game-deck-inventory li .game-number {
+  color: var(--case-accent-deep);
+  font-weight: 600;
+}
+
+.game-case-page .game-deck-inventory > div > strong > .game-number {
+  color: inherit;
+  font-size: 1em;
+  font-weight: 600;
+  line-height: inherit;
+  vertical-align: baseline;
+}
+
+.game-case-page .game-stat-value.game-number,
+.game-case-page .game-gauge-head strong.game-number,
+.game-case-page .game-loop-score.game-number {
+  color: var(--case-accent-deep);
+  font-weight: 700;
+}
+
+.game-case-page .game-design-path .game-number,
+.game-case-page .game-stage-story .game-number {
+  font-weight: 600;
+}
+
+.game-case-page .game-stat-value small,
+.game-case-page .game-gauge-head strong small {
+  font-family: var(--font-body);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.game-case-page .merlin-testing-points .game-number,
+.game-case-page .game-iteration-decision .game-number,
+.game-case-page .game-loop-note .game-number {
+  color: color-mix(in srgb, var(--case-accent-deep) 82%, var(--ink));
+  font-weight: 600;
+}
+
+/* Numbers embedded in image captions read as prose, not as metrics. */
+.game-case-page .game-figure figcaption .game-number {
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  font-variant-numeric: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+}
+
+/* A score inside a display heading shares its scale and baseline with the
+   heading; only the numeral's sans-serif voice remains distinct. */
+.game-case-page .game-iteration-decision strong .game-number {
+  color: inherit;
+  font-size: 1em;
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  vertical-align: baseline;
+}
+
+.game-stage-story small {
+  color: var(--merlin-muted);
+  font-size: 0.72rem;
+  line-height: 1.35;
+}
+
+/* Testing synthesis reads as an editorial verdict; the mechanism change below
+   owns the step-by-step story. */
+.game-testing-verdict {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(18rem, 0.95fr);
+  gap: clamp(1.5rem, 4vw, 4rem);
+  align-items: end;
+  padding: clamp(1.3rem, 3vw, 2.2rem) 0;
+  border-block: 1px solid var(--case-line);
+}
+
+.game-testing-verdict-copy {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.game-testing-verdict-copy .project-meta {
+  margin: 0;
+  color: var(--case-accent-deep);
+}
+
+.game-testing-verdict-copy h3 {
+  max-width: 20ch;
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(1.85rem, 3.4vw, 3.1rem);
+  font-weight: 600;
+  line-height: 1.02;
+  text-wrap: balance;
+}
+
+.game-testing-verdict-evidence {
+  display: grid;
+  gap: 1rem;
+}
+
+.game-testing-verdict-evidence > div {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  gap: 0.8rem;
+  align-items: baseline;
+  padding-top: 0.9rem;
+  border-top: 1px solid color-mix(in srgb, var(--case-line) 78%, transparent);
+}
+
+.game-testing-verdict-evidence span {
+  color: color-mix(in srgb, var(--card-principle) 72%, var(--ink));
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.game-testing-verdict-evidence .is-friction span {
+  color: var(--case-accent-deep);
+}
+
+.game-testing-verdict-evidence p {
+  margin: 0;
+  color: var(--merlin-muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+.game-testing-verdict-evidence strong {
+  color: var(--case-accent-deep);
+  font-weight: 700;
+}
+
+/* Keep the playtest evidence and synthesis on the same content rails. */
+.game-case-page .game-stats,
+.game-case-page .game-gauge,
+.game-case-page .game-testing-verdict,
+.game-case-page .game-iteration-decision {
+  width: 100%;
+  max-width: none;
+}
+
+/* Common Ground visual system: one typographic hierarchy and one color
+   grammar, presented as a reference sheet rather than another card grid. */
+.game-visual-system-section .merlin-report-content {
+  gap: clamp(2.25rem, 4vw, 3.8rem);
+}
+
+.game-type-system,
+.game-color-system {
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2.4rem);
+  padding-block: clamp(1.6rem, 3.5vw, 2.7rem);
+  border-block: 1px solid var(--case-line);
+}
+
+.game-color-system {
+  margin-top: calc(clamp(1.5rem, 3vw, 2.4rem) * -1);
+  border-top: 0;
+}
+
+.game-system-heading {
+  display: grid;
+  grid-template-columns: minmax(8rem, 0.32fr) minmax(0, 1fr);
+  gap: clamp(1rem, 3vw, 2.8rem);
+  align-items: start;
+}
+
+.game-system-heading .project-meta {
+  margin: 0.35rem 0 0;
+  color: var(--case-accent-deep);
+}
+
+.game-system-heading > div {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.game-system-heading h3 {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.4vw, 2.8rem);
+  font-weight: 600;
+  line-height: 1;
+}
+
+.game-type-system .game-system-heading h3 {
+  font-family: "M PLUS Rounded 1c", var(--font-body);
+  font-weight: 800;
+  letter-spacing: -0.015em;
+}
+
+.game-system-heading > div > p {
+  max-width: 58ch;
+  margin: 0;
+  color: var(--merlin-muted);
+  line-height: 1.6;
+}
+
+.game-type-weights {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-left: calc(32% + clamp(1rem, 3vw, 2.8rem));
+}
+
+.game-type-weights > div {
+  display: grid;
+  justify-items: start;
+  gap: 0.2rem;
+  min-width: 0;
+  padding-inline: clamp(0.8rem, 2.4vw, 1.8rem);
+}
+
+.game-type-weights > div:first-child {
+  padding-left: 0;
+}
+
+.game-type-weights > div + div {
+  border-left: 1px solid var(--case-line);
+}
+
+.game-type-weights strong,
+.game-type-weights span,
+.game-type-weights small {
+  font-family: "M PLUS Rounded 1c", var(--font-body);
+}
+
+.game-type-weights strong {
+  color: var(--ink);
+  font-size: clamp(3rem, 6vw, 5.2rem);
+  line-height: 0.95;
+}
+
+.game-type-weights span {
+  margin-top: 0.45rem;
+  color: var(--ink);
+  font-size: 0.83rem;
+  line-height: 1.3;
+}
+
+.game-type-weights small {
+  color: var(--merlin-muted);
+  font-size: 0.7rem;
+  line-height: 1.4;
+}
+
+.game-type-weights .is-extrabold strong,
+.game-type-weights .is-extrabold span { font-weight: 800; }
+.game-type-weights .is-medium strong,
+.game-type-weights .is-medium span { font-weight: 500; }
+.game-type-weights .is-regular strong,
+.game-type-weights .is-regular span { font-weight: 400; }
+
+.game-palette {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(0.75rem, 2vw, 1.3rem);
+}
+
+.game-palette-family {
+  display: grid;
+  gap: 0.45rem;
+  min-width: 0;
+}
+
+.game-swatch-pair {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 0.7fr);
+  gap: 0.35rem;
+  min-height: clamp(7.8rem, 13vw, 11rem);
+}
+
+.game-swatch-pair i {
+  display: block;
+  border: 1px solid color-mix(in srgb, currentColor 12%, transparent);
+  border-radius: 0.75rem;
+}
+
+.game-palette-family.is-resource .game-swatch-pair i:first-child { background: #68bbff; }
+.game-palette-family.is-resource .game-swatch-pair i:last-child { background: #d2ebff; }
+.game-palette-family.is-challenge .game-swatch-pair i:first-child { background: #ff6565; }
+.game-palette-family.is-challenge .game-swatch-pair i:last-child { background: #ffd1d1; }
+.game-palette-family.is-principle .game-swatch-pair i:first-child { background: #86c844; }
+.game-palette-family.is-principle .game-swatch-pair i:last-child { background: #dbefc7; }
+.game-palette-family.is-shenanigans .game-swatch-pair i:first-child { background: #ca933c; }
+.game-palette-family.is-shenanigans .game-swatch-pair i:last-child { background: #f2dfc0; }
+
+.game-palette-family > strong {
+  color: var(--ink);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.game-palette-family > span {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 0.65rem;
+}
+
+.game-case-page .game-palette-family code.game-number {
+  color: var(--merlin-muted);
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 500;
+  font-variant-numeric: lining-nums tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+.game-system-note {
+  max-width: 72ch;
+  margin: 0;
+  color: var(--merlin-muted);
+  font-size: 0.88rem;
+  line-height: 1.65;
+}
+
+.game-system-note strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+@media (max-width: 760px) {
+  .game-testing-verdict {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .game-testing-verdict-copy h3 {
+    max-width: 24ch;
+  }
+
+  .game-concept-origin > header {
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+  }
+
+  .game-concept-origin > header .project-meta {
+    padding-top: 0;
+  }
+
+  .game-concept-origin-spread {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .game-concept-origin-transfer {
+    grid-template-columns: auto auto;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .game-concept-origin-transfer span {
+    max-width: none;
+  }
+
+  .game-concept-origin-transfer i {
+    transform: rotate(90deg);
+  }
+
+  .game-concept-bridge {
+    grid-template-columns: 1fr;
+  }
+
+  .game-concept-arrow {
+    transform: rotate(90deg);
+    text-align: center;
+  }
+
+  .game-process-gallery {
+    grid-auto-rows: auto;
+  }
+
+  .game-process-gallery .game-figure,
+  .game-figure-pair-concept .game-figure {
+    height: auto;
+  }
+
+  .game-deck-inventory {
+    grid-template-columns: 1fr;
+  }
+
+  .game-deck-inventory ul {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 0;
+  }
+
+  .game-deck-inventory li:nth-child(odd) {
+    border-left: 0;
+  }
+
+  .game-deck-inventory li:nth-child(n + 3) {
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--case-line);
+  }
+
+  .game-deck-inventory > p {
+    grid-column: 1;
+  }
+
+  .game-system-heading {
+    grid-template-columns: 1fr;
+    gap: 0.7rem;
+  }
+
+  .game-system-heading .project-meta {
+    margin-top: 0;
+  }
+
+  .game-type-weights {
+    margin-left: 0;
+  }
+
+  .game-palette {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.4rem 0.8rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .game-type-weights strong {
+    font-size: clamp(2.5rem, 15vw, 3.8rem);
+  }
+
+  .game-type-weights > div {
+    padding-inline: 0.65rem;
+  }
+
+  .game-type-weights > div:first-child {
+    padding-left: 0;
+  }
+
+  .game-type-weights span {
+    font-size: 0.72rem;
+  }
+
+  .game-type-weights small {
+    font-size: 0.62rem;
+  }
+
+  .game-swatch-pair {
+    min-height: 7.4rem;
+  }
+
+  .game-token-row {
+    gap: 0.75rem;
+  }
+
+  .game-token {
+    display: grid;
+    grid-template-columns: 6.5rem minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+    align-items: center;
+  }
+
+  .game-token-visual,
+  .game-token-row .game-token-icon {
+    grid-row: 1 / 3;
+    width: 6.5rem;
+    height: 6.5rem;
+  }
+
+  .game-token h4,
+  .game-token p {
+    min-width: 0;
+  }
+
+  .game-stage-story small {
+    font-size: 0.78rem;
   }
 }

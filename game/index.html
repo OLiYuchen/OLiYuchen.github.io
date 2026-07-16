@@ -7,9 +7,9 @@
 <meta name="description" content="Common Ground is a cooperative teamwork card game. Olivia Feng's case study on designing the game mechanics and rule system: the energy economy, rotating cardholder, collective principle-crafting loop, and playtesting with 60+ students." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600;700;800&family=M+PLUS+Rounded+1c:wght@400;500;800&display=swap" rel="stylesheet" />
 <link rel="icon" type="image/png" href="../assets/img/personal-logo.png" />
-<link rel="stylesheet" href="../assets/style.css?v=game-mechanics" />
+<link rel="stylesheet" href="../assets/style.css?v=game-visual-system" />
 <script src="../assets/case-progress.js" defer></script>
 </head>
 <body class="merlin-report-page case-study-page game-case-page">
@@ -53,12 +53,12 @@
         </article>
         <article class="merlin-project-detail-card merlin-project-detail-card-time">
           <div class="merlin-detail-label"><h2>Timeline</h2></div>
-          <p class="merlin-detail-primary">Jan-May 2024</p>
+          <p class="merlin-detail-primary game-numeric-line">Jan-May 2024</p>
           <p class="merlin-detail-secondary">One-quarter UW HCDE Directed Research Group</p>
         </article>
         <article class="merlin-project-detail-card merlin-project-detail-card-team">
           <div class="merlin-detail-label"><h2>Team</h2></div>
-          <p class="merlin-detail-primary">10 designers and researchers</p>
+          <p class="merlin-detail-primary game-numeric-line">10 designers and researchers</p>
           <p class="merlin-detail-secondary">Collaborative mechanism design, card system, playtesting, and rulebook production.</p>
         </article>
         <article class="merlin-project-detail-card merlin-project-detail-card-skills">
@@ -90,29 +90,53 @@
     <div class="container merlin-report-layout">
       <aside class="merlin-report-section-label">
         <p class="section-label">Project Overview</p>
-        <span>01</span>
+        <span class="game-number">01</span>
       </aside>
       <div class="merlin-report-content">
         <div class="merlin-report-lede">
           <h2>The brief: turn a teamwork lecture into a card game.</h2>
-          <p>Common Ground started as a UW HCDE Directed Research project. The course teaches teamwork principles, students sit through the lecture, and very little of it survives contact with their next group project. Our job was to replace that lecture with a card game a class would actually play, inside a class period, and actually remember afterwards.</p>
+          <p>Instead of telling students to collaborate, we wanted the rules to make collaboration the only viable way to win.</p>
         </div>
 
-        <div class="merlin-report-lede">
-          <h2>The course splits a person in two.</h2>
-          <p>Everything it teaches sits on one metaphor, drawn by the instructor. <strong>Sitting with yourself</strong> is the well you draw from alone: self-awareness is the rope, and everything under the waterline is what you brought without deciding to. <strong>Sitting with your team</strong> is what happens when your bucket meets everyone else’s. Tuckman’s stages describe that second half, where teams do not start effective but get there by moving through forming, storming, norming, and performing.</p>
-          <p>The game is a literal translation of the second drawing. <strong>A Personal Resource card is your bucket, and a Teamwork Principle does not exist until the table pools them.</strong> Which made this a systems problem rather than a content problem. The concepts were already written. What was missing was a set of rules that made a table behave that way.</p>
+        <div class="game-brief-path" aria-label="How the learning goal became a game system">
+          <div><span>Learning goal</span><strong>Understand how individuals contribute to a team.</strong></div>
+          <div><span>Behavior to create</span><strong>Discuss, contribute, and decide together.</strong></div>
+          <div><span>Game system</span><strong>Pool personal resources to solve shared challenges.</strong></div>
         </div>
 
-        <div class="game-figure-pair game-figure-pair-concept" aria-label="The two halves of the course concept">
-          <figure class="game-figure">
-            <img src="../assets/img/game/concept-self.jpg" alt="A hand-drawn well with a bucket lowered on a rope labelled Self-Awareness. Below the waterline the page fills with handwritten qualities: values, mental models, insecurities, imposter syndrome, perspective, cognitive biases, content expertise, resilience, empathy" />
-            <figcaption><strong>Sitting with yourself</strong>Self-awareness is the rope. Below the waterline: values, mental models, expertise, insecurities.</figcaption>
-          </figure>
-          <figure class="game-figure">
-            <img src="../assets/img/game/concept-team.jpg" alt="A hand-drawn page of several wells, each with its own bucket, and buckets travelling on lines between them" />
-            <figcaption><strong>Sitting with your team</strong>Everyone has a well. Teamwork is the buckets moving between them.</figcaption>
-          </figure>
+        <div class="game-concept-origin" aria-labelledby="game-concept-origin-title">
+          <header>
+            <p class="project-meta">Concept origin</p>
+            <h3 id="game-concept-origin-title">We started with a well: what one person knows is often invisible to the team.</h3>
+            <p>The course metaphor gave us the bridge from teamwork theory to a playable system. The game needed to reveal those hidden resources, then make exchanging them necessary.</p>
+          </header>
+
+          <div class="game-concept-origin-spread">
+            <figure>
+              <div class="game-concept-origin-image">
+                <img src="../assets/img/game/concept-self.jpg" alt="A hand-drawn well with a bucket lowered on a rope labelled Self-Awareness. Below the waterline the page fills with handwritten qualities: values, mental models, insecurities, imposter syndrome, perspective, cognitive biases, content expertise, resilience, empathy" />
+                <span class="game-number" aria-hidden="true">01</span>
+              </div>
+              <figcaption><strong>Each person has a well.</strong><span>Values, skills, and lived experience sit below the surface.</span></figcaption>
+            </figure>
+
+            <div class="game-concept-origin-transfer" aria-label="Design translation">
+              <span>Make the invisible discussable</span>
+              <i aria-hidden="true">→</i>
+            </div>
+
+            <figure>
+              <div class="game-concept-origin-image">
+                <img src="../assets/img/game/concept-team.jpg" alt="A hand-drawn page of several wells, each with its own bucket, and buckets travelling on lines between them" />
+                <span class="game-number" aria-hidden="true">02</span>
+              </div>
+              <figcaption><strong>A team moves between wells.</strong><span>Progress depends on surfacing and combining what each person can contribute.</span></figcaption>
+            </figure>
+          </div>
+
+          <div class="game-concept-origin-outcome" aria-label="How the metaphor became the game mechanism">
+            <span>Hidden knowledge</span><i aria-hidden="true">→</i><strong>Personal Resource cards</strong><i aria-hidden="true">→</i><span>Shared decisions</span>
+          </div>
         </div>
 
         <div class="merlin-report-question" aria-label="Mechanism challenge">
@@ -120,51 +144,59 @@
           <p>How can a card game make collaboration the <em>optimal</em> strategy, so players learn teamwork by playing well rather than by being told to cooperate?</p>
         </div>
 
-        <div class="merlin-poster-summary">
-          <div>
-            <p class="project-meta">What I owned</p>
-            <p>I designed the rule system: the eight-week turn structure, the energy economy that makes soloing impossible, the rotating cardholder, and team-only scoring. Every mechanic had to answer the same question. What behaviour does this quietly reward?</p>
-          </div>
-          <div>
-            <p class="project-meta">Final output</p>
-            <p>Our team delivered a class-tested cooperative card game with a full rulebook. Proposing the rulebook was my call once the beta named rule clarity as our weakest score, and we drew its 23 pages together.</p>
-          </div>
+        <div class="game-ownership" aria-label="Olivia's design ownership">
+          <p class="project-meta">I designed the rule system</p>
+          <ul>
+            <li>Eight-week turn loop</li>
+            <li>Energy economy</li>
+            <li>Rotating cardholder</li>
+            <li>Team-only scoring</li>
+          </ul>
         </div>
 
         <div class="merlin-source-grid" aria-label="Project at a glance">
-          <div><strong>2+</strong><span>rounds of play testing</span></div>
-          <div><strong>60+</strong><span>testers across the classes</span></div>
-          <div><strong>2</strong><span>full game iterations</span></div>
+          <div><strong class="game-number">3</strong><span>classroom playtests</span></div>
+          <div><strong class="game-number">60+</strong><span>student players</span></div>
+          <div><strong class="game-number">2</strong><span>full game iterations</span></div>
         </div>
 
-        <div class="game-process-block" aria-label="The design process, from analysis to final play test">
+        <div class="game-process-block" aria-label="The design process, from analysis to final playtest">
           <p class="project-meta">The design process</p>
           <div class="game-tl" role="list">
-            <div class="game-tl-step is-below is-research" role="listitem"><span class="game-tl-bar" aria-hidden="true">01</span><span class="game-tl-label"><small>Research</small><span>Game Design Analysis</span></span></div>
-            <div class="game-tl-step is-above is-design" role="listitem"><span class="game-tl-bar" aria-hidden="true">02</span><span class="game-tl-label"><small>Design</small><span>Ideation &amp; Low-Fi Design</span></span></div>
-            <div class="game-tl-step is-below is-design" role="listitem"><span class="game-tl-bar" aria-hidden="true">03</span><span class="game-tl-label"><small>Design</small><span>First Game Iteration</span></span></div>
-            <div class="game-tl-step is-above is-test" role="listitem"><span class="game-tl-bar" aria-hidden="true">04</span><span class="game-tl-label"><small>Play test</small><span>Beta Play Test</span></span></div>
-            <div class="game-tl-step is-below is-test" role="listitem"><span class="game-tl-bar" aria-hidden="true">05</span><span class="game-tl-label"><small>Play test</small><span>Delta Play Test</span></span></div>
-            <div class="game-tl-step is-above is-synthesis" role="listitem"><span class="game-tl-bar" aria-hidden="true">06</span><span class="game-tl-label"><small>Synthesis</small><span>Testing Analysis</span></span></div>
-            <div class="game-tl-step is-below is-design" role="listitem"><span class="game-tl-bar" aria-hidden="true">07</span><span class="game-tl-label"><small>Design</small><span>Second Game Iteration</span></span></div>
-            <div class="game-tl-step is-above is-test" role="listitem"><span class="game-tl-bar" aria-hidden="true">08</span><span class="game-tl-label"><small>Play test</small><span>Final Play Test</span></span></div>
+            <div class="game-tl-step is-below is-research" role="listitem">
+              <span class="game-tl-bar game-number" aria-hidden="true">01</span>
+              <span class="game-tl-label"><small>Research</small><span>Game Design Analysis</span></span>
+            </div>
+            <div class="game-tl-step is-above is-design" role="listitem">
+              <span class="game-tl-bar game-number" aria-hidden="true">02</span>
+              <span class="game-tl-label"><small>Design</small><span>Ideation &amp; Low-Fi Design</span></span>
+            </div>
+            <div class="game-tl-step is-below is-design" role="listitem">
+              <span class="game-tl-bar game-number" aria-hidden="true">03</span>
+              <span class="game-tl-label"><small>Design</small><span>First Game Iteration</span></span>
+            </div>
+            <div class="game-tl-step is-above is-test" role="listitem">
+              <span class="game-tl-bar game-number" aria-hidden="true">04</span>
+              <span class="game-tl-label"><small>Playtest</small><span>Beta Playtest</span></span>
+            </div>
+            <div class="game-tl-step is-below is-test" role="listitem">
+              <span class="game-tl-bar game-number" aria-hidden="true">05</span>
+              <span class="game-tl-label"><small>Playtest</small><span>Delta Playtest</span></span>
+            </div>
+            <div class="game-tl-step is-above is-synthesis" role="listitem">
+              <span class="game-tl-bar game-number" aria-hidden="true">06</span>
+              <span class="game-tl-label"><small>Synthesis</small><span>Testing Analysis</span></span>
+            </div>
+            <div class="game-tl-step is-below is-design" role="listitem">
+              <span class="game-tl-bar game-number" aria-hidden="true">07</span>
+              <span class="game-tl-label"><small>Design</small><span>Second Game Iteration</span></span>
+            </div>
+            <div class="game-tl-step is-above is-test" role="listitem">
+              <span class="game-tl-bar game-number" aria-hidden="true">08</span>
+              <span class="game-tl-label"><small>Playtest</small><span>Final Playtest</span></span>
+            </div>
           </div>
         </div>
-
-        <div class="merlin-report-lede">
-          <h2>We started by taking other games apart.</h2>
-          <p>With the concept settled, the question turned mechanical: what actually makes a table cooperate. So we pulled a shelf of published games apart, looking for the ones where cooperation is structural rather than decorative. Ravine, a cooperative survival game, gave us the finding we kept. A shared threat is what makes a table talk to each other. The loop we sketched that afternoon, draw personal cards, set a challenge level, present the situation, play, is still the loop in the printed game four months later.</p>
-        </div>
-
-        <figure class="game-figure">
-          <img src="../assets/img/game/team-kickoff.jpg" alt="An affinity wall of sticky notes on teamwork themes beside early sketches, and a table stacked with published board games including Catan and Ticket to Ride" />
-          <figcaption><strong>Game design analysis</strong>Affinity-mapping the course concepts, beside the shelf of games we pulled apart.</figcaption>
-        </figure>
-
-        <figure class="game-figure">
-          <img src="../assets/img/game/brainstorm-mechanism.jpg" alt="The cooperative game Ravine broken down on the left, and on the right a whiteboard holding the first draft of the rule system: trait categories, a team contract, draw personal cards, determine challenge level, present the situation, then play" />
-          <figcaption><strong>The first draft of the loop</strong>Ravine broken down on the left; the loop it prompted on the right.</figcaption>
-        </figure>
       </div>
     </div>
   </section>
@@ -172,79 +204,107 @@
   <section class="merlin-report-section merlin-report-band">
     <div class="container merlin-report-layout">
       <aside class="merlin-report-section-label">
-        <p class="section-label">Game Mechanics</p>
-        <span>02</span>
+        <p class="section-label">Designing the System</p>
+        <span class="game-number">02</span>
       </aside>
       <div class="merlin-report-content">
         <div class="merlin-report-lede">
-          <h2>The core mechanics make interdependence unavoidable.</h2>
-          <p>Every round runs on three interlocking constraints I designed so that no single player can carry the team. Energy limits how much anyone can act, the cardholder role moves the spotlight around the table, and a challenge can only be cleared by a principle the team writes together.</p>
-          <p>Two things from the design board made it to print almost untouched. “Energy / Team Spirit Tokens <em>(need better terminology)</em>” became Energy Tokens, and “MADNESS” became Shenanigans. A third was a question on a sticky note, “personal energy/spirit tokens <em>start with 5?</em>”, which is why every player is dealt exactly five.</p>
+          <h2>I translated an abstract teamwork model into actions at the table.</h2>
+          <p>The key move was separating what one player holds from what the whole team can create.</p>
         </div>
 
-        <div class="game-figure-pair" aria-label="Designing the engine">
-          <figure class="game-figure">
-            <img src="../assets/img/game/concept-whiteboard.jpg" alt="The design whiteboard split into two columns, PERSONAL and TEAM/GAME PLAY: character cards, a personal deck of Resource cards across five categories, six Teamwork Principles each listing the resources they require, the Challenge card and its scoring back, MADNESS effect cards, and a note reading Energy / Team Spirit Tokens (need better terminology)" />
-            <figcaption><strong>The system, before it had a name</strong>What a player privately holds, versus what the team builds.</figcaption>
+        <div class="game-system-equation" aria-label="Personal resources combine into a teamwork principle that clears a weekly challenge">
+          <figure>
+            <img src="../assets/img/game/card-resource.svg" alt="Personal Resource card for Empathy" />
+            <figcaption><span>Each player holds</span><strong>Personal Resources</strong><small>Skills, knowledge, and energy</small></figcaption>
           </figure>
-          <figure class="game-figure">
-            <img src="../assets/img/game/concept-layout.jpg" alt="A table-sized paper prototype in sticky notes: pink notes for each Teamwork Principle listing its required resource categories, blue notes as the Personal Resource deck, yellow Challenge cards with a scoring matrix on the back, teal MADNESS cards, and black squares standing in for energy tokens" />
-            <figcaption><strong>Playing it in sticky notes</strong>The whole layout, running in paper before a single card existed.</figcaption>
+          <span class="game-equation-symbol" aria-hidden="true">+</span>
+          <figure>
+            <img src="../assets/img/game/card-principle.svg" alt="Teamwork Principle card" />
+            <figcaption><span>The team crafts</span><strong>A shared Principle</strong><small>Built only through contribution</small></figcaption>
+          </figure>
+          <span class="game-equation-symbol" aria-hidden="true">→</span>
+          <figure>
+            <img src="../assets/img/game/card-challenge.svg" alt="Weekly Challenge card" />
+            <figcaption><span>Together they clear</span><strong>The weekly Challenge</strong><small>One score for the whole table</small></figcaption>
           </figure>
         </div>
 
-        <div class="game-token-row" aria-label="Core components a player controls">
-          <div class="game-token">
-            <span class="game-token-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z" fill="currentColor"/></svg></span>
-            <h4>Energy tokens</h4>
-            <p>Spend to act. Run out and you cannot help, so the table has to budget effort across people rather than dump it on one player.</p>
+        <div class="game-concept-bridge" aria-label="How the concept map became four concept-driven card types">
+          <div class="game-concept-source">
+            <span>Concept map</span>
+            <h3>Five lenses for reading teamwork</h3>
+            <div class="game-concept-lenses" aria-label="Concept-map lenses">
+              <span>Empathy</span>
+              <span>Communication</span>
+              <span>Self-awareness</span>
+              <span>Problem solving</span>
+              <span>Organization</span>
+            </div>
           </div>
-          <div class="game-token">
-            <span class="game-token-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
-            <h4>Cardholder token</h4>
-            <p>Rotates each round. Whoever holds it reveals the Challenge and Shenanigans cards, so authority, and pressure, stay shared rather than fixed.</p>
-          </div>
-          <div class="game-token">
-            <span class="game-token-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19V5M4 19h16M8 16v-5M12 16V8M16 16v-9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
-            <h4>Progress tracker</h4>
-            <p>One shared score for the whole team. There is no individual placement to chase, so the incentive points at the group by design.</p>
+          <div class="game-concept-arrow" aria-hidden="true">→</div>
+          <div class="game-concept-output">
+            <span>Playable translation</span>
+            <ul>
+              <li><strong>Resources</strong> turn individual knowledge and traits into cards a player can contribute.</li>
+              <li><strong>Principles</strong> combine those resources into observable team behaviors.</li>
+              <li><strong>Challenges</strong> place those behaviors inside a stage of team development.</li>
+              <li><strong>Shenanigans</strong> introduce the uncertainty teams must adapt to.</li>
+            </ul>
           </div>
         </div>
 
-        <figure class="game-figure">
-          <img src="../assets/img/game/rulebook.png" alt="The full Common Ground rulebook: a front cover reading “Common Ground, the Teamwork Trial” followed by 23 rule pages covering the goal, setup, table layout, the four weekly phases, every component, and a fully worked example round" />
-          <figcaption><strong>The rulebook</strong>23 pages. Rules 4 to 7 are the four phases above; 16 to 23 walk a full week move by move.</figcaption>
-        </figure>
-
-        <ol class="game-loop" aria-label="The four phases of each in-game week">
-          <li class="game-loop-step">
-            <h4>Monday Briefing</h4>
-            <p>The Cardholder uncovers that week’s Challenge. The team debates which Teamwork Principles, up to three, it will try to build.</p>
-          </li>
-          <li class="game-loop-step">
-            <h4>Mid-Week Teamwork</h4>
-            <p>The build phase. <strong>Every member must contribute</strong> to each Principle, either a matching Resource card or an Energy Token flipped from full to empty, and say aloud how their card answers the Challenge.</p>
-          </li>
-          <li class="game-loop-step">
-            <h4>Friday Shenanigans</h4>
-            <p>The Cardholder draws a Shenanigans card. It rewards the team or wrecks the plan. Silly business is unavoidable.</p>
-          </li>
-          <li class="game-loop-step">
-            <h4>Weekend Reset</h4>
-            <p>Score onto the shared Progress Tracker, discard spent Resources, draw two, and pass the Cardholder token clockwise. Repeat for all 8 weeks.</p>
-          </li>
-        </ol>
-        <p class="game-loop-note">Eight weeks, four phases each, and the constraints inside them are what quietly teach the behaviour.</p>
-
-        <div class="game-split">
-          <div class="merlin-method-reflection">
-            <p class="project-meta">Why interdependence, not cooperation prompts</p>
-            <p>I could have printed “work together!” on a card. Instead the energy budget makes soloing literally impossible, the rotating cardholder stops one person from steering every round, and the shared score removes the reward for competing. The teamwork is never asked for. It is the only path the rules leave open.</p>
+        <details class="game-concept-map">
+          <summary>
+            <span>
+              <small>Source artifact</small>
+              <strong>Teamwork principle concept map</strong>
+              <em>The full research map behind the deck. Open only when you want the detailed taxonomy.</em>
+            </span>
+            <b aria-hidden="true">+</b>
+          </summary>
+          <div class="game-concept-map-viewport">
+            <img src="../assets/img/game/teamwork-principle-concept-map.svg" loading="lazy" alt="Full teamwork principle concept map connecting individual capacities, teamwork behaviors, challenges, and team dynamics" />
           </div>
-          <figure class="game-figure">
-            <img src="../assets/img/game/first-print-test.jpg" alt="Hands testing the first printed prototype: cut-out resource, principle, challenge, and shenanigans cards with paper energy tokens" />
-            <figcaption><strong>The mechanics on paper</strong>The first printed test. Rough cut-outs and paper tokens.</figcaption>
-          </figure>
+        </details>
+
+        <div class="game-token-row" aria-label="Three rules that enforce collaboration">
+          <div class="game-token">
+            <span class="game-token-visual game-token-energy" aria-hidden="true">
+              <img src="../assets/img/game/energy-full.jpg" alt="" />
+              <span>→</span>
+              <img src="../assets/img/game/energy-empty.png" alt="" />
+            </span>
+            <h4>Limited energy</h4>
+            <p>Every action spends energy, so no player can solve everything alone.</p>
+          </div>
+          <div class="game-token game-token-authority">
+            <span class="game-token-visual" aria-hidden="true"><img src="../assets/img/game/cardholder-token.png" alt="" /></span>
+            <h4>Rotating authority</h4>
+            <p>The Cardholder changes every round.</p>
+          </div>
+          <div class="game-token game-token-progress">
+            <span class="game-token-visual" aria-hidden="true"><img src="../assets/img/game/progress-tracker.png" alt="" /></span>
+            <h4>Shared progress</h4>
+            <p>Each week advances one tracker; the table wins or loses as a team.</p>
+          </div>
+        </div>
+
+        <div class="merlin-report-lede">
+          <h2>The mechanism emerged through increasingly playable prototypes.</h2>
+          <p>We moved from research and game analysis to a whiteboard economy, then ran the entire loop in sticky notes before designing finished cards.</p>
+        </div>
+
+        <div class="game-process-gallery" aria-label="Evolution of the game system">
+          <figure class="game-figure"><img src="../assets/img/game/team-kickoff.jpg" alt="Affinity wall, early sketches, and published cooperative games used for analysis" /><figcaption><strong><span class="game-number">01</span> / Decode</strong>Mapped teamwork concepts and dissected cooperative games.</figcaption></figure>
+          <figure class="game-figure"><img src="../assets/img/game/brainstorm-mechanism.jpg" alt="Ravine analysis beside the first draft of the Common Ground game loop" /><figcaption><strong><span class="game-number">02</span> / Borrow a pattern</strong>A shared threat made the table start talking.</figcaption></figure>
+          <figure class="game-figure"><img src="../assets/img/game/concept-whiteboard.jpg" alt="Whiteboard separating personal player resources from shared team gameplay" /><figcaption><strong><span class="game-number">03</span> / Build the economy</strong>Separated private resources from shared outcomes.</figcaption></figure>
+          <figure class="game-figure"><img src="../assets/img/game/concept-layout.jpg" alt="Full game layout prototyped using color-coded sticky notes" /><figcaption><strong><span class="game-number">04</span> / Make it playable</strong>Ran the complete loop before designing a card.</figcaption></figure>
+        </div>
+
+        <div class="game-design-principle">
+          <span>Design principle</span>
+          <p>Do not print “work together” on a card. Make individual success impossible without contribution from the table.</p>
         </div>
       </div>
     </div>
@@ -253,71 +313,149 @@
   <section class="merlin-report-section">
     <div class="container merlin-report-layout">
       <aside class="merlin-report-section-label">
-        <p class="section-label">Cards &amp; Learning Content</p>
-        <span>03</span>
+        <p class="section-label">How the Game Works</p>
+        <span class="game-number">03</span>
       </aside>
       <div class="merlin-report-content">
         <div class="merlin-report-lede">
-          <h2>Four card types, each with a distinct job in the loop.</h2>
-          <p>The deck is not decoration. Each colour is a different lever on player behaviour. I defined what each type does, when it enters play, and how they interact so the round has tension, recovery, and the occasional curveball.</p>
+          <h2>Eight weeks. Four phases per week. One shared score.</h2>
+          <p>The team clears workplace challenges by combining the right resources into Teamwork Principles before energy runs out.</p>
         </div>
 
-        <div class="game-legend" aria-label="Card types and their role">
-          <div class="game-type-card is-resource">
-            <div class="game-type-art"><img src="../assets/img/game/card-resource.svg" alt="Personal Resource card: Empathy, Listening, taking the time to fully focus on what others are expressing" /></div>
-            <span class="game-type-tag">Personal Resource</span>
-            <h4>The raw material</h4>
-            <p>Skills each player holds: Communication, Empathy, Self-Awareness. The inputs a team combines to craft its principle, scarce enough that choosing <em>which</em> to spend is a real decision.</p>
-          </div>
-          <div class="game-type-card is-challenge">
-            <div class="game-type-art"><img src="../assets/img/game/card-challenge.svg" alt="Weekly Challenge card describing a team scenario the players must resolve together" /></div>
-            <span class="game-type-tag">Weekly Challenge</span>
-            <h4>The obstacle</h4>
-            <p>Week-by-week scenario cards such as “Someone Takes Over”, each tied to a stage of group development. They set what the team must solve and escalate as play goes on.</p>
-          </div>
-          <div class="game-type-card is-principle">
-            <div class="game-type-art"><img src="../assets/img/game/card-principle.svg" alt="Teamwork Principle card listing the resources needed to craft it" /></div>
-            <span class="game-type-tag">Teamwork Principle</span>
-            <h4>The shared solution</h4>
-            <p>Crafted collectively to clear a Challenge. Each Principle lists the exact Resources needed, so “Clear Roles + Goals” only exists if the team pools Problem-Solving, Organization, and Self-Awareness.</p>
-          </div>
-          <div class="game-type-card is-shenanigans">
-            <div class="game-type-art"><img src="../assets/img/game/card-shenanigans.svg" alt="Shenanigans card: Pinky Promise, each player involved gains one energy token" /></div>
-            <span class="game-type-tag">Shenanigans</span>
-            <h4>The curveball</h4>
-            <p>Wildcard events that bend the round. “Pinky Promise” grants energy, “Power Outage” voids a card. They force the team to adapt and keep rounds unpredictable and social.</p>
+        <div class="game-goal-board">
+          <figure><img src="../assets/img/game/play-full-table.jpg" alt="A complete Common Ground game in progress with cards, player mats, energy tokens, and a shared progress tracker" /></figure>
+          <div>
+            <span>Team objective</span>
+            <h3>Clear each Challenge before the week ends.</h3>
+            <ul>
+              <li>Every player must contribute.</li>
+              <li>Energy spent cannot be reused.</li>
+              <li>Only shared Principles score.</li>
+            </ul>
           </div>
         </div>
 
+        <ol class="game-loop" aria-label="The four phases of each in-game week">
+          <li class="game-loop-step">
+            <img src="../assets/img/game/card-challenge.svg" alt="" aria-hidden="true" />
+            <span>Monday</span>
+            <h4>Reveal the Challenge</h4>
+            <p>Choose up to three Principles that could solve it.</p>
+          </li>
+          <li class="game-loop-step">
+            <img src="../assets/img/game/card-principle.svg" alt="" aria-hidden="true" />
+            <span>Mid-week</span>
+            <h4>Build Principles</h4>
+            <p>Pool matching Resources. Every player contributes a card or energy.</p>
+          </li>
+          <li class="game-loop-step">
+            <img src="../assets/img/game/card-shenanigans.svg" alt="" aria-hidden="true" />
+            <span>Friday</span>
+            <h4>Resolve Shenanigans</h4>
+            <p>A wildcard may restore energy or disrupt the plan.</p>
+          </li>
+          <li class="game-loop-step">
+            <div class="game-loop-score game-number" aria-hidden="true">+1</div>
+            <span>Weekend</span>
+            <h4>Score and Rotate</h4>
+            <p>Advance the team tracker and pass the Cardholder clockwise.</p>
+          </li>
+        </ol>
+
+        <div class="game-deck-inventory" aria-label="Final printed deck inventory: 57 cards across five families">
+          <div>
+            <strong><span class="game-number">57</span> final prints</strong>
+            <span>Five functional families</span>
+          </div>
+          <ul>
+            <li><strong class="game-number">25</strong><span>Resources</span></li>
+            <li><strong class="game-number">5</strong><span>Principles</span></li>
+            <li><strong class="game-number">8</strong><span>Challenges</span></li>
+            <li><strong class="game-number">15</strong><span>Shenanigans</span></li>
+            <li><strong class="game-number">4</strong><span>Setup</span></li>
+          </ul>
+          <p>Resources and Principles carry the concept map into play; Challenges follow Tuckman’s stages; Shenanigans model uncertainty; Setup cards scaffold the first round.</p>
+        </div>
+
+        <div class="game-legend game-legend-compact" aria-label="How each card type carries the concept map into play">
+          <div class="game-type-card is-resource"><div class="game-type-art"><img src="../assets/img/game/card-resource.svg" alt="Personal Resource card" /></div><span class="game-type-tag"><span class="game-number">25</span> Resources</span><h4>What I can contribute</h4><p>Personal knowledge and traits become something a player can offer.</p><small class="game-card-origin">Origin: individual capacities</small></div>
+          <div class="game-type-card is-principle"><div class="game-type-art"><img src="../assets/img/game/card-principle.svg" alt="Teamwork Principle card" /></div><span class="game-type-tag"><span class="game-number">5</span> Principles</span><h4>What we build together</h4><p>Resources combine into an observable team behavior.</p><small class="game-card-origin">Origin: teamwork conditions</small></div>
+          <div class="game-type-card is-challenge"><div class="game-type-art"><img src="../assets/img/game/card-challenge.svg" alt="Weekly Challenge card" /></div><span class="game-type-tag"><span class="game-number">8</span> Challenges</span><h4>What the team must solve</h4><p>Each scenario asks for the behavior needed at that team stage.</p><small class="game-card-origin">Origin: Tuckman’s five stages</small></div>
+          <div class="game-type-card is-shenanigans"><div class="game-type-art"><img src="../assets/img/game/card-shenanigans.svg" alt="Shenanigans card" /></div><span class="game-type-tag"><span class="game-number">15</span> Shenanigans</span><h4>What changes the plan</h4><p>Unexpected friction forces the group to adapt together.</p><small class="game-card-origin">Origin: uncertainty and recovery</small></div>
+        </div>
+
+        <div class="game-stage-story" aria-label="The eight-week challenge deck follows Tuckman's stages of group development">
+          <div><span>Weeks <b class="game-number">1–2</b></span><strong>Forming</strong><small>Meet and define roles</small></div>
+          <div><span>Weeks <b class="game-number">3–4</b></span><strong>Storming</strong><small>Navigate conflict</small></div>
+          <div><span>Weeks <b class="game-number">5–6</b></span><strong>Norming</strong><small>Build shared habits</small></div>
+          <div><span>Week <b class="game-number">7</b></span><strong>Performing</strong><small>Act with fluency</small></div>
+          <div><span>Week <b class="game-number">8</b></span><strong>Adjourning</strong><small>Reflect and close</small></div>
+          <p>Tuckman’s model sets the difficulty curve: each Challenge asks for the kind of teamwork that phase requires.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="merlin-report-section game-visual-system-section" id="visual-system">
+    <div class="container merlin-report-layout">
+      <aside class="merlin-report-section-label">
+        <p class="section-label">Visual System</p>
+        <span class="game-number">04</span>
+      </aside>
+      <div class="merlin-report-content">
         <div class="merlin-report-lede">
-          <h2>Every Resource card is a piece of the course, made playable.</h2>
-          <p>The deck could not just feel like teamwork. It had to carry the actual syllabus. We mapped each of the five Resource categories onto the concepts students were being taught, so playing a card means recalling course content, not inventing a platitude.</p>
+          <h2>A visual grammar players could read at table speed.</h2>
+          <p>I led the card system from early annotations to print-ready components. Type signals hierarchy; color identifies function before a player reads a word.</p>
         </div>
 
-        <figure class="game-figure">
-          <img src="../assets/img/game/principle-mapping.svg" alt="A concept mapping table with five colour-coded columns for Empathy, Communication, Self-awareness, Problem Solving, and Organization, each listing five course concepts beneath it, such as Basadur Model, Conflict Management, SOAR, Cognitive Bias, and Agile" />
-          <figcaption><strong>Concept mapping</strong>Five categories, twenty-five course concepts. The header still reads <em>&lt;NAME&gt; Mapping</em>: the system was fixed before the game had a name.</figcaption>
-        </figure>
-
-        <div class="merlin-report-lede">
-          <h2>The Challenge deck is Tuckman’s model, dealt out one week at a time.</h2>
-          <p>Bruce Tuckman’s 1965 model argues that a team’s dysfunction is usually a <em>stage</em>, not a verdict: groups move from forming (polite, unsure) through storming (friction) into norming (agreed ways of working) and performing (running on their own). He and Mary Ann Jensen added adjourning, the wind-down, in 1977. The point students are supposed to take away is that storming is normal and survivable, not a sign the team is broken.</p>
-          <p>That is exactly the kind of claim nobody believes from a slide. So the eight Weekly Challenges are numbered 1 to 8 and build on each other into a single story across the campaign: a team that meets, argues, settles, and eventually delivers. Players don’t get told which stage they’re in; they get handed its problem and have to work out of it.</p>
+        <div class="game-type-system" aria-labelledby="game-type-system-title">
+          <div class="game-system-heading">
+            <p class="project-meta">Typography</p>
+            <div>
+              <h3 id="game-type-system-title">M PLUS Rounded <span class="game-number">1c</span></h3>
+              <p>Friendly enough for a classroom game, structured enough for instructions and repeated scanning.</p>
+            </div>
+          </div>
+          <div class="game-type-weights" aria-label="Type hierarchy used across the cards">
+            <div class="is-extrabold"><strong>Aa</strong><span>Extra Bold</span><small>Card roles and actions</small></div>
+            <div class="is-medium"><strong>Aa</strong><span>Medium</span><small>Prompts and labels</small></div>
+            <div class="is-regular"><strong>Aa</strong><span>Regular</span><small>Rules and annotations</small></div>
+          </div>
         </div>
 
-        <div class="game-stages" aria-label="Tuckman's stages of group development">
-          <div class="game-stage"><span>Stage 1</span><strong>Forming</strong><em>Polite and tentative. Nobody knows their role yet, so everyone waits to be told.</em></div>
-          <div class="game-stage"><span>Stage 2</span><strong>Storming</strong><em>Friction surfaces. Competing ideas, clashing styles. Most teams stall here.</em></div>
-          <div class="game-stage"><span>Stage 3</span><strong>Norming</strong><em>The team agrees how it works. Trust starts doing the load-bearing.</em></div>
-          <div class="game-stage"><span>Stage 4</span><strong>Performing</strong><em>It runs itself. Attention finally goes to the work, not the group.</em></div>
-          <div class="game-stage"><span>Stage 5</span><strong>Adjourning</strong><em>The work ends, the team dissolves, and what happened gets made sense of.</em></div>
+        <div class="game-color-system" aria-labelledby="game-color-system-title">
+          <div class="game-system-heading">
+            <p class="project-meta">Card families</p>
+            <div>
+              <h3 id="game-color-system-title">Function becomes color.</h3>
+              <p>Each family keeps one saturated action color and one quiet support tint.</p>
+            </div>
+          </div>
+          <div class="game-palette" aria-label="Common Ground card color palette">
+            <div class="game-palette-family is-resource">
+              <div class="game-swatch-pair" aria-hidden="true"><i></i><i></i></div>
+              <strong>Resource</strong>
+              <span><code class="game-number">#68BBFF</code><code class="game-number">#D2EBFF</code></span>
+            </div>
+            <div class="game-palette-family is-challenge">
+              <div class="game-swatch-pair" aria-hidden="true"><i></i><i></i></div>
+              <strong>Challenge</strong>
+              <span><code class="game-number">#FF6565</code><code class="game-number">#FFD1D1</code></span>
+            </div>
+            <div class="game-palette-family is-principle">
+              <div class="game-swatch-pair" aria-hidden="true"><i></i><i></i></div>
+              <strong>Principle</strong>
+              <span><code class="game-number">#86C844</code><code class="game-number">#DBEFC7</code></span>
+            </div>
+            <div class="game-palette-family is-shenanigans">
+              <div class="game-swatch-pair" aria-hidden="true"><i></i><i></i></div>
+              <strong>Shenanigans</strong>
+              <span><code class="game-number">#CA933C</code><code class="game-number">#F2DFC0</code></span>
+            </div>
+          </div>
         </div>
 
-        <div class="merlin-method-reflection">
-          <p class="project-meta">Eight challenges, five stages, deliberately not one each</p>
-          <p>The arc is uneven on purpose, because Tuckman’s stages are uneven. Storming gets more weeks than forming does; that is where teams actually spend their time and where the mechanics have the most to say. And the Shenanigans deck exists to keep the arc from being a staircase. A team can be performing beautifully in week 6 and get knocked back into storming by one card, which is the other half of the lesson. The stages are not a ladder you climb once.</p>
-        </div>
-        </div>
+        <p class="game-system-note"><strong>At a glance:</strong> blue is what a player holds, green is what the team builds, red is what the team must solve, and ochre is what disrupts the plan.</p>
       </div>
     </div>
   </section>
@@ -326,27 +464,22 @@
     <div class="container merlin-report-layout">
       <aside class="merlin-report-section-label">
         <p class="section-label">Playtesting &amp; Iteration</p>
-        <span>04</span>
+        <span class="game-number">05</span>
       </aside>
       <div class="merlin-report-content">
         <div class="merlin-report-lede">
           <h2>I tuned the system against real classrooms, not my own assumptions.</h2>
-          <p>Rules only prove themselves at the table. We ran the game with UW HCDE students across more than one round: a broad beta with a full class, a focused delta session for close observation, and a final run once the game was complete.</p>
-        </div>
-
-        <div class="merlin-report-lede">
-          <h2>The beta survey.</h2>
-          <p>Once the full game was completed in the class, my team and I sent out a survey to the students in order to get comprehensive feedback for further iterations. Below are some of the questions and results that were recorded after the Beta test.</p>
+          <p>Three classroom sessions showed us what to preserve, what to rebalance, and where players were getting lost.</p>
         </div>
 
         <div class="game-split game-split-evidence">
           <figure class="game-figure">
             <img src="../assets/img/game/beta-survey.png" alt="Four survey result charts, 24 responses each: Was the game fun (mostly 4s), How difficult was the game (clustered at 2 and 3), Were the game rules clear (spread flat across 2, 3 and 4), and Did it feel relevant to the class (mostly 4s and 5s)" />
-            <figcaption><strong>Beta survey, 24 responses</strong>The four questions we asked the class.</figcaption>
+            <figcaption><strong>Beta survey, <span class="game-number">24</span> responses</strong>The four questions we asked the class.</figcaption>
           </figure>
           <figure class="game-figure">
             <img src="../assets/img/game/beta-test-class.jpg" alt="Four photos from the beta play test: a full classroom of students playing in teams with a countdown timer projected on two screens, a table of four students mid-round, and two close-ups of the paper cards, energy tokens and progress tracker in play" />
-            <figcaption><strong>Where the data came from</strong>~30 students, timed rounds, one room.</figcaption>
+            <figcaption><strong>Where the data came from</strong>~<span class="game-number">30</span> students, timed rounds, one room.</figcaption>
           </figure>
         </div>
 
@@ -354,51 +487,63 @@
           <div class="game-stat" style="--v:3.9">
             <span class="game-stat-label">Was the game fun?</span>
             <span class="game-stat-track"><span class="game-stat-fill"></span></span>
-            <span class="game-stat-value">3.9<small>/5</small></span>
+            <span class="game-stat-value game-number">3.9<small>/5</small></span>
           </div>
           <div class="game-stat" style="--v:4.0">
             <span class="game-stat-label">Relevant to the class?</span>
             <span class="game-stat-track"><span class="game-stat-fill"></span></span>
-            <span class="game-stat-value">4.0<small>/5</small></span>
+            <span class="game-stat-value game-number">4.0<small>/5</small></span>
           </div>
           <div class="game-stat" style="--v:2.9">
             <span class="game-stat-label">Were the rules clear?</span>
             <span class="game-stat-track"><span class="game-stat-fill"></span></span>
-            <span class="game-stat-value">2.9<small>/5</small></span>
-          </div>
-          <div class="game-stat" style="--v:2.6">
-            <span class="game-stat-label">Difficulty (mid = balanced)</span>
-            <span class="game-stat-track"><span class="game-stat-fill"></span></span>
-            <span class="game-stat-value">2.6<small>/5</small></span>
+            <span class="game-stat-value game-number">2.9<small>/5</small></span>
           </div>
         </div>
-        <p class="game-loop-note">Averages computed from the 24 responses above. Difficulty is a calibration reading, so mid-range is the target rather than a high score.</p>
 
-        <div class="merlin-testing-summary" aria-labelledby="game-testing-title">
-          <div class="merlin-testing-copy">
-            <p class="project-meta">What I read out of it</p>
-            <h3 id="game-testing-title">The engine worked. The on-ramp didn’t.</h3>
+        <div class="game-gauge" style="--v:2.6" aria-label="Difficulty, 2.6 out of 5, inside the target band">
+          <p class="game-gauge-head"><span>How difficult was the game?</span><strong class="game-number">2.6<small>/5</small></strong></p>
+          <div class="game-gauge-track">
+            <span class="game-gauge-zone"></span>
+            <span class="game-gauge-pin"></span>
           </div>
-          <div class="merlin-testing-points">
+          <p class="game-gauge-scale"><span>Too easy</span><span class="game-gauge-target">Target band</span><span>Too hard</span></p>
+          <p class="game-gauge-note">The only score on the sheet where high is not good. Difficulty is a calibration reading, so landing mid-band is the result I wanted.</p>
+        </div>
+        <p class="game-loop-note">Averages computed from the <span class="game-number">24</span> responses above.</p>
+
+        <div class="game-testing-verdict" aria-labelledby="game-testing-title">
+          <div class="game-testing-verdict-copy">
+            <p class="project-meta">Test verdict</p>
+            <h3 id="game-testing-title">Players understood why to play before they understood how to begin.</h3>
+          </div>
+          <div class="game-testing-verdict-evidence">
             <div>
-              <p class="project-meta">Fun and relevance were already there</p>
-              <p>3.9 and 4.0, the two things hardest to retrofit. Whatever we changed next could not be allowed to cost us these.</p>
+              <span>Validated</span>
+              <p>Fun, relevance, and difficulty landed where we wanted them.</p>
             </div>
-            <div>
-              <p class="project-meta">Difficulty was calibrated, not broken</p>
-              <p>2.6 sat mid-range, which is where I wanted it. A low score here would have been a design failure; this one told me to leave the economy alone.</p>
-            </div>
-            <div>
-              <p class="project-meta">Rule clarity was the real signal</p>
-              <p>2.9, and the flattest spread on the sheet, with answers scattered evenly across 2, 3 and 4. Not a hard “no”, but no consensus either, which reads as confusion rather than dislike. That pointed at the on-ramp rather than the rules themselves, and it is why I pushed for the rulebook.</p>
+            <div class="is-friction">
+              <span>Friction</span>
+              <p><strong class="game-number">2.9/5</strong> rule clarity exposed an onboarding problem, not a broken game economy.</p>
             </div>
           </div>
         </div>
+
+        <div class="game-iteration-decision" aria-label="How beta feedback changed the game">
+          <div><span>Signal</span><strong><span class="game-number">2.9/5</span> rule clarity</strong><small>Players liked the game but needed a better entry point.</small></div>
+          <div><span>Design decision</span><strong>Build a visual rulebook</strong><small>Components, four phases, and one fully worked week.</small></div>
+          <div><span>Final behavior</span><strong>The room ran itself</strong><small>Teams played from the book instead of waiting for us.</small></div>
+        </div>
+
+        <figure class="game-figure">
+          <img src="../assets/img/game/rulebook.png" alt="The full Common Ground rulebook: a front cover reading “Common Ground, the Teamwork Trial” followed by 23 rule pages covering the goal, setup, table layout, the four weekly phases, every component, and a fully worked example round" />
+          <figcaption><strong>The rulebook</strong>All <span class="game-number">23</span> pages. Rules <span class="game-number">4–7</span> are the four phases; <span class="game-number">16–23</span> walk a full week, move by move.</figcaption>
+        </figure>
 
         <div class="game-figure-pair game-figure-pair-final" aria-label="The finished game and its final play test">
           <figure class="game-figure">
             <img src="../assets/img/game/play-closeup.jpg" alt="Close-up of the final printed cards, energy tokens and player mats mid-game" />
-            <figcaption><strong>The final print</strong>The refined deck and energy economy at the table.</figcaption>
+            <figcaption><strong>The final print</strong><span class="game-number">57</span> cards across five functional families, plus the shared energy economy.</figcaption>
           </figure>
           <figure class="game-figure">
             <img src="../assets/img/game/final-test-class.jpg" alt="A full classroom of roughly thirty students playing the finished game in teams, with table setup instructions projected on two screens" />
@@ -414,13 +559,12 @@
     <div class="container merlin-report-layout">
       <aside class="merlin-report-section-label">
         <p class="section-label">Outcome &amp; Reflection</p>
-        <span>05</span>
+        <span class="game-number">06</span>
       </aside>
       <div class="merlin-report-content">
         <div class="merlin-report-lede">
           <h2>Designing this game changed how I think about rules as behaviour design.</h2>
-          <p>A rule is never neutral. It is an incentive. Once I saw that the energy budget and shared score were doing the actual teaching, every mechanic became a question: what behaviour does this quietly reward? That lens carries straight into product work on onboarding, motivation loops, and collaborative tools.</p>
-          <p>One team lost the final session to a bad Shenanigans draw, and still wrote this on their reflection sheet: <strong>“Life happens. Good teamwork prevails.”</strong> Nobody put that on a slide for them. The rules did it.</p>
+          <p>The energy budget and shared score did the teaching. One team lost to a bad Shenanigans draw and still wrote: <strong>“Life happens. Good teamwork prevails.”</strong> The rules created the lesson.</p>
         </div>
         <figure class="game-figure">
           <img src="../assets/img/game/reflection-sheets.svg" alt="Handwritten reflection notes from players after the final session, including one reading: collaborating during this game was fun, and a great representation of teamwork. We got second place due to unfortunate shenanigan cards. The lesson: Life happens. Good teamwork prevails." />
@@ -468,6 +612,9 @@
     '.game-loop-step',
     '.merlin-method-reflection',
     '.game-type-card',
+    '.game-type-system',
+    '.game-color-system',
+    '.game-system-note',
     '.game-stage',
     '.merlin-testing-summary',
     '.game-stat',
