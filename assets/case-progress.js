@@ -12,7 +12,7 @@
     .replace(/^-|-$/g, '');
 
   const entries = [
-    { section: hero, label: 'Intro', id: hero.id || 'case-intro' },
+    { section: hero, label: 'Project Intro', id: hero.id || 'case-intro' },
     ...reportSections.map((section, index) => {
       const label = section.querySelector('.section-label')?.textContent.trim() || `Section ${index + 1}`;
       return {
@@ -38,6 +38,7 @@
 
   const nav = document.createElement('nav');
   nav.className = 'case-reader-nav';
+  nav.tabIndex = 0;
   nav.setAttribute('aria-label', 'Case study sections');
 
   const meter = document.createElement('span');
@@ -132,7 +133,11 @@
   const initialTarget = initialId && document.getElementById(initialId);
   if (initialTarget) {
     const alignInitialTarget = () => {
-      initialTarget.scrollIntoView({ behavior: 'auto' });
+      const scrollMargin = Number.parseFloat(window.getComputedStyle(initialTarget).scrollMarginTop) || 0;
+      window.scrollTo({
+        top: Math.max(0, initialTarget.offsetTop - scrollMargin),
+        behavior: 'instant'
+      });
       requestUpdate();
     };
     window.requestAnimationFrame(alignInitialTarget);

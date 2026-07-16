@@ -1,4 +1,5 @@
 :root {
+  color-scheme: light;
   --paper: #fdf9f3;
   --paper-strong: #f7f0e7;
   --paper-soft: #fffefa;
@@ -31,6 +32,7 @@ html {
   scroll-behavior: smooth;
   background: var(--paper-soft);
   overflow-x: clip;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -57,6 +59,11 @@ body::before {
 
 img {
   display: block;
+  max-width: 100%;
+}
+
+video,
+iframe {
   max-width: 100%;
 }
 
@@ -90,6 +97,7 @@ h5,
 .project-capabilities,
 .technique-scroll-card span {
   text-wrap: balance;
+  overflow-wrap: anywhere;
 }
 
 .container {
@@ -8244,6 +8252,11 @@ article#physical-computing .exploration-detail-copy p:not(.project-meta) {
     border-radius: 0.85rem;
   }
 
+  .case-reader-nav:focus-visible {
+    outline: 2px solid var(--case-reader-accent);
+    outline-offset: 2px;
+  }
+
   .case-reader-nav:hover::before,
   .case-reader-nav:focus-within::before {
     content: "Sections";
@@ -8305,5 +8318,74 @@ article#physical-computing .exploration-detail-copy p:not(.project-meta) {
 
   .case-progress-enabled .merlin-report-section {
     scroll-margin-top: 5.5rem;
+  }
+}
+
+/* Responsive hardening: preserve readable, reachable content at every entry point. */
+.case-study-page .reveal {
+  opacity: 1;
+  transform: none;
+}
+
+@media (max-width: 760px) {
+  .ecoscan-research-section .merlin-findings-grid article:last-child {
+    grid-column: auto;
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .ecoscan-research-section .merlin-findings-grid article:last-child .project-meta,
+  .ecoscan-research-section .merlin-findings-grid article:last-child h3,
+  .ecoscan-research-section .merlin-findings-grid article:last-child p {
+    grid-column: auto;
+    min-width: 0;
+  }
+
+  .exploration-jump-nav a,
+  .technique-scroll-cta,
+  .about-title-btn {
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 1024px), (pointer: coarse) {
+  .site-header .brand,
+  .nav-links a,
+  .nav-cta,
+  .btn,
+  .contact-card,
+  .case-reader-back,
+  .case-reader-link {
+    min-height: 44px;
+  }
+
+  .nav-links a {
+    min-width: 44px;
+    justify-content: center;
+    padding-inline: 0.25rem;
+    padding-block: 0.25rem;
+  }
+
+  .case-reader-back {
+    min-width: 44px;
+  }
+
+  .exploration-jump-nav a,
+  .technique-scroll-cta,
+  .about-title-btn {
+    min-height: 44px;
+  }
+}
+
+@media (forced-colors: active) {
+  a:focus-visible,
+  button:focus-visible,
+  .btn:focus-visible {
+    outline: 2px solid CanvasText;
+  }
+
+  .case-reader-dot,
+  .case-reader-meter > span {
+    forced-color-adjust: auto;
   }
 }

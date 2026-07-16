@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600;700&display=swap");
 
 :root {
+  color-scheme: dark;
   --bg: #181410;
   --bg-soft: #231c16;
   --panel: rgba(36, 29, 23, 0.88);

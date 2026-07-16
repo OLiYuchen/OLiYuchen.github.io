@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600;700&display=swap");
 
 :root {
+  color-scheme: light;
   --paper: #ece5da;
   --paper-soft: #f6f0e6;
   --paper-deep: #e4d8c8;
@@ -331,7 +332,17 @@ body:not(:has(.grid)) > iframe,
 body:not(:has(.grid)) > ul,
 body:not(:has(.grid)) > ol,
 body:not(:has(.grid)) > a:last-of-type {
-  max-width: 52rem;
+  max-width: min(100%, 52rem);
+}
+
+body:not(:has(.grid)) > img,
+body:not(:has(.grid)) > iframe {
+  width: 100%;
+  height: auto;
+}
+
+pre code {
+  overflow-wrap: anywhere;
 }
 
 @media (max-width: 760px) {
