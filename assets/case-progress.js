@@ -70,10 +70,11 @@
   let frame = 0;
 
   const centerActiveLink = (link) => {
-    if (window.innerWidth > 980) return;
+    if (window.innerWidth > 1024) return;
     const target = link.offsetLeft - (list.clientWidth - link.offsetWidth) / 2;
+    const maxScroll = Math.max(0, list.scrollWidth - list.clientWidth);
     list.scrollTo({
-      left: Math.max(0, target),
+      left: Math.min(maxScroll, Math.max(0, target)),
       behavior: prefersReducedMotion.matches ? 'auto' : 'smooth'
     });
   };

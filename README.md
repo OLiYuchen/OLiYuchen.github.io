@@ -15,4 +15,11 @@ Source for [olifeng.com](https://olifeng.com), a static UX/product design portfo
 - `assets/` — shared CSS, images, and resume PDF
 - `vercel.json` — clean URL configuration
 
+## Media policy
+
+- Keep original photos, videos, and editable source files outside this repository.
+- Add only clearly named, compressed, production-ready assets that are used by the site.
+- Remove replaced or unused media instead of keeping duplicate versions in `assets/`.
+- Host long-form video on an external video service and embed or link to it from the portfolio.
+
 © 2026 Olivia Yuchen Feng. All rights reserved. Please do not copy or reuse content, code, or visual assets without permission.

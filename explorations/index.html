@@ -16,6 +16,7 @@
   />
   <link rel="icon" type="image/png" href="/assets/img/personal-logo.png" />
   <link rel="stylesheet" href="/assets/style.css" />
+  <script src="/assets/site-cursor.js?v=3" defer></script>
 </head>
 <body class="portfolio-home exploration-page">
   <div class="page-orbit" aria-hidden="true"></div>
@@ -29,7 +30,7 @@
           <a href="/about/">About</a>
           <a href="/#contact">Contact</a>
         </div>
-        <a class="btn btn-clear nav-cta" href="/assets/Olivia-Feng-Resume.pdf" target="_blank" rel="noreferrer">
+        <a class="btn btn-clear nav-cta" href="/assets/Yuchen_Olivia_Feng_Resume.pdf" target="_blank" rel="noreferrer">
           <span class="nav-cta-icon" aria-hidden="true">&#8595;</span>
           <span>Resume</span>
         </a>
@@ -298,14 +299,16 @@
   <footer class="site-footer home-footer">
     <div class="container footer-row">
       <p>© <span id="year"></span> Olivia Yuchen Feng</p>
-      <p>Technique explorations and prototype craft.</p>
+      <p>Designed with lots of 🧠🐱❤️</p>
     </div>
   </footer>
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
 
+    const jumpNav = document.querySelector(".exploration-jump-nav");
     const jumpLinks = Array.from(document.querySelectorAll(".exploration-jump-nav a"));
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const jumpTargets = jumpLinks
       .map((link) => {
         const id = link.getAttribute("href")?.slice(1);
@@ -319,7 +322,14 @@
         link.classList.toggle("is-active", isActive);
         if (isActive) {
           link.setAttribute("aria-current", "true");
-          link.scrollIntoView({ block: "nearest", inline: "nearest" });
+          if (jumpNav && jumpNav.scrollWidth > jumpNav.clientWidth) {
+            const target = link.offsetLeft - (jumpNav.clientWidth - link.offsetWidth) / 2;
+            const maxScroll = Math.max(0, jumpNav.scrollWidth - jumpNav.clientWidth);
+            jumpNav.scrollTo({
+              left: Math.min(maxScroll, Math.max(0, target)),
+              behavior: reducedMotion.matches ? "auto" : "smooth"
+            });
+          }
         } else {
           link.removeAttribute("aria-current");
         }
@@ -327,22 +337,47 @@
     };
 
     if (jumpTargets.length) {
-      setActiveJump(window.location.hash ? window.location.hash.slice(1) : jumpTargets[0].id);
+      let jumpFrame = 0;
+      const alignHashTarget = () => {
+        const id = window.location.hash.slice(1);
+        const target = id ? document.getElementById(id) : null;
+        if (!target) return;
 
-      if ("IntersectionObserver" in window) {
-        const activeObserver = new IntersectionObserver((entries) => {
-          const visible = entries
-            .filter((entry) => entry.isIntersecting)
-            .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        target.scrollIntoView({
+          block: "start",
+          behavior: "auto"
+        });
+        setActiveJump(id);
+      };
+      const updateActiveJump = () => {
+        jumpFrame = 0;
+        const marker = window.scrollY + Math.min(window.innerHeight * 0.34, 280);
+        let activeTarget = jumpTargets[0];
 
-          if (visible?.target?.id) setActiveJump(visible.target.id);
-        }, {
-          rootMargin: "-18% 0px -58% 0px",
-          threshold: [0.12, 0.28, 0.44, 0.6]
+        jumpTargets.forEach((target) => {
+          if (target.offsetTop <= marker) activeTarget = target;
         });
 
-        jumpTargets.forEach((target) => activeObserver.observe(target));
-      }
+        setActiveJump(activeTarget.id);
+      };
+
+      const requestJumpUpdate = () => {
+        if (jumpFrame) return;
+        jumpFrame = window.requestAnimationFrame(updateActiveJump);
+      };
+
+      window.addEventListener("scroll", requestJumpUpdate, { passive: true });
+      window.addEventListener("resize", requestJumpUpdate);
+      window.addEventListener("load", () => {
+        window.requestAnimationFrame(() => {
+          alignHashTarget();
+          window.requestAnimationFrame(alignHashTarget);
+        });
+        [300, 900, 1800].forEach((delay) => {
+          window.setTimeout(alignHashTarget, delay);
+        });
+      });
+      updateActiveJump();
 
       jumpLinks.forEach((link) => {
         link.addEventListener("click", () => {

@@ -16,6 +16,7 @@
   />
   <link rel="icon" type="image/png" href="/assets/img/personal-logo.png" />
   <link rel="stylesheet" href="/assets/style.css" />
+  <script src="/assets/site-cursor.js?v=3" defer></script>
 </head>
 <body class="about-redesign-page">
   <header class="site-header home-header">
@@ -27,7 +28,7 @@
           <a href="/about/">About</a>
           <a href="/#contact">Contact</a>
         </div>
-        <a class="btn btn-clear nav-cta" href="/assets/Olivia-Feng-Resume.pdf" target="_blank" rel="noreferrer">
+        <a class="btn btn-clear nav-cta" href="/assets/Yuchen_Olivia_Feng_Resume.pdf" target="_blank" rel="noreferrer">
           <span class="nav-cta-icon" aria-hidden="true">&#8595;</span>
           <span>Resume</span>
         </a>
@@ -50,8 +51,17 @@
             </p>
             <p class="about-location-note">Currently based in Seattle, WA</p>
             <div class="about-title-actions" aria-label="Contact links">
-              <a class="btn btn-clear about-title-btn" href="mailto:fyc2003@uw.edu">Email me</a>
-              <a class="btn btn-clear about-title-btn" href="https://www.linkedin.com/in/yuchenoliviafeng" target="_blank" rel="noreferrer">LinkedIn</a>
+              <a class="btn btn-clear about-title-btn" href="mailto:fyc2003@uw.edu">
+                <svg class="about-title-btn-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path>
+                  <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                </svg>
+                <span class="button-label">Email me</span>
+              </a>
+              <a class="btn btn-clear about-title-btn" href="https://www.linkedin.com/in/yuchenoliviafeng" target="_blank" rel="noreferrer">
+                <span class="about-title-btn-icon about-title-btn-monogram" aria-hidden="true">in</span>
+                <span class="button-label">LinkedIn</span>
+              </a>
             </div>
           </div>
 
@@ -59,22 +69,24 @@
             <figure class="about-main-portrait">
               <img src="/assets/img/about-banner.jpg" alt="Portrait of Olivia Feng" />
             </figure>
-            <aside class="about-bubble about-bubble-01" tabindex="0">
-              <span>currently</span>
-              <p>Incoming UW GIX (HCI) master's student in Fall 2026.</p>
-            </aside>
-            <aside class="about-bubble about-bubble-02" tabindex="0">
-              <span>designer lens</span>
-              <p>Research rigor, visual sensitivity, and calm systems thinking.</p>
-            </aside>
-            <aside class="about-bubble about-bubble-03" tabindex="0">
-              <span>favorite territory</span>
-              <p>Turning ambiguous questions into flows, stories, prototypes, and artifacts people can respond to.</p>
-            </aside>
-            <aside class="about-bubble about-bubble-04" tabindex="0">
-              <span>outside the screen</span>
-              <p>Calligraphy, cultural storytelling, magazines, and handmade visual details.</p>
-            </aside>
+            <div class="about-bubble-carousel">
+              <aside class="about-bubble about-bubble-01">
+                <span>currently</span>
+                <p>Incoming UW GIX (HCI) master's student in Fall 2026.</p>
+              </aside>
+              <aside class="about-bubble about-bubble-02">
+                <span>designer lens</span>
+                <p>Research rigor, visual sensitivity, and calm systems thinking.</p>
+              </aside>
+              <aside class="about-bubble about-bubble-03">
+                <span>favorite territory</span>
+                <p>Turning ambiguous questions into flows, stories, prototypes, and artifacts people can respond to.</p>
+              </aside>
+              <aside class="about-bubble about-bubble-04">
+                <span>outside the screen</span>
+                <p>Calligraphy, cultural storytelling, magazines, and handmade visual details.</p>
+              </aside>
+            </div>
           </div>
         </div>
       </div>
@@ -196,7 +208,7 @@
               <img src="/assets/img/about-logos/fresh.png" alt="" />
             </div>
             <div class="about-experience-card">
-              <p class="project-meta">Aug 2023 - Sep 2023 · Shanghai</p>
+              <p class="project-meta">Aug 2023 · Shanghai</p>
               <h3>Live Calligrapher Artist</h3>
               <p class="about-experience-org">Fresh</p>
               <p>Created personalized Chinese calligraphy fan designs during a live brand event at Shanghai IFC Mall.</p>
@@ -230,12 +242,67 @@
       </div>
     </section>
 
+    <section class="about-hobbies-section" aria-labelledby="about-hobbies-title">
+      <div class="container about-hobbies-shell">
+        <div class="about-hobbies-heading">
+          <p class="section-label">Outside the screen</p>
+          <h2 id="about-hobbies-title">Made by hand. Better with people.</h2>
+          <p>Born and raised in Shanghai and now based in Seattle, I keep a life of ink, movement, friendship, and making outside the screen.</p>
+        </div>
+
+        <div class="about-hobbies-spread">
+          <figure class="about-hobbies-collage">
+            <img
+              src="/assets/img/about-hobbies-collage.jpg"
+              alt="A personal collage of Olivia's two cats, Chinese and English calligraphy, market booth, camera, nature photography, and travel journals"
+            />
+            <figcaption>Usually made with two cats nearby.</figcaption>
+          </figure>
+
+          <div class="about-hobby-stories" aria-label="Olivia's life outside design">
+            <article class="about-hobby-story about-hobby-story-calligraphy">
+              <p class="about-hobby-kicker"><span>10+</span> years of practice</p>
+              <h3>Two scripts, one long practice.</h3>
+              <p>Traditional Chinese calligraphy has stayed with me for more than a decade. Along the way, I taught myself English calligraphy in Engrosser's Script.</p>
+            </article>
+
+            <article class="about-hobby-story">
+              <p class="about-hobby-kicker">Making becomes gathering</p>
+              <h3>Art is how I share culture.</h3>
+              <p>I make and sell small pieces at markets, sharing the traditions behind them. With friends, I co-founded <strong>Ikigai</strong> to collaborate with cafes and host hands-on craft events.</p>
+            </article>
+
+            <article class="about-hobby-story about-hobby-story-social">
+              <p class="about-hobby-kicker">Curious by default</p>
+              <h3>My hobbies are better with friends.</h3>
+              <p>I'm an <strong>ENFJ</strong> who keeps picking up social hobbies: tennis, bouldering, badminton, and board games.</p>
+              <div class="about-hobby-chips" aria-label="Favorite social hobbies">
+                <span>Bouldering</span>
+                <span>Badminton</span>
+                <span>Tennis</span>
+                <span>Board games</span>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <aside class="about-work-note" aria-label="How Olivia works">
+          <p>How I show up at work</p>
+          <div>
+            <span>Responsible</span>
+            <span>Learning agility</span>
+            <span>Structured thinking</span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
   </main>
 
   <footer class="site-footer home-footer">
     <div class="container footer-row">
       <p>© <span id="year"></span> Olivia Yuchen Feng</p>
-      <p>Interdisciplinary design, research, and calm systems thinking.</p>
+      <p>Designed with lots of 🧠🐱❤️</p>
     </div>
   </footer>
 
