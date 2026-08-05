@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Intern Log · Knowledge Bank</title>
+  <meta name="description" content="每日工作 Log 与个人知识库。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="icon" type="image/png" href="/assets/img/personal-logo.png" />
+  <link rel="stylesheet" href="/intern/styles.css" />
+</head>
+<body class="gate-locked">
+  <!-- Layout: [Todo rail] · [Main: tabs → Notebook / Daily Log] -->
+  <div id="app" class="app" aria-hidden="false">
+    <!-- ============ Left rail: Todo ============ -->
+    <aside class="rail" aria-label="待办 Todo">
+      <div class="rail-head">
+        <h2 class="rail-title">待办 <span class="en">Todo</span></h2>
+        <span id="todoCount" class="rail-count">0</span>
+      </div>
+      <form id="todoForm" class="todo-add" autocomplete="off">
+        <input id="todoInput" type="text" placeholder="加一条待办…" aria-label="新待办" />
+        <button type="submit" aria-label="添加">＋</button>
+      </form>
+      <ul id="todoList" class="todo-list"></ul>
+      <details id="todoDoneWrap" class="todo-done-wrap">
+        <summary>已完成 <span id="todoDoneCount">0</span></summary>
+        <ul id="todoDoneList" class="todo-list todo-list-done"></ul>
+      </details>
+      <div class="rail-foot">
+        <span id="syncBadge" class="sync-badge" title="数据保存状态">本地已存</span>
+      </div>
+    </aside>
+
+    <!-- ============ Main ============ -->
+    <main class="main">
+      <header class="main-head">
+        <div class="tabs" role="tablist">
+          <button id="tabNotebook" class="tab is-active" role="tab" aria-selected="true">笔记本 <span class="en">Notebook</span></button>
+          <button id="tabLog" class="tab" role="tab" aria-selected="false">每日 Log <span class="en">Daily</span></button>
+          <button id="tabContacts" class="tab" role="tab" aria-selected="false">联系人 <span class="en">People</span></button>
+        </div>
+        <div class="main-head-right">
+          <input id="globalSearch" class="global-search" type="search" placeholder="搜索笔记与 Log…" aria-label="搜索" />
+        </div>
+      </header>
+
+      <!-- ---- Notebook view ---- -->
+      <section id="viewNotebook" class="view view-notebook">
+        <div class="note-list-pane">
+          <div class="pane-head">
+            <button id="newNoteBtn" class="btn-primary">＋ 新笔记</button>
+            <button id="importMdBtn" class="btn-ghost">导入 MD</button>
+          </div>
+          <ul id="noteList" class="note-list"></ul>
+        </div>
+        <div class="note-editor-pane" id="noteEditorPane">
+          <div id="noteEditorEmpty" class="editor-empty">
+            <p>从左侧选择一条笔记，或<button id="newNoteInline" class="link-btn">新建一条</button>。</p>
+          </div>
+          <article id="noteEditor" class="note-editor" hidden>
+            <input id="noteTitle" class="note-title-input" type="text" placeholder="标题…" />
+            <div class="note-toolbar">
+              <button data-cmd="bold" title="加粗"><b>B</b></button>
+              <button data-cmd="h2" title="小标题">H</button>
+              <button data-cmd="ul" title="列表">•</button>
+              <button data-cmd="term" title="术语中英对照（选中中文后点此）">中<span class="tb-en">EN</span></button>
+              <button data-cmd="highlight" title="高亮">✎</button>
+              <span class="toolbar-sep"></span>
+              <button id="addStickyBtn" data-cmd="sticky" title="加便签">✧ 便签</button>
+              <span class="note-meta" id="noteMeta"></span>
+            </div>
+            <div id="noteBody" class="note-body" contenteditable="true" spellcheck="false"
+                 data-placeholder="在这里写…支持中英夹杂。选中中文点「中EN」做术语对照。"></div>
+            <div id="stickyLayer" class="sticky-layer" aria-label="便签"></div>
+            <div class="note-editor-foot">
+              <button id="deleteNoteBtn" class="link-btn danger">删除此笔记</button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ---- Daily Log view ---- -->
+      <section id="viewLog" class="view view-log" hidden>
+        <div class="log-compose">
+          <div class="log-compose-head">
+            <input id="logDate" class="log-date" type="date" aria-label="日期" />
+            <h3 class="log-compose-title" id="logDateLabel">今日 Log</h3>
+          </div>
+          <div id="logBody" class="log-body" contenteditable="true" spellcheck="false"
+               data-placeholder="今天做了什么…"></div>
+          <div class="log-contacts">
+            <div class="log-contacts-head">
+              <span>今天联系过的人 <span class="en">People contacted</span></span>
+            </div>
+            <ul id="logContactChips" class="contact-chips"></ul>
+            <form id="logContactForm" class="contact-add" autocomplete="off">
+              <input id="contactName" type="text" placeholder="姓名" aria-label="姓名" list="contactSuggest" />
+              <input id="contactTitle" type="text" placeholder="职位 Title" aria-label="职位" />
+              <input id="contactDept" type="text" placeholder="部门/备注（可选）" aria-label="部门" />
+              <button type="submit">＋ 加人</button>
+              <datalist id="contactSuggest"></datalist>
+            </form>
+          </div>
+          <div class="log-save-row">
+            <span id="logSavedHint" class="saved-hint"></span>
+          </div>
+        </div>
+        <div class="log-history">
+          <h4>过往 Log</h4>
+          <ul id="logHistory" class="log-history-list"></ul>
+        </div>
+      </section>
+
+      <!-- ---- Contacts view ---- -->
+      <section id="viewContacts" class="view view-contacts" hidden>
+        <div class="contacts-head">
+          <h3>联系人目录 <span class="en">People directory</span></h3>
+          <input id="contactSearch" class="global-search" type="search" placeholder="搜索姓名/职位…" />
+        </div>
+        <ul id="contactsList" class="contacts-list"></ul>
+      </section>
+    </main>
+  </div>
+
+  <!-- ============ Password gate overlay ============ -->
+  <div id="gateOverlay" class="gate-overlay">
+    <div class="gate-card">
+      <p class="gate-title">Intern Log</p>
+      <p class="gate-sub">请输入访问口令</p>
+      <form id="gateForm" autocomplete="off">
+        <input id="gatePassword" type="password" placeholder="口令" autocomplete="current-password" />
+        <button type="submit">进入</button>
+      </form>
+      <p id="gateError" class="gate-error" hidden>口令不正确，请重试。</p>
+      <p class="gate-note">工作内容仅存于本机浏览器与你的私有 Notion，不公开。</p>
+    </div>
+  </div>
+
+  <script src="/intern/storage.js" defer></script>
+  <script src="/intern/notes-import.js" defer></script>
+  <script src="/intern/app.js" defer></script>
+</body>
+</html>
