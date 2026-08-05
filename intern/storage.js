@@ -94,7 +94,24 @@ const Store = (() => {
     return new Date(d - tzOffset).toISOString().slice(0, 10);
   }
 
-  return { openDB, all, get, put, remove, uid, todayStr, STORES };
+  // Ask the browser to mark this origin's storage as persistent, so it is
+  // exempt from automatic eviction under disk pressure (and from routine
+  // "clear cache" style cleanup in Chromium). Best-effort: unsupported or
+  // denied just falls back to normal (best-effort) storage. Does NOT stop a
+  // manual "clear site data", nor Safari's fixed 7-day cap — Notion sync is
+  // the real durability fix.
+  async function requestPersistence() {
+    try {
+      if (!navigator.storage || !navigator.storage.persist) return { supported: false, persisted: false };
+      let persisted = await navigator.storage.persisted();
+      if (!persisted) persisted = await navigator.storage.persist();
+      return { supported: true, persisted };
+    } catch (e) {
+      return { supported: false, persisted: false };
+    }
+  }
+
+  return { openDB, all, get, put, remove, uid, todayStr, requestPersistence, STORES };
 })();
 
 /* ============================================================

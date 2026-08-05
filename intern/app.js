@@ -549,6 +549,15 @@ async function boot() {
   await Todo.render();
   await NotesImport.seedNotes(); // load bundled starter notes on first run
   await Notebook.renderList();
+
+  // Harden local durability (best-effort; Notion sync is the real fix).
+  Store.requestPersistence().then((r) => {
+    const badge = $("#syncBadge");
+    if (!badge) return;
+    badge.title = r.persisted
+      ? "已启用持久化存储：浏览器不会自动回收本地数据（手动清除数据仍会清空）"
+      : "未获持久化授权：本地数据在清除浏览器数据或长期不访问时可能丢失，建议尽快接 Notion 或定期导出备份";
+  });
 }
 
 document.addEventListener("DOMContentLoaded", boot);
