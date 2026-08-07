@@ -3,729 +3,495 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>文档转 Markdown | Olivia Feng</title>
-  <meta
-    name="description"
-    content="在浏览器本地把 PDF、PPTX、DOCX、CSV、TXT 和 MD 转成更适合交给 AI 阅读的 Markdown。文件不会上传。"
-  />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600;700&display=swap"
-    rel="stylesheet"
-  />
-  <link rel="icon" type="image/png" href="/assets/img/personal-logo.png" />
-  <link rel="stylesheet" href="/assets/style.css" />
-  <script src="/assets/site-cursor.js?v=4" defer></script>
+  <title>文档转 Markdown</title>
+  <meta name="description" content="在浏览器本地把 PDF、PPTX、DOCX、CSV、TXT 和 MD 转成 Markdown。" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js" defer></script>
   <style>
-    .md-tool-page {
-      --md-panel: rgba(255, 253, 249, 0.9);
-      --md-panel-solid: #fffdfa;
-      --md-ink: var(--ink);
-      --md-muted: color-mix(in srgb, var(--ink-soft) 88%, var(--ink) 12%);
-      --md-line: rgba(43, 36, 30, 0.13);
-      --md-line-strong: rgba(43, 36, 30, 0.22);
-      --md-green: #2d6955;
-      --md-green-deep: #194c3c;
-      --md-green-soft: rgba(45, 105, 85, 0.12);
-      --md-warn: #8a4b10;
-      --md-warn-soft: #f8ead9;
-      --md-error: #8a1f1f;
-      --md-error-soft: #f8dfdf;
-      --md-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
-      background: transparent;
+    :root {
+      color-scheme: light;
+      --bg: #e9edf0;
+      --panel: #fffdfa;
+      --panel-soft: #f7f3ed;
+      --ink: #171c20;
+      --muted: #65717b;
+      --line: #cfd6dc;
+      --line-strong: #b9c3ca;
+      --accent: #235f4d;
+      --accent-deep: #174234;
+      --accent-soft: #dcebe4;
+      --warn: #834a12;
+      --warn-soft: #f6e8d7;
+      --error: #8a1f1f;
+      --error-soft: #f5dddd;
+      --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      --sans: "Instrument Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
     }
 
-    .md-tool-page .site-header {
-      background: var(--header-surface);
+    * {
+      box-sizing: border-box;
     }
 
-    .md-tool-main {
-      padding: clamp(2rem, 4vw, 3.5rem) 0 clamp(4rem, 7vw, 7rem);
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
     }
 
-    .md-hero {
-      display: grid;
-      grid-template-columns: minmax(0, 0.92fr) minmax(18rem, 0.58fr);
-      gap: clamp(1.5rem, 3.5vw, 3.25rem);
-      align-items: end;
-      padding: clamp(1.25rem, 2vw, 1.7rem);
-      border: 1px solid rgba(43, 36, 30, 0.1);
-      border-radius: var(--radius-card-lg);
+    body {
       background:
-        linear-gradient(135deg, rgba(255, 253, 249, 0.92) 0%, rgba(247, 240, 231, 0.9) 62%, rgba(244, 232, 221, 0.84) 100%);
-      box-shadow: var(--shadow);
+        radial-gradient(circle at 16% 0%, rgba(255, 255, 255, 0.65), transparent 24rem),
+        linear-gradient(180deg, #f4f1eb 0%, var(--bg) 100%);
+      color: var(--ink);
+      font: 16px/1.55 var(--sans);
+      -webkit-font-smoothing: antialiased;
     }
 
-    .md-hero-copy {
-      display: grid;
-      gap: 1rem;
-      min-width: 0;
-      padding: clamp(0.35rem, 1.5vw, 1rem);
+    button,
+    input {
+      font: inherit;
     }
 
-    .md-kicker {
-      display: inline-flex;
+    .wrap {
+      width: min(880px, calc(100vw - 32px));
+      margin: 0 auto;
+      padding: clamp(32px, 6vw, 56px) 0 72px;
+    }
+
+    header {
+      margin-bottom: 24px;
+    }
+
+    .eyebrow {
+      display: flex;
       align-items: center;
-      gap: 0.55rem;
-      width: fit-content;
+      gap: 8px;
+      margin: 0 0 12px;
       color: var(--accent-deep);
-      font-size: 0.76rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      line-height: 1.2;
+      font: 700 11px/1 var(--mono);
+      letter-spacing: 0.12em;
       text-transform: uppercase;
     }
 
-    .md-kicker::before {
+    .eyebrow::before {
       content: "";
-      width: 0.48rem;
-      height: 0.48rem;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
-      background: var(--accent);
+      background: #c7502f;
     }
 
-    .md-hero h1 {
-      max-width: 12ch;
-      color: var(--ink);
-      font-family: var(--font-display);
-      font-size: clamp(3.1rem, 7vw, 6rem);
-      font-weight: 600;
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(34px, 6vw, 52px);
+      font-weight: 750;
       letter-spacing: -0.035em;
-      line-height: 0.98;
+      line-height: 1.02;
       text-wrap: balance;
     }
 
-    .md-lede {
-      max-width: 54ch;
-      color: var(--md-muted);
-      font-size: clamp(1.02rem, 1.45vw, 1.2rem);
-      line-height: 1.72;
+    .lede {
+      max-width: 58ch;
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
     }
 
-    .md-lede strong {
+    .lede b {
       color: var(--ink);
       font-weight: 700;
     }
 
-    .md-hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.8rem;
-      margin-top: 0.3rem;
-    }
-
-    .md-trust {
-      display: grid;
-      gap: 0.8rem;
-      align-content: end;
-    }
-
-    .md-trust-card {
-      padding: 1.05rem 1.1rem;
-      border: 1px solid rgba(43, 36, 30, 0.11);
-      border-radius: 1.15rem;
-      background: rgba(255, 252, 247, 0.76);
-    }
-
-    .md-trust-card strong {
-      display: block;
-      color: var(--ink);
-      font-size: 1rem;
-      line-height: 1.25;
-    }
-
-    .md-trust-card span {
-      display: block;
-      margin-top: 0.35rem;
-      color: var(--md-muted);
-      font-size: 0.9rem;
-      line-height: 1.55;
-    }
-
-    .md-tool-shell {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(17rem, 0.34fr);
-      gap: clamp(1rem, 2vw, 1.35rem);
-      align-items: start;
-      margin-top: clamp(1.25rem, 3vw, 2rem);
-    }
-
-    .md-converter {
+    .tool {
       overflow: hidden;
-      border: 1px solid var(--md-line);
-      border-radius: var(--radius-card);
-      background: var(--md-panel);
-      box-shadow: var(--shadow);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: rgba(255, 253, 250, 0.9);
     }
 
-    .md-drop {
+    .meter {
+      display: none;
+      align-items: baseline;
+      gap: 12px;
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--line);
+      background: var(--panel);
+    }
+
+    .meter.on {
+      display: flex;
+    }
+
+    .meter-num {
+      color: var(--accent);
+      font: 700 30px/1 var(--mono);
+      letter-spacing: -0.02em;
+    }
+
+    .meter-label,
+    .meter-note {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .meter-note {
+      margin-left: auto;
+      font-family: var(--mono);
+      font-size: 11px;
+    }
+
+    .drop {
       display: grid;
       place-items: center;
-      min-height: clamp(14rem, 27vw, 20rem);
-      padding: clamp(1.4rem, 4vw, 3rem);
-      border: 0;
-      border-bottom: 1px solid var(--md-line);
+      min-height: 260px;
+      padding: 40px 24px;
+      border-bottom: 1px solid var(--line);
       background:
-        linear-gradient(180deg, rgba(255, 253, 249, 0.82), rgba(247, 240, 231, 0.72)),
-        radial-gradient(circle at top right, rgba(205, 87, 50, 0.08), transparent 18rem);
-      color: var(--ink);
+        linear-gradient(180deg, rgba(255, 253, 250, 0.7), rgba(247, 243, 237, 0.82)),
+        var(--panel);
       text-align: center;
       cursor: pointer;
-      transition:
-        background-color var(--transition-soft),
-        box-shadow var(--transition-soft);
+      transition: background-color 160ms ease, box-shadow 160ms ease;
     }
 
-    .md-drop:hover,
-    .md-drop:focus-visible,
-    .md-drop.is-hot {
+    .drop:hover,
+    .drop:focus-visible,
+    .drop.hot {
       outline: none;
-      background-color: rgba(45, 105, 85, 0.08);
-      box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--md-green) 34%, transparent);
+      background-color: var(--accent-soft);
+      box-shadow: inset 0 0 0 2px rgba(35, 95, 77, 0.35);
     }
 
-    .md-drop-inner {
-      display: grid;
-      justify-items: center;
-      gap: 0.6rem;
-      max-width: 31rem;
+    .drop-title {
+      margin: 0 0 8px;
+      font-size: clamp(24px, 4vw, 36px);
+      font-weight: 750;
+      letter-spacing: -0.035em;
+      line-height: 1.08;
     }
 
-    .md-drop-mark {
-      display: grid;
-      place-items: center;
-      width: 4.25rem;
-      height: 4.25rem;
-      border: 1px solid rgba(43, 36, 30, 0.12);
-      border-radius: 1.1rem;
-      background: var(--md-panel-solid);
-      color: var(--accent-deep);
-      font-family: var(--md-mono);
-      font-size: 1.8rem;
-      font-weight: 700;
-      line-height: 1;
+    .drop-sub {
+      margin: 0;
+      color: var(--muted);
+      font: 12px/1.45 var(--mono);
     }
 
-    .md-drop-title {
-      color: var(--ink);
-      font-family: var(--font-display);
-      font-size: clamp(1.7rem, 3vw, 2.45rem);
-      font-weight: 600;
-      letter-spacing: -0.03em;
-      line-height: 1.02;
-    }
-
-    .md-drop-sub {
-      color: var(--md-muted);
-      font-size: 0.96rem;
-      line-height: 1.55;
-    }
-
-    .md-file-types {
+    .opts {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.45rem;
-      margin-top: 0.35rem;
+      gap: 10px;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 253, 250, 0.78);
+      color: var(--muted);
+      font-size: 13px;
     }
 
-    .md-file-types span {
-      padding: 0.28rem 0.58rem;
-      border: 1px solid rgba(43, 36, 30, 0.12);
-      border-radius: var(--radius-pill);
-      background: rgba(255, 253, 249, 0.76);
-      color: var(--md-muted);
-      font-family: var(--md-mono);
-      font-size: 0.72rem;
-      line-height: 1;
-      text-transform: uppercase;
-    }
-
-    .md-options {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-      padding: 1rem;
-      border-bottom: 1px solid var(--md-line);
-      background: rgba(255, 252, 247, 0.72);
-    }
-
-    .md-option {
+    .opts label {
       display: inline-flex;
       align-items: center;
-      gap: 0.48rem;
-      min-height: 2.35rem;
-      padding: 0.48rem 0.78rem;
-      border: 1px solid rgba(43, 36, 30, 0.1);
-      border-radius: var(--radius-pill);
-      background: rgba(255, 253, 249, 0.82);
-      color: var(--md-muted);
-      font-size: 0.88rem;
+      gap: 7px;
+      min-height: 34px;
+      padding: 6px 10px;
+      border: 1px solid rgba(23, 28, 32, 0.1);
+      border-radius: 999px;
+      background: rgba(255, 253, 250, 0.78);
       cursor: pointer;
     }
 
-    .md-option input {
-      width: 0.95rem;
-      height: 0.95rem;
+    .opts input {
+      width: 15px;
+      height: 15px;
       accent-color: var(--accent);
     }
 
-    .md-status {
+    .rows {
       display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.8rem;
-      min-height: 3.75rem;
-      padding: 0.9rem 1rem;
-      color: var(--md-muted);
-      font-size: 0.9rem;
+      flex-direction: column;
+      gap: 12px;
+      padding: 16px;
     }
 
-    .md-meter {
-      display: none;
-      align-items: baseline;
-      gap: 0.6rem;
-      color: var(--md-muted);
+    .row {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      animation: row-in 220ms ease both;
     }
 
-    .md-meter.is-on {
-      display: inline-flex;
+    @keyframes row-in {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+      to {
+        opacity: 1;
+        transform: none;
+      }
     }
 
-    .md-meter strong {
-      color: var(--md-green-deep);
-      font-family: var(--md-mono);
-      font-size: clamp(1.35rem, 2.4vw, 2rem);
-      line-height: 1;
-    }
-
-    .md-rows {
-      display: grid;
-      gap: 0.8rem;
-      padding: 0 1rem 1rem;
-    }
-
-    .md-row {
-      display: grid;
-      gap: 0.9rem;
-      padding: clamp(1rem, 2vw, 1.2rem);
-      border: 1px solid rgba(43, 36, 30, 0.11);
-      border-radius: 1rem;
-      background: rgba(255, 253, 249, 0.86);
-      animation: md-row-in 240ms ease both;
-    }
-
-    @keyframes md-row-in {
-      from { opacity: 0; transform: translateY(0.35rem); }
-      to { opacity: 1; transform: none; }
-    }
-
-    .md-row-top {
+    .row-top {
       display: flex;
       flex-wrap: wrap;
       align-items: baseline;
-      gap: 0.65rem;
+      gap: 12px;
     }
 
-    .md-row-name {
-      min-width: 0;
-      overflow-wrap: anywhere;
+    .row-name {
       color: var(--ink);
+      font-size: 15px;
       font-weight: 700;
-      line-height: 1.35;
+      overflow-wrap: anywhere;
     }
 
-    .md-row-meta {
+    .row-meta {
       margin-left: auto;
-      color: var(--md-muted);
-      font-family: var(--md-mono);
-      font-size: 0.74rem;
-      line-height: 1.45;
+      color: var(--muted);
+      font: 11.5px/1.4 var(--mono);
     }
 
-    .md-bars {
-      display: grid;
-      gap: 0.42rem;
+    .bars {
+      margin: 14px 0 4px;
     }
 
-    .md-bar {
+    .bar {
       display: grid;
-      grid-template-columns: 5.8rem minmax(0, 1fr) 5.6rem;
-      gap: 0.65rem;
+      grid-template-columns: 74px minmax(0, 1fr) 76px;
+      gap: 10px;
       align-items: center;
+      margin-bottom: 6px;
     }
 
-    .md-bar-key,
-    .md-bar-val {
-      color: var(--md-muted);
-      font-family: var(--md-mono);
-      font-size: 0.72rem;
-      line-height: 1;
-    }
-
-    .md-bar-key {
+    .bar-key {
+      color: var(--muted);
+      font: 10.5px/1 var(--mono);
+      letter-spacing: 0.06em;
       text-transform: uppercase;
     }
 
-    .md-bar-val {
-      text-align: right;
-    }
-
-    .md-bar-track {
-      height: 0.55rem;
+    .bar-track {
+      height: 9px;
       overflow: hidden;
-      border-radius: var(--radius-pill);
-      background: rgba(43, 36, 30, 0.08);
+      border-radius: 999px;
+      background: #edf1f3;
     }
 
-    .md-bar-fill {
+    .bar-fill {
       display: block;
       width: 0;
       height: 100%;
       border-radius: inherit;
-      transition: width 520ms cubic-bezier(0.19, 1, 0.22, 1);
+      transition: width 500ms cubic-bezier(0.19, 1, 0.22, 1);
     }
 
-    .md-bar-fill.is-original {
-      background: rgba(43, 36, 30, 0.3);
+    .bar-fill.a {
+      background: #aeb9c1;
     }
 
-    .md-bar-fill.is-markdown {
-      background: var(--md-green);
+    .bar-fill.b {
+      background: var(--accent);
     }
 
-    .md-actions,
-    .md-batch {
+    .bar-val {
+      color: var(--ink);
+      font: 11.5px/1 var(--mono);
+      text-align: right;
+    }
+
+    .acts,
+    .batch {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.55rem;
+      gap: 8px;
+      margin-top: 14px;
     }
 
-    .md-batch {
+    .batch {
       display: none;
-      padding: 0 1rem 1rem;
+      padding: 0 16px 16px;
+      margin-top: 0;
     }
 
-    .md-batch.is-on {
+    .batch.on {
       display: flex;
     }
 
-    .md-action {
-      min-height: 2.35rem;
-      padding: 0.55rem 0.86rem;
-      border: 1px solid var(--md-line-strong);
-      border-radius: var(--radius-pill);
-      background: rgba(255, 253, 249, 0.84);
+    button {
+      min-height: 34px;
+      padding: 7px 13px;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      background: var(--panel);
       color: var(--ink);
-      font: 600 0.86rem/1 var(--font-body);
       cursor: pointer;
-      transition:
-        transform var(--transition-soft),
-        border-color var(--transition-soft),
-        background-color var(--transition-soft),
-        color var(--transition-soft);
+      font-size: 13px;
+      font-weight: 650;
+      transition: background-color 140ms ease, border-color 140ms ease, transform 140ms ease;
     }
 
-    .md-action:hover,
-    .md-action:focus-visible {
-      transform: translateY(-1px);
-      border-color: color-mix(in srgb, var(--accent) 55%, var(--md-line-strong));
+    button:hover,
+    button:focus-visible {
+      border-color: var(--accent);
       outline: none;
+      transform: translateY(-1px);
     }
 
-    .md-action.is-primary {
-      border-color: transparent;
-      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-deep) 100%);
-      color: #fff6ef;
+    button.primary {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: white;
     }
 
-    .md-preview {
+    button.primary:hover,
+    button.primary:focus-visible {
+      border-color: var(--accent-deep);
+      background: var(--accent-deep);
+    }
+
+    .preview {
       display: none;
-      padding-top: 0.85rem;
-      border-top: 1px solid rgba(43, 36, 30, 0.09);
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
     }
 
-    .md-preview.is-on {
+    .preview.on {
       display: block;
     }
 
-    .md-preview pre {
-      max-height: 22rem;
+    .preview pre {
+      max-height: 340px;
       margin: 0;
       overflow: auto;
-      padding: 1rem;
-      border: 1px solid rgba(43, 36, 30, 0.1);
-      border-radius: 0.85rem;
-      background: rgba(247, 240, 231, 0.72);
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #f4f6f7;
       color: var(--ink);
-      font: 0.8rem/1.65 var(--md-mono);
+      font: 12px/1.6 var(--mono);
       white-space: pre-wrap;
       word-break: break-word;
     }
 
-    .md-flag {
-      padding: 0.7rem 0.82rem;
-      border-radius: 0.8rem;
-      background: var(--md-warn-soft);
-      color: var(--md-warn);
-      font-size: 0.84rem;
-      line-height: 1.55;
+    .flag {
+      margin-top: 12px;
+      padding: 9px 12px;
+      border-radius: 7px;
+      background: var(--warn-soft);
+      color: var(--warn);
+      font-size: 12.5px;
     }
 
-    .md-flag.is-error {
-      background: var(--md-error-soft);
-      color: var(--md-error);
+    .flag.err {
+      background: var(--error-soft);
+      color: var(--error);
     }
 
-    .md-side {
-      display: grid;
-      gap: 0.85rem;
+    footer {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 12.5px;
     }
 
-    .md-side-panel {
-      padding: 1.1rem;
-      border: 1px solid var(--md-line);
-      border-radius: 1.1rem;
-      background: rgba(255, 253, 249, 0.78);
+    footer p {
+      margin: 0 0 6px;
     }
 
-    .md-side-panel h2 {
-      margin: 0 0 0.55rem;
-      color: var(--ink);
-      font-family: var(--font-display);
-      font-size: 1.55rem;
-      font-weight: 600;
-      letter-spacing: -0.025em;
-      line-height: 1.05;
+    footer code {
+      padding: 1px 5px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: rgba(255, 253, 250, 0.65);
+      font-family: var(--mono);
+      font-size: 11.5px;
     }
 
-    .md-side-panel p,
-    .md-side-panel li {
-      color: var(--md-muted);
-      font-size: 0.9rem;
-      line-height: 1.62;
-    }
+    @media (max-width: 620px) {
+      .wrap {
+        width: min(100% - 22px, 880px);
+        padding-top: 24px;
+      }
 
-    .md-side-panel ul {
-      display: grid;
-      gap: 0.45rem;
-      margin: 0;
-      padding-left: 1.15rem;
-    }
+      .drop {
+        min-height: 220px;
+        padding: 32px 16px;
+      }
 
-    .md-side-panel code {
-      padding: 0.12rem 0.32rem;
-      border: 1px solid rgba(43, 36, 30, 0.1);
-      border-radius: 0.35rem;
-      background: rgba(255, 253, 249, 0.82);
-      font-family: var(--md-mono);
-      font-size: 0.78em;
-    }
-
-    .md-footer {
-      padding: 2rem 0 0;
-    }
-
-    @media (max-width: 900px) {
-      .md-hero,
-      .md-tool-shell {
+      .bar {
         grid-template-columns: 1fr;
+        gap: 5px;
       }
 
-      .md-trust {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
-    }
-
-    @media (max-width: 680px) {
-      .md-tool-main {
-        padding-top: 1rem;
-      }
-
-      .md-hero {
-        padding: 1rem;
-        border-radius: 1.35rem;
-      }
-
-      .md-hero h1 {
-        max-width: 10ch;
-        font-size: clamp(2.65rem, 17vw, 4rem);
-      }
-
-      .md-trust {
-        grid-template-columns: 1fr;
-      }
-
-      .md-drop {
-        min-height: 16rem;
-        padding: 1.4rem 1rem;
-      }
-
-      .md-options,
-      .md-status,
-      .md-rows,
-      .md-batch {
-        padding-inline: 0.8rem;
-      }
-
-      .md-bar {
-        grid-template-columns: 1fr;
-        gap: 0.35rem;
-      }
-
-      .md-bar-val {
+      .bar-val {
         text-align: left;
       }
 
-      .md-row-meta {
+      .row-meta {
         width: 100%;
         margin-left: 0;
       }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .md-row,
-      .md-bar-fill,
-      .md-action,
-      .md-drop {
+      *,
+      *::before,
+      *::after {
         animation: none !important;
         transition: none !important;
       }
     }
   </style>
 </head>
-<body class="md-tool-page">
-  <div class="page-orbit" aria-hidden="true"></div>
+<body>
+  <div class="wrap">
+    <header>
+      <p class="eyebrow">全程在本机浏览器运行，文件不会上传</p>
+      <h1>文档转 Markdown</h1>
+      <p class="lede">丢进 PDF、PPTX、DOCX、CSV，拿到一份纯文字的 <b>.md</b>。</p>
+    </header>
 
-  <header class="site-header">
-    <div class="container header-row">
-      <a class="brand" href="/"><img class="brand-logo" src="/assets/img/personal-logo.png" alt="" aria-hidden="true" /><span>Olivia Feng</span></a>
-      <nav class="nav" aria-label="Primary">
-        <div class="nav-links">
-          <a href="/#selected-work">Work</a>
-          <a href="/about/">About</a>
-          <a href="/#contact">Contact</a>
-        </div>
-        <a class="btn btn-clear nav-cta" href="/assets/Yuchen_Olivia_Feng_Resume.pdf" target="_blank" rel="noreferrer">
-          <span class="nav-cta-icon" aria-hidden="true">&#8595;</span>
-          <span>Resume</span>
-        </a>
-      </nav>
-    </div>
-  </header>
-
-  <main class="md-tool-main">
-    <section class="container md-hero" aria-labelledby="md-title">
-      <div class="md-hero-copy">
-        <p class="md-kicker">Local AI prep tool</p>
-        <h1 id="md-title">文档转 Markdown</h1>
-        <p class="md-lede">
-          把 PDF、PPTX、DOCX、CSV、TXT 或 MD 丢进来，直接得到更适合给 AI 阅读的 <strong>.md</strong>。转换全程在浏览器本机运行，文件不会上传到服务器。
-        </p>
-        <div class="md-hero-actions">
-          <a class="btn primary" href="#converter"><span class="button-label">开始转换</span></a>
-          <a class="btn ghost" href="#notes"><span class="button-label">查看说明</span></a>
-        </div>
-      </div>
-      <div class="md-trust" aria-label="Tool highlights">
-        <div class="md-trust-card">
-          <strong>节省上下文</strong>
-          <span>移除截图式文档的冗余，把正文整理成可复制、可下载的 Markdown。</span>
-        </div>
-        <div class="md-trust-card">
-          <strong>批量处理</strong>
-          <span>一次拖入多个文件，逐个预览、复制，或打包下载全部结果。</span>
-        </div>
-        <div class="md-trust-card">
-          <strong>本地优先</strong>
-          <span>依赖浏览器读取文件内容；没有自定义后端接收你的文档。</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="container md-tool-shell" id="converter" aria-label="Markdown converter">
-      <div class="md-converter">
-        <div class="md-drop" id="drop" tabindex="0" role="button" aria-label="选择或拖入文件">
-          <div class="md-drop-inner">
-            <span class="md-drop-mark" aria-hidden="true">.md</span>
-            <p class="md-drop-title">拖文件进来，或点击选择</p>
-            <p class="md-drop-sub">支持批量转换。PDF 和 PPTX 会按页面估算原始 token 成本。</p>
-            <div class="md-file-types" aria-label="Supported file types">
-              <span>pdf</span>
-              <span>pptx</span>
-              <span>docx</span>
-              <span>csv</span>
-              <span>txt</span>
-              <span>md</span>
-            </div>
-          </div>
-        </div>
-        <input type="file" id="picker" multiple hidden accept=".pdf,.pptx,.docx,.csv,.txt,.md" />
-
-        <div class="md-options" aria-label="Conversion options">
-          <label class="md-option"><input type="checkbox" id="optPages" checked /> 保留页码标记</label>
-          <label class="md-option"><input type="checkbox" id="optNotes" checked /> 包含 PPT 备注</label>
-          <label class="md-option"><input type="checkbox" id="optHeads" checked /> 按字号推断标题</label>
-        </div>
-
-        <div class="md-status" aria-live="polite">
-          <span id="statusText">等待文件。转换完成后可以下载、复制或预览 Markdown。</span>
-          <span class="md-meter" id="meter">
-            <strong id="meterNum">~0</strong>
-            <span id="meterNote">已节省 token</span>
-          </span>
-        </div>
-
-        <div class="md-rows" id="rows"></div>
-
-        <div class="md-batch" id="batch">
-          <button class="md-action is-primary" id="dlAll" type="button">打包下载全部 .md</button>
-          <button class="md-action" id="clear" type="button">清空结果</button>
-        </div>
+    <main class="tool">
+      <div class="meter" id="meter">
+        <span class="meter-num" id="meterNum">0</span>
+        <span class="meter-label">这一批大约省下的 token</span>
+        <span class="meter-note" id="meterNote"></span>
       </div>
 
-      <aside class="md-side" id="notes">
-        <section class="md-side-panel">
-          <h2>适合什么时候用</h2>
-          <ul>
-            <li>把论文、简历、课程资料先转成 Markdown，再交给 AI 总结。</li>
-            <li>给长 PDF 或 PPT 做上下文压缩，减少截图式上传的 token 浪费。</li>
-            <li>把 CSV 快速转成 Markdown 表格，方便粘贴到聊天里。</li>
-          </ul>
-        </section>
-        <section class="md-side-panel">
-          <h2>转换边界</h2>
-          <p>扫描件如果没有文字层，浏览器抽不到正文，需要先 OCR。token 数是估算：中文约 1 字等于 1 token，英文约 4 字符等于 1 token。</p>
-        </section>
-        <section class="md-side-panel">
-          <h2>隐私说明</h2>
-          <p>页面使用 <code>pdf.js</code>、<code>mammoth</code> 和 <code>JSZip</code> 在浏览器中解析文件；本站没有为该工具配置上传接口。</p>
-        </section>
-      </aside>
-    </section>
-  </main>
+      <div class="drop" id="drop" tabindex="0" role="button" aria-label="选择文件">
+        <div>
+          <p class="drop-title">拖文件进来，或点击选择</p>
+          <p class="drop-sub">pdf · pptx · docx · csv · txt · md</p>
+        </div>
+      </div>
+      <input type="file" id="picker" multiple hidden accept=".pdf,.pptx,.docx,.csv,.txt,.md" />
 
-  <footer class="site-footer md-footer">
-    <div class="container footer-row">
-      <p>© <span id="year"></span> Olivia Yuchen Feng</p>
-      <p><a class="linkchip" href="/">Back to portfolio</a></p>
-    </div>
-  </footer>
+      <div class="opts">
+        <label><input type="checkbox" id="optPages" checked /> 保留页码标记</label>
+        <label><input type="checkbox" id="optNotes" checked /> 包含 PPT 备注</label>
+        <label><input type="checkbox" id="optHeads" checked /> 按字号推断标题</label>
+      </div>
+
+      <div class="rows" id="rows"></div>
+
+      <div class="batch" id="batch">
+        <button class="primary" id="dlAll" type="button">打包下载全部 .md</button>
+        <button id="clear" type="button">清空</button>
+      </div>
+    </main>
+
+    <footer>
+      <p>token 数是估算，不是精确值。PDF/PPT 的“原文件”一栏按每页图像估算，实际会浮动。</p>
+      <p>扫描件如果没有文字层，需要先做 OCR。</p>
+    </footer>
+  </div>
 
   <script>
     window.addEventListener("DOMContentLoaded", () => {
-      document.getElementById("year").textContent = new Date().getFullYear();
-
-      const required = ["pdfjsLib", "JSZip", "mammoth"];
-      const missing = required.filter((name) => !window[name]);
-      const statusText = document.querySelector("#statusText");
+      const missing = ["pdfjsLib", "JSZip", "mammoth"].filter((name) => !window[name]);
       if (missing.length) {
-        statusText.textContent = "依赖加载失败，请检查网络后刷新页面。";
+        document.querySelector(".drop-sub").textContent = "依赖加载失败，请检查网络后刷新页面。";
         return;
       }
 
@@ -951,15 +717,15 @@
 
       function render(entry) {
         const { name, md, pages, perPage, warn, error } = entry;
-        const row = document.createElement("article");
-        row.className = "md-row";
+        const row = document.createElement("div");
+        row.className = "row";
 
         if (error) {
           row.innerHTML = `
-            <div class="md-row-top"><span class="md-row-name"></span></div>
-            <div class="md-flag is-error"></div>`;
-          $(".md-row-name", row).textContent = name;
-          $(".md-flag", row).textContent = error;
+            <div class="row-top"><span class="row-name"></span></div>
+            <div class="flag err"></div>`;
+          $(".row-name", row).textContent = name;
+          $(".flag", row).textContent = error;
           rowsEl.appendChild(row);
           return;
         }
@@ -974,46 +740,45 @@
         ].filter(Boolean).join(" · ");
 
         row.innerHTML = `
-          <div class="md-row-top">
-            <span class="md-row-name"></span>
-            <span class="md-row-meta"></span>
+          <div class="row-top">
+            <span class="row-name"></span>
+            <span class="row-meta">${meta}</span>
           </div>
-          <div class="md-bars">
-            <div class="md-bar">
-              <span class="md-bar-key">原文件</span>
-              <span class="md-bar-track"><span class="md-bar-fill is-original"></span></span>
-              <span class="md-bar-val">~${fmt(orig)}</span>
+          <div class="bars">
+            <div class="bar">
+              <span class="bar-key">原文件</span>
+              <span class="bar-track"><span class="bar-fill a"></span></span>
+              <span class="bar-val">~${fmt(orig)}</span>
             </div>
-            <div class="md-bar">
-              <span class="md-bar-key">Markdown</span>
-              <span class="md-bar-track"><span class="md-bar-fill is-markdown"></span></span>
-              <span class="md-bar-val">~${fmt(mdTok)}</span>
+            <div class="bar">
+              <span class="bar-key">markdown</span>
+              <span class="bar-track"><span class="bar-fill b"></span></span>
+              <span class="bar-val">~${fmt(mdTok)}</span>
             </div>
           </div>
-          <div class="md-actions">
-            <button class="md-action is-primary" data-a="dl" type="button">下载 .md</button>
-            <button class="md-action" data-a="copy" type="button">复制</button>
-            <button class="md-action" data-a="prev" type="button">预览</button>
+          <div class="acts">
+            <button class="primary" data-a="dl" type="button">下载 .md</button>
+            <button data-a="copy" type="button">复制</button>
+            <button data-a="prev" type="button">预览</button>
           </div>
-          <div class="md-preview"><pre></pre></div>`;
+          <div class="preview"><pre></pre></div>`;
 
-        $(".md-row-name", row).textContent = name;
-        $(".md-row-meta", row).textContent = meta;
-        $(".md-preview pre", row).textContent =
+        $(".row-name", row).textContent = name;
+        $(".preview pre", row).textContent =
           md.slice(0, 6000) + (md.length > 6000 ? "\n\n... 预览截断，下载的是完整内容" : "");
 
         if (warn) {
           const flag = document.createElement("div");
-          flag.className = "md-flag";
+          flag.className = "flag";
           flag.textContent = warn;
-          $(".md-bars", row).before(flag);
+          $(".bars", row).before(flag);
         }
 
         rowsEl.appendChild(row);
         requestAnimationFrame(() => {
           const max = Math.max(orig, mdTok, 1);
-          $(".is-original", row).style.width = (orig / max) * 100 + "%";
-          $(".is-markdown", row).style.width = (mdTok / max) * 100 + "%";
+          $(".bar-fill.a", row).style.width = (orig / max) * 100 + "%";
+          $(".bar-fill.b", row).style.width = (mdTok / max) * 100 + "%";
         });
 
         const stem = name.replace(/\.[^.]+$/, "");
@@ -1034,33 +799,29 @@
             });
           }
           if (action === "prev") {
-            const preview = $(".md-preview", row);
-            preview.classList.toggle("is-on");
-            event.target.textContent = preview.classList.contains("is-on") ? "收起" : "预览";
+            const preview = $(".preview", row);
+            preview.classList.toggle("on");
+            event.target.textContent = preview.classList.contains("on") ? "收起" : "预览";
           }
         });
       }
 
       function updateMeter() {
-        const converted = results.filter((result) => !result.error).length;
         const saved = results.reduce((sum, result) => sum + (result.saved || 0), 0);
-        if (!converted) return;
-        meter.classList.add("is-on");
-        batch.classList.add("is-on");
+        const count = results.filter((result) => !result.error).length;
+        if (!count) return;
+        meter.classList.add("on");
+        batch.classList.add("on");
         meterNum.textContent = "~" + fmt(saved);
-        meterNote.textContent = converted + " 个文件已转换";
-        statusText.textContent = "转换完成。可以继续拖入文件，或下载当前结果。";
+        meterNote.textContent = count + " 个文件已转换";
       }
 
       async function handle(files) {
-        if (!files.length) return;
         const opts = {
           pages: $("#optPages").checked,
           notes: $("#optNotes").checked,
           heads: $("#optHeads").checked
         };
-        statusText.textContent = "正在转换 " + files.length + " 个文件...";
-
         for (const file of files) {
           const entry = { name: file.name };
           try {
@@ -1078,6 +839,7 @@
 
       const drop = $("#drop");
       const picker = $("#picker");
+
       drop.addEventListener("click", () => picker.click());
       drop.addEventListener("keydown", (event) => {
         if (event.key === "Enter" || event.key === " ") {
@@ -1093,14 +855,14 @@
       ["dragenter", "dragover"].forEach((type) => {
         drop.addEventListener(type, (event) => {
           event.preventDefault();
-          drop.classList.add("is-hot");
+          drop.classList.add("hot");
         });
       });
 
       ["dragleave", "drop"].forEach((type) => {
         drop.addEventListener(type, (event) => {
           event.preventDefault();
-          drop.classList.remove("is-hot");
+          drop.classList.remove("hot");
         });
       });
 
@@ -1127,9 +889,8 @@
       $("#clear").addEventListener("click", () => {
         results.length = 0;
         rowsEl.innerHTML = "";
-        meter.classList.remove("is-on");
-        batch.classList.remove("is-on");
-        statusText.textContent = "等待文件。转换完成后可以下载、复制或预览 Markdown。";
+        meter.classList.remove("on");
+        batch.classList.remove("on");
       });
     });
   </script>
