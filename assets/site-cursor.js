@@ -23,7 +23,7 @@
 
   function render() {
     frame = 0;
-    cursor.style.transform = "translate3d(" + x + "px," + y + "px,0) translate(-50%,-50%)";
+    cursor.style.transform = "translate3d(" + x + "px," + y + "px,0)";
   }
 
   function requestRender() {
@@ -33,7 +33,7 @@
   function mountCursor() {
     cursor.className = "site-cursor";
     cursor.setAttribute("aria-hidden", "true");
-    cursor.innerHTML = '<img class="site-cursor-glyph" src="/assets/img/site-cursor.svg?v=1" alt="" draggable="false">';
+    cursor.innerHTML = '<span class="site-cursor-art"><img class="site-cursor-glyph" src="/assets/img/site-cursor.svg?v=1" alt="" draggable="false"></span>';
     restoreCursor();
 
     document.addEventListener("pointermove", function (event) {
