@@ -523,6 +523,51 @@ function setupSearch() {
   $("#contactSearch").addEventListener("input", (e) => Contacts.renderDirectory(e.target.value));
 }
 
+function setupBackup() {
+  const exportBtn = $("#exportBtn");
+  const importBtn = $("#importBtn");
+  const importFile = $("#importFile");
+
+  exportBtn.addEventListener("click", async () => {
+    const dump = await Store.exportAll();
+    const counts = Store.STORES.map((s) => `${s} ${(dump.data[s] || []).length}`).join(" · ");
+    const blob = new Blob([JSON.stringify(dump, null, 2)], { type: "application/json" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = `intern-log-backup-${new Date().toISOString().slice(0, 10)}.json`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+    exportBtn.textContent = "已导出 ✓";
+    exportBtn.title = `已备份：${counts}`;
+    setTimeout(() => (exportBtn.textContent = "导出备份"), 1800);
+  });
+
+  importBtn.addEventListener("click", () => importFile.click());
+  importFile.addEventListener("change", async () => {
+    const file = importFile.files[0];
+    if (!file) return;
+    try {
+      const dump = JSON.parse(await file.text());
+      if (!dump || !dump.data) throw new Error("bad");
+      const total = Object.values(dump.data).reduce((n, arr) => n + (Array.isArray(arr) ? arr.length : 0), 0);
+      const ok = confirm(
+        `将从备份合并导入约 ${total} 条记录：\n相同条目会用备份覆盖，其余现有数据保留（不会删除）。\n\n继续？`,
+      );
+      if (!ok) { importFile.value = ""; return; }
+      await Store.importAll(dump, { replace: false });
+      importFile.value = "";
+      await Todo.render();
+      await Notebook.renderList();
+      alert("导入完成 ✓");
+    } catch (e) {
+      alert("导入失败：这个文件不是有效的备份 JSON。");
+      importFile.value = "";
+    }
+  });
+}
+
 function setupSyncBadge() {
   const badge = $("#syncBadge");
   Sync.onStatus((state) => {
@@ -545,6 +590,7 @@ async function boot() {
   await initGate();
   setupTabs();
   setupSearch();
+  setupBackup();
   setupSyncBadge();
   await Todo.render();
   await NotesImport.seedNotes(); // load bundled starter notes on first run

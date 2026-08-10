@@ -35,6 +35,11 @@
       </details>
       <div class="rail-foot">
         <span id="syncBadge" class="sync-badge" title="数据保存状态">本地已存</span>
+        <div class="backup-row">
+          <button id="exportBtn" class="mini-btn" title="把全部数据下载成一个 JSON 备份文件">导出备份</button>
+          <button id="importBtn" class="mini-btn" title="从备份文件恢复">导入</button>
+          <input id="importFile" type="file" accept="application/json,.json" hidden />
+        </div>
       </div>
     </aside>
 

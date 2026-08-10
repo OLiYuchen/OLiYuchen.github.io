@@ -221,6 +221,13 @@ body.gate-locked .app { filter: blur(9px); pointer-events: none; user-select: no
 }
 .sync-badge.syncing::before { background: #e0b34a; }
 .sync-badge.error::before { background: var(--danger); }
+.backup-row { display: flex; gap: 6px; margin-top: 8px; }
+.mini-btn {
+  flex: 1; border: 1px solid var(--line-strong); background: var(--bg);
+  color: var(--ink-soft); border-radius: var(--radius-sm);
+  padding: 5px 8px; font-size: 12px;
+}
+.mini-btn:hover { background: var(--surface-2); color: var(--ink); }
 
 /* ---------- Main ---------- */
 
@@ -571,10 +578,26 @@ body:not(.gate-locked) .gate-overlay { display: none; }
 
 /* ---------- Responsive ---------- */
 
+/* Narrow screens: stack everything into one scrollable column. Crucially we
+   NEVER `display:none` the todo rail or the note list — hiding them used to
+   make the app look empty (as if data were lost) on phones / narrow windows /
+   device-emulation, when the data was actually fine. */
 @media (max-width: 860px) {
-  .app { grid-template-columns: 1fr; }
-  .rail { display: none; } /* TODO Phase 1.1: mobile drawer for todos */
+  html, body { height: auto; }
+  body { overflow-y: auto; }
+  .app { grid-template-columns: 1fr; height: auto; min-height: 100vh; overflow: visible; }
+  .rail { border-right: none; border-bottom: 1px solid var(--line); overflow: visible; }
+  .rail .todo-list { overflow: visible; }
+  .main { overflow: visible; }
+  .view { overflow: visible; }
   .view-notebook, .view-log { grid-template-columns: 1fr; }
-  .note-list-pane, .log-history { display: none; }
-  .global-search { width: 150px; }
+  .note-list-pane {
+    border-right: none; border-bottom: 1px solid var(--line);
+    max-height: 42vh; /* own scroll, so the editor below stays reachable */
+  }
+  .note-editor-pane { overflow: visible; }
+  .note-editor { padding: 24px 20px 60px; }
+  .log-compose { padding: 20px; }
+  .log-history { border-left: none; border-top: 1px solid var(--line); }
+  .global-search { width: 130px; }
 }

@@ -111,7 +111,33 @@ const Store = (() => {
     }
   }
 
-  return { openDB, all, get, put, remove, uid, todayStr, requestPersistence, STORES };
+  // Full snapshot of every store — the backup file's contents. Plain records,
+  // no framework wrapping, so a backup is human-readable and re-importable.
+  async function exportAll() {
+    const data = {};
+    for (const s of STORES) data[s] = await all(s);
+    return { _app: "intern-log", _version: DB_VERSION, _exportedAt: new Date().toISOString(), data };
+  }
+
+  // Restore from a backup. Default is a safe MERGE (same id overwrites, other
+  // existing records are kept). Pass { replace:true } to wipe first. Writes
+  // records verbatim (raw put, bypassing the dirty/sync bookkeeping).
+  async function importAll(dump, opts = {}) {
+    if (!dump || typeof dump !== "object" || !dump.data) throw new Error("无效的备份文件");
+    const counts = {};
+    for (const s of STORES) {
+      const recs = dump.data[s];
+      if (!Array.isArray(recs)) continue;
+      if (opts.replace) await tx(s, "readwrite", (store) => store.clear());
+      for (const rec of recs) {
+        if (rec && rec.id != null) await tx(s, "readwrite", (store) => store.put({ ...rec }));
+      }
+      counts[s] = recs.length;
+    }
+    return counts;
+  }
+
+  return { openDB, all, get, put, remove, uid, todayStr, requestPersistence, exportAll, importAll, STORES };
 })();
 
 /* ============================================================
