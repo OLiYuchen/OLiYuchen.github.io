@@ -73,7 +73,9 @@ const Store = (() => {
 
   async function put(storeName, record) {
     const now = new Date().toISOString();
-    const withMeta = { ...record, _dirty: true, updatedAt: record.updatedAt || now };
+    // Always bump updatedAt on write — sync's last-write-wins merge depends on
+    // it advancing on every edit (createdAt is preserved via the spread).
+    const withMeta = { ...record, _dirty: true, updatedAt: now };
     await tx(storeName, "readwrite", (store) => store.put(withMeta));
     Sync.schedule(storeName, withMeta);
     return withMeta;
@@ -137,70 +139,146 @@ const Store = (() => {
     return counts;
   }
 
-  return { openDB, all, get, put, remove, uid, todayStr, requestPersistence, exportAll, importAll, STORES };
+  // Write a record verbatim (no _dirty flip, no sync scheduling). Used by the
+  // sync layer to land records pulled from Notion without bouncing them back.
+  async function putRaw(storeName, record) {
+    await tx(storeName, "readwrite", (store) => store.put(record));
+    return record;
+  }
+
+  return { openDB, all, get, put, putRaw, remove, uid, todayStr, requestPersistence, exportAll, importAll, STORES };
 })();
 
 /* ============================================================
-   Sync — best-effort mirror to Notion via /api/intern/sync.
-   Phase 1 ships this DISABLED (SYNC_ENABLED = false) so the app
-   is 100% local and needs no Notion setup to work. Flip the flag
-   (and build the Notion DBs) in Phase 2. Writes are debounced and
-   batched; failures are swallowed and retried on next change.
+   Sync — two-way mirror to Notion via /api/intern/sync.
+
+   Model: local IndexedDB stays the source of truth for the UI (instant,
+   offline-capable). Notion is the durable cloud mirror AND the point where
+   data from different origins/devices converges.
+
+   - pull(): fetch all records from Notion; for each, if it's newer than the
+     local copy (or local is missing) write it locally with putRaw (so it is
+     NOT re-queued for push). Never deletes local records — safest bias.
+   - pushDirty(): send every locally-changed record (_dirty) plus any pending
+     deletes; on success clear the dirty flags / delete queue.
+   - syncNow(): pull then pushDirty. Runs on boot (after auth) and whenever a
+     change is made (debounced). Any failure just leaves local intact and
+     shows an error badge — data is never at risk.
+
+   Auth: calls go same-origin with the intern_auth cookie (set by
+   /api/intern/auth via the password gate). Without it the API 401s and we
+   fall back to local-only.
    ============================================================ */
 
 const Sync = (() => {
-  const SYNC_ENABLED = false; // Phase 2: set true once Notion DBs exist
+  const SYNC_ENABLED = true;
   const API = "/api/intern/sync";
-  const pending = new Map(); // key `${store}:${id}` -> {store, record|delete}
-  let timer = null;
+  const DELETES_KEY = "intern.pendingDeletes";
   let listeners = [];
+  let running = false;
+  let pushTimer = null;
 
-  function setBadge(state) {
-    listeners.forEach((fn) => fn(state));
-  }
-  function onStatus(fn) {
-    listeners.push(fn);
+  function setBadge(state) { listeners.forEach((fn) => fn(state)); }
+  function onStatus(fn) { listeners.push(fn); }
+
+  // We hold the auth cookie iff the non-HttpOnly marker cookie is present.
+  function authed() {
+    return document.cookie.split("; ").some((c) => c === "intern_gate=1" || c.startsWith("intern_gate=1"));
   }
 
-  function schedule(store, record) {
-    if (!SYNC_ENABLED) {
-      setBadge("local");
-      return;
-    }
-    pending.set(`${store}:${record.id}`, { store, record });
-    debounce();
+  function loadDeletes() { try { return JSON.parse(localStorage.getItem(DELETES_KEY) || "[]"); } catch { return []; } }
+  function saveDeletes(list) { localStorage.setItem(DELETES_KEY, JSON.stringify(list)); }
+
+  function stripMeta(rec) {
+    const out = {};
+    for (const k of Object.keys(rec)) if (!k.startsWith("_")) out[k] = rec[k];
+    return out;
+  }
+
+  async function api(op, extra) {
+    const res = await fetch(API, {
+      method: "POST",
+      credentials: "same-origin",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ op, ...extra }),
+    });
+    if (res.status === 401) { const e = new Error("unauthorized"); e.code = 401; throw e; }
+    const json = await res.json().catch(() => ({}));
+    if (!json.ok) throw new Error(json.error || json.message || `sync ${res.status}`);
+    return json;
+  }
+
+  // Change hooks called by Store.put / Store.remove. A local change only needs
+  // to PUSH (pulling on every keystroke-debounce would be wasteful); the full
+  // pull+push runs on boot via syncNow().
+  function schedule() {
+    if (!SYNC_ENABLED) { setBadge("local"); return; }
+    clearTimeout(pushTimer);
+    pushTimer = setTimeout(() => runPush(), 1500);
+  }
+
+  async function runPush() {
+    if (!SYNC_ENABLED || !authed() || running) return;
+    running = true;
+    setBadge("syncing");
+    try { await pushDirty(); setBadge("synced"); }
+    catch (err) { setBadge(err.code === 401 ? "local" : "error"); }
+    finally { running = false; }
   }
   function scheduleDelete(store, id) {
     if (!SYNC_ENABLED) return;
-    pending.set(`${store}:${id}`, { store, id, deleted: true });
-    debounce();
+    const list = loadDeletes();
+    if (!list.some((d) => d.store === store && d.id === id)) { list.push({ store, id }); saveDeletes(list); }
+    schedule();
   }
 
-  function debounce() {
-    clearTimeout(timer);
-    timer = setTimeout(flush, 1500);
-  }
-
-  async function flush() {
-    if (!SYNC_ENABLED || pending.size === 0) return;
-    const batch = [...pending.values()];
-    pending.clear();
-    setBadge("syncing");
-    try {
-      const res = await fetch(API, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ops: batch }),
-      });
-      if (!res.ok) throw new Error(`sync ${res.status}`);
-      setBadge("local");
-    } catch (err) {
-      // Re-queue so the next change retries these too. Never surfaces
-      // as a blocking error — local data is already safe.
-      batch.forEach((op) => pending.set(`${op.store}:${op.record ? op.record.id : op.id}`, op));
-      setBadge("error");
+  async function pull() {
+    const { data } = await api("pull");
+    for (const store of Store.STORES) {
+      for (const remote of data[store] || []) {
+        if (!remote || remote.id == null) continue;
+        const local = await Store.get(store, remote.id);
+        const newer = !local || String(remote.updatedAt || "") >= String(local.updatedAt || "");
+        if (newer) await Store.putRaw(store, { ...remote, _dirty: false, _syncedAt: new Date().toISOString() });
+      }
     }
   }
 
-  return { schedule, scheduleDelete, onStatus, flush, SYNC_ENABLED };
+  async function pushDirty() {
+    const ops = [];
+    const dirtyRefs = [];
+    for (const store of Store.STORES) {
+      for (const rec of await Store.all(store)) {
+        if (rec._dirty) { ops.push({ store, record: stripMeta(rec) }); dirtyRefs.push({ store, rec }); }
+      }
+    }
+    const deletes = loadDeletes();
+    for (const d of deletes) ops.push({ store: d.store, id: d.id, deleted: true });
+    if (ops.length === 0) return;
+
+    await api("push", { ops });
+
+    // Mark pushed records clean and clear the delete queue.
+    for (const { store, rec } of dirtyRefs) await Store.putRaw(store, { ...rec, _dirty: false, _syncedAt: new Date().toISOString() });
+    saveDeletes([]);
+  }
+
+  async function syncNow() {
+    if (!SYNC_ENABLED || !authed() || running) return;
+    running = true;
+    setBadge("syncing");
+    try {
+      await pull();
+      await pushDirty();
+      setBadge("synced");
+      listeners.forEach(() => {});
+      document.dispatchEvent(new CustomEvent("intern:synced"));
+    } catch (err) {
+      setBadge(err.code === 401 ? "local" : "error");
+    } finally {
+      running = false;
+    }
+  }
+
+  return { schedule, scheduleDelete, onStatus, syncNow, authed, SYNC_ENABLED };
 })();

@@ -54,28 +54,64 @@ function unlockApp() {
   document.body.classList.remove("gate-locked");
 }
 
+// Phase 2 gate: authenticate against the server (/api/intern/auth) so we get
+// the intern_auth cookie that unlocks the sync API. If the endpoint is
+// unreachable (static/local dev with no backend), fall back to the offline
+// client-side SHA check so the app is still usable locally (sync stays off).
 async function initGate() {
-  if (sessionStorage.getItem(GATE_FLAG) === "1" || localStorage.getItem(GATE_FLAG) === "1") {
+  if (Sync.authed() || localStorage.getItem(GATE_FLAG) === "1" || sessionStorage.getItem(GATE_FLAG) === "1") {
     unlockApp();
     return;
   }
   const form = $("#gateForm");
   const input = $("#gatePassword");
   const error = $("#gateError");
+  const showError = () => { error.hidden = false; input.value = ""; input.focus(); };
   input.focus();
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     error.hidden = true;
-    const hash = await sha256Hex(input.value);
-    if (hash === PASSWORD_HASH) {
+    const pw = input.value;
+    let res;
+    try {
+      res = await fetch("/api/intern/auth", {
+        method: "POST",
+        credentials: "same-origin",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password: pw }),
+      });
+    } catch (netErr) {
+      // No backend reachable → offline fallback (local-only, no cloud sync).
+      const hash = await sha256Hex(pw);
+      if (hash === PASSWORD_HASH) { localStorage.setItem(GATE_FLAG, "1"); unlockApp(); }
+      else showError();
+      return;
+    }
+    if (res.ok) {
       localStorage.setItem(GATE_FLAG, "1");
       unlockApp();
+      startSync(); // first-time auth → kick off the initial pull+push
     } else {
-      error.hidden = false;
-      input.value = "";
-      input.focus();
+      showError(); // 401 wrong password (or other server error)
     }
   });
+}
+
+// Idempotent: starts the sync loop once we hold the auth cookie. Re-renders
+// the visible lists whenever a sync round completes (so pulled cloud data,
+// e.g. notes made on another origin/device, shows up).
+let syncStarted = false;
+function startSync() {
+  if (syncStarted || !Sync.SYNC_ENABLED || !Sync.authed()) return;
+  syncStarted = true;
+  document.addEventListener("intern:synced", onSynced);
+  Sync.syncNow();
+}
+async function onSynced() {
+  await Todo.render();
+  await Notebook.renderList();
+  await Log.renderHistory();
+  await Contacts.renderDirectory($("#contactSearch") ? $("#contactSearch").value : "");
 }
 
 /* ============================================================
@@ -570,9 +606,10 @@ function setupBackup() {
 
 function setupSyncBadge() {
   const badge = $("#syncBadge");
+  const LABEL = { syncing: "同步中…", synced: "已同步 Notion ✓", error: "同步失败（本地已存）", local: "本地已存" };
   Sync.onStatus((state) => {
     badge.className = "sync-badge" + (state === "syncing" ? " syncing" : state === "error" ? " error" : "");
-    badge.textContent = state === "syncing" ? "同步中…" : state === "error" ? "同步失败（本地已存）" : "本地已存";
+    badge.textContent = LABEL[state] || "本地已存";
   });
 }
 
@@ -595,6 +632,10 @@ async function boot() {
   await Todo.render();
   await NotesImport.seedNotes(); // load bundled starter notes on first run
   await Notebook.renderList();
+
+  // If we already hold the auth cookie (returning visitor), kick off sync now
+  // that the local data is rendered. First-time auth starts it from the gate.
+  startSync();
 
   // Harden local durability (best-effort; Notion sync is the real fix).
   Store.requestPersistence().then((r) => {
