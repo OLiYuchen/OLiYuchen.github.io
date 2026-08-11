@@ -218,7 +218,10 @@ const Sync = (() => {
   }
 
   async function runPush() {
-    if (!SYNC_ENABLED || !authed() || running) return;
+    if (!SYNC_ENABLED || !authed()) return;
+    // A sync is already in flight — re-arm so this change still gets pushed
+    // once it finishes, instead of waiting for the next change.
+    if (running) { clearTimeout(pushTimer); pushTimer = setTimeout(runPush, 1600); return; }
     running = true;
     setBadge("syncing");
     try { await pushDirty(); setBadge("synced"); }
