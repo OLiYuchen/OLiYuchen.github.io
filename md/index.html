@@ -3,14 +3,18 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>文档转 Markdown</title>
-  <meta name="description" content="在浏览器本地把 PDF、PPTX、DOCX、CSV、TXT 和 MD 转成 Markdown。" />
+  <title>文档格式转换</title>
+  <meta name="description" content="在浏览器本地把文档转成 Markdown，或把 Markdown 排版成 Word。" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js" defer></script>
+  <script src="vendor/docx-preview-0.3.7.min.js" defer></script>
+  <script src="docx-preview-bridge.js" defer></script>
+  <script src="vendor/docx-9.5.1.umd.js" defer></script>
+  <script src="md-word.js" defer></script>
   <style>
     :root {
       color-scheme: light;
@@ -60,6 +64,19 @@
       padding: clamp(32px, 6vw, 56px) 0 72px;
     }
 
+    body.word-preview-active .wrap {
+      width: min(1400px, calc(100vw - 32px));
+    }
+
+    body.word-preview-active #wordDrop {
+      min-height: 132px;
+      padding-block: 24px;
+    }
+
+    body.word-preview-active #wordDrop .drop-title {
+      font-size: 24px;
+    }
+
     header {
       margin-bottom: 24px;
     }
@@ -102,6 +119,41 @@
     .lede b {
       color: var(--ink);
       font-weight: 700;
+    }
+
+    .mode-switch {
+      display: inline-grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3px;
+      margin-top: 22px;
+      padding: 3px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: var(--panel-soft);
+    }
+
+    .mode-switch button {
+      min-width: 150px;
+      border: 0;
+      border-radius: 6px;
+      background: transparent;
+      color: var(--muted);
+    }
+
+    .mode-switch button:hover,
+    .mode-switch button:focus-visible {
+      border: 0;
+      color: var(--ink);
+    }
+
+    .mode-switch button.active {
+      background: var(--panel);
+      color: var(--ink);
+      box-shadow: 0 1px 3px rgba(23, 28, 32, 0.12);
+    }
+
+    .mode-panel[hidden] {
+      display: none;
     }
 
     .tool {
@@ -202,6 +254,329 @@
       width: 15px;
       height: 15px;
       accent-color: var(--accent);
+    }
+
+    .opts select {
+      min-height: 32px;
+      padding: 4px 28px 4px 9px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: var(--panel);
+      color: var(--ink);
+      font: 12px/1.4 var(--sans);
+    }
+
+    .word-details {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+      background: var(--panel-soft);
+      color: var(--muted);
+      font-size: 12.5px;
+    }
+
+    .word-details summary {
+      color: var(--ink);
+      cursor: pointer;
+      font-weight: 650;
+    }
+
+    .word-details p {
+      margin: 9px 0 0;
+      max-width: 74ch;
+    }
+
+    .word-status {
+      display: none;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .word-status.on {
+      display: block;
+    }
+
+    .word-status.error {
+      background: var(--error-soft);
+      color: var(--error);
+    }
+
+    .word-result {
+      display: none;
+      padding: 16px;
+    }
+
+    .word-result.on {
+      display: block;
+    }
+
+    .word-result-inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel-soft);
+    }
+
+    .word-result-copy {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .word-result-copy strong,
+    .word-result-copy span {
+      display: block;
+    }
+
+    .word-result-copy strong {
+      overflow-wrap: anywhere;
+      font-size: 15px;
+    }
+
+    .word-result-copy span {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .compare {
+      display: none;
+      border-top: 1px solid var(--line);
+      background: var(--panel);
+    }
+
+    .compare.on {
+      display: block;
+    }
+
+    .compare-mobile-tabs {
+      display: none;
+    }
+
+    .compare-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      min-height: 720px;
+    }
+
+    .compare-pane {
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    .compare-pane + .compare-pane {
+      border-left: 1px solid var(--line);
+    }
+
+    .compare-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 48px;
+      padding: 0 18px;
+      border-bottom: 1px solid var(--line);
+      background: var(--panel-soft);
+    }
+
+    .compare-head strong {
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .compare-head span {
+      color: var(--muted);
+      font: 11px/1 var(--mono);
+    }
+
+    .preview-scroll {
+      height: 720px;
+      overflow: auto;
+    }
+
+    .markdown-reader {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: clamp(30px, 5vw, 58px) clamp(24px, 5vw, 64px) 72px;
+      color: #303a36;
+      font-size: 15px;
+      line-height: 1.72;
+    }
+
+    .markdown-reader .reader-eyebrow {
+      margin: 0 0 8px;
+      color: var(--accent);
+      font: 700 11px/1.3 var(--mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .markdown-reader .reader-title {
+      margin: 0;
+      color: var(--ink);
+      font-size: 38px;
+      font-weight: 750;
+      letter-spacing: 0;
+      line-height: 1.1;
+    }
+
+    .markdown-reader .reader-subtitle {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.45;
+    }
+
+    .markdown-reader .reader-meta {
+      margin: 18px 0 0;
+      color: var(--muted);
+      font: 12px/1.5 var(--mono);
+    }
+
+    .markdown-reader .reader-rule {
+      margin: 24px 0 30px;
+      border: 0;
+      border-top: 2px solid var(--ink);
+    }
+
+    .markdown-reader h1,
+    .markdown-reader h2,
+    .markdown-reader h3 {
+      color: var(--ink);
+      font-weight: 720;
+      line-height: 1.25;
+    }
+
+    .markdown-reader h1 {
+      margin: 42px 0 14px;
+      padding-bottom: 9px;
+      border-bottom: 1px solid var(--line);
+      font-size: 25px;
+    }
+
+    .markdown-reader h2 {
+      margin: 32px 0 10px;
+      font-size: 20px;
+    }
+
+    .markdown-reader h3 {
+      margin: 25px 0 8px;
+      font-size: 17px;
+    }
+
+    .markdown-reader p {
+      margin: 0 0 14px;
+    }
+
+    .markdown-reader a {
+      color: var(--accent);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 2px;
+    }
+
+    .markdown-reader code {
+      padding: 1px 5px;
+      border-radius: 4px;
+      background: #edf1f0;
+      color: var(--accent-deep);
+      font: 0.88em/1.4 var(--mono);
+    }
+
+    .markdown-reader blockquote {
+      margin: 20px 0;
+      padding: 13px 16px;
+      border-left: 3px solid var(--accent);
+      background: var(--accent-soft);
+      color: #30483f;
+    }
+
+    .markdown-reader blockquote p,
+    .markdown-reader li:last-child {
+      margin-bottom: 0;
+    }
+
+    .markdown-reader ul,
+    .markdown-reader ol {
+      margin: 0 0 16px;
+      padding-left: 24px;
+    }
+
+    .markdown-reader li {
+      margin-bottom: 6px;
+    }
+
+    .reader-table-wrap {
+      max-width: 100%;
+      margin: 20px 0 24px;
+      overflow-x: auto;
+    }
+
+    .markdown-reader table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .markdown-reader th,
+    .markdown-reader td {
+      padding: 9px 10px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .markdown-reader th {
+      background: var(--panel-soft);
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .markdown-reader img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      margin: 24px auto 8px;
+    }
+
+    .reader-caption,
+    .reader-missing {
+      color: var(--muted);
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .reader-pagebreak {
+      margin: 32px 0;
+      border: 0;
+      border-top: 1px dashed var(--line-strong);
+    }
+
+    .word-preview {
+      min-height: 100%;
+      background: #e8edef;
+    }
+
+    .word-preview .docx-wrapper {
+      min-height: 100%;
+      padding: 22px !important;
+      background: #e8edef !important;
+    }
+
+    .word-preview .docx-wrapper > section.docx {
+      width: 100% !important;
+      max-width: 794px;
+      margin: 0 auto 18px !important;
+      box-shadow: 0 1px 4px rgba(23, 28, 32, 0.14) !important;
+    }
+
+    .word-preview-loading {
+      padding: 32px;
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
     }
 
     .rows {
@@ -402,6 +777,25 @@
         padding: 32px 16px;
       }
 
+      .mode-switch {
+        display: grid;
+        width: 100%;
+      }
+
+      .mode-switch button {
+        min-width: 0;
+        padding-inline: 8px;
+      }
+
+      .word-result-inner {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .word-result-inner button {
+        width: 100%;
+      }
+
       .bar {
         grid-template-columns: 1fr;
         gap: 5px;
@@ -416,17 +810,79 @@
         margin-left: 0;
       }
     }
+
+    @media (max-width: 760px) {
+      body.word-preview-active .wrap {
+        width: min(100% - 22px, 880px);
+      }
+
+      .compare-mobile-tabs {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3px;
+        padding: 8px;
+        border-bottom: 1px solid var(--line);
+        background: var(--panel-soft);
+      }
+
+      .compare-mobile-tabs button {
+        border: 0;
+        border-radius: 6px;
+        background: transparent;
+        color: var(--muted);
+      }
+
+      .compare-mobile-tabs button.active {
+        background: var(--panel);
+        color: var(--ink);
+        box-shadow: 0 1px 3px rgba(23, 28, 32, 0.12);
+      }
+
+      .compare-grid {
+        display: block;
+        min-height: 0;
+      }
+
+      .compare-pane + .compare-pane {
+        border-left: 0;
+      }
+
+      .compare-grid.show-markdown .word-pane,
+      .compare-grid.show-word .markdown-pane {
+        display: none;
+      }
+
+      .preview-scroll {
+        height: min(72vh, 760px);
+      }
+
+      .markdown-reader {
+        padding: 30px 20px 56px;
+      }
+
+      .markdown-reader .reader-title {
+        font-size: 32px;
+      }
+
+      .word-preview .docx-wrapper {
+        padding: 10px !important;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="wrap">
     <header>
       <p class="eyebrow">全程在本机浏览器运行，文件不会上传</p>
-      <h1>文档转 Markdown</h1>
-      <p class="lede">丢进 PDF、PPTX、DOCX、CSV，拿到一份纯文字的 <b>.md</b>。</p>
+      <h1 id="pageTitle">文档转 Markdown</h1>
+      <p class="lede" id="pageLede">丢进 PDF、PPTX、DOCX、CSV，拿到一份纯文字的 <b>.md</b>。</p>
+      <div class="mode-switch" role="tablist" aria-label="转换方向">
+        <button class="active" id="toMdTab" type="button" role="tab" aria-selected="true" aria-controls="toMdPanel">文档 → Markdown</button>
+        <button id="toWordTab" type="button" role="tab" aria-selected="false" aria-controls="toWordPanel">Markdown → Word</button>
+      </div>
     </header>
 
-    <main class="tool">
+    <main class="tool mode-panel" id="toMdPanel" role="tabpanel" aria-labelledby="toMdTab">
       <div class="meter" id="meter">
         <span class="meter-num" id="meterNum">0</span>
         <span class="meter-label">这一批大约省下的 token</span>
@@ -455,9 +911,79 @@
       </div>
     </main>
 
-    <footer>
+    <main class="tool mode-panel" id="toWordPanel" role="tabpanel" aria-labelledby="toWordTab" hidden>
+      <div class="drop" id="wordDrop" tabindex="0" role="button" aria-label="选择 Markdown 文件">
+        <div>
+          <p class="drop-title">拖 Markdown 进来，或点击选择</p>
+          <p class="drop-sub">.md · 可一起选择文中引用的 png / jpg</p>
+        </div>
+      </div>
+      <input type="file" id="wordPicker" multiple hidden accept=".md,text/markdown,.png,.jpg,.jpeg,image/png,image/jpeg" />
+
+      <div class="opts">
+        <label>
+          文档风格
+          <select id="wordStyle">
+            <option value="research">研究报告</option>
+            <option value="memo">简洁备忘录</option>
+            <option value="formal">正式交付件</option>
+          </select>
+        </label>
+        <label><input type="checkbox" id="wordToc" checked /> 生成目录</label>
+        <label><input type="checkbox" id="wordPageBreak" checked /> 一级标题前分页</label>
+      </div>
+
+      <details class="word-details">
+        <summary>支持的 Markdown 格式</summary>
+        <p>Front matter 标题信息、一至三级标题、粗体与斜体、项目符号、有序列表、引述、管道表格、分页符和 PNG/JPG 插图。文档自动包含页眉、页码和适合打印的页边距。</p>
+      </details>
+
+      <div class="word-status" id="wordStatus" role="status"></div>
+      <div class="word-result" id="wordResult">
+        <div class="word-result-inner">
+          <div class="word-result-copy">
+            <strong id="wordResultName"></strong>
+            <span id="wordResultMeta"></span>
+          </div>
+          <button class="primary" id="wordDownload" type="button">下载 .docx</button>
+          <button id="wordClear" type="button">清空</button>
+        </div>
+      </div>
+
+      <section class="compare" id="wordCompare" aria-label="Markdown 与 Word 对照预览">
+        <div class="compare-mobile-tabs" role="tablist" aria-label="预览格式">
+          <button class="active" id="markdownPreviewTab" type="button" role="tab" aria-selected="true">Markdown</button>
+          <button id="wordPreviewTab" type="button" role="tab" aria-selected="false">Word</button>
+        </div>
+        <div class="compare-grid show-markdown" id="compareGrid">
+          <section class="compare-pane markdown-pane" aria-labelledby="markdownPreviewTitle">
+            <div class="compare-head">
+              <strong id="markdownPreviewTitle">Markdown</strong>
+              <span>阅读视图</span>
+            </div>
+            <div class="preview-scroll">
+              <article class="markdown-reader" id="markdownPreview"></article>
+            </div>
+          </section>
+          <section class="compare-pane word-pane" aria-labelledby="wordPreviewTitle">
+            <div class="compare-head">
+              <strong id="wordPreviewTitle">Word</strong>
+              <span>实际文档预览</span>
+            </div>
+            <div class="preview-scroll word-preview" id="wordPreview"></div>
+            <div id="wordPreviewStyles" hidden></div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <footer id="mdFooter">
       <p>token 数是估算，不是精确值。PDF/PPT 的“原文件”一栏按每页图像估算，实际会浮动。</p>
       <p>扫描件如果没有文字层，需要先做 OCR。</p>
+    </footer>
+    <footer id="wordFooter" hidden>
+      <p>Word 会按专业文档规则重新排版，不会完全复制 Markdown 预览的外观。</p>
+      <p>插图请与 .md 一起选择，并保持文中的相对路径文件名一致。</p>
     </footer>
   </div>
 
