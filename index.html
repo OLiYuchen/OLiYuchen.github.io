@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Olivia Feng | Portfolio</title>
   <meta
     name="description"
@@ -16,7 +16,8 @@
   />
   <link rel="icon" type="image/png" href="/assets/img/personal-logo.png" />
   <link rel="stylesheet" href="/assets/style.css" />
-  <script src="/assets/hero-motion.js" defer></script>
+  <script src="/assets/hero-motion.js?v=20260813" defer></script>
+  <script src="/assets/home-mobile.js" defer></script>
   <script src="/assets/paira-lock.js" defer></script>
 </head>
 <body class="portfolio-home">
@@ -46,8 +47,8 @@
           <img src="/assets/img/home/header-calligraphy.webp" alt="Calligraphy tools and practice sheets by Olivia Feng" decoding="async" />
         </div>
 
-        <div class="hero-shell">
-          <div class="hero-copy reveal">
+        <div class="hero-shell home-intro-sequence">
+          <div class="hero-copy home-intro-item">
             <h1>
               <span class="hero-line"> Olivia Feng </span>
               <span class="hero-role">Product Designer / Manager</span>
@@ -64,18 +65,18 @@
             </div>
           </div>
 
-          <div class="hero-identity reveal">
+          <div class="hero-identity home-intro-item">
             <div class="hero-portrait">
               <img src="/assets/img/home/profile.webp" alt="Portrait of Olivia Feng" decoding="async" fetchpriority="high" />
             </div>
             <div class="hero-notes">
-              <div class="hero-note">
+              <div class="hero-note home-intro-piece">
                 <p class="note-mark"></p>
                 <p>
                   I care about experiences that feel quiet in structure, but precise and unmistakable in their details.
                 </p>
               </div>
-              <div class="hero-note">
+              <div class="hero-note home-intro-piece">
                 <p class="note-mark"></p>
                 <p>I think in systems, feel in details — shaped by both HCI and neuroscience.</p>
               </div>
@@ -92,10 +93,10 @@
           <!-- <p class="section-deck">Product stories where research, systems thinking, and interaction details shape the final experience.</p> -->
         </div>
 
-        <div class="project-composition">
-          <a href="/paira/" class="project-card reveal">
+        <div class="project-composition stagger-group">
+          <a href="/paira/" class="project-card project-card-paira">
             <div class="project-card-media">
-              <img src="/assets/img/home/paira.webp" alt="Paira product preview" loading="lazy" decoding="async" />
+              <img src="/assets/img/paira/paira-home-overview.webp" alt="Paira product preview" width="2160" height="1080" loading="lazy" decoding="async" />
             </div>
             <div class="project-card-body">
               <h3>Paira</h3>
@@ -103,7 +104,7 @@
               <p class="project-capabilities">0-1 product strategy <span>·</span> Mobile UX flows <span>·</span> Design system</p>
             </div>
           </a>
-          <a href="/merlin/" class="project-card reveal">
+          <a href="/merlin/" class="project-card">
             <div class="project-card-media">
               <img src="/assets/img/home/merlin-bird-id.webp" alt="Merlin Bird ID project preview" loading="lazy" decoding="async" />
             </div>
@@ -114,7 +115,7 @@
             </div>
           </a>
 
-          <a href="/ecoscan/" class="project-card project-card-ecoscan reveal">
+          <a href="/ecoscan/" class="project-card project-card-ecoscan">
             <div class="project-card-media">
               <img src="/assets/img/home/ecoscan.webp" alt="EcoScan project preview showing the preference model and mobile interface" loading="lazy" decoding="async" />
             </div>
@@ -125,9 +126,9 @@
             </div>
           </a>
 
-          <a href="/game/" class="project-card reveal">
+          <a href="/game/" class="project-card project-card-game">
             <div class="project-card-media">
-              <img src="/assets/img/home/game.webp" alt="Common Ground teamwork card game preview" loading="lazy" decoding="async" />
+              <img src="/assets/img/home/game-overview.webp" alt="Common Ground teamwork card game preview" width="1600" height="727" loading="lazy" decoding="async" />
             </div>
             <div class="project-card-body">
               <h3>Common Ground</h3>
@@ -146,7 +147,7 @@
         </div>
 
         <div class="technique-scroll-link reveal" aria-label="Technique Explorations gallery">
-          <div class="technique-scroll-gallery">
+          <div class="technique-scroll-gallery stagger-group">
             <a class="technique-scroll-card" href="/explorations/#physical-computing">
               <h5>Physical Computing</h5>
               <img src="/assets/img/home/physical-computing.webp" alt="Physical computing circuit notes and PIR sensor diagram" loading="lazy" decoding="async" />
@@ -188,6 +189,19 @@
               <span>Scenario video&nbsp;concept.</span>
             </a>
           </div>
+          <div class="technique-mobile-controls" aria-label="Skill exploration gallery controls">
+            <button class="technique-gallery-button technique-gallery-prev" type="button" aria-label="Previous exploration">
+              <span aria-hidden="true">←</span>
+            </button>
+            <p class="technique-gallery-status" aria-live="polite">
+              <span class="technique-gallery-current">1</span>
+              <span aria-hidden="true">/</span>
+              <span class="technique-gallery-total">8</span>
+            </p>
+            <button class="technique-gallery-button technique-gallery-next" type="button" aria-label="Next exploration">
+              <span aria-hidden="true">→</span>
+            </button>
+          </div>
           <a class="technique-scroll-cta" href="/explorations/">
             <span>Browse the full skill archive</span>
             <span aria-hidden="true">→</span>
@@ -208,7 +222,7 @@
         </div>
 
         <div class="contact-board">
-          <div class="contact-grid">
+          <div class="contact-grid stagger-group">
             <a class="contact-card" href="mailto:fyc2003@uw.edu" target="_blank" rel="noopener noreferrer">
               <span class="contact-icon contact-icon-email" aria-hidden="true">@</span>
               <span class="contact-card-title">Email</span>
@@ -253,6 +267,15 @@
     );
 
     document.querySelectorAll(".reveal").forEach((node) => observer.observe(node));
+
+    document.querySelectorAll(".stagger-group").forEach((group) => {
+      Array.from(group.children).forEach((item, index) => {
+        item.classList.add("stagger-item");
+        item.style.setProperty("--stagger-index", index);
+      });
+      group.classList.add("is-motion-ready");
+      observer.observe(group);
+    });
   </script>
 </body>
 </html>

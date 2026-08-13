@@ -377,6 +377,42 @@ button:focus-visible,
   white-space: nowrap;
 }
 
+/* Keep the existing signature swap without cursor-following hero effects. */
+.hm-on .hero-line {
+  position: relative;
+  display: inline-block;
+}
+
+.hm-name-text {
+  display: inline-block;
+  transition: opacity 300ms ease;
+}
+
+.hm-sign {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: auto;
+  max-width: none;
+  height: 1em;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-50%) scale(0.96);
+  transform-origin: left center;
+  transition:
+    opacity 380ms ease,
+    transform 550ms cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.hero-line.hm-signing .hm-name-text {
+  opacity: 0.04;
+}
+
+.hero-line.hm-signing .hm-sign {
+  opacity: 1;
+  transform: translateY(-50%) scale(1);
+}
+
 .hero-copy h1 span {
   color: color-mix(in srgb, var(--ink) 100%, var(--accent) 10%);
 }
@@ -768,23 +804,32 @@ button:focus-visible,
 
 .project-card {
   display: grid;
-  grid-template-rows: minmax(13rem, 16rem) auto;
+  grid-template-rows: auto auto;
   min-height: 100%;
   border-radius: var(--radius-card);
 }
 
-.project-card.project-card-ecoscan {
-  grid-template-rows: auto auto;
+.project-card .project-card-media {
+  aspect-ratio: 2.3 / 1;
+  overflow: hidden;
+}
+
+.project-card .project-card-media img {
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
+
+.project-card-paira .project-card-media {
+  background: #f4f5fb;
+}
+
+.project-card-game .project-card-media {
+  background: #f8eee9;
 }
 
 .project-card-ecoscan .project-card-media {
-  aspect-ratio: 3593 / 1552;
   background: #70aaa5;
-}
-
-.project-card-ecoscan .project-card-media img {
-  object-fit: cover;
-  transform: scale(1.006);
 }
 
 .technique-explorations {
@@ -2036,6 +2081,78 @@ article#physical-computing .exploration-detail-copy p:not(.project-meta) {
   transform: translateY(0);
 }
 
+/* Homepage entrance choreography: one entrance, then a still interface. */
+.home-intro-sequence .home-intro-item,
+.home-intro-sequence .home-intro-piece {
+  opacity: 0;
+  translate: 0 1.15rem;
+  scale: 0.975;
+  animation: home-pop-in 680ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.home-intro-sequence .hero-copy {
+  animation-delay: 140ms;
+}
+
+.home-intro-sequence .hero-identity {
+  animation-delay: 250ms;
+}
+
+.home-intro-sequence .hero-note:nth-child(1) {
+  animation-delay: 390ms;
+}
+
+.home-intro-sequence .hero-note:nth-child(2) {
+  animation-delay: 480ms;
+}
+
+.stagger-group.is-motion-ready .stagger-item {
+  --entry-rotate: 0deg;
+  opacity: 0;
+  translate: 0 1rem;
+  rotate: var(--entry-rotate);
+  scale: 0.985;
+  transition:
+    opacity 480ms ease,
+    translate 620ms cubic-bezier(0.16, 1, 0.3, 1),
+    rotate 620ms cubic-bezier(0.16, 1, 0.3, 1),
+    scale 620ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: min(calc(var(--stagger-index, 0) * 65ms), 390ms);
+}
+
+.stagger-group.is-motion-ready .stagger-item:nth-child(odd) {
+  --entry-rotate: -0.45deg;
+}
+
+.stagger-group.is-motion-ready .stagger-item:nth-child(even) {
+  --entry-rotate: 0.45deg;
+}
+
+.stagger-group.is-motion-ready.is-visible .stagger-item {
+  opacity: 1;
+  translate: 0 0;
+  rotate: 0deg;
+  scale: 1;
+}
+
+@keyframes home-pop-in {
+  0% {
+    opacity: 0;
+    translate: 0 1.15rem;
+    scale: 0.975;
+  }
+  72% {
+    opacity: 1;
+    translate: 0 -0.12rem;
+    scale: 1.004;
+  }
+  100% {
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -2061,6 +2178,17 @@ article#physical-computing .exploration-detail-copy p:not(.project-meta) {
   .reveal {
     opacity: 1;
     transform: none;
+  }
+
+  .home-intro-sequence .home-intro-item,
+  .home-intro-sequence .home-intro-piece,
+  .stagger-group.is-motion-ready .stagger-item {
+    opacity: 1;
+    translate: none;
+    rotate: none;
+    scale: 1;
+    animation: none;
+    transition: none;
   }
 
   .project-card h3::after,
@@ -2266,14 +2394,6 @@ article#physical-computing .exploration-detail-copy p:not(.project-meta) {
 
   .hero-about {
     gap: 0.5rem;
-  }
-
-  .project-card {
-    grid-template-rows: minmax(12rem, 15rem) auto;
-  }
-
-  .project-card-media img {
-    aspect-ratio: 16 / 10;
   }
 
   .project-composition {
@@ -5095,6 +5215,11 @@ article#physical-computing .exploration-detail-copy p:not(.project-meta) {
 }
 
 .case-cover-image-paira img {
+  display: block;
+  height: auto;
+  min-height: 0;
+  aspect-ratio: 2887 / 1277;
+  object-fit: contain;
   object-position: center top;
 }
 
@@ -11653,4 +11778,411 @@ article#physical-computing .exploration-detail-copy p:not(.project-meta) {
   .paira-gallery-item img { transition: none; }
   .paira-gallery-item:hover,
   .paira-gallery-item:hover img { transform: none; }
+}
+
+/* ---------------------------------------------------------------------------
+   Case-study bottom CTA: a flush hand-off into the footer.
+   The final section used to be a tinted band (merlin, ecoscan) or carried a
+   large bottom pad, so the CTA floated above a gap and clashed into the cream
+   footer. Neutralise the final section so page-colour content meets the cream
+   footer at a single line — the mirror image of the cream header at the top.
+   Additive + scoped; leaves every other section's banding untouched.
+   --------------------------------------------------------------------------- */
+.merlin-report-page .merlin-report > .merlin-report-section:last-of-type {
+  background: transparent;
+  border-block: 0;
+  padding-bottom: clamp(2rem, 3.2vw, 3rem);
+}
+
+/* Mobile homepage: a focused identity card and a compact, swipeable skill deck. */
+.technique-mobile-controls {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  .portfolio-home .site-header {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  .portfolio-home .header-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.75rem;
+    padding-block: 0.7rem;
+  }
+
+  .portfolio-home .brand {
+    flex: 0 0 auto;
+    font-size: 1.35rem;
+  }
+
+  .portfolio-home .brand-logo {
+    width: 1.85rem;
+    height: 1.95rem;
+  }
+
+  .portfolio-home .nav {
+    width: auto;
+    flex: 1 1 auto;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .portfolio-home .nav-links a {
+    display: none;
+  }
+
+  .portfolio-home .nav-links a[href="/about/"] {
+    display: inline-flex;
+    min-height: 2.65rem;
+    align-items: center;
+    font-size: 0.84rem;
+  }
+
+  .portfolio-home .nav-cta {
+    min-height: 2.65rem;
+    padding-inline: 0.82rem;
+  }
+
+  .portfolio-home .home-hero {
+    padding: 0.7rem 0 3.25rem;
+  }
+
+  .portfolio-home .hero-banner {
+    display: none;
+  }
+
+  .portfolio-home .hero-shell {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid rgba(43, 36, 30, 0.12);
+    border-radius: 1rem;
+    background: var(--surface-strong);
+    box-shadow: 0 8px 22px rgba(52, 39, 27, 0.07);
+  }
+
+  .portfolio-home .hero-identity {
+    width: 100%;
+  }
+
+  .portfolio-home .hero-identity {
+    order: -1;
+    display: block;
+    min-height: 17.5rem;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background:
+      linear-gradient(90deg, rgba(221, 211, 194, 0.12), rgba(221, 211, 194, 0.02)),
+      url("/assets/img/home/header-calligraphy.webp") center 52% / cover no-repeat;
+  }
+
+  .portfolio-home .hero-portrait {
+    width: 72%;
+    max-width: none;
+    margin-left: auto;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    transform: none;
+  }
+
+  .portfolio-home .hero-portrait img {
+    width: 100%;
+    height: 17.5rem;
+    aspect-ratio: auto;
+    border-radius: 0;
+    object-fit: cover;
+    object-position: 50% 27%;
+  }
+
+  .portfolio-home .hero-notes {
+    display: none !important;
+  }
+
+  .portfolio-home .hero-copy {
+    z-index: 3;
+    padding: 1.35rem 1.2rem 1.25rem;
+    border: 0;
+    border-top: 1px solid rgba(43, 36, 30, 0.1);
+    border-radius: 0;
+    background: rgba(255, 253, 249, 0.98);
+    box-shadow: none;
+    backdrop-filter: none;
+    transform: none;
+  }
+
+  .portfolio-home .hero-copy h1 {
+    margin: 0;
+    font-size: clamp(2.75rem, 14vw, 3.65rem);
+    line-height: 0.96;
+  }
+
+  .portfolio-home .hero-copy h1 .hero-line,
+  .portfolio-home .hero-copy h1 span {
+    white-space: nowrap;
+  }
+
+  .portfolio-home .hero-copy h1 .hero-role {
+    margin-top: 0.7rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    line-height: 1.3;
+  }
+
+  .portfolio-home .hero-intro {
+    max-width: 31rem;
+    margin-top: 0.9rem;
+    color: color-mix(in srgb, var(--ink-soft) 90%, var(--ink) 10%);
+    font-size: 0.98rem;
+    line-height: 1.55;
+  }
+
+  .portfolio-home .hero-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.65rem;
+    margin-top: 1.05rem;
+  }
+
+  .portfolio-home .hero-actions .btn {
+    min-width: 0;
+    min-height: 2.9rem;
+    padding: 0.7rem 0.72rem;
+    font-size: 0.86rem;
+    white-space: nowrap;
+  }
+
+  .portfolio-home .selected-work {
+    padding-block: 3.7rem 4rem;
+  }
+
+  .portfolio-home .project-composition {
+    display: grid;
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: min(82vw, 21rem);
+    gap: 0.9rem;
+    margin-top: 1.7rem;
+    margin-inline: calc((100vw - 100%) / -2);
+    padding: 0.1rem max(1rem, calc((100vw - 100%) / 2)) 0.9rem;
+    overflow-x: auto;
+    scroll-padding-inline: max(1rem, calc((100vw - 100%) / 2));
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    overscroll-behavior-inline: contain;
+  }
+
+  .portfolio-home .project-composition::-webkit-scrollbar {
+    display: none;
+  }
+
+  .portfolio-home .project-card {
+    min-height: 0;
+    scroll-snap-align: center;
+  }
+
+  .portfolio-home .project-card-body {
+    min-height: 12.5rem;
+  }
+
+  .portfolio-home .project-card h3 {
+    font-size: 2.35rem;
+  }
+
+  .portfolio-home .project-context {
+    font-size: 0.9rem;
+  }
+
+  .portfolio-home .technique-explorations {
+    padding-block: 3.6rem 3.8rem;
+  }
+
+  .portfolio-home .technique-heading {
+    max-width: 23rem;
+  }
+
+  .portfolio-home .technique-heading h2 {
+    max-width: 20ch;
+    margin-top: 0;
+    font-size: clamp(1.7rem, 8.4vw, 2.25rem);
+    line-height: 1.08;
+    text-wrap: balance;
+  }
+
+  .portfolio-home .technique-scroll-link {
+    gap: 0.8rem;
+    margin-top: 1.45rem;
+  }
+
+  .portfolio-home .technique-scroll-gallery {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: min(78vw, 18.75rem);
+    align-items: stretch;
+    gap: 0.9rem;
+    margin-inline: calc((100vw - 100%) / -2);
+    padding: 0.65rem max(1rem, calc((100vw - 100%) / 2)) 1.2rem;
+    overflow-x: auto;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    scroll-padding-inline: max(1rem, calc((100vw - 100%) / 2));
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    overscroll-behavior-inline: contain;
+  }
+
+  .portfolio-home .technique-scroll-gallery::-webkit-scrollbar {
+    display: none;
+  }
+
+  .portfolio-home .technique-scroll-card {
+    isolation: isolate;
+    grid-template-rows: auto auto auto;
+    align-self: stretch;
+    overflow: visible;
+    border: 1px solid rgba(43, 36, 30, 0.13);
+    border-radius: 0.95rem;
+    background: rgba(255, 253, 249, 0.98);
+    box-shadow: 0 5px 12px rgba(52, 39, 27, 0.07);
+    scroll-snap-align: center;
+    transition: transform 260ms cubic-bezier(0.19, 1, 0.22, 1), opacity 220ms ease;
+  }
+
+  .portfolio-home .technique-scroll-card::before,
+  .portfolio-home .technique-scroll-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border: 1px solid rgba(43, 36, 30, 0.1);
+    border-radius: inherit;
+    background: color-mix(in srgb, var(--paper-strong) 82%, white 18%);
+    pointer-events: none;
+    transition: transform 260ms cubic-bezier(0.19, 1, 0.22, 1);
+  }
+
+  .portfolio-home .technique-scroll-card::before {
+    transform: translate(0.35rem, 0.38rem) rotate(1.1deg);
+  }
+
+  .portfolio-home .technique-scroll-card::after {
+    transform: translate(0.68rem, 0.7rem) rotate(2deg);
+  }
+
+  .portfolio-home .technique-scroll-card.is-active {
+    transform: translateY(-0.15rem);
+  }
+
+  .portfolio-home .technique-scroll-card.is-active::before {
+    transform: translate(0.42rem, 0.46rem) rotate(1.5deg);
+  }
+
+  .portfolio-home .technique-scroll-card.is-active::after {
+    transform: translate(0.82rem, 0.82rem) rotate(2.6deg);
+  }
+
+  .portfolio-home .technique-scroll-card h5 {
+    min-height: 0;
+    padding: 1rem 1rem 0.72rem;
+    font-size: 1.13rem;
+    line-height: 1.08;
+  }
+
+  .portfolio-home .technique-scroll-card img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+
+  .portfolio-home .technique-scroll-card span {
+    min-height: 3.35rem;
+    padding: 0.78rem 1rem 0.9rem;
+    font-size: 0.84rem;
+    line-height: 1.4;
+    text-align: left;
+    text-wrap: pretty;
+  }
+
+  .portfolio-home .technique-mobile-controls {
+    display: grid;
+    grid-template-columns: 2.75rem 1fr 2.75rem;
+    align-items: center;
+    gap: 0.65rem;
+    width: min(100%, 20rem);
+    margin-top: 0.45rem;
+  }
+
+  .portfolio-home .technique-gallery-button {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    min-width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    border: 1px solid rgba(43, 36, 30, 0.18);
+    border-radius: 50%;
+    background: rgba(255, 253, 249, 0.92);
+    color: var(--ink);
+    font: 600 1rem/1 var(--font-body);
+  }
+
+  .portfolio-home .technique-gallery-button:disabled {
+    opacity: 0.3;
+  }
+
+  .portfolio-home .technique-gallery-status {
+    color: var(--ink-soft);
+    font: 600 0.78rem/1 var(--font-body);
+    letter-spacing: 0.08em;
+    text-align: center;
+  }
+
+  .portfolio-home .technique-scroll-cta {
+    justify-self: start;
+    margin-top: 0.15rem;
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .portfolio-home .nav-links {
+    display: none;
+  }
+
+  .portfolio-home .hero-identity,
+  .portfolio-home .hero-portrait img {
+    min-height: 15.5rem;
+    height: 15.5rem;
+  }
+
+  .portfolio-home .hero-copy h1 {
+    font-size: 2.55rem;
+  }
+
+  .portfolio-home .hero-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .portfolio-home .technique-scroll-gallery {
+    grid-auto-columns: min(82vw, 17rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-home .technique-scroll-card,
+  .portfolio-home .technique-scroll-card::before,
+  .portfolio-home .technique-scroll-card::after {
+    transition: none;
+  }
 }
