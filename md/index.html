@@ -485,6 +485,22 @@
       font: 0.88em/1.4 var(--mono);
     }
 
+    .markdown-reader pre {
+      max-width: 100%;
+      margin: 20px 0;
+      overflow-x: auto;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--panel-soft);
+    }
+
+    .markdown-reader pre code {
+      padding: 0;
+      background: transparent;
+      white-space: pre;
+    }
+
     .markdown-reader blockquote {
       margin: 20px 0;
       padding: 13px 16px;
@@ -929,13 +945,13 @@
             <option value="formal">正式交付件</option>
           </select>
         </label>
-        <label><input type="checkbox" id="wordToc" checked /> 生成目录</label>
-        <label><input type="checkbox" id="wordPageBreak" checked /> 一级标题前分页</label>
+        <label><input type="checkbox" id="wordToc" /> 生成目录</label>
+        <label><input type="checkbox" id="wordPageBreak" /> 一级标题另起一页</label>
       </div>
 
       <details class="word-details">
         <summary>支持的 Markdown 格式</summary>
-        <p>Front matter 标题信息、一至三级标题、粗体与斜体、项目符号、有序列表、引述、管道表格、分页符和 PNG/JPG 插图。文档自动包含页眉、页码和适合打印的页边距。</p>
+        <p>Front matter 标题信息、一至三级标题、粗体与斜体、代码块、项目符号、有序列表、引述、管道表格、分隔线、分页符和 PNG/JPG 插图。文档自动包含页眉、页码和适合打印的页边距。</p>
       </details>
 
       <div class="word-status" id="wordStatus" role="status"></div>
