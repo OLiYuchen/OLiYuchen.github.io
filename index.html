@@ -1,12 +1,281 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta http-equiv="refresh" content="0; url=/portfolio/">
-    <meta charset="utf-8">
-    <title>Redirecting…</title>
-    <script>location.replace("/portfolio/");</script>
-  </head>
-  <body>
-    <p>Redirecting to <a href="/portfolio/">/portfolio/</a> …</p>
-  </body>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Olivia Feng | Portfolio</title>
+  <meta
+    name="description"
+    content="Olivia Feng creates calm, high-craft digital experiences shaped by clarity, research, and visual sensitivity."
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="icon" type="image/png" href="/assets/img/personal-logo.png" />
+  <link rel="stylesheet" href="/assets/style.css" />
+  <script src="/assets/hero-motion.js?v=20260813" defer></script>
+  <script src="/assets/home-mobile.js" defer></script>
+  <script src="/assets/paira-lock.js" defer></script>
+</head>
+<body class="portfolio-home">
+  <div class="page-orbit" aria-hidden="true"></div>
+
+  <header class="site-header home-header">
+    <div class="container header-row">
+      <a class="brand" href="#top"><img class="brand-logo" src="/assets/img/personal-logo.png" alt="" aria-hidden="true" /><span>Olivia Feng</span></a>
+      <nav class="nav" aria-label="Primary">
+        <div class="nav-links">
+          <a href="#selected-work">Work</a>
+          <a href="/about/">About</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <a class="btn btn-clear nav-cta" href="/assets/Yuchen_Olivia_Feng_Resume.pdf" target="_blank" rel="noreferrer">
+          <span class="nav-cta-icon" aria-hidden="true">&#8595;</span>
+          <span>Resume</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section id="intro" class="home-hero">
+      <div class="container">
+        <div class="hero-banner reveal">
+          <img src="/assets/img/home/header-calligraphy.webp" alt="Calligraphy tools and practice sheets by Olivia Feng" decoding="async" />
+        </div>
+
+        <div class="hero-shell home-intro-sequence">
+          <div class="hero-copy home-intro-item">
+            <h1>
+              <span class="hero-line"> Olivia Feng </span>
+              <span class="hero-role">Product Designer / Manager</span>
+            </h1>
+            <p class="hero-intro">
+              4 years of UX research & design, from 0→1 products to AI-driven experiences. I turn complex problems into designs people actually want to use.
+            </p>
+            <div class="hero-about">
+
+            </div>
+            <div class="hero-actions">
+              <a class="btn primary" href="#selected-work"><span class="button-label">View selected work</span></a>
+              <a class="btn ghost" href="/about/"><span class="button-label">More about me</span></a>
+            </div>
+          </div>
+
+          <div class="hero-identity home-intro-item">
+            <div class="hero-portrait">
+              <img src="/assets/img/home/profile.webp" alt="Portrait of Olivia Feng" decoding="async" fetchpriority="high" />
+            </div>
+            <div class="hero-notes">
+              <div class="hero-note home-intro-piece">
+                <p class="note-mark"></p>
+                <p>
+                  I care about experiences that feel quiet in structure, but precise and unmistakable in their details.
+                </p>
+              </div>
+              <div class="hero-note home-intro-piece">
+                <p class="note-mark"></p>
+                <p>I think in systems, feel in details — shaped by both HCI and neuroscience.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="selected-work" class="section selected-work">
+      <div class="container">
+        <div class="section-heading reveal">
+          <h2>Selected Work</h2>
+          <!-- <p class="section-deck">Product stories where research, systems thinking, and interaction details shape the final experience.</p> -->
+        </div>
+
+        <div class="project-composition stagger-group">
+          <a href="/paira/" class="project-card project-card-paira">
+            <div class="project-card-media">
+              <img src="/assets/img/paira/paira-home-overview.webp" alt="Paira product preview" width="2160" height="1080" loading="lazy" decoding="async" />
+            </div>
+            <div class="project-card-body">
+              <h3>Paira</h3>
+              <p class="project-context">Early-stage AI social app shaping <span class="project-highlight">trust and intentional networking.</span></p>
+              <p class="project-capabilities">0-1 product strategy <span>·</span> Mobile UX flows <span>·</span> Design system</p>
+            </div>
+          </a>
+          <a href="/merlin/" class="project-card">
+            <div class="project-card-media">
+              <img src="/assets/img/home/merlin-bird-id.webp" alt="Merlin Bird ID project preview" loading="lazy" decoding="async" />
+            </div>
+            <div class="project-card-body">
+              <h3>Merlin Bird ID</h3>
+              <p class="project-context">Research-led product strategy helping <span class="project-highlight">novice birders stay engaged.</span></p>
+              <p class="project-capabilities">UX research <span>·</span> Synthesis <span>·</span> Opportunity framing</p>
+            </div>
+          </a>
+
+          <a href="/ecoscan/" class="project-card project-card-ecoscan">
+            <div class="project-card-media">
+              <img src="/assets/img/home/ecoscan.webp" alt="EcoScan project preview showing the preference model and mobile interface" loading="lazy" decoding="async" />
+            </div>
+            <div class="project-card-body">
+              <h3>EcoScan</h3>
+              <p class="project-context">Scan-based grocery UX translating <span class="project-highlight">food labels into personal priorities.</span></p>
+              <p class="project-capabilities">Team leadership <span>·</span> App flow <span>·</span> Rapid prototype</p>
+            </div>
+          </a>
+
+          <a href="/game/" class="project-card project-card-game">
+            <div class="project-card-media">
+              <img src="/assets/img/home/game-overview.webp" alt="Common Ground teamwork card game preview" width="1600" height="727" loading="lazy" decoding="async" />
+            </div>
+            <div class="project-card-body">
+              <h3>Common Ground</h3>
+              <p class="project-context">A cooperative card game where <span class="project-highlight">teamwork becomes the winning mechanic.</span></p>
+              <p class="project-capabilities">Mechanics <span>·</span> Rule system <span>·</span> Playtesting</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="technique-explorations" class="section technique-explorations">
+      <div class="container">
+        <div class="section-heading technique-heading reveal">
+          <h2>Side projects that stretch prototyping, fabrication, and technical craft.</h2>
+        </div>
+
+        <div class="technique-scroll-link reveal" aria-label="Technique Explorations gallery">
+          <div class="technique-scroll-gallery stagger-group">
+            <a class="technique-scroll-card" href="/explorations/#physical-computing">
+              <h5>Physical Computing</h5>
+              <img src="/assets/img/home/physical-computing.webp" alt="Physical computing circuit notes and PIR sensor diagram" loading="lazy" decoding="async" />
+              <span>Sensor + touch&nbsp;logic.</span>
+            </a>
+            <a class="technique-scroll-card" href="/explorations/#bloom-fabric-book">
+              <h5>Bloom Fabric Book</h5>
+              <img src="/assets/img/explorations/assets-final-cover-process.webp" alt="Bloom fabric book process" loading="lazy" decoding="async" />
+              <span>Soft tactile&nbsp;education.</span>
+            </a>
+            <a class="technique-scroll-card" href="/explorations/#thermostat-flow">
+              <h5>Thermostat Flow</h5>
+              <img src="/assets/img/explorations/assets-exercise-1-img-4218.webp" alt="Paper thermostat interface prototype" loading="lazy" decoding="async" />
+              <span>Paper home&nbsp;controls.</span>
+            </a>
+            <a class="technique-scroll-card" href="/explorations/#voting-interaction">
+              <h5>Voting Interaction</h5>
+              <img src="/assets/img/explorations/assets-exercise-2-voting-machine-cover.webp" alt="Voting machine low fidelity prototype" loading="lazy" decoding="async" />
+              <span>Low-fi civic&nbsp;feedback.</span>
+            </a>
+            <a class="technique-scroll-card" href="/explorations/#pet-care-appliance">
+              <h5>Pet Care Appliance</h5>
+              <img src="/assets/img/explorations/assets-assignment-1-prompt-product-shot.webp" alt="Pet care appliance prototype" loading="lazy" decoding="async" />
+              <span>Grooming concept&nbsp;critique.</span>
+            </a>
+            <a class="technique-scroll-card" href="/explorations/#sewn-chalk-bag">
+              <h5>Sewn Chalk Bag</h5>
+              <img src="/assets/img/explorations/assignments-a2-final13.webp" alt="Sewn chalk bag prototype" loading="lazy" decoding="async" />
+              <span>Soft-goods climbing&nbsp;kit.</span>
+            </a>
+            <a class="technique-scroll-card" href="/explorations/#flat-pack-laptop-stand">
+              <h5>Flat-Pack Stand</h5>
+              <img src="/assets/img/explorations/assets-assignment-3-process-10-assemble.webp" alt="Laser cut laptop stand prototype" loading="lazy" decoding="async" />
+              <span>Laser-cut&nbsp;structure.</span>
+            </a>
+            <a class="technique-scroll-card" href="/explorations/#climbing-recovery-concept">
+              <h5>Video Prototype</h5>
+              <img src="/assets/img/explorations/assets-assignment-5-storyboard-final.webp" alt="Video prototype storyboard" loading="lazy" decoding="async" />
+              <span>Scenario video&nbsp;concept.</span>
+            </a>
+          </div>
+          <div class="technique-mobile-controls" aria-label="Skill exploration gallery controls">
+            <button class="technique-gallery-button technique-gallery-prev" type="button" aria-label="Previous exploration">
+              <span aria-hidden="true">←</span>
+            </button>
+            <p class="technique-gallery-status" aria-live="polite">
+              <span class="technique-gallery-current">1</span>
+              <span aria-hidden="true">/</span>
+              <span class="technique-gallery-total">8</span>
+            </p>
+            <button class="technique-gallery-button technique-gallery-next" type="button" aria-label="Next exploration">
+              <span aria-hidden="true">→</span>
+            </button>
+          </div>
+          <a class="technique-scroll-cta" href="/explorations/">
+            <span>Browse the full skill archive</span>
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section contact-section reveal">
+      <div class="container contact-shell">
+        <div class="contact-photo" aria-hidden="true">
+          <img src="/assets/img/home/contact.webp" alt="" loading="lazy" decoding="async" />
+        </div>
+        <div class="contact-copy">
+          <p class="section-label">Contact</p>
+          <h2>Hiring for thoughtful product design?</h2>
+          <p class="contact-intro">I’m open to roles where research, interaction craft, and calm systems thinking matter.</p>
+        </div>
+
+        <div class="contact-board">
+          <div class="contact-grid stagger-group">
+            <a class="contact-card" href="mailto:fyc2003@uw.edu" target="_blank" rel="noopener noreferrer">
+              <span class="contact-icon contact-icon-email" aria-hidden="true">@</span>
+              <span class="contact-card-title">Email</span>
+              <span class="contact-card-detail">fyc2003@uw.edu</span>
+            </a>
+
+            <a class="contact-card" href="https://www.linkedin.com/in/yuchenoliviafeng" target="_blank" rel="noopener noreferrer">
+              <span class="contact-icon contact-icon-linkedin" aria-hidden="true">in</span>
+              <span class="contact-card-title">LinkedIn</span>
+              <span class="contact-card-detail">.../yuchenoliviafeng</span>
+            </a>
+          </div>
+
+          <div class="contact-actions">
+            <a class="btn ghost" href="/assets/Yuchen_Olivia_Feng_Resume.pdf" target="_blank" rel="noreferrer"><span class="button-label">View resume</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer home-footer">
+    <div class="container footer-row">
+      <p>© <span id="year"></span> Olivia Yuchen Feng</p>
+      <p>Designed with lots of 🧠🐱❤️</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.18 }
+    );
+
+    document.querySelectorAll(".reveal").forEach((node) => observer.observe(node));
+
+    document.querySelectorAll(".stagger-group").forEach((group) => {
+      Array.from(group.children).forEach((item, index) => {
+        item.classList.add("stagger-item");
+        item.style.setProperty("--stagger-index", index);
+      });
+      group.classList.add("is-motion-ready");
+      observer.observe(group);
+    });
+  </script>
+</body>
 </html>
