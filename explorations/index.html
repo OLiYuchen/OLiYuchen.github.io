@@ -48,7 +48,7 @@
 
     <section class="section exploration-section exploration-prototypes" aria-labelledby="physical-computing-heading">
       <div class="container exploration-layout">
-        <aside class="exploration-jump-nav" aria-label="Skill gallery sections">
+        <aside class="exploration-jump-nav" aria-label="Skill gallery sections" tabindex="0">
           <a href="#physical-computing">Physical Computing</a>
           <a href="#bloom-fabric-book">Bloom Fabric Book</a>
           <a href="#thermostat-flow">Thermostat Flow</a>
@@ -346,23 +346,33 @@
       .filter(Boolean);
 
     const setActiveJump = (id) => {
-      jumpLinks.forEach((link) => {
+      const activeIndex = jumpLinks.findIndex((link) => link.getAttribute("href") === `#${id}`);
+      jumpLinks.forEach((link, index) => {
         const isActive = link.getAttribute("href") === `#${id}`;
         link.classList.toggle("is-active", isActive);
+        link.classList.toggle("is-neighbor", Math.abs(index - activeIndex) === 1);
         if (isActive) {
           link.setAttribute("aria-current", "true");
-          if (jumpNav && jumpNav.scrollWidth > jumpNav.clientWidth) {
-            const target = link.offsetLeft - (jumpNav.clientWidth - link.offsetWidth) / 2;
-            const maxScroll = Math.max(0, jumpNav.scrollWidth - jumpNav.clientWidth);
-            jumpNav.scrollTo({
-              left: Math.min(maxScroll, Math.max(0, target)),
-              behavior: reducedMotion.matches ? "auto" : "smooth"
-            });
-          }
         } else {
           link.removeAttribute("aria-current");
         }
       });
+
+      if (jumpNav && activeIndex >= 0) {
+        const progress = jumpLinks.length > 1 ? activeIndex / (jumpLinks.length - 1) : 0;
+        jumpNav.style.setProperty("--exploration-read-progress", `${progress * 100}%`);
+        jumpNav.style.setProperty("--exploration-read-progress-ratio", progress);
+
+        const activeLink = jumpLinks[activeIndex];
+        if (window.innerWidth <= 1024 && jumpNav.scrollWidth > jumpNav.clientWidth) {
+          const target = activeLink.offsetLeft - (jumpNav.clientWidth - activeLink.offsetWidth) / 2;
+          const maxScroll = Math.max(0, jumpNav.scrollWidth - jumpNav.clientWidth);
+          jumpNav.scrollTo({
+            left: Math.min(maxScroll, Math.max(0, target)),
+            behavior: reducedMotion.matches ? "auto" : "smooth"
+          });
+        }
+      }
     };
 
     if (jumpTargets.length) {
@@ -412,6 +422,12 @@
         link.addEventListener("click", () => {
           const id = link.getAttribute("href")?.slice(1);
           if (id) setActiveJump(id);
+          if (window.matchMedia("(max-width: 1024px), (pointer: coarse)").matches) {
+            window.setTimeout(() => {
+              link.blur();
+              jumpNav?.blur();
+            });
+          }
         });
       });
     }

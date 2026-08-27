@@ -16,6 +16,38 @@ function stripTags(html) {
   d.innerHTML = html || "";
   return (d.textContent || "").replace(/\s+/g, " ").trim();
 }
+function plainTextToHtml(text) {
+  return esc(text)
+    .replace(/\r\n?/g, "\n")
+    .split(/\n{2,}/)
+    .map((block) => {
+      const lines = block.split("\n").map((line) => line || "<br>").join("<br>");
+      return `<p>${lines}</p>`;
+    })
+    .join("");
+}
+function normalizeEditorHtml(html) {
+  const root = document.createElement("div");
+  root.innerHTML = html || "";
+  root.querySelectorAll("*").forEach((el) => {
+    const keepClass = el.classList.contains("term") || el.classList.contains("term-en") || el.classList.contains("hl");
+    el.removeAttribute("style");
+    el.removeAttribute("face");
+    el.removeAttribute("color");
+    el.removeAttribute("size");
+    if (!keepClass && el.tagName !== "MARK") el.removeAttribute("class");
+  });
+  return root.innerHTML;
+}
+function installPlainPaste(el, onChange) {
+  el.addEventListener("paste", (e) => {
+    const text = e.clipboardData?.getData("text/plain");
+    if (!text) return;
+    e.preventDefault();
+    document.execCommand("insertHTML", false, plainTextToHtml(text));
+    onChange?.();
+  });
+}
 function fmtDate(iso) {
   if (!iso) return "";
   const d = new Date(iso);
@@ -91,6 +123,11 @@ async function initGate() {
       localStorage.setItem(GATE_FLAG, "1");
       unlockApp();
       startSync(); // first-time auth → kick off the initial pull+push
+    } else if (res.status === 404 || res.status === 405 || res.status === 501) {
+      // Static local server: API route is absent, so use the offline gate.
+      const hash = await sha256Hex(pw);
+      if (hash === PASSWORD_HASH) { localStorage.setItem(GATE_FLAG, "1"); unlockApp(); }
+      else showError();
     } else {
       showError(); // 401 wrong password (or other server error)
     }
@@ -256,13 +293,13 @@ const Log = (() => {
     let rec = await Store.get("logs", dateStr);
     if (!rec) rec = { id: dateStr, body: "", contactIds: [], createdAt: new Date().toISOString() };
     current = rec;
-    bodyEl.innerHTML = rec.body || "";
+    bodyEl.innerHTML = normalizeEditorHtml(rec.body || "");
     renderChips();
   }
 
   const saveBody = debounce(async () => {
     if (!current) return;
-    current = { ...current, body: bodyEl.innerHTML };
+    current = { ...current, body: normalizeEditorHtml(bodyEl.innerHTML) };
     await Store.put("logs", current);
     flashSaved();
     renderHistory();
@@ -321,6 +358,7 @@ const Log = (() => {
 
   // events
   bodyEl.addEventListener("input", saveBody);
+  installPlainPaste(bodyEl, saveBody);
   dateEl.addEventListener("change", () => load(dateEl.value));
   $("#logContactForm").addEventListener("submit", (e) => {
     e.preventDefault();
@@ -347,8 +385,8 @@ const Notebook = (() => {
   const emptyEl = $("#noteEditorEmpty");
   const titleEl = $("#noteTitle");
   const bodyEl = $("#noteBody");
+  const lineHeightEl = $("#noteLineHeight");
   const metaEl = $("#noteMeta");
-  const stickyLayer = $("#stickyLayer");
   let current = null;
   let searchQ = "";
 
@@ -375,14 +413,15 @@ const Notebook = (() => {
     emptyEl.hidden = true;
     editor.hidden = false;
     titleEl.value = n.title || "";
-    bodyEl.innerHTML = n.body || "";
+    bodyEl.innerHTML = normalizeEditorHtml(n.body || "");
+    lineHeightEl.value = n.lineHeight || "1.8";
+    bodyEl.style.setProperty("--editor-line-height", lineHeightEl.value);
     metaEl.textContent = `更新于 ${new Date(n.updatedAt).toLocaleString("zh-CN")}`;
-    renderStickies();
     renderList();
   }
 
   async function create() {
-    const n = { id: Store.uid(), title: "", body: "", stickies: [], createdAt: new Date().toISOString() };
+    const n = { id: Store.uid(), title: "", body: "", lineHeight: "1.8", createdAt: new Date().toISOString() };
     await Store.put("notes", n);
     await renderList();
     open(n.id);
@@ -391,7 +430,12 @@ const Notebook = (() => {
 
   const save = debounce(async () => {
     if (!current) return;
-    current = { ...current, title: titleEl.value, body: bodyEl.innerHTML };
+    current = {
+      ...current,
+      title: titleEl.value,
+      body: normalizeEditorHtml(bodyEl.innerHTML),
+      lineHeight: lineHeightEl.value,
+    };
     const saved = await Store.put("notes", current);
     current._syncedAt = saved._syncedAt;
     metaEl.textContent = `已保存 ✓ ${new Date().toLocaleTimeString("zh-CN")}`;
@@ -409,15 +453,20 @@ const Notebook = (() => {
   }
 
   /* ---- toolbar / formatting ---- */
-  function exec(cmd) {
+  function exec(cmd, value) {
     bodyEl.focus();
-    if (cmd === "bold") document.execCommand("bold");
-    else if (cmd === "h2") document.execCommand("formatBlock", false, "h2");
+    if (cmd === "format") document.execCommand("formatBlock", false, value || "p");
+    else if (cmd === "bold") document.execCommand("bold");
     else if (cmd === "ul") document.execCommand("insertUnorderedList");
     else if (cmd === "highlight") document.execCommand("hiliteColor", false, "#fbe7b8");
     else if (cmd === "term") wrapTerm();
-    else if (cmd === "sticky") addSticky();
+    else if (cmd === "clear") clearFormatting();
     save();
+  }
+
+  function clearFormatting() {
+    document.execCommand("removeFormat");
+    bodyEl.innerHTML = normalizeEditorHtml(bodyEl.innerHTML);
   }
 
   // Bilingual term: wrap the selected Chinese text, ask for the English,
@@ -444,84 +493,15 @@ const Notebook = (() => {
     save();
   }
 
-  /* ---- sticky notes ---- */
-  const COLORS = ["", "c2", "c3", "c4"];
-  function renderStickies() {
-    stickyLayer.innerHTML = "";
-    (current.stickies || []).forEach(renderOneSticky);
-  }
-  function renderOneSticky(s) {
-    const el = document.createElement("div");
-    el.className = `sticky ${s.color || ""}`;
-    el.dataset.id = s.id;
-    el.style.left = (s.x ?? 40) + "px";
-    el.style.top = (s.y ?? 40) + "px";
-    el.innerHTML = `
-      <div class="sticky-bar">
-        <span class="sticky-swatch" title="换色"></span>
-        <button class="sticky-del" aria-label="删除">×</button>
-      </div>
-      <div class="sticky-text" contenteditable="true" spellcheck="false">${esc(s.text || "")}</div>`;
-    stickyLayer.appendChild(el);
-
-    const textEl = el.querySelector(".sticky-text");
-    textEl.addEventListener("blur", () => updateSticky(s.id, { text: textEl.textContent }));
-    el.querySelector(".sticky-del").addEventListener("click", () => deleteSticky(s.id));
-    el.querySelector(".sticky-swatch").addEventListener("click", () => {
-      const next = COLORS[(COLORS.indexOf(s.color || "") + 1) % COLORS.length];
-      updateSticky(s.id, { color: next });
-      el.className = `sticky ${next}`;
-      s.color = next;
-    });
-    makeDraggable(el, el.querySelector(".sticky-bar"), s);
-  }
-  function makeDraggable(el, handle, s) {
-    let sx, sy, ox, oy, dragging = false;
-    handle.addEventListener("mousedown", (e) => {
-      if (e.target.closest(".sticky-del, .sticky-swatch")) return;
-      dragging = true; sx = e.clientX; sy = e.clientY;
-      ox = parseInt(el.style.left, 10); oy = parseInt(el.style.top, 10);
-      el.style.zIndex = 20; e.preventDefault();
-    });
-    document.addEventListener("mousemove", (e) => {
-      if (!dragging) return;
-      el.style.left = Math.max(0, ox + e.clientX - sx) + "px";
-      el.style.top = Math.max(0, oy + e.clientY - sy) + "px";
-    });
-    document.addEventListener("mouseup", () => {
-      if (!dragging) return;
-      dragging = false; el.style.zIndex = "";
-      updateSticky(s.id, { x: parseInt(el.style.left, 10), y: parseInt(el.style.top, 10) });
-    });
-  }
-  async function addSticky() {
-    if (!current) return;
-    // Stagger below the title/toolbar so new stickies don't cover them or
-    // land exactly on top of each other.
-    const n = (current.stickies || []).length;
-    const s = { id: Store.uid(), text: "", color: COLORS[n % COLORS.length], x: 40 + (n % 4) * 24, y: 170 + (n % 5) * 28 };
-    current.stickies = [...(current.stickies || []), s];
-    await persistStickies();
-    renderOneSticky(s);
-  }
-  async function updateSticky(id, patch) {
-    current.stickies = (current.stickies || []).map((s) => (s.id === id ? { ...s, ...patch } : s));
-    await persistStickies();
-  }
-  async function deleteSticky(id) {
-    current.stickies = (current.stickies || []).filter((s) => s.id !== id);
-    await persistStickies();
-    renderStickies();
-  }
-  async function persistStickies() {
-    current = { ...current };
-    await Store.put("notes", current);
-  }
-
   /* ---- events ---- */
   titleEl.addEventListener("input", save);
   bodyEl.addEventListener("input", save);
-  $$(".note-toolbar button[data-cmd]").forEach((b) => b.addEventListener("click", () => exec(b.dataset.cmd)));
+  installPlainPaste(bodyEl, save);
+  lineHeightEl.addEventListener("change", () => {
+    bodyEl.style.setProperty("--editor-line-height", lineHeightEl.value);
+    save();
+  });
+  $$(".note-toolbar button[data-cmd]").forEach((b) => b.addEventListener("click", () => exec(b.dataset.cmd, b.dataset.value)));
   $("#deleteNoteBtn").addEventListener("click", del);
   $("#newNoteBtn").addEventListener("click", create);
   $("#newNoteInline").addEventListener("click", create);

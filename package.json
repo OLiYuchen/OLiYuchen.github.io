@@ -4,7 +4,7 @@
   "description": "Source for [olifeng.com](https://olifeng.com), a static UX/product design portfolio deployed with Vercel.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node tests/portugal-intel.test.mjs"
   },
   "keywords": [],
   "author": "",

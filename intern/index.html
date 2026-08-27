@@ -72,18 +72,30 @@
           <article id="noteEditor" class="note-editor" hidden>
             <input id="noteTitle" class="note-title-input" type="text" placeholder="标题…" />
             <div class="note-toolbar">
+              <button data-cmd="format" data-value="h1" title="一级标题">H1</button>
+              <button data-cmd="format" data-value="h2" title="二级标题">H2</button>
+              <button data-cmd="format" data-value="h3" title="三级标题">H3</button>
+              <button data-cmd="format" data-value="p" title="正文">Body</button>
+              <span class="toolbar-sep"></span>
+              <label class="toolbar-select-label" title="行距">
+                <span>行距</span>
+                <select id="noteLineHeight" aria-label="行距">
+                  <option value="1.55">紧凑</option>
+                  <option value="1.8" selected>标准</option>
+                  <option value="2.05">宽松</option>
+                </select>
+              </label>
+              <span class="toolbar-sep"></span>
               <button data-cmd="bold" title="加粗"><b>B</b></button>
-              <button data-cmd="h2" title="小标题">H</button>
               <button data-cmd="ul" title="列表">•</button>
               <button data-cmd="term" title="术语中英对照（选中中文后点此）">中<span class="tb-en">EN</span></button>
               <button data-cmd="highlight" title="高亮">✎</button>
               <span class="toolbar-sep"></span>
-              <button id="addStickyBtn" data-cmd="sticky" title="加便签">✧ 便签</button>
+              <button data-cmd="clear" title="清理粘贴格式">清格式</button>
               <span class="note-meta" id="noteMeta"></span>
             </div>
             <div id="noteBody" class="note-body" contenteditable="true" spellcheck="false"
                  data-placeholder="在这里写…支持中英夹杂。选中中文点「中EN」做术语对照。"></div>
-            <div id="stickyLayer" class="sticky-layer" aria-label="便签"></div>
             <div class="note-editor-foot">
               <button id="deleteNoteBtn" class="link-btn danger">删除此笔记</button>
             </div>
