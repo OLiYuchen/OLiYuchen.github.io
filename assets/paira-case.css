@@ -1627,7 +1627,7 @@
 .paira-case-page .paira-m-device { --pm-stage-bg: color-mix(in srgb, var(--paira-lilac) 45%, #fff); }
 .paira-case-page .paira-m-device__stage { border-color: var(--case-line); }
 
-.paira-case-page .paira-m-device { --pm-step-min: 46vh; --pm-step-gap: 4vh; }
+.paira-case-page .paira-m-device { --pm-step-min: 40vh; --pm-step-gap: 3vh; }
 .paira-loop-panel .paira-m-life[data-pm-skin="dark"] { padding: 0; background: transparent; border-radius: 0; }
 
 /* Section rhythm: the lede starts flush with the sticky section label; sub-kickers are calmer than the site default */
@@ -1653,7 +1653,7 @@
 .paira-case-page .paira-versions > .project-meta::before,
 .paira-case-page .paira-findings > .project-meta::before { content: ""; width: 0.45rem; height: 0.45rem; border-radius: 50%; background: currentColor; opacity: 0.8; }
 
-.paira-case-page .paira-m-device__step:last-child { min-height: 32vh; }
+.paira-case-page .paira-m-device__step:last-child { min-height: 24vh; }
 
 /* Numbers are always sans: serif italics wobble at display size */
 .paira-case-page .paira-traction strong { font-family: var(--font-body); font-weight: 600; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }

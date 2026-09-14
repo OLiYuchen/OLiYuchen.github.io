@@ -838,8 +838,8 @@
     <div class="container merlin-report-layout">
       <aside class="merlin-report-section-label"><p class="section-label">Reflection</p><span>09</span></aside>
       <div class="merlin-report-content">
-        <div class="paira-outcome-hero">
-          <h2>A pivot is only real when the smallest surfaces agree with it, and some of mine still do not.</h2>
+        <div class="merlin-report-lede">
+          <h2>A pivot is only real when the smallest surfaces agree with it.</h2>
           <p>Paira taught me to hold two altitudes at once: the product-level call to build around a request, and the screen-level work of making that call felt in an onboarding step, a badge label, or a points menu. Direction and interface are the same decision made at two scales. It also taught me what a pivot leaves behind. Premium Ping and “See who Paira’d you” still speak the language of matching. The mentor-side AI flow has shipped, and I want to see it earn its place with real helpers. Those are the next things I want to fix. The product is still moving, so I can.</p>
         </div>
         <div class="merlin-outcome-panel paira-reflection">
@@ -858,7 +858,7 @@
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const revealTargets = document.querySelectorAll('.merlin-report-lede, .merlin-hero-focus, .merlin-meta-frame, .merlin-project-detail-card, .case-cover-image, .paira-premise-line, .paira-framing-path, .paira-stats, .paira-market, .paira-user-research, .paira-research-side > *, .paira-vision, .paira-owned-outcome > div, .paira-findings, .paira-stage-visual, .paira-stage-copy, .paira-loop-panel, .paira-surface, .paira-brand-spread, .paira-motion-pair > *, .paira-brand-gallery, .paira-growth-grid, .paira-film, .paira-traction, .paira-outcome-hero, .paira-reflection, .paira-live-product');
+  const revealTargets = document.querySelectorAll('.merlin-report-lede, .merlin-hero-focus, .merlin-meta-frame, .merlin-project-detail-card, .case-cover-image, .paira-premise-line, .paira-framing-path, .paira-stats, .paira-market, .paira-user-research, .paira-research-side > *, .paira-vision, .paira-owned-outcome > div, .paira-findings, .paira-stage-visual, .paira-stage-copy, .paira-loop-panel, .paira-surface, .paira-brand-spread, .paira-motion-pair > *, .paira-brand-gallery, .paira-growth-grid, .paira-film, .paira-traction, .paira-reflection, .paira-live-product');
   revealTargets.forEach((node, index) => { node.classList.add('merlin-reveal'); node.style.setProperty('--merlin-reveal-index', String(index % 4)); });
   if (prefersReducedMotion || !('IntersectionObserver' in window)) {
     revealTargets.forEach((node) => node.classList.add('is-visible'));
