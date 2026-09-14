@@ -123,23 +123,39 @@
           <p>Before the product had a shape, we had to make the case for it. The early research I contributed to named three problems. Cold emailing on LinkedIn feels like shouting into the void. Formal mentors are expensive, scarce, or locked behind selective programs. School mentorship spots are few and run on fixed schedules. The numbers below come from the March 2026 pitch, with their sources.</p>
         </div>
 
-        <div class="paira-stats" aria-label="Market signals">
-          <div><strong>16%</strong><p>of U.S. LinkedIn users log in daily: low engagement despite scale.</p><cite>DemandSage / Statista, 2024</cite></div>
-          <div><strong>74%</strong><p>of U.S. Gen Z aged 18 to 25 say they lack access to critical mentorship.</p><cite>Big Brothers Big Sisters of America &amp; Harris Poll, 2025</cite></div>
-          <div><strong>80%</strong><p>of professionals believe networking is critical for career success; 70% of jobs are found through networks.</p><cite>LinkedIn survey, 2017</cite></div>
-          <div><strong>76%</strong><p>of mentoring-tool users report collaborating with peers and expanding networks online.</p><cite>Mentorloop, 2025</cite></div>
-          <div><strong>66%</strong><p>of Gen Z jobseekers build professional relationships through online career platforms.</p><cite>Handshake survey via Fast Company, 2023</cite></div>
+        <div class="paira-market-grid">
+          <figure class="paira-onion" aria-label="Market sizing, from total market to the audience Paira serves first">
+            <svg viewBox="0 0 420 420" role="img" aria-hidden="true" focusable="false">
+              <circle class="paira-onion-outer" cx="210" cy="210" r="200" />
+              <circle class="paira-onion-mid" cx="210" cy="278" r="132" />
+              <circle class="paira-onion-inner" cx="210" cy="338" r="72" />
+              <text class="paira-onion-num paira-onion-num-outer" x="210" y="88" text-anchor="middle">$138.9B</text>
+              <text class="paira-onion-cap paira-onion-cap-outer" x="210" y="112" text-anchor="middle">U.S. social networking market, 2024</text>
+              <text class="paira-onion-num paira-onion-num-mid" x="210" y="200" text-anchor="middle">$34.4B</text>
+              <text class="paira-onion-cap paira-onion-cap-mid" x="210" y="222" text-anchor="middle">Global professional networking apps, 2024</text>
+              <text class="paira-onion-num paira-onion-num-inner" x="210" y="334" text-anchor="middle">~41M</text>
+              <text class="paira-onion-cap paira-onion-cap-inner" x="210" y="354" text-anchor="middle"><tspan x="210">U.S. students and</tspan><tspan x="210" dy="13">early-career, 18 to 28</tspan></text>
+            </svg>
+            <figcaption>
+              <ul>
+                <li><b>$138.9B</b> U.S. social networking market in 2024, projected to reach $304.5B by 2032 at ~10.5% CAGR. <cite>PS Market Research, 2024</cite></li>
+                <li><b>$34.4B</b> Global professional networking apps in 2024, growing ~10.9% a year through 2031. <cite>HTF Market Intelligence, 2024</cite></li>
+                <li><b>~41M</b> U.S. students and early-career professionals aged 18 to 28: the audience we serve first. <cite>U.S. NCES; U.S. Bureau of Labor Statistics</cite></li>
+              </ul>
+            </figcaption>
+          </figure>
+          <ul class="paira-signals" aria-label="Market signals">
+            <li><strong>16%</strong><div><p>of U.S. LinkedIn users log in daily: low engagement despite scale.</p><cite>DemandSage / Statista, 2024</cite></div></li>
+            <li><strong>74%</strong><div><p>of U.S. Gen Z aged 18 to 25 say they lack access to critical mentorship.</p><cite>Big Brothers Big Sisters of America &amp; Harris Poll, 2025</cite></div></li>
+            <li><strong>80%</strong><div><p>of professionals believe networking is critical for career success; 70% of jobs are found through networks.</p><cite>LinkedIn survey, 2017</cite></div></li>
+            <li><strong>76%</strong><div><p>of mentoring-tool users report collaborating with peers and expanding networks online.</p><cite>Mentorloop, 2025</cite></div></li>
+            <li><strong>66%</strong><div><p>of Gen Z jobseekers build professional relationships through online career platforms.</p><cite>Handshake survey via Fast Company, 2023</cite></div></li>
+          </ul>
         </div>
 
-        <div class="paira-market" aria-label="Market sizing">
-          <div><span>U.S. social networking market, 2024</span><strong>$138.9B</strong><p>Projected to reach $304.5B by 2032 (CAGR ~10.5%).</p><cite>PS Market Research, 2024</cite></div>
-          <div><span>Global professional networking apps, 2024</span><strong>$34.4B</strong><p>Growing ~10.9% CAGR through 2031.</p><cite>HTF Market Intelligence, 2024</cite></div>
-          <div><span>Initial serviceable audience</span><strong>~41M</strong><p>U.S. students and early-career professionals aged 18 to 28.</p><cite>U.S. NCES; U.S. Bureau of Labor Statistics</cite></div>
-        </div>
-
-        <div class="paira-research-grid">
+        <div class="paira-research-step">
           <div class="paira-user-research">
-            <p class="project-meta">Initial user research, n = 5</p>
+            <p class="project-meta">What people told us · initial user research, n = 5</p>
             <h3>All five wanted to ask for, or offer, career help through something lighter than what exists today.</h3>
             <ul class="paira-bars" aria-label="What kind of career help would you seek or offer through a product like Paira?">
               <li style="--v:100"><span>Job or internship search advice</span><i></i><b>5 · 100%</b></li>
@@ -149,24 +165,30 @@
               <li style="--v:60"><span>Industry or role-specific questions</span><i></i><b>3 · 60%</b></li>
               <li style="--v:40"><span>Career switching or exploration</span><i></i><b>2 · 40%</b></li>
             </ul>
-            <blockquote class="paira-quote-inline paira-quote-research">
-              <p>“I think this is a good idea, but I’m not sure how different it is from LinkedIn. LinkedIn already allows cold messaging through paid features. The challenge might be making connections feel more reachable and approachable.”</p>
-              <cite>A participant in the first round of interviews. The pivot would later answer this sentence.</cite>
-            </blockquote>
           </div>
-          <div class="paira-research-side">
-            <figure class="paira-figure">
-              <img src="../assets/img/paira/brand-gallery/positioning-map.webp" alt="Positioning map placing Paira in the relational and multi-purpose quadrant against LinkedIn, Handshake, and mentorship platforms" width="1400" height="1211" loading="lazy" decoding="async" />
-              <figcaption><span>Positioning</span> The map I drew to place Paira: relational rather than transactional, and built around one need at a time.</figcaption>
-            </figure>
-            <blockquote class="paira-pullquote">
-              <p>“Find the help. Be the help.”</p>
-              <cite>From the beta user guide I designed, February 2026</cite>
-            </blockquote>
-          </div>
+          <blockquote class="paira-quote-inline paira-quote-research">
+            <p class="project-meta">The objection we had to answer</p>
+            <p>“I think this is a good idea, but I’m not sure how different it is from LinkedIn. LinkedIn already allows cold messaging through paid features. The challenge might be making connections feel more reachable and approachable.”</p>
+            <cite>A participant in the first round of interviews</cite>
+          </blockquote>
         </div>
 
-        <p class="paira-vision">The vision we wrote then still holds: getting career help should feel natural and mutual. Ask when you need it, offer when you are ready, without pressure or formality.</p>
+        <div class="paira-research-step paira-research-step-map">
+          <div class="paira-research-copy">
+            <p class="project-meta">So we positioned Paira differently</p>
+            <h3>Relational, not transactional. One need at a time, not a whole career.</h3>
+            <p>LinkedIn and Handshake are broad but transactional: you browse a marketplace of people and send requests into it. Leland and ADPList sell a booked session. Lunchclub and PolyWorks are relational but built around one format each. Paira takes the empty quadrant: relational and multi-purpose, peers helping peers on a specific need, with the introduction handled for you. That is what makes a connection feel reachable, which is exactly what the interviews asked for.</p>
+          </div>
+          <figure class="paira-figure">
+            <img src="../assets/img/paira/brand-gallery/positioning-map.webp" alt="Positioning map: Paira in the relational and multi-purpose quadrant, LinkedIn and Handshake in the transactional half, ADPList and Lunchclub single-purpose" width="1400" height="1211" loading="lazy" decoding="async" />
+            <figcaption><span>Positioning</span> Transactional to relational, single-purpose to multi-purpose. Paira sits top right.</figcaption>
+          </figure>
+        </div>
+
+        <blockquote class="paira-pullquote paira-pullquote-close">
+          <p>“Find the help. Be the help.”</p>
+          <cite>The line the beta guide launched with in February 2026. Getting career help should feel natural and mutual: ask when you need it, offer when you are ready, without pressure or formality.</cite>
+        </blockquote>
       </div>
     </div>
   </section>
@@ -858,7 +880,7 @@
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const revealTargets = document.querySelectorAll('.merlin-report-lede, .merlin-hero-focus, .merlin-meta-frame, .merlin-project-detail-card, .case-cover-image, .paira-premise-line, .paira-framing-path, .paira-stats, .paira-market, .paira-user-research, .paira-research-side > *, .paira-vision, .paira-owned-outcome > div, .paira-findings, .paira-stage-visual, .paira-stage-copy, .paira-loop-panel, .paira-surface, .paira-brand-spread, .paira-motion-pair > *, .paira-brand-gallery, .paira-growth-grid, .paira-film, .paira-traction, .paira-reflection, .paira-live-product');
+  const revealTargets = document.querySelectorAll('.merlin-report-lede, .merlin-hero-focus, .merlin-meta-frame, .merlin-project-detail-card, .case-cover-image, .paira-premise-line, .paira-framing-path, .paira-market-grid > *, .paira-research-step > *, .paira-pullquote-close, .paira-owned-outcome > div, .paira-findings, .paira-stage-visual, .paira-stage-copy, .paira-loop-panel, .paira-surface, .paira-brand-spread, .paira-motion-pair > *, .paira-brand-gallery, .paira-growth-grid, .paira-film, .paira-traction, .paira-reflection, .paira-live-product');
   revealTargets.forEach((node, index) => { node.classList.add('merlin-reveal'); node.style.setProperty('--merlin-reveal-index', String(index % 4)); });
   if (prefersReducedMotion || !('IntersectionObserver' in window)) {
     revealTargets.forEach((node) => node.classList.add('is-visible'));

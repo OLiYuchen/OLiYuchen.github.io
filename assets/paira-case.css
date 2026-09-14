@@ -1693,10 +1693,10 @@
 .paira-case-page .paira-owned-outcome { margin-top: var(--sp-block); }
 
 /* Act 1 · Research: the signals are the evidence for the lede, sizing continues them; the interviews are a new sub-topic */
-.paira-case-page .paira-stats { margin-top: var(--sp-tight); }
-.paira-case-page .paira-market { margin-top: 0.9rem; }
-.paira-case-page .paira-research-grid { margin-top: var(--sp-stage); }
-.paira-case-page .paira-vision { margin-top: var(--sp-rest); }
+.paira-case-page .paira-market-grid { margin-top: var(--sp-tight); }
+.paira-case-page .paira-research-step { margin-top: var(--sp-stage); }
+.paira-case-page .paira-research-step-map { margin-top: var(--sp-block); }
+.paira-case-page .paira-pullquote-close { margin-top: var(--sp-stage); }
 
 /* Act 2 · Pivot: findings are the evidence; the slider and the replay are hero moments */
 .paira-case-page .paira-findings { margin-top: var(--sp-tight); }
@@ -1748,3 +1748,60 @@
 @media (max-width: 760px) {
   .paira-case-page .paira-live-cta { grid-template-columns: 1fr; }
 }
+
+/* ---------- Research: onion (market sizing) + signals ----------------------- */
+.paira-market-grid {
+  display: grid;
+  grid-template-columns: minmax(18rem, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(1.6rem, 4vw, 3.4rem);
+  align-items: start;
+}
+
+.paira-onion { margin: 0; }
+.paira-onion svg { display: block; width: min(100%, 26rem); height: auto; margin: 0 auto; overflow: visible; }
+.paira-onion-outer { fill: #ffffff; stroke: var(--case-line); stroke-width: 1.5; }
+.paira-onion-mid { fill: var(--case-accent-soft); stroke: rgba(63, 60, 199, 0.28); stroke-width: 1.5; }
+.paira-onion-inner { fill: var(--case-accent-deep); }
+.paira-onion-num { font-family: var(--font-body); font-weight: 600; font-size: 30px; letter-spacing: -0.02em; fill: var(--case-accent-deep); font-variant-numeric: tabular-nums; }
+.paira-onion-num-inner { fill: #fff; font-size: 26px; }
+.paira-onion-cap { font-family: var(--font-body); font-size: 11.5px; fill: var(--ink-soft); }
+.paira-onion-cap-inner { fill: rgba(255, 255, 255, 0.82); font-size: 10.5px; }
+
+.paira-onion figcaption ul { display: grid; gap: 0.5rem; margin: 1.1rem 0 0; padding: 0; list-style: none; }
+.paira-onion figcaption li { color: var(--ink-soft); font-size: 0.82rem; line-height: 1.45; }
+.paira-onion figcaption b { margin-right: 0.35rem; color: var(--case-accent-deep); font-weight: 600; font-variant-numeric: tabular-nums; }
+.paira-onion figcaption cite { display: block; color: var(--merlin-muted); font-size: 0.7rem; font-style: normal; }
+
+.paira-signals { display: grid; margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--case-line); }
+.paira-signals li {
+  display: grid;
+  grid-template-columns: 5.6rem minmax(0, 1fr);
+  gap: 1rem;
+  align-items: center;
+  padding: 0.95rem 0;
+  border-bottom: 1px solid var(--case-line);
+}
+.paira-signals strong { color: var(--case-accent-deep); font-family: var(--font-body); font-size: clamp(1.7rem, 2.4vw, 2.2rem); font-weight: 600; letter-spacing: -0.02em; line-height: 1; font-variant-numeric: tabular-nums; }
+.paira-case-page .paira-signals p { margin: 0; color: var(--ink-soft); font-size: 0.9rem; line-height: 1.45; }
+.paira-signals cite { color: var(--merlin-muted); font-size: 0.7rem; font-style: normal; }
+
+@media (max-width: 1024px) { .paira-market-grid { grid-template-columns: 1fr; } }
+@media (max-width: 760px) { .paira-signals li { grid-template-columns: 4.4rem minmax(0, 1fr); } }
+
+/* Research steps: what people said → so we positioned → the line we launched with */
+.paira-research-step {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(18rem, 0.85fr);
+  gap: clamp(1.6rem, 4vw, 3.4rem);
+  align-items: start;
+  padding-top: clamp(1.8rem, 3.5vw, 2.8rem);
+  border-top: 1px solid var(--case-line);
+}
+.paira-research-step-map { grid-template-columns: minmax(18rem, 0.85fr) minmax(0, 1.15fr); align-items: center; }
+.paira-research-copy h3 { margin: 0.35rem 0 0.8rem; font-family: var(--font-display); font-size: clamp(1.5rem, 2.2vw, 2.1rem); font-weight: 600; line-height: 1.12; text-wrap: balance; }
+.paira-case-page .paira-research-copy p:not(.project-meta) { max-width: 46ch; }
+.paira-quote-research { margin: 0; align-self: stretch; display: grid; align-content: center; }
+.paira-case-page .paira-quote-research .project-meta { color: #b8b6ff; margin-bottom: 0.6rem; }
+.paira-pullquote-close { max-width: 62rem; }
+.paira-pullquote-close cite { max-width: 60ch; line-height: 1.5; }
+@media (max-width: 1024px) { .paira-research-step, .paira-research-step-map { grid-template-columns: 1fr; } }
