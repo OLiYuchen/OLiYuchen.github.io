@@ -233,10 +233,12 @@
 
 .paira-stats strong {
   color: var(--case-accent-deep);
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 3.2vw, 3rem);
+  font-family: var(--font-body);
+  font-size: clamp(1.8rem, 2.8vw, 2.6rem);
   font-weight: 600;
+  letter-spacing: -0.02em;
   line-height: 1;
+  font-variant-numeric: tabular-nums;
 }
 
 .paira-case-page .paira-stats p { margin: 0; color: var(--ink-soft); font-size: 0.88rem; line-height: 1.45; }
@@ -260,7 +262,7 @@
 }
 
 .paira-market span { color: #b8b6ff; font-family: var(--paira-font-body); font-size: 0.74rem; letter-spacing: 0.04em; }
-.paira-market strong { margin-top: 0.4rem; font-family: var(--paira-font-display); font-size: clamp(2rem, 3.4vw, 3.2rem); font-style: italic; font-weight: 500; line-height: 1; }
+.paira-market strong { margin-top: 0.4rem; font-family: var(--paira-font-body); font-size: clamp(2rem, 3.2vw, 3rem); font-weight: 600; letter-spacing: -0.02em; line-height: 1; font-variant-numeric: tabular-nums; }
 .paira-case-page .paira-market p { margin: 0.2rem 0 0; color: rgba(255, 255, 255, 0.78); font-family: var(--paira-font-body); font-size: 0.88rem; }
 .paira-market cite { color: rgba(255, 255, 255, 0.5); font-size: 0.7rem; font-style: normal; }
 
@@ -1650,3 +1652,9 @@
 .paira-case-page .paira-findings > .project-meta::before { content: ""; width: 0.45rem; height: 0.45rem; border-radius: 50%; background: currentColor; opacity: 0.8; }
 
 .paira-case-page .paira-m-device__step:last-child { min-height: 32vh; }
+
+/* Numbers are always sans: serif italics wobble at display size */
+.paira-case-page .paira-traction strong { font-family: var(--font-body); font-weight: 600; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.paira-case-page .paira-surface-number,
+.paira-case-page .paira-beats li::before,
+.paira-case-page .paira-sop li::before { font-family: var(--font-body); }
