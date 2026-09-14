@@ -1662,64 +1662,72 @@
 .paira-case-page .paira-sop li::before { font-family: var(--font-body); }
 
 /* ============================================================================
-   Spacing rhythm (intentional): a small scale, applied by role.
-   --sp-tight  : supporting text after its lede
-   --sp-block  : between ordinary blocks in a section
-   --sp-stage  : before a hero moment (slider, AI replay, mentor flow, film)
-   --sp-rest   : after a hero moment, before the text resumes
-   --sp-part   : between the five owned surfaces
+   Spacing rhythm, designed by relationship rather than evenly.
+   The page reads as five acts. An act opener gets a large entrance; the
+   section that continues the act sits on a tinted band and attaches to its
+   opener with a short gap. Inside a section, evidence hugs the claim it
+   supports; a new sub-topic or a hero visual earns the large gap.
    ========================================================================== */
 .paira-case-page {
-  --sp-tight: clamp(1.4rem, 2.4vw, 2rem);
-  --sp-block: clamp(2rem, 3.6vw, 3rem);
-  --sp-stage: clamp(3.4rem, 6vw, 5.2rem);
-  --sp-rest: clamp(2.4rem, 4.5vw, 3.6rem);
-  --sp-part: clamp(4.2rem, 8vw, 7rem);
+  --sp-tight: clamp(1.2rem, 2vw, 1.7rem);   /* evidence right under its claim */
+  --sp-block: clamp(2rem, 3.4vw, 2.8rem);   /* a new idea in the same section */
+  --sp-stage: clamp(3.6rem, 6.4vw, 5.6rem); /* before a hero visual */
+  --sp-rest: clamp(2.2rem, 4vw, 3.2rem);    /* after a hero, before text resumes */
+  --sp-part: clamp(4rem, 7.5vw, 6.5rem);    /* between the five owned surfaces */
+  --sp-act: clamp(6rem, 10vw, 10rem);       /* entrance of a new act */
+  --sp-join: clamp(2.6rem, 4.5vw, 3.8rem);  /* a continuation attaching to its opener */
 }
 
-/* 01 Overview: a tight, readable run of small blocks */
-.paira-case-page .paira-premise-line { margin-top: var(--sp-block); }
+/* Act openers: big entrance, modest exit (the continuation sets the join) */
+.paira-case-page .merlin-report-section.paira-act-opener { padding-top: var(--sp-act); padding-bottom: clamp(3.4rem, 5.5vw, 4.8rem); }
+.paira-case-page .merlin-report-section.paira-act-cont { padding-top: var(--sp-join); padding-bottom: clamp(4rem, 6.5vw, 6rem); }
+.paira-case-page .merlin-report-band.paira-act-cont { border-top: 0; border-bottom: 1px solid var(--case-line); background: color-mix(in srgb, var(--paira-lilac) 34%, transparent); }
+/* the continuation's tint starts with a soft edge so it reads as attached, not as a new block */
+.paira-case-page .paira-act-cont { position: relative; }
+.paira-case-page .paira-act-cont::before { content: ""; position: absolute; inset: -3rem 0 auto; height: 3rem; background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--paira-lilac) 34%, transparent)); pointer-events: none; }
+.paira-case-page .merlin-report-hero + .paira-act-opener { padding-top: clamp(4rem, 7vw, 6.5rem); }
+
+/* Act 1 · Overview: premise and framing hug the lede; ownership is a separate idea */
+.paira-case-page .paira-premise-line { margin-top: var(--sp-tight); }
 .paira-case-page .paira-framing-path { margin-top: var(--sp-block); }
 .paira-case-page .paira-owned-outcome { margin-top: var(--sp-block); }
 
-/* 02 Research: signals close to the lede, sizing close to signals, then air before the interviews */
-.paira-case-page .paira-stats { margin-top: var(--sp-block); }
-.paira-case-page .paira-market { margin-top: 1rem; }
+/* Act 1 · Research: the signals are the evidence for the lede, sizing continues them; the interviews are a new sub-topic */
+.paira-case-page .paira-stats { margin-top: var(--sp-tight); }
+.paira-case-page .paira-market { margin-top: 0.9rem; }
 .paira-case-page .paira-research-grid { margin-top: var(--sp-stage); }
 .paira-case-page .paira-vision { margin-top: var(--sp-rest); }
 
-/* 03 Pivot: findings tight, then air before the slider, air after it, tight before the replay stage */
-.paira-case-page .paira-findings { margin-top: var(--sp-block); }
+/* Act 2 · Pivot: findings are the evidence; the slider and the replay are hero moments */
+.paira-case-page .paira-findings { margin-top: var(--sp-tight); }
 .paira-case-page .paira-m-pivot { margin-top: var(--sp-stage); }
 .paira-case-page .paira-lede-tight { margin-top: var(--sp-rest); }
 .paira-case-page .paira-stage { margin-top: var(--sp-stage); }
 .paira-case-page .paira-pivot-takeaway { margin-top: var(--sp-rest); }
 
-/* 04 Core: the loop panel is a hero; surfaces are parts */
-.paira-case-page .paira-loop-panel { margin-top: var(--sp-stage); }
+/* Act 3 · Core: the loop frames the surfaces; each surface is a part; its body hugs its head */
+.paira-case-page .paira-loop-panel { margin-top: var(--sp-block); }
 .paira-case-page .paira-surface { margin-top: var(--sp-part); }
 .paira-case-page .paira-surface-body { margin-top: var(--sp-tight); }
 .paira-case-page .paira-surface-flow .paira-m-device { margin-top: var(--sp-block); }
 .paira-case-page .paira-ownership-note { margin-top: var(--sp-stage); }
 
-/* 05 Decisions */
-.paira-case-page .paira-m-map { margin-top: var(--sp-block); }
+/* Act 3 · Decisions attaches to Core: the map is the content, close to its one-line lede */
+.paira-case-page .paira-m-map { margin-top: var(--sp-tight); }
 
-/* 06 Brand */
-.paira-case-page .paira-brand-spread { margin-top: var(--sp-block); }
+/* Act 4 · Brand: spread hugs the lede; gallery hugs its lede */
+.paira-case-page .paira-brand-spread { margin-top: var(--sp-tight); }
 .paira-case-page .paira-motion-pair { margin-top: 1rem; }
+.paira-case-page .paira-brand-gallery { margin-top: var(--sp-tight); }
 
-/* 07 Gallery */
-.paira-case-page .paira-brand-gallery { margin-top: var(--sp-block); }
-
-/* 08 Growth: grid tight, film is a hero, numbers rest after it */
-.paira-case-page .paira-growth-grid { margin-top: var(--sp-block); }
+/* Act 5 · Growth: the grid hugs the lede; the film is the hero; numbers and links rest after it */
+.paira-case-page .paira-growth-grid { margin-top: var(--sp-tight); }
 .paira-case-page .paira-film { margin-top: var(--sp-stage); }
 .paira-case-page .paira-traction { margin-top: var(--sp-rest); }
+.paira-case-page .paira-live-cta { margin-top: var(--sp-block); grid-template-columns: 1fr; gap: 1.2rem; max-width: 46rem; }
 
-/* 09 Reflection */
-.paira-case-page .paira-reflection { margin-top: var(--sp-block); }
-.paira-case-page .paira-live-cta { margin-top: var(--sp-stage); grid-template-columns: 1fr; gap: 1.2rem; max-width: 46rem; }
+/* Act 5 · Reflection attaches to Growth */
+.paira-case-page .paira-reflection { margin-top: var(--sp-tight); }
 
 /* Live product CTA */
 .paira-cta-row { display: flex; flex-wrap: wrap; gap: 0.7rem; }
