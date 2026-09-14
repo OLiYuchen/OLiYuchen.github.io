@@ -294,6 +294,8 @@
 .paira-case-page .paira-stage-note { margin: 0 0 1.4rem; color: var(--merlin-muted); font-size: 0.95rem; }
 
 .paira-beats {
+  display: grid;
+  gap: 0.55rem;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -302,45 +304,40 @@
 
 .paira-beats li {
   position: relative;
-  padding: 0.9rem 0 0.9rem 2.6rem;
-  border-top: 1px solid var(--case-line);
+  padding-left: 2rem;
   counter-increment: beat;
 }
-
-.paira-beats li:last-child { border-bottom: 1px solid var(--case-line); }
 
 .paira-beats li::before {
   content: counter(beat, decimal-leading-zero);
   position: absolute;
-  top: 1rem;
+  top: 0.15rem;
   left: 0;
   color: var(--case-accent-deep);
-  font-family: var(--font-display);
-  font-size: 1rem;
+  font-size: 0.72rem;
   font-weight: 600;
+  letter-spacing: 0.06em;
 }
 
-.paira-beats strong { display: block; color: var(--ink); font-weight: 600; font-size: 1rem; }
-.paira-beats span { display: block; margin-top: 0.15rem; color: var(--ink-soft); font-size: 0.92rem; line-height: 1.5; }
+.paira-beats strong { display: block; color: var(--ink); font-weight: 600; font-size: 0.95rem; line-height: 1.4; }
+.paira-beats span { display: block; color: var(--merlin-muted); font-size: 0.84rem; line-height: 1.45; }
 
 .paira-quote-inline {
-  margin: 1.6rem 0 0;
-  padding: 1.1rem 1.2rem;
-  border-radius: 1rem;
-  background: var(--paira-ink);
-  color: #fff;
+  margin: 1.8rem 0 0;
+  padding: 0.2rem 0 0.2rem 1.1rem;
+  border-left: 2px solid var(--case-line);
 }
 
 .paira-case-page .paira-quote-inline p {
-  margin: 0 0 0.5rem;
-  color: #fff;
-  font-family: var(--paira-font-display);
-  font-size: clamp(1.1rem, 1.5vw, 1.35rem);
+  margin: 0 0 0.35rem;
+  color: var(--ink-soft);
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 1.4vw, 1.25rem);
   font-style: italic;
-  line-height: 1.3;
+  line-height: 1.35;
 }
 
-.paira-quote-inline cite { color: rgba(255, 255, 255, 0.62); font-family: var(--paira-font-body); font-size: 0.78rem; font-style: normal; }
+.paira-quote-inline cite { color: var(--merlin-muted); font-size: 0.76rem; font-style: normal; }
 
 /* the loop panel: intro + dark lifecycle in one dark surface */
 .paira-loop-panel {
@@ -1506,3 +1503,26 @@
 
 .paira-case-page .paira-m-device { --pm-step-min: 46vh; --pm-step-gap: 4vh; }
 .paira-loop-panel .paira-m-life[data-pm-skin="dark"] { padding: 0; background: transparent; border-radius: 0; }
+
+/* Section rhythm: the lede starts flush with the sticky section label; sub-kickers are calmer than the site default */
+.paira-case-page .merlin-report-lede > h2:first-child { margin-top: 0; }
+.paira-case-page .merlin-report-lede > p:first-child { margin-top: 0; }
+.paira-case-page .merlin-report-section-label { padding-top: 0.55rem; }
+.paira-case-page .merlin-report-content .project-meta {
+  margin-bottom: 0.35rem;
+  color: var(--case-accent-deep);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.paira-case-page .paira-stage-copy .project-meta,
+.paira-case-page .paira-loop-copy .project-meta,
+.paira-case-page .paira-surface-head .project-meta,
+.paira-case-page .paira-versions > .project-meta,
+.paira-case-page .paira-findings > .project-meta { display: inline-flex; align-items: center; gap: 0.5rem; }
+.paira-case-page .paira-stage-copy .project-meta::before,
+.paira-case-page .paira-loop-copy .project-meta::before,
+.paira-case-page .paira-surface-head .project-meta::before,
+.paira-case-page .paira-versions > .project-meta::before,
+.paira-case-page .paira-findings > .project-meta::before { content: ""; width: 0.45rem; height: 0.45rem; border-radius: 50%; background: currentColor; opacity: 0.8; }
