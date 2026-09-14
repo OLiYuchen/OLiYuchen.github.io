@@ -54,7 +54,7 @@
         <article class="merlin-project-detail-card">
           <div class="merlin-detail-label"><h2>Role</h2></div>
           <p class="merlin-detail-primary">Founding Product Designer</p>
-          <p class="merlin-detail-secondary">One of two designers. Own onboarding, Explore, profile, premium, and the mentor-side AI flow; brand, marketing, and AI production.</p>
+          <p class="merlin-detail-secondary">Own onboarding, Explore, profile, premium, and the mentor-side AI flow; brand, marketing, and AI production.</p>
         </article>
         <article class="merlin-project-detail-card">
           <div class="merlin-detail-label"><h2>Timeline</h2></div>
@@ -100,9 +100,9 @@
         </div>
 
         <div class="paira-framing-path" aria-label="How the product framing evolved">
-          <div><span>Starting assumption</span><strong>Better matching would fix networking.</strong></div>
+          <div><span>Starting assumption</span><strong>AI-helped Better matching would fix networking.</strong></div>
           <div><span>What we saw in beta</span><strong>A match still left two strangers with a blank first message.</strong></div>
-          <div><span>Design response</span><strong>Start from the need, not the person. Let AI write the first ask.</strong></div>
+          <div><span>Design response</span><strong>Start from the need, not the person. Let AI do a warm intro.</strong></div>
         </div>
 
         <div class="paira-overview-figures">
@@ -226,7 +226,7 @@
           <div class="paira-loop-copy">
             <p class="project-meta">The loop my surfaces serve</p>
             <h3>A request stays legible from posting to conversation.</h3>
-            <p>Post lands in a helper’s Explore. A reply carries a reason. One helper is chosen, the others are told, and Paira AI writes the introduction. Every surface I own sits somewhere on this line.</p>
+            <p>Paira’s core loop, shared across the team: a post lands in a helper’s Explore, a reply carries a reason, one helper is chosen and the others are told, and Paira AI writes the introduction. Every surface I own sits somewhere on this line.</p>
           </div>
           <ol class="paira-m-life" data-pm-life data-pm-skin="dark" aria-label="Request lifecycle">
             <script type="application/json" data-pm-config>
@@ -314,12 +314,13 @@
           </header>
           <div class="paira-surface-body">
             <div class="paira-surface-copy">
-              <p>The profile leads with two lists, “Can help with” and “Want to do,” an “Open to networking” state, and recommendations written by people you have actually worked with. Experience and education are there, but below the fold, and the editor breaks them into small steps so nobody stalls on a blank form. From the profile tab you also reach points, Request Boost, and settings, because this is where a person decides how much of themselves to put into the platform.</p>
+              <p>The profile leads with two lists, “Can help with” and “Want to do,” an “Open to networking” state, and recommendations written by people you have actually worked with. Experience and education are there, but below the fold, and the editor breaks them into small steps so nobody stalls on a blank form. From the profile tab you also reach points, Request Boost, and settings, because this is where a person decides how much of themselves to put into the platform. The profile is never demanded up front: Explore nudges you to complete it at the moment it starts to matter, when mentees are deciding whether to trust you.</p>
               <p><strong>Why.</strong> After the pivot the profile is read mostly by someone deciding whether to accept your help, or by the AI deciding whether to suggest you. Both need to know what you can do, not where you went to school.</p>
             </div>
-            <div class="paira-phone-row paira-phone-row-3" aria-label="Profile screens">
+            <div class="paira-phone-row" aria-label="Profile screens">
               <figure class="paira-phone"><img src="../assets/img/paira/screens/profile-tab.webp" alt="Own profile tab with points banner and Request Boost entry" width="786" height="1704" loading="lazy" decoding="async" /><figcaption>My profile</figcaption></figure>
               <figure class="paira-phone"><img src="../assets/img/paira/screens/profile-edit.webp" alt="Edit profile in small steps" width="786" height="1704" loading="lazy" decoding="async" /><figcaption>Editor</figcaption></figure>
+              <figure class="paira-phone"><img src="../assets/img/paira/screens/profile-nudge-explore.webp" alt="Explore with a nudge: Your profile is your first impression. Complete my profile" width="786" height="1704" loading="lazy" decoding="async" /><figcaption>Nudged later, in context</figcaption></figure>
               <figure class="paira-phone"><img src="../assets/img/paira/screens/helper-profile-88-match.webp" alt="A helper's profile as seen by a seeker, with Can help with and Want to do lists" width="786" height="1704" loading="lazy" decoding="async" /><figcaption>Seen by others <small>match reason: team</small></figcaption></figure>
             </div>
           </div>
@@ -358,57 +359,286 @@
             </div>
           </header>
           <div class="paira-surface-copy paira-surface-copy-wide">
-            <p>The seeker’s AI flow gets most of the attention: it turns “I need help” into a request. The mentor side is the mirror I designed. From the same AI entry point you choose “I want to help others.” The screen opens with suggestion bubbles generated from your onboarding intentions and past preferences, so most helpers pick a lane in one tap; the composer is for the detail only you can add. The AI reads it, extracts editable tags, and shows the mentees waiting for you, each labeled Perfect Match or Strong Match with the request, the reward, and the person asking.</p>
-            <p>The design problem was symmetry without sameness. We wanted the mentor side to be fast: a helper has less patience for a questionnaire than a seeker does, so this flow is one input and one confirmation, and the tags are editable rather than final. The AI’s work is visible (“AI is reading your request…”) but short, and the outcome is a list of concrete things to do, not a list of people to evaluate.</p>
+            <p>The seeker’s AI flow gets most of the attention: it turns “I need help” into a request. The mentor side is the mirror I designed, and we wanted it fast. It opens on suggestion bubbles generated from your onboarding intentions and past preferences, sized by how likely they are to fit, so most helpers reach matches in two taps. “Tell Us More” is the slower path: a paragraph in your own words, which the AI reads and turns into dashed tags you can edit before it shows the mentees waiting for you.</p>
+            <p>The design problem was symmetry without sameness. A helper has less patience for a questionnaire than a seeker does, so the AI’s work is visible for a beat and then gets out of the way, and the outcome is a list of concrete things to do, not people to evaluate. At the end the flow asks one question, whether to save these answers to your profile, which is how the mentor flow feeds Explore.</p>
           </div>
           <!-- PM:03 scroll device -->
           <div class="paira-m-device" data-pm-device aria-label="The mentor-side AI flow, step by step">
             <script type="application/json" data-pm-config>
-            {
-              "bezel": 1.6,
-              "steps": [
-                { "kicker": "Smart suggestions", "title": "Start from what Paira already knows about you.", "body": "The flow opens with suggestion bubbles, not a blank form. They are generated from your onboarding intentions and past preferences, so a helper can pick a lane in one tap. The composer underneath is for the detail only you can add.",
-                  "screen": "../assets/img/paira/screens/mentor-ai-input.webp", "alt": "What can you help with? Suggested bubbles: Mock Interview, SWE Interview, Get a Referral, and a composer", "caption": "Suggestions from your profile",
-                  "annotations": [
-                    { "type": "box", "r": 4.6, "x": 5.09, "y": 24.41, "w": 40.71, "h": 4.23 },
-                    { "type": "box", "r": 4.6, "x": 47.84, "y": 24.41, "w": 39.19, "h": 4.23 },
-                    { "type": "box", "r": 4.6, "x": 5.09, "y": 29.58, "w": 37.66, "h": 4.23 },
-                    { "type": "pill", "x": 6, "y": 35.5, "label": "From your onboarding answers" },
-                    { "type": "box", "r": 3, "x": 5.09, "y": 85.21, "w": 89.82, "h": 10.33 },
-                    { "type": "pill", "x": 6, "y": 79.6, "label": "Add what only you know" }
-                  ] },
-                { "kicker": "AI reads it", "title": "One paragraph is enough.", "body": "Helpers have less patience for a questionnaire than seekers do, so this is one input and one confirmation. The AI’s work is visible for a beat, then gets out of the way.",
-                  "screen": "../assets/img/paira/screens/mentor-ai-typed.webp", "alt": "The composer filled with a paragraph about helping with Google SWE interviews", "caption": "AI is reading your request",
-                  "annotations": [
-                    { "type": "shimmer", "x": 5.09, "y": 85.21, "w": 89.82, "h": 10.33 },
-                    { "type": "box", "r": 3, "x": 5.09, "y": 85.21, "w": 89.82, "h": 10.33 },
-                    { "type": "pill", "x": 6, "y": 79.6, "label": "AI is reading your request…" }
-                  ] },
-                { "kicker": "Editable tags", "title": "Paira turns it into something matchable.", "body": "Level, company, and the specific skills are pulled out as tags you can edit or remove. The tags, not the paragraph, are what the matching runs on, and the helper stays in control of them.",
-                  "screen": "../assets/img/paira/screens/mentor-ai-tags.webp", "alt": "Five extracted tags: System Design, L5 / Senior, Google SWE, Coding Rounds, Amazon, and a Confirm and See Matches button", "caption": "Tags you can edit",
-                  "annotations": [
-                    { "type": "box", "r": 5.3, "x": 5.09, "y": 54.81, "w": 45.29, "h": 4.93 },
-                    { "type": "box", "r": 5.3, "x": 52.42, "y": 54.81, "w": 37.40, "h": 4.93 },
-                    { "type": "box", "r": 5.3, "x": 5.09, "y": 60.68, "w": 40.97, "h": 4.93 },
-                    { "type": "box", "r": 5.3, "x": 48.09, "y": 60.68, "w": 46.31, "h": 4.93 },
-                    { "type": "box", "r": 5.3, "x": 5.09, "y": 66.55, "w": 32.82, "h": 4.93 },
-                    { "type": "pill", "x": 6, "y": 72.8, "label": "5 editable tags" }
-                  ] },
-                { "kicker": "Matches", "title": "Mentees waiting, with a reason each.", "body": "The outcome is a list of concrete things to do, not people to evaluate: the request, the reward, who is asking, and why it fits. Perfect Match and Strong Match replace a percentage with a judgment the helper can read.",
-                  "screen": "../assets/img/paira/screens/mentor-ai-matches.webp", "alt": "4 mentees waiting for your help, each labeled Perfect Match or Strong Match", "caption": "Requests, not profiles",
-                  "annotations": [
-                    { "type": "count", "x": 31, "y": 10.5, "from": 0, "to": 4, "label": "{n} mentees waiting" },
-                    { "type": "box", "r": 3.3, "x": 9.41, "y": 26.53, "w": 29.77, "h": 3.05 },
-                    { "type": "box", "r": 3.3, "x": 9.41, "y": 47.54, "w": 29.77, "h": 3.05 },
-                    { "type": "bracket", "x": 2.5, "y": 24.41, "w": 2, "h": 37.5 }
-                  ] }
-              ]
-            }
+{
+  "bezel": 1.6,
+  "steps": [
+    {
+      "kicker": "Smart suggestions",
+      "title": "Start from what Paira already knows about you.",
+      "body": "The flow opens with suggestion bubbles, not a blank form. They are generated from your onboarding intentions and past preferences, and sized by how likely they are to fit, so a helper can pick a lane in one or two taps.",
+      "screen": "../assets/img/paira/screens/mentor-final-01-bubbles.webp",
+      "alt": "What are you looking for? Suggestion bubbles of different sizes: Mock Interview, SWE Interview, Get a Referral, Resume Review, PM Interview and smaller ones",
+      "caption": "Bubbles sized by relevance",
+      "annotations": [
+        {
+          "type": "box",
+          "r": 6.1,
+          "x": 5.09,
+          "y": 24.59,
+          "w": 38.55,
+          "h": 5.69
+        },
+        {
+          "type": "box",
+          "r": 6.1,
+          "x": 46.06,
+          "y": 24.88,
+          "w": 37.02,
+          "h": 5.69
+        },
+        {
+          "type": "box",
+          "r": 6.1,
+          "x": 4.96,
+          "y": 31.34,
+          "w": 35.5,
+          "h": 5.69
+        },
+        {
+          "type": "pill",
+          "x": 6,
+          "y": 63.5,
+          "label": "Bigger = more likely to fit you"
+        }
+      ]
+    },
+    {
+      "kicker": "Tap what fits",
+      "title": "Two taps and the matching already has enough.",
+      "body": "Selected bubbles turn solid and “See Matches” lights up. Most helpers stop here. The path below, “Tell Us More,” is for the ones who want to add detail in their own words.",
+      "screen": "../assets/img/paira/screens/mentor-final-02-selected.webp",
+      "alt": "Five bubbles selected: Mock Interview, SWE Interview, Get a Referral, LinkedIn Rewrite, Data Science; See Matches button active",
+      "caption": "Selected, ready to match",
+      "annotations": [
+        {
+          "type": "box",
+          "r": 6.1,
+          "x": 5.09,
+          "y": 24.71,
+          "w": 38.42,
+          "h": 5.63
+        },
+        {
+          "type": "box",
+          "r": 6.1,
+          "x": 46.06,
+          "y": 24.71,
+          "w": 36.9,
+          "h": 5.58
+        },
+        {
+          "type": "box",
+          "r": 6.1,
+          "x": 5.09,
+          "y": 31.46,
+          "w": 35.37,
+          "h": 5.63
+        },
+        {
+          "type": "box",
+          "r": 6.1,
+          "x": 36.77,
+          "y": 37.79,
+          "w": 40.46,
+          "h": 5.63
+        },
+        {
+          "type": "box",
+          "r": 6.1,
+          "x": 33.59,
+          "y": 61.33,
+          "w": 34.61,
+          "h": 5.63
+        },
+        {
+          "type": "box",
+          "r": 3.0,
+          "x": 6.87,
+          "y": 81.1,
+          "w": 86.77,
+          "h": 6.16
+        },
+        {
+          "type": "pill",
+          "x": 6,
+          "y": 75.5,
+          "label": "See Matches unlocks at one selection"
+        }
+      ]
+    },
+    {
+      "kicker": "Tell us more",
+      "title": "The composer is for what only you know.",
+      "body": "A helper can add a paragraph in plain words: the loop they went through, how much time they have, what they would rather not do. The AI reads it for a beat, visibly, then gets out of the way.",
+      "screen": "../assets/img/paira/screens/mentor-final-03-typed.webp",
+      "alt": "What can you help with? A paragraph typed into the composer about preparing for a Google SWE interview",
+      "caption": "AI is reading your request",
+      "annotations": [
+        {
+          "type": "shimmer",
+          "x": 5.09,
+          "y": 39.79,
+          "w": 89.82,
+          "h": 18.19
+        },
+        {
+          "type": "box",
+          "r": 3.0,
+          "x": 5.09,
+          "y": 39.79,
+          "w": 89.82,
+          "h": 18.19
+        },
+        {
+          "type": "pill",
+          "x": 6,
+          "y": 35.5,
+          "label": "AI is reading your request…"
+        }
+      ]
+    },
+    {
+      "kicker": "Editable tags",
+      "title": "Paira turns it into something matchable.",
+      "body": "Level, company and the specific skills are pulled out as dashed tags you can edit or remove. The tags, not the paragraph, are what the matching runs on, and the helper stays in control of them.",
+      "screen": "../assets/img/paira/screens/mentor-final-04-tags.webp",
+      "alt": "Five extracted tags with dashed violet borders: System Design, L5 / Senior, Google SWE, Coding Rounds, Amazon; Confirm and See Matches",
+      "caption": "Tags you can edit",
+      "annotations": [
+        {
+          "type": "box",
+          "r": 6.1,
+          "x": 44.4,
+          "y": 30.58,
+          "w": 48.85,
+          "h": 5.63
+        },
+        {
+          "type": "box",
+          "r": 6.1,
+          "x": 4.96,
+          "y": 36.56,
+          "w": 37.66,
+          "h": 5.75
+        },
+        {
+          "type": "box",
+          "r": 6.1,
+          "x": 45.17,
+          "y": 36.8,
+          "w": 43.89,
+          "h": 5.34
+        },
+        {
+          "type": "box",
+          "r": 6.1,
+          "x": 4.96,
+          "y": 43.13,
+          "w": 45.29,
+          "h": 5.16
+        },
+        {
+          "type": "box",
+          "r": 6.1,
+          "x": 52.04,
+          "y": 43.13,
+          "w": 33.84,
+          "h": 5.16
+        },
+        {
+          "type": "pill",
+          "x": 6,
+          "y": 50.5,
+          "label": "5 editable tags"
+        },
+        {
+          "type": "box",
+          "r": 3.0,
+          "x": 4.33,
+          "y": 89.55,
+          "w": 89.82,
+          "h": 6.34
+        }
+      ]
+    },
+    {
+      "kicker": "Matches",
+      "title": "Mentees waiting, with a reason each.",
+      "body": "The outcome is a list of concrete things to do, not people to evaluate: the request, the reward, who is asking, and why it fits. Perfect Match and Strong Match replace a percentage with a judgment the helper can read.",
+      "screen": "../assets/img/paira/screens/mentor-final-05-matches.webp",
+      "alt": "4 mentees waiting for your help, each labeled Perfect Match or Strong match",
+      "caption": "Requests, not profiles",
+      "annotations": [
+        {
+          "type": "count",
+          "x": 31,
+          "y": 10.6,
+          "from": 0,
+          "to": 4,
+          "label": "{n} mentees waiting"
+        },
+        {
+          "type": "box",
+          "r": 3.3,
+          "x": 9.16,
+          "y": 26.06,
+          "w": 28.75,
+          "h": 3.05
+        },
+        {
+          "type": "box",
+          "r": 3.3,
+          "x": 9.16,
+          "y": 44.84,
+          "w": 28.75,
+          "h": 3.05
+        },
+        {
+          "type": "bracket",
+          "x": 2.5,
+          "y": 24.18,
+          "w": 2,
+          "h": 54.93
+        }
+      ]
+    },
+    {
+      "kicker": "Feeds back",
+      "title": "What you chose becomes your Explore preferences.",
+      "body": "One question at the end: save this session’s answers to your profile? Say yes and Explore’s Daily Picks start using them. The mentor flow and Explore are one loop, which is why I own both.",
+      "screen": "../assets/img/paira/screens/mentor-final-06-update-feed.webp",
+      "alt": "Update your explore feed? Yes, update my feed / No, keep current preferences",
+      "caption": "Into Explore",
+      "annotations": [
+        {
+          "type": "box",
+          "r": 3.0,
+          "x": 7.12,
+          "y": 81.87,
+          "w": 86.77,
+          "h": 6.22
+        },
+        {
+          "type": "pill",
+          "x": 6,
+          "y": 73.2,
+          "label": "Answers become Daily Picks preferences"
+        }
+      ]
+    }
+  ]
+}
             </script>
           </div>
         </article>
 
-        <p class="paira-ownership-note">Shared with the team and shown here for context: the seeker-side AI request flow, Request Hub, chat with Paira AI action plans, meeting scheduling, and the helper profile’s “Why you are seeing this person” card.</p>
+        <p class="paira-ownership-note">Shared with the team and shown here as core functions, not as my ownership: the request status lifecycle, the seeker-side AI request flow, Request Hub, chat with Paira AI action plans, meeting scheduling, and the helper profile’s “Why you are seeing this person” card.</p>
       </div>
     </div>
   </section>
@@ -542,7 +772,7 @@
         </div>
 
         <div class="paira-traction" aria-label="Verifiable numbers">
-          <div><strong>11</strong><span>film versions in 4 days</span></div><div><strong>3</strong><span>speaker events, Jul 2026</span></div><div><strong>v1.0.1</strong><span>App Store release, Sep 2026</span></div><div><strong>50+</strong><span>beta testers before launch</span></div>
+          <div><strong>11</strong><span>film versions in 4 days</span></div><div><strong>3</strong><span>speaker events, summer 2026</span></div><div><strong>v1.0.1</strong><span>App Store release, Sep 2026</span></div><div><strong>50+</strong><span>beta testers before launch</span></div>
         </div>
       </div>
     </div>

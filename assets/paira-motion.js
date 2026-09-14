@@ -65,7 +65,7 @@
     bar.append(restart);
     const thread = h('div', 'paira-m-ai-request__thread');
     thread.setAttribute('aria-live', 'polite');
-    const empty = h('div', 'paira-m-ai-request__empty', '<h4>' + esc(cfg.emptyTitle) + '</h4><div class="paira-m-ai-request__empty-chips" aria-hidden="true">' + cfg.emptyChips.map(c => '<span>' + esc(c) + '</span>').join('') + '</div>');
+    const empty = h('div', 'paira-m-ai-request__empty', '<p class="paira-m-ai-request__h4">' + esc(cfg.emptyTitle) + '</p><div class="paira-m-ai-request__empty-chips" aria-hidden="true">' + cfg.emptyChips.map(c => '<span>' + esc(c) + '</span>').join('') + '</div>');
     thread.append(empty);
     const composer = h('div', 'paira-m-ai-request__composer');
     const input = h('div', 'paira-m-ai-request__input is-empty'); input.dataset.placeholder = cfg.placeholder;
@@ -812,7 +812,7 @@
     cfg.steps.forEach(s => track.append(h('li', 'paira-m-life__step' + (s.side === 'helper' ? ' paira-m-life__step--helper' : ''), '<span class="paira-m-life__dot" aria-hidden="true"></span><span class="paira-m-life__label">' + esc(s.label) + '</span>' + (s.caption ? '<p class="paira-m-life__caption">' + esc(s.caption) + '</p>' : ''))));
     const card = h('div', 'paira-m-life__card');
     card.setAttribute('aria-live', 'polite');
-    card.innerHTML = '<div class="paira-m-life__chips"></div><h4 class="paira-m-life__card-title">' + esc(cfg.card.title) + '</h4><p class="paira-m-life__card-meta">' + esc(cfg.card.meta) + '</p><div class="paira-m-life__state"></div>';
+    card.innerHTML = '<div class="paira-m-life__chips"></div><p class="paira-m-life__card-title">' + esc(cfg.card.title) + '</p><p class="paira-m-life__card-meta">' + esc(cfg.card.meta) + '</p><div class="paira-m-life__state"></div>';
     const frame = h('div', 'paira-m-life__frame'); frame.append(card);
     root.append(head, track, frame);
     const steps = [...track.querySelectorAll('.paira-m-life__step')];

@@ -783,7 +783,7 @@
   margin: auto 0; text-align: center; padding: 0 4%;
   transition: opacity 300ms var(--pm-ease), transform 300ms var(--pm-ease);
 }
-.paira-m-ai-request__empty h4 {
+.paira-m-ai-request__empty .paira-m-ai-request__h4 {
   margin: 0 0 .9rem; font-family: var(--pm-font-display); font-style: italic; font-weight: 500;
   font-size: clamp(1.6rem, 9cqw, 2.1rem); line-height: 1.12; letter-spacing: -.01em;
 }
@@ -1526,3 +1526,5 @@
 .paira-case-page .paira-surface-head .project-meta::before,
 .paira-case-page .paira-versions > .project-meta::before,
 .paira-case-page .paira-findings > .project-meta::before { content: ""; width: 0.45rem; height: 0.45rem; border-radius: 50%; background: currentColor; opacity: 0.8; }
+
+.paira-case-page .paira-m-device__step:last-child { min-height: 32vh; }
