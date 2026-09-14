@@ -5449,17 +5449,23 @@ article#physical-computing .exploration-detail-copy p:not(.project-meta) {
 }
 
 .paira-case-page {
-  --case-paper: #f4f5f8;
-  --case-paper-deep: rgba(228, 232, 241, 0.66);
+  /* Paira brand family: violet #605CFF for mentor/helper and AI, acid yellow
+     #FBFF5C for mentee/seeker, near-black #131313 for dark zones. */
+  --case-paper: #f6f6fb;
+  --case-paper-deep: rgba(229, 229, 255, 0.55);
   --case-surface: rgba(255, 255, 255, 0.46);
   --case-surface-strong: rgba(255, 255, 255, 0.68);
-  --case-accent: #7a8cff;
-  --case-accent-deep: #364374;
-  --case-accent-soft: rgba(122, 140, 255, 0.13);
-  --case-line: rgba(87, 100, 157, 0.18);
-  --case-grid-v: rgba(94, 111, 194, 0.045);
-  --case-grid-h: rgba(87, 100, 157, 0.034);
+  --case-accent: #605cff;
+  --case-accent-deep: #3f3cc7;
+  --case-accent-soft: rgba(96, 92, 255, 0.12);
+  --case-line: rgba(63, 60, 199, 0.16);
+  --case-grid-v: rgba(96, 92, 255, 0.045);
+  --case-grid-h: rgba(63, 60, 199, 0.034);
   --case-glass-highlight: rgba(255, 255, 255, 0.72);
+  --paira-yellow: #fbff5c;
+  --paira-violet: #605cff;
+  --paira-ink: #131313;
+  --paira-lilac: #e5e5ff;
 }
 
 .game-case-page {
