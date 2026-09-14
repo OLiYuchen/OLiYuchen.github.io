@@ -1696,7 +1696,7 @@
 .paira-case-page .paira-market-grid { margin-top: var(--sp-tight); }
 .paira-case-page .paira-research-step { margin-top: var(--sp-stage); }
 .paira-case-page .paira-research-step-map { margin-top: var(--sp-block); }
-.paira-case-page .paira-pullquote-close { margin-top: var(--sp-stage); }
+.paira-case-page .paira-pullquote-close { margin-top: var(--sp-block); }
 
 /* Act 2 · Pivot: findings are the evidence; the slider and the replay are hero moments */
 .paira-case-page .paira-findings { margin-top: var(--sp-tight); }
