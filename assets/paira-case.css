@@ -1681,10 +1681,10 @@
 /* Act openers: big entrance, modest exit (the continuation sets the join) */
 .paira-case-page .merlin-report-section.paira-act-opener { padding-top: var(--sp-act); padding-bottom: clamp(3.4rem, 5.5vw, 4.8rem); }
 .paira-case-page .merlin-report-section.paira-act-cont { padding-top: var(--sp-join); padding-bottom: clamp(4rem, 6.5vw, 6rem); }
-.paira-case-page .merlin-report-band.paira-act-cont { border-top: 0; border-bottom: 1px solid var(--case-line); background: color-mix(in srgb, var(--paira-lilac) 34%, transparent); }
+.paira-case-page .merlin-report-band.paira-act-cont { border-top: 0; border-bottom: 1px solid var(--case-line); background: #ececfb; }
 /* the continuation's tint starts with a soft edge so it reads as attached, not as a new block */
 .paira-case-page .paira-act-cont { position: relative; }
-.paira-case-page .paira-act-cont::before { content: ""; position: absolute; inset: -3rem 0 auto; height: 3rem; background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--paira-lilac) 34%, transparent)); pointer-events: none; }
+.paira-case-page .paira-act-cont::before { content: ""; position: absolute; inset: -3rem 0 auto; height: 3rem; background: linear-gradient(180deg, rgba(236, 236, 251, 0), #ececfb); pointer-events: none; }
 .paira-case-page .merlin-report-hero + .paira-act-opener { padding-top: clamp(4rem, 7vw, 6.5rem); }
 
 /* Act 1 · Overview: premise and framing hug the lede; ownership is a separate idea */
