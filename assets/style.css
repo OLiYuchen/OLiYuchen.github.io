@@ -2845,6 +2845,269 @@ article#physical-computing .exploration-detail-copy p:not(.project-meta) {
   }
 }
 
+/* Compact site ending: match the persistent header instead of creating a second band. */
+.site-footer.home-footer {
+  padding: 0;
+  border-top: 1px solid rgba(43, 36, 30, 0.08);
+  background: var(--header-surface);
+  color: var(--ink-soft);
+  -webkit-backdrop-filter: blur(14px) saturate(110%);
+  backdrop-filter: blur(14px) saturate(110%);
+}
+
+.site-footer.home-footer .footer-row {
+  min-height: 4.25rem;
+  padding-block: 0.85rem;
+  border-top: 0;
+}
+
+.merlin-report-page .site-footer.home-footer {
+  background: color-mix(in srgb, var(--case-reader-paper) 88%, transparent);
+}
+
+/* Merlin: research evidence reads as a sequence, not a wall of equal cards. */
+.merlin-case-page .merlin-framing-path,
+.merlin-case-page .merlin-evidence-chain,
+.merlin-case-page .merlin-direction-path,
+.merlin-case-page .merlin-research-path {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  border-block: 1px solid color-mix(in srgb, var(--merlin-green-deep) 18%, transparent);
+}
+
+.merlin-case-page .merlin-framing-path > div,
+.merlin-case-page .merlin-evidence-chain > article,
+.merlin-case-page .merlin-direction-path > article,
+.merlin-case-page .merlin-research-path > article {
+  position: relative;
+  min-width: 0;
+  padding: clamp(1.15rem, 2.2vw, 1.7rem);
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.merlin-case-page .merlin-framing-path > div + div,
+.merlin-case-page .merlin-evidence-chain > article + article,
+.merlin-case-page .merlin-direction-path > article + article,
+.merlin-case-page .merlin-research-path > article + article {
+  border-left: 1px solid color-mix(in srgb, var(--merlin-green-deep) 16%, transparent);
+}
+
+.merlin-case-page .merlin-framing-path > div:not(:last-child)::after,
+.merlin-case-page .merlin-evidence-chain > article:not(:last-child)::after,
+.merlin-case-page .merlin-research-path > article:not(:last-child)::after {
+  content: "→";
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  right: 0;
+  display: grid;
+  place-items: center;
+  width: 1.7rem;
+  height: 1.7rem;
+  color: var(--merlin-green-deep);
+  background: var(--merlin-paper);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  transform: translate(50%, -50%);
+}
+
+.merlin-case-page .merlin-framing-path span,
+.merlin-case-page .merlin-framing-path strong {
+  display: block;
+}
+
+.merlin-case-page .merlin-framing-path span {
+  margin-bottom: 0.72rem;
+  color: var(--merlin-green-deep);
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 750;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.merlin-case-page .merlin-framing-path strong {
+  color: var(--merlin-ink);
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 1.8vw, 1.65rem);
+  font-weight: 600;
+  line-height: 1.18;
+  text-wrap: pretty;
+}
+
+.merlin-case-page .merlin-ownership-band {
+  max-width: none;
+  gap: 0;
+  padding-block: 0.25rem;
+  border-block: 1px solid color-mix(in srgb, var(--merlin-green-deep) 14%, transparent);
+}
+
+.merlin-case-page .merlin-ownership-band > div {
+  padding: clamp(1.05rem, 2vw, 1.45rem) clamp(0.2rem, 1.8vw, 1.4rem);
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.merlin-case-page .merlin-ownership-band > div:first-child {
+  padding-left: 0;
+  padding-right: clamp(1.2rem, 3vw, 2.5rem);
+}
+
+.merlin-case-page .merlin-ownership-band > div + div {
+  padding-left: clamp(1.2rem, 3vw, 2.5rem);
+  border-left: 1px solid color-mix(in srgb, var(--merlin-green-deep) 14%, transparent);
+}
+
+.merlin-case-page .merlin-source-grid {
+  padding-block: clamp(1.1rem, 2vw, 1.55rem);
+  border-block: 1px solid color-mix(in srgb, var(--merlin-green-deep) 13%, transparent);
+}
+
+.merlin-case-page .merlin-source-grid > div + div {
+  padding-left: clamp(0.8rem, 2vw, 1.5rem);
+  border-left: 1px solid color-mix(in srgb, var(--merlin-green-deep) 12%, transparent);
+}
+
+.merlin-case-page .merlin-research-path article,
+.merlin-case-page .merlin-direction-path article {
+  padding-block: clamp(1.25rem, 2.2vw, 1.8rem);
+}
+
+.merlin-case-page .merlin-research-path h3,
+.merlin-case-page .merlin-direction-path h3,
+.merlin-case-page .merlin-evidence-chain h3 {
+  font-size: clamp(1.3rem, 1.9vw, 1.7rem);
+}
+
+.merlin-case-page .merlin-evidence-chain p:last-child,
+.merlin-case-page .merlin-direction-path p:last-child,
+.merlin-case-page .merlin-research-path p:last-child {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+.merlin-case-page .merlin-identity-insight {
+  display: grid;
+  grid-template-columns: minmax(9rem, 0.34fr) minmax(0, 1fr);
+  gap: clamp(1.4rem, 4vw, 3.4rem);
+  align-items: start;
+  padding: clamp(1.35rem, 3vw, 2.25rem);
+  border-block: 1px solid color-mix(in srgb, var(--merlin-green-deep) 16%, transparent);
+  background: color-mix(in srgb, var(--merlin-paper-green) 62%, transparent);
+}
+
+.merlin-case-page .merlin-identity-insight .project-meta {
+  margin: 0;
+}
+
+.merlin-case-page .merlin-identity-insight h3 {
+  margin: 0;
+  color: var(--merlin-ink);
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 2.8vw, 2.55rem);
+  font-weight: 600;
+  line-height: 1.08;
+  text-wrap: balance;
+}
+
+.merlin-case-page .merlin-identity-insight p:last-child {
+  max-width: 66ch;
+  margin-top: 0.85rem;
+  color: var(--merlin-muted);
+  line-height: 1.66;
+}
+
+@media (max-width: 760px) {
+  .site-footer.home-footer .footer-row {
+    min-height: 0;
+    padding-block: 0.75rem;
+    gap: 0.2rem;
+  }
+
+  .merlin-case-page .merlin-framing-path,
+  .merlin-case-page .merlin-evidence-chain,
+  .merlin-case-page .merlin-direction-path,
+  .merlin-case-page .merlin-research-path {
+    grid-template-columns: 1fr;
+    grid-auto-flow: row;
+    grid-auto-columns: auto;
+    overflow: visible;
+    padding-inline: 0;
+    padding-bottom: 0;
+    scroll-snap-type: none;
+  }
+
+  .merlin-case-page .merlin-direction-path > article {
+    scroll-snap-align: none;
+  }
+
+  .merlin-case-page .merlin-framing-path > div,
+  .merlin-case-page .merlin-evidence-chain > article,
+  .merlin-case-page .merlin-direction-path > article,
+  .merlin-case-page .merlin-research-path > article {
+    padding-inline: 0.2rem;
+  }
+
+  .merlin-case-page .merlin-framing-path > div + div,
+  .merlin-case-page .merlin-evidence-chain > article + article,
+  .merlin-case-page .merlin-direction-path > article + article,
+  .merlin-case-page .merlin-research-path > article + article {
+    border-top: 1px solid color-mix(in srgb, var(--merlin-green-deep) 13%, transparent);
+    border-left: 0;
+  }
+
+  .merlin-case-page .merlin-framing-path > div:not(:last-child)::after,
+  .merlin-case-page .merlin-evidence-chain > article:not(:last-child)::after,
+  .merlin-case-page .merlin-research-path > article:not(:last-child)::after {
+    content: "↓";
+    top: auto;
+    right: 50%;
+    bottom: 0;
+    transform: translate(50%, 50%);
+  }
+
+  .merlin-case-page .merlin-ownership-band {
+    grid-template-columns: 1fr;
+  }
+
+  .merlin-case-page .merlin-ownership-band > div:first-child,
+  .merlin-case-page .merlin-ownership-band > div + div {
+    padding-inline: 0.2rem;
+  }
+
+  .merlin-case-page .merlin-ownership-band > div + div {
+    border-top: 1px solid color-mix(in srgb, var(--merlin-green-deep) 12%, transparent);
+    border-left: 0;
+  }
+
+  .merlin-case-page .merlin-source-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .merlin-case-page .merlin-source-grid > div:nth-child(odd) {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .merlin-case-page .merlin-source-grid > div:nth-child(n + 3) {
+    padding-top: 1rem;
+    border-top: 1px solid color-mix(in srgb, var(--merlin-green-deep) 10%, transparent);
+  }
+
+  .merlin-case-page .merlin-identity-insight {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    padding: 1.15rem;
+  }
+}
+
 /* Shared project pages */
 .project-hero {
   padding: 4rem 0 2rem;

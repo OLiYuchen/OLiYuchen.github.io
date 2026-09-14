@@ -102,12 +102,27 @@
           <p>Merlin Bird ID is a free bird identification app from the Cornell Lab of Ornithology with more than 3M active users. Before designing features, I helped the team define what “novice” meant in this context: someone might like birds, recognize common species, use Merlin often, and still lack confidence in the field.</p>
         </div>
 
+        <div class="merlin-framing-path" aria-label="How the research framing evolved">
+          <div>
+            <span>Starting assumption</span>
+            <strong>“Novice” describes one beginner user type.</strong>
+          </div>
+          <div>
+            <span>Evidence correction</span>
+            <strong>Knowledge, confidence, tools, and context move independently.</strong>
+          </div>
+          <div>
+            <span>Design response</span>
+            <strong>Support the moment of uncertainty, not a fixed beginner mode.</strong>
+          </div>
+        </div>
+
         <div class="merlin-report-question" aria-label="My research question">
           <p class="merlin-section-chip">My research question</p>
           <p>How might we design Merlin Bird ID as a companion app for young, novice birdwatchers that encourages regular engagement and long-term environmentally conscious behavior?</p>
         </div>
 
-        <div class="merlin-poster-summary">
+        <div class="merlin-poster-summary merlin-ownership-band">
           <div>
             <p class="project-meta">What I owned</p>
             <p>I built the novice metric approach used to screen and compare participants. That work connected quantitative survey responses to interview selection and later helped us interpret qualitative differences between novice birders.</p>
@@ -125,7 +140,7 @@
           <div><strong>12</strong><span>hours of interviews</span></div>
         </div>
 
-        <div class="merlin-phase-grid" aria-label="Research structure">
+        <div class="merlin-phase-grid merlin-research-path" aria-label="Research structure">
           <article>
             <p class="project-meta">Phase 1</p>
             <h3>Discovery</h3>
@@ -227,27 +242,30 @@
           <h2>The findings showed that novice birders need different kinds of support.</h2>
           <p>The score helped us find the sample; qualitative work explained the differences inside it. Some participants lacked tools, some lacked local birding knowledge, some lacked community confidence, and some had interest without identifying as birdwatchers. The key result was that “novice” became less of a level and more of a set of support needs.</p>
         </div>
-        <div class="merlin-findings-grid" aria-label="Result summary interpretation">
+        <div class="merlin-evidence-chain" aria-label="How research findings shaped the redesign">
           <article>
-            <p class="project-meta">What the findings clarified</p>
+            <p class="project-meta">Research signal</p>
             <h3>Beginner needs were uneven, not linear.</h3>
-            <p>Participants did not move from “new” to “expert” in the same order. One person might know local species but feel socially hesitant; another might use Merlin often but still lack confidence interpreting the result.</p>
+            <p>Knowledge, confidence, context, and tool use did not develop in the same order.</p>
           </article>
           <article>
-            <p class="project-meta">What changed in our framing</p>
+            <p class="project-meta">Interpretation</p>
             <h3>Noviceness became a design variable.</h3>
-            <p>Instead of designing one beginner mode, we treated novice behavior as a mix of motivation, confidence, context, and identity. This gave us a stronger basis for deciding which support should be educational, social, or habit-building.</p>
+            <p>We reframed it as a mix of support needs instead of one beginner level.</p>
           </article>
           <article>
-            <p class="project-meta">How it guided redesign</p>
-            <h3>Each concept answered a different support gap.</h3>
-            <p>Badges and recaps responded to motivation, learning mode and ID summaries responded to knowledge gaps, and events responded to the need for low-pressure community entry points.</p>
+            <p class="project-meta">Product principle</p>
+            <h3>Each concept answered a different gap.</h3>
+            <p>Motivation, learning, and social confidence needed distinct forms of support.</p>
           </article>
-          <article>
-            <p class="project-meta">Why the second map mattered</p>
+        </div>
+
+        <div class="merlin-identity-insight">
+          <p class="project-meta">The finding that changed the story</p>
+          <div>
             <h3>Birdwatcher identity was more fluid than expected.</h3>
-            <p>The types-of-novice map helped us show that beginners may be caretakers, nature lovers, photographers, companions, or curious learners. That made the redesign less about pushing users toward expertise and more about supporting different ways of belonging.</p>
-          </article>
+            <p>The types-of-novice map showed that beginners may be caretakers, nature lovers, photographers, companions, or curious learners. The redesign therefore supports different ways of belonging instead of pushing every user toward the same version of expertise.</p>
+          </div>
         </div>
 
         <div class="merlin-insight-flip" role="button" tabindex="0" aria-pressed="false" aria-label="Flip between novice type map and detailed findings">
@@ -280,16 +298,19 @@
           <p>The redesign work was not a styling exercise. Each concept responded to a different support need we found in research: habit formation, birding basics, or social confidence.</p>
         </div>
 
-        <div class="merlin-direction-grid">
+        <div class="merlin-direction-grid merlin-direction-path" aria-label="Research needs translated into design directions">
           <article>
+            <p class="project-meta">Motivation gap</p>
             <h3>Motivation and habit building</h3>
             <p>Weekly challenges, badges, and birding recaps can encourage engagement without turning birding into a chore.</p>
           </article>
           <article>
+            <p class="project-meta">Knowledge gap</p>
             <h3>Learning birding basics</h3>
             <p>Learning mode, embedded tips, and ID summaries help new birders understand the world of birdwatching beyond a single match.</p>
           </article>
           <article>
+            <p class="project-meta">Confidence gap</p>
             <h3>Social and sharing</h3>
             <p>Events and shareable achievements create lightweight ways to build community without requiring Merlin to become a full social platform.</p>
           </article>
@@ -406,11 +427,13 @@
     '.merlin-project-detail-card',
     '.merlin-flip-card',
     '.merlin-source-grid > div',
+    '.merlin-framing-path',
     '.merlin-phase-grid article',
     '.merlin-method-pair',
     '.merlin-method-steps article',
     '.merlin-method-reflection',
-    '.merlin-findings-grid article',
+    '.merlin-evidence-chain article',
+    '.merlin-identity-insight',
     '.merlin-insight-flip',
     '.merlin-direction-grid article',
     '.merlin-concept-spread figure',
