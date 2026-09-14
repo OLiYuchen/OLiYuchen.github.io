@@ -1764,8 +1764,11 @@
 .paira-onion-inner { fill: var(--case-accent-deep); }
 .paira-onion-num { font-family: var(--font-body); font-weight: 600; font-size: 30px; letter-spacing: -0.02em; fill: var(--case-accent-deep); font-variant-numeric: tabular-nums; }
 .paira-onion-num-inner { fill: #fff; font-size: 26px; }
-.paira-onion-cap { font-family: var(--font-body); font-size: 11.5px; fill: var(--ink-soft); }
-.paira-onion-cap-inner { fill: rgba(255, 255, 255, 0.82); font-size: 10.5px; }
+.paira-onion-cap { font-family: var(--font-body); font-size: 11px; fill: var(--ink-soft); }
+.paira-onion-src { font-family: var(--font-body); font-size: 9.5px; fill: var(--merlin-muted); }
+.paira-onion-src-inner { fill: rgba(255, 255, 255, 0.62); }
+.paira-onion-cap-inner { fill: rgba(255, 255, 255, 0.85); font-size: 10.5px; }
+.paira-onion-note { margin-top: 0.8rem; color: var(--merlin-muted); font-size: 0.78rem; text-align: center; }
 
 .paira-onion figcaption ul { display: grid; gap: 0.5rem; margin: 1.1rem 0 0; padding: 0; list-style: none; }
 .paira-onion figcaption li { color: var(--ink-soft); font-size: 0.82rem; line-height: 1.45; }
