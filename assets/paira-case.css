@@ -429,21 +429,23 @@
 .paira-beats span { display: block; color: var(--merlin-muted); font-size: 0.84rem; line-height: 1.45; }
 
 .paira-quote-inline {
-  margin: 1.8rem 0 0;
-  padding: 0.2rem 0 0.2rem 1.1rem;
-  border-left: 2px solid var(--case-line);
+  margin: 1.6rem 0 0;
+  padding: 1.1rem 1.2rem;
+  border-radius: 1rem;
+  background: var(--paira-ink);
+  color: #fff;
 }
 
 .paira-case-page .paira-quote-inline p {
-  margin: 0 0 0.35rem;
-  color: var(--ink-soft);
-  font-family: var(--font-display);
-  font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+  margin: 0 0 0.5rem;
+  color: #fff;
+  font-family: var(--paira-font-display);
+  font-size: clamp(1.1rem, 1.5vw, 1.35rem);
   font-style: italic;
-  line-height: 1.35;
+  line-height: 1.3;
 }
 
-.paira-quote-inline cite { color: var(--merlin-muted); font-size: 0.76rem; font-style: normal; }
+.paira-quote-inline cite { color: rgba(255, 255, 255, 0.62); font-family: var(--paira-font-body); font-size: 0.78rem; font-style: normal; }
 
 /* the loop panel: intro + dark lifecycle in one dark surface */
 .paira-loop-panel {
