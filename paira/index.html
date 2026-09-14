@@ -95,11 +95,9 @@
           <p>Paira started with a broad ambition: make it easier for a student or new graduate to reach the one person who can actually help them, without the performance that networking usually requires. When I joined in August 2025, the team had a mission and a waitlist, not yet a shipped product. My first job was to make the idea legible: what the product was, who it was for, how it should look, and how it would talk to the people we needed to recruit.</p>
         </div>
 
-        <div class="paira-premise" aria-label="Product premise">
-          <p class="paira-premise-statement">People do not need more connections. They need the right person for one real need.</p>
-          <div class="paira-frictions">
-            <span>Performative profiles</span><span>Cold outreach</span><span>Unclear intent</span><span>Nothing to say first</span>
-          </div>
+        <div class="paira-premise-line" aria-label="Product premise">
+          <p><em>People do not need more connections.</em> They need the right person for one real need.</p>
+          <div class="paira-frictions-row"><span>Performative profiles</span><span>Cold outreach</span><span>Unclear intent</span><span>Nothing to say first</span></div>
         </div>
 
         <div class="paira-framing-path" aria-label="How the product framing evolved">
@@ -170,36 +168,46 @@
         </div>
 
         <div class="merlin-report-lede paira-lede-tight">
-          <p>You describe what you need in plain words, AI asks two or three clarifying questions and drafts the request, and Paira suggests helpers with the reason each one fits. Every conversation now starts with context both sides already understand. I did not make that call alone, and I did not redesign every screen. What I did was carry it into the surfaces I own: onboarding that asks for intentions instead of a résumé, an Explore tab that shows requests you can help with instead of people to like, a profile that reads as “what I can help with,” a premium system that boosts requests rather than unlocking profiles, and a mentor-side AI flow that turns “what can you help with” into matches.</p>
+          <p>You describe what you need in plain words, AI asks two or three clarifying questions and drafts the request, and Paira suggests helpers with the reason each one fits. Every conversation now starts with context both sides already understand. I did not make that call alone, and I did not redesign every screen. What I did was carry it into the surfaces I own, and the next section walks through each one.</p>
         </div>
 
         <!-- PM:01 AI request conversation -->
-        <div class="paira-component-intro">
-          <p class="project-meta">How a request is born now</p>
-          <h3>One loose sentence, two quick questions, a request worth answering.</h3>
-          <p>A replay of the seeker flow the team shipped. Pick a chip to steer it, or let it run.</p>
-        </div>
-        <div class="paira-m-ai-request" data-pm-ai-request aria-label="Replay of the seeker AI flow">
-          <script type="application/json" data-pm-config>
-          {
-            "sentence": "I need someone to review my resume for product design internships",
-            "questions": [
-              { "prompt": "What stage are you at?", "options": ["New Grad", "Junior Level Designer (0–2 yoe)", "Mid-Level Designer (2–4 yoe)"], "auto": 0 },
-              { "prompt": "How much help do you need?", "lead": "Got it. Since you're at the {a1} stage, the type of help you need can make a big difference.", "options": ["One time resume review", "A few review sessions with follow up", "Not sure"], "auto": 0 }
-            ],
-            "draft": {
-              "title": "Resume review for a product design internship",
-              "description": "I'm a {a1:lc} preparing applications for product design internships and would like {a2:lc} from someone who has hired or interviewed designers. Happy to share my portfolio and the roles I'm targeting.",
-              "fields": [ { "label": "Request Type", "value": "Resume Review" }, { "label": "Industry", "value": "Design" }, { "label": "Location", "value": "Seattle, WA" }, { "label": "Reward", "value": "$30" } ]
-            }
-          }
-          </script>
+        <div class="paira-stage paira-stage-ai">
+          <div class="paira-stage-visual">
+            <div class="paira-m-ai-request" data-pm-ai-request aria-label="Replay of the seeker AI flow">
+              <script type="application/json" data-pm-config>
+              {
+                "sentence": "I need someone to review my resume for product design internships",
+                "questions": [
+                  { "prompt": "What stage are you at?", "options": ["New Grad", "Junior Level Designer (0–2 yoe)", "Mid-Level Designer (2–4 yoe)"], "auto": 0 },
+                  { "prompt": "How much help do you need?", "lead": "Got it. Since you're at the {a1} stage, the type of help you need can make a big difference.", "options": ["One time resume review", "A few review sessions with follow up", "Not sure"], "auto": 0 }
+                ],
+                "draft": {
+                  "title": "Resume review for a product design internship",
+                  "description": "I'm a {a1:lc} preparing applications for product design internships and would like {a2:lc} from someone who has hired or interviewed designers. Happy to share my portfolio and the roles I'm targeting.",
+                  "fields": [ { "label": "Request Type", "value": "Resume Review" }, { "label": "Industry", "value": "Design" }, { "label": "Location", "value": "Seattle, WA" }, { "label": "Reward", "value": "$30" } ]
+                }
+              }
+              </script>
+            </div>
+          </div>
+          <div class="paira-stage-copy">
+            <p class="project-meta">How a request is born now</p>
+            <h3>One loose sentence, two quick questions, a request worth answering.</h3>
+            <p class="paira-stage-note">A replay of the seeker flow the team shipped. Pick an answer to steer it, or let it run.</p>
+            <ol class="paira-beats">
+              <li><strong>Say it the way you would to a friend.</strong><span>No form, no fields. The sentence is the only required input.</span></li>
+              <li><strong>Two clarifying questions, with answers you can tap.</strong><span>Stage and scope are the two things the matching needs; everything else the AI infers.</span></li>
+              <li><strong>The draft appears as editable fields.</strong><span>Title, description, type, industry, location. The AI writes, the person still owns it.</span></li>
+              <li><strong>Post, and see who can help.</strong><span>Helpers arrive with a reason each. The first message is already written.</span></li>
+            </ol>
+            <blockquote class="paira-quote-inline">
+              <p>“Paira is not another profile feed or a swipe-for-its-own-sake social app. The AI never replaces the human. It routes each request to one.”</p>
+              <cite>Paira’s App Store description, 2026</cite>
+            </blockquote>
+          </div>
         </div>
 
-        <blockquote class="paira-pullquote paira-pullquote-wide">
-          <p>“Paira is not another profile feed or a swipe-for-its-own-sake social app. The AI never replaces the human. It routes each request to one.”</p>
-          <cite>Paira’s App Store description, 2026</cite>
-        </blockquote>
         <p class="paira-pivot-takeaway">The pivot made intent visible. It lowered the social cost of asking, and it gave the AI something more useful than a profile to work with.</p>
       </div>
     </div>
@@ -217,24 +225,27 @@
         </div>
 
         <!-- PM:08 lifecycle -->
-        <div class="paira-component-intro">
-          <p class="project-meta">The loop my surfaces serve</p>
-          <h3>A request stays legible from posting to conversation.</h3>
+        <div class="paira-loop-panel">
+          <div class="paira-loop-copy">
+            <p class="project-meta">The loop my surfaces serve</p>
+            <h3>A request stays legible from posting to conversation.</h3>
+            <p>Post lands in a helper’s Explore. A reply carries a reason. One helper is chosen, the others are told, and Paira AI writes the introduction. Every surface I own sits somewhere on this line.</p>
+          </div>
+          <ol class="paira-m-life" data-pm-life data-pm-skin="dark" aria-label="Request lifecycle">
+            <script type="application/json" data-pm-config>
+            { "title": "Request lifecycle",
+              "card": { "title": "Resume review for a product design internship", "meta": "Resume Review · Design · $30 reward", "due": "Due in 3 days" },
+              "steps": [
+                { "label": "Post", "caption": "One sentence becomes a request.", "chip": { "kind": "open", "label": "Open" }, "boost": "Boosted", "state": { "muted": "No responds yet", "button": "Invite helpers" } },
+                { "label": "Browse", "caption": "Helpers see it in Explore as a Daily Pick.", "side": "helper", "chip": { "kind": "open", "label": "Open" }, "boost": "Boosted", "state": { "avatars": ["HT", "CA", "PS"], "text": "3 helpers see it" } },
+                { "label": "Respond", "caption": "A reply with a reason attached.", "side": "helper", "chip": { "kind": "responded", "label": "Responded" }, "state": { "avatars": ["CA"], "reply": { "name": "Chloe Anderson", "text": "I reviewed intern portfolios at Meta this spring. Happy to help." } } },
+                { "label": "Select", "caption": "One helper chosen, the others told.", "chip": { "kind": "progress", "label": "In Progress" }, "state": { "avatars": ["CA"], "text": "Chloe chosen", "muted": "others told" } },
+                { "label": "Chat", "caption": "Paira AI writes the introduction.", "chip": { "kind": "chatting", "label": "Chatting" }, "state": { "bubble": { "meta": "AI introduction", "text": "Hi Chloe, Sam is a new grad applying to product design internships and would like one honest resume review." } } }
+              ],
+              "finalStep": { "chip": { "kind": "completed", "label": "Completed" }, "state": { "avatars": ["CA"], "text": "Marked as completed", "muted": "· 45 min" } } }
+            </script>
+          </ol>
         </div>
-        <ol class="paira-m-life" data-pm-life aria-label="Request lifecycle">
-          <script type="application/json" data-pm-config>
-          { "title": "Request lifecycle",
-            "card": { "title": "Resume review for a product design internship", "meta": "Resume Review · Design · $30 reward", "due": "Due in 3 days" },
-            "steps": [
-              { "label": "Post", "caption": "One sentence becomes a request.", "chip": { "kind": "open", "label": "Open" }, "boost": "Boosted", "state": { "muted": "No responds yet", "button": "Invite helpers" } },
-              { "label": "Browse", "caption": "Helpers see it in Explore as a Daily Pick.", "side": "helper", "chip": { "kind": "open", "label": "Open" }, "boost": "Boosted", "state": { "avatars": ["HT", "CA", "PS"], "text": "3 helpers see it" } },
-              { "label": "Respond", "caption": "A reply with a reason attached.", "side": "helper", "chip": { "kind": "responded", "label": "Responded" }, "state": { "avatars": ["CA"], "reply": { "name": "Chloe Anderson", "text": "I reviewed intern portfolios at Meta this spring. Happy to help." } } },
-              { "label": "Select", "caption": "One helper chosen, the others told.", "chip": { "kind": "progress", "label": "In Progress" }, "state": { "avatars": ["CA"], "text": "Chloe chosen", "muted": "others told" } },
-              { "label": "Chat", "caption": "Paira AI writes the introduction.", "chip": { "kind": "chatting", "label": "Chatting" }, "state": { "bubble": { "meta": "AI introduction", "text": "Hi Chloe, Sam is a new grad applying to product design internships and would like one honest resume review." } } }
-            ],
-            "finalStep": { "chip": { "kind": "completed", "label": "Completed" }, "state": { "avatars": ["CA"], "text": "Marked as completed", "muted": "· 45 min" } } }
-          </script>
-        </ol>
 
         <!-- 3.1 Onboarding -->
         <article class="paira-surface" id="surface-onboarding">
@@ -573,7 +584,7 @@
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const revealTargets = document.querySelectorAll('.merlin-report-lede, .merlin-hero-focus, .merlin-meta-frame, .merlin-project-detail-card, .case-cover-image, .paira-premise, .paira-framing-path, .paira-overview-figures > *, .paira-owned-outcome > div, .paira-findings, .paira-component-intro, .paira-surface, .paira-brand-spread, .paira-motion-pair > *, .paira-brand-gallery, .paira-growth-grid, .paira-film, .paira-versions, .paira-traction, .paira-outcome-hero, .paira-reflection, .paira-live-product');
+  const revealTargets = document.querySelectorAll('.merlin-report-lede, .merlin-hero-focus, .merlin-meta-frame, .merlin-project-detail-card, .case-cover-image, .paira-premise-line, .paira-framing-path, .paira-overview-figures > *, .paira-owned-outcome > div, .paira-findings, .paira-stage-visual, .paira-stage-copy, .paira-loop-panel, .paira-surface, .paira-brand-spread, .paira-motion-pair > *, .paira-brand-gallery, .paira-growth-grid, .paira-film, .paira-versions, .paira-traction, .paira-outcome-hero, .paira-reflection, .paira-live-product');
   revealTargets.forEach((node, index) => { node.classList.add('merlin-reveal'); node.style.setProperty('--merlin-reveal-index', String(index % 4)); });
   if (prefersReducedMotion || !('IntersectionObserver' in window)) {
     revealTargets.forEach((node) => node.classList.add('is-visible'));

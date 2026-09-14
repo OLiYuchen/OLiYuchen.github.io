@@ -177,7 +177,38 @@
 }
 
 .paira-pullquote-wide p::before,
-.paira-pullquote p::before { content: ""; display: block; width: 2.4rem; height: 3px; margin-bottom: 1rem; background: var(--paira-yellow); }
+.paira-pullquote p::before { content: ""; display: block; width: 2.4rem; height: 3px; margin-bottom: 1rem; background: var(--paira-violet); }
+
+/* premise line (replaces the oversized statement) */
+.paira-premise-line {
+  max-width: 62rem;
+  margin-top: clamp(1.8rem, 3.5vw, 2.8rem);
+  padding: 0.2rem 0 0.2rem 1.4rem;
+  border-left: 3px solid var(--paira-violet);
+}
+
+.paira-case-page .paira-premise-line p {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(1.45rem, 2.2vw, 2rem);
+  font-weight: 500;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+.paira-premise-line em { color: var(--case-accent-deep); font-style: italic; }
+
+.paira-frictions-row { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 0.9rem; }
+
+.paira-frictions-row span {
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--case-line);
+  border-radius: 999px;
+  color: var(--ink-soft);
+  background: rgba(255, 255, 255, 0.6);
+  font-size: 0.8rem;
+}
 
 /* ---------- 02 The Pivot ---------------------------------------------------- */
 
@@ -213,8 +244,7 @@
   width: 0.55rem;
   height: 0.55rem;
   border-radius: 50%;
-  background: var(--paira-yellow);
-  box-shadow: 0 0 0 1px rgba(19, 19, 19, 0.25);
+  background: var(--paira-violet);
 }
 
 .paira-findings li strong { color: var(--ink); font-weight: 600; }
@@ -229,12 +259,113 @@
   max-width: 44ch;
   margin: clamp(1.6rem, 3vw, 2.4rem) 0 0;
   padding-left: 1.2rem;
-  border-left: 3px solid var(--paira-yellow);
+  border-left: 3px solid var(--paira-violet);
   font-family: var(--font-display);
   font-size: clamp(1.35rem, 2vw, 1.75rem);
   font-weight: 500;
   line-height: 1.3;
 }
+
+/* stage: component on one side, reading copy on the other */
+.paira-stage {
+  display: grid;
+  grid-template-columns: minmax(20rem, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(1.6rem, 4vw, 3.6rem);
+  align-items: start;
+  margin-top: clamp(2.6rem, 5vw, 4.4rem);
+  padding-top: clamp(1.8rem, 3.5vw, 2.8rem);
+  border-top: 1px solid var(--case-line);
+}
+
+.paira-stage-visual { min-width: 0; }
+.paira-stage-visual .paira-m-ai-request { margin: 0; }
+
+.paira-stage-copy { min-width: 0; }
+
+.paira-stage-copy h3 {
+  margin: 0.35rem 0 0.5rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 2.6vw, 2.5rem);
+  font-weight: 600;
+  line-height: 1.08;
+  text-wrap: balance;
+}
+
+.paira-case-page .paira-stage-note { margin: 0 0 1.4rem; color: var(--merlin-muted); font-size: 0.95rem; }
+
+.paira-beats {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: beat;
+}
+
+.paira-beats li {
+  position: relative;
+  padding: 0.9rem 0 0.9rem 2.6rem;
+  border-top: 1px solid var(--case-line);
+  counter-increment: beat;
+}
+
+.paira-beats li:last-child { border-bottom: 1px solid var(--case-line); }
+
+.paira-beats li::before {
+  content: counter(beat, decimal-leading-zero);
+  position: absolute;
+  top: 1rem;
+  left: 0;
+  color: var(--case-accent-deep);
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.paira-beats strong { display: block; color: var(--ink); font-weight: 600; font-size: 1rem; }
+.paira-beats span { display: block; margin-top: 0.15rem; color: var(--ink-soft); font-size: 0.92rem; line-height: 1.5; }
+
+.paira-quote-inline {
+  margin: 1.6rem 0 0;
+  padding: 1.1rem 1.2rem;
+  border-radius: 1rem;
+  background: var(--paira-ink);
+  color: #fff;
+}
+
+.paira-case-page .paira-quote-inline p {
+  margin: 0 0 0.5rem;
+  color: #fff;
+  font-family: var(--paira-font-display);
+  font-size: clamp(1.1rem, 1.5vw, 1.35rem);
+  font-style: italic;
+  line-height: 1.3;
+}
+
+.paira-quote-inline cite { color: rgba(255, 255, 255, 0.62); font-family: var(--paira-font-body); font-size: 0.78rem; font-style: normal; }
+
+/* the loop panel: intro + dark lifecycle in one dark surface */
+.paira-loop-panel {
+  margin-top: clamp(2.4rem, 5vw, 4rem);
+  padding: clamp(1.6rem, 3.5vw, 2.8rem);
+  border-radius: 1.5rem;
+  background: var(--paira-ink);
+  color: #fff;
+}
+
+.paira-loop-copy { max-width: 46rem; margin-bottom: clamp(1.4rem, 3vw, 2.2rem); }
+.paira-loop-copy .project-meta { color: #b8b6ff; }
+
+.paira-loop-copy h3 {
+  margin: 0.35rem 0 0.6rem;
+  font-family: var(--paira-font-display);
+  font-size: clamp(1.6rem, 2.5vw, 2.3rem);
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.12;
+  text-wrap: balance;
+}
+
+.paira-case-page .paira-loop-copy p:not(.project-meta) { margin: 0; color: rgba(255, 255, 255, 0.78); font-family: var(--paira-font-body); font-size: 0.98rem; max-width: 60ch; }
+.paira-loop-panel .paira-m-life { margin: 0; }
 
 /* ---------- 03 Core Experience: surfaces ----------------------------------- */
 
@@ -399,7 +530,7 @@
 }
 
 .paira-screen-strip figure.is-key { flex-grow: 1.4; min-width: 6.8rem; }
-.paira-screen-strip figure.is-key img { box-shadow: 0 0 0 3px var(--paira-yellow), 0 16px 36px rgba(19, 19, 19, 0.2); }
+.paira-screen-strip figure.is-key img { box-shadow: 0 0 0 3px var(--paira-violet), 0 16px 36px rgba(19, 19, 19, 0.2); }
 .paira-screen-strip figure.is-key figcaption { color: var(--ink); font-weight: 600; }
 
 /* explore badges */
@@ -471,7 +602,7 @@
   line-height: 1.5;
 }
 
-.paira-lottie-card figcaption span { color: var(--paira-yellow); }
+.paira-lottie-card figcaption span { color: #b8b6ff; }
 
 /* ---------- 07 Growth & AI production --------------------------------------- */
 
@@ -489,7 +620,7 @@
   color: #fff;
 }
 
-.paira-film .project-meta { color: var(--paira-yellow); }
+.paira-film .project-meta { color: #b8b6ff; }
 
 .paira-film h3 {
   margin: 0.4rem 0 0.9rem;
@@ -502,7 +633,7 @@
 }
 
 .paira-case-page .paira-film p { color: rgba(255, 255, 255, 0.8); font-family: var(--paira-font-body); font-size: 0.98rem; }
-.paira-case-page .paira-film p.project-meta { color: var(--paira-yellow); font-family: var(--font-body); }
+.paira-case-page .paira-film p.project-meta { color: #b8b6ff; font-family: var(--font-body); }
 
 .paira-film-disclaimer { margin-top: 1rem; font-size: 0.78rem !important; color: rgba(255, 255, 255, 0.5) !important; }
 
@@ -522,7 +653,7 @@
   font-size: 0.85rem;
 }
 
-.paira-film-player figcaption span { color: var(--paira-yellow); }
+.paira-film-player figcaption span { color: #b8b6ff; }
 
 .paira-versions { margin-top: clamp(2rem, 4vw, 3rem); }
 
@@ -561,6 +692,7 @@
 @media (max-width: 1024px) {
   .paira-surface-body,
   .paira-surface-body-wide,
+  .paira-stage,
   .paira-film { grid-template-columns: 1fr; }
   .paira-phone-row { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .paira-versions ol { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -1371,3 +1503,6 @@
 /* Page-level tuning of the motion components on the Paira skin */
 .paira-case-page .paira-m-device { --pm-stage-bg: color-mix(in srgb, var(--paira-lilac) 45%, #fff); }
 .paira-case-page .paira-m-device__stage { border-color: var(--case-line); }
+
+.paira-case-page .paira-m-device { --pm-step-min: 46vh; --pm-step-gap: 4vh; }
+.paira-loop-panel .paira-m-life[data-pm-skin="dark"] { padding: 0; background: transparent; border-radius: 0; }
