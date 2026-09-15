@@ -1909,38 +1909,34 @@
 .paira-ds-board {
   --tile-ink: #edeef1;
   --tile-soft: rgba(237, 238, 241, 0.64);
-  position: relative;
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 0.8rem;
+  gap: 0.9rem;
   margin-top: var(--sp-tight);
-  padding: 0.9rem;
-  border-radius: 1.5rem;
-  background: var(--paira-ink);
   color: var(--tile-ink);
   font-family: var(--paira-font-body);
-  overflow: hidden;
-  isolation: isolate;
 }
-/* two soft lights drift slowly behind the glass */
-.paira-ds-board::before,
-.paira-ds-board::after {
-  content: ""; position: absolute; z-index: -1; width: 52%; aspect-ratio: 1 / 1; border-radius: 50%; filter: blur(60px); pointer-events: none;
-}
-.paira-ds-board::before { top: -20%; left: -10%; background: radial-gradient(circle, rgba(96, 92, 255, 0.55), rgba(96, 92, 255, 0) 65%); animation: paira-ds-drift-a 26s ease-in-out infinite alternate; }
-.paira-ds-board::after { right: -14%; bottom: -26%; background: radial-gradient(circle, rgba(251, 255, 92, 0.32), rgba(251, 255, 92, 0) 65%); animation: paira-ds-drift-b 32s ease-in-out infinite alternate; }
-@keyframes paira-ds-drift-a { from { transform: translate(0, 0); } to { transform: translate(18%, 14%); } }
-@keyframes paira-ds-drift-b { from { transform: translate(0, 0); } to { transform: translate(-16%, -12%); } }
-@media (prefers-reduced-motion: reduce) { .paira-ds-board::before, .paira-ds-board::after { animation: none; } }
 
+/* each tile is its own dark glass: near-black, a faint inner highlight, and a slow light drifting inside */
 .paira-ds-tile {
+  position: relative; isolation: isolate; overflow: hidden;
   display: grid; align-content: start; gap: 0.7rem; min-width: 0;
-  padding: 1.15rem 1.2rem 1.2rem; border-radius: 1.1rem;
-  background: rgba(255, 255, 255, 0.055);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  -webkit-backdrop-filter: blur(22px) saturate(120%); backdrop-filter: blur(22px) saturate(120%);
+  padding: 1.15rem 1.2rem 1.2rem; border-radius: 1.25rem;
+  background: rgba(19, 19, 19, 0.94);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 18px 40px rgba(19, 19, 19, 0.16);
 }
+.paira-ds-tile::before {
+  content: ""; position: absolute; z-index: -1; inset: 0;
+  background:
+    radial-gradient(60% 50% at 15% 0%, rgba(96, 92, 255, 0.28), transparent 70%),
+    radial-gradient(50% 45% at 100% 110%, rgba(251, 255, 92, 0.16), transparent 70%);
+  animation: paira-ds-glass 24s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+.paira-ds-tile:nth-child(even)::before { animation-duration: 30s; animation-direction: alternate-reverse; }
+@keyframes paira-ds-glass { from { transform: translate(0, 0) scale(1); } to { transform: translate(-6%, 8%) scale(1.15); } }
+@media (prefers-reduced-motion: reduce) { .paira-ds-tile::before { animation: none; } }
 .paira-ds-mark { grid-column: span 2; grid-template-rows: auto 1fr auto; }
 .paira-ds-why { grid-column: span 4; }
 .paira-ds-type { grid-column: span 4; }
