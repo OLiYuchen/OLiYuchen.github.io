@@ -2104,3 +2104,9 @@
 .paira-screen-grid figure.is-key figcaption { color: var(--ink); font-weight: 600; }
 @media (max-width: 760px) { .paira-screen-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 .paira-case-page .paira-ds-board { margin-bottom: var(--sp-block); }
+
+/* a long screen shown at phone height: scrolls inside its own frame so the section stays short */
+.paira-phone-scroll-area { aspect-ratio: 786 / 1704; overflow-y: auto; overscroll-behavior: contain; border-radius: clamp(0.7rem, 2vw, 1.2rem); box-shadow: 0 18px 44px rgba(19, 19, 19, 0.16); background: var(--paira-ink); scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.35) transparent; }
+.paira-phone-scroll-area img { border-radius: 0; box-shadow: none; }
+.paira-phone-scroll-area:focus-visible { outline: 2px solid var(--case-accent); outline-offset: 3px; }
+.paira-phone figcaption small { display: inline; margin-left: 0.4rem; color: var(--merlin-muted); font-size: 0.72rem; letter-spacing: 0; text-transform: none; }
