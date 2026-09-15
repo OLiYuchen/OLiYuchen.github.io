@@ -1714,7 +1714,7 @@
 .paira-case-page .paira-growth-grid { margin-top: var(--sp-tight); }
 .paira-case-page .paira-film { margin-top: var(--sp-stage); }
 .paira-case-page .paira-traction { margin-top: var(--sp-rest); }
-.paira-case-page .paira-live-cta { margin-top: var(--sp-block); grid-template-columns: 1fr; gap: 1.2rem; max-width: 46rem; }
+.paira-case-page .paira-live-cta { margin-top: var(--sp-stage); grid-template-columns: minmax(0, 1.15fr) minmax(14rem, 0.85fr); gap: clamp(1.5rem, 4vw, 3rem); align-items: end; max-width: none; padding-top: var(--sp-block); border-top: 1px solid var(--case-line); }
 
 /* Act 5 · Reflection attaches to Growth */
 .paira-case-page .paira-reflection { margin-top: var(--sp-tight); }
@@ -2120,3 +2120,10 @@
 .paira-film-tile-media video { display: block; width: 100%; height: auto; background: #000; }
 .paira-film-tile:hover .paira-film-tile-play { opacity: 1; }
 .paira-film-tile-play { opacity: 0.85; transition: opacity 200ms ease; }
+
+/* live product: copy + buttons on the left, her two characters on the right */
+.paira-live-copy { display: grid; gap: 0.6rem; max-width: 40rem; }
+.paira-live-copy .paira-cta-row { margin-top: 0.8rem; }
+.paira-live-art { margin: 0; justify-self: center; width: min(100%, 22rem); }
+.paira-live-art img { display: block; width: 100%; height: auto; filter: drop-shadow(0 14px 24px rgba(19, 19, 19, 0.12)); }
+@media (max-width: 760px) { .paira-live-art { width: min(100%, 16rem); } }

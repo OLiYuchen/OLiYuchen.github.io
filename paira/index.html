@@ -879,25 +879,24 @@
         </div>
 
         <div class="paira-growth-grid">
-          <article><span>01</span><h3>Website &amp; sign-up</h3><p>Designed the beta sign-up and referral-code flow on paira.org, phone verification to TestFlight in two pages, and the “You are in!” install page.</p></article>
-          <article><span>02</span><h3>Launch &amp; events</h3><p>App Store launch creative, a July speaker series on breaking into Big Tech, and the referral tier system that ran from the waitlist onward.</p></article>
+          <article><span>01</span><h3>Website &amp; sign-up</h3><p>Designed the beta sign-up and referral-code flow on paira.org, phone verification to TestFlight in two pages, and the “You are in!” install page that brought in 50+ beta testers before launch.</p></article>
+          <article><span>02</span><h3>Launch &amp; events</h3><p>App Store launch creative, three summer speaker events on breaking into Big Tech, and the referral tier system that ran from the waitlist onward. Live since June 2026, v1.0.1 shipped in September.</p></article>
           <article><span>03</span><h3>AI-made films</h3><p>Concept films storyboarded and art-directed by me and built by an AI coding agent from our real product assets, like the iPhone Duo film above. Days from idea to cut.</p></article>
         </div>
 
-        <div class="paira-traction" aria-label="Verifiable numbers">
-          <div><strong>3</strong><span>speaker events, summer 2026</span></div><div><strong>v1.0.1</strong><span>App Store release, Sep 2026</span></div><div><strong>50+</strong><span>beta testers before launch</span></div>
-        </div>
-
         <div class="paira-live-product paira-live-cta">
-          <div>
+          <div class="paira-live-copy">
             <p class="project-meta">Live product</p>
             <h3>Try the full experience and witness our growth.</h3>
             <p>Paira is on the App Store and at paira.org. Post a request, or answer one.</p>
-          </div>
           <div class="paira-cta-row">
             <a class="paira-btn paira-btn-fill" href="https://apps.apple.com/us/app/paira-career-help/id6754662494" target="_blank" rel="noreferrer">Download on the App Store<span aria-hidden="true">↗</span></a>
             <a class="paira-btn" href="https://www.paira.org/" target="_blank" rel="noreferrer">Open paira.org<span aria-hidden="true">↗</span></a>
           </div>
+          </div>
+          <figure class="paira-live-art" aria-hidden="true">
+            <img src="../assets/img/paira/duo/characters-facing.webp" alt="" width="1172" height="991" loading="lazy" decoding="async" />
+          </figure>
         </div>
       </div>
     </div>
@@ -951,7 +950,7 @@
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const revealTargets = document.querySelectorAll('.merlin-report-lede, .merlin-hero-focus, .merlin-meta-frame, .merlin-project-detail-card, .case-cover-image, .paira-premise-line, .paira-framing-path, .paira-market-grid > *, .paira-research-step > *, .paira-pullquote-close, .paira-findings, .paira-pivot-block, .paira-surface, .paira-ds-tile, .paira-materials-col > *, .paira-stack > *, .paira-growth-grid, .paira-traction, .paira-reflection, .paira-live-product');
+  const revealTargets = document.querySelectorAll('.merlin-report-lede, .merlin-hero-focus, .merlin-meta-frame, .merlin-project-detail-card, .case-cover-image, .paira-premise-line, .paira-framing-path, .paira-market-grid > *, .paira-research-step > *, .paira-pullquote-close, .paira-findings, .paira-pivot-block, .paira-surface, .paira-ds-tile, .paira-materials-col > *, .paira-stack > *, .paira-growth-grid, .paira-reflection, .paira-live-product');
   revealTargets.forEach((node, index) => { node.classList.add('merlin-reveal'); node.style.setProperty('--merlin-reveal-index', String(index % 4)); });
   if (prefersReducedMotion || !('IntersectionObserver' in window)) {
     revealTargets.forEach((node) => node.classList.add('is-visible'));
