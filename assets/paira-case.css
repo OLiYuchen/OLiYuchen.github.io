@@ -1700,7 +1700,7 @@
 .paira-case-page .paira-findings { margin-top: var(--sp-tight); }
 .paira-case-page .paira-slider-lead { max-width: 30ch; margin: var(--sp-block) 0 0.9rem; font-family: var(--font-display); font-size: clamp(1.5rem, 2.3vw, 2.2rem); font-weight: 600; line-height: 1.12; color: var(--ink); text-wrap: balance; }
 .paira-case-page .paira-m-pivot { margin-top: 0; }
-.paira-case-page .paira-direction { margin-top: var(--sp-rest); }
+.paira-case-page .paira-direction { margin-top: var(--sp-tight); }
 .paira-case-page .paira-direction-list { margin-top: 0.9rem; }
 .paira-case-page .paira-stage { margin-top: var(--sp-stage); }
 .paira-case-page .paira-pivot-takeaway { margin-top: var(--sp-rest); }
