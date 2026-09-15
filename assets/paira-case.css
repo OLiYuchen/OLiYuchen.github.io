@@ -1701,7 +1701,8 @@
 .paira-case-page .paira-pivot-takeaway { margin-top: var(--sp-rest); }
 
 /* Act 3 · Core: the loop frames the surfaces; each surface is a part; its body hugs its head */
-.paira-case-page .paira-loop-panel { margin-top: var(--sp-block); }
+.paira-case-page .paira-loop-intro { margin-top: var(--sp-stage); max-width: 60rem; }
+.paira-case-page .paira-loop-frame { margin-top: 1.2rem; }
 .paira-case-page .paira-surface { margin-top: var(--sp-part); }
 .paira-case-page .paira-surface-body { margin-top: var(--sp-tight); }
 .paira-case-page .paira-surface-flow .paira-m-device { margin-top: var(--sp-block); }
@@ -1864,3 +1865,15 @@
 .paira-m-ai-request__celebrate-card p:not(.paira-m-ai-request__h4) { margin: 0; color: var(--pm-text-soft); font-size: .8rem; line-height: 1.45; max-width: 26ch; }
 .paira-m-ai-request__done { appearance: none; border: 0; cursor: pointer; font: inherit; font-weight: 700; font-size: .95rem; color: var(--pm-yellow-ink); background: var(--pm-yellow); border-radius: 999px; padding: .9rem 1rem; }
 @media (prefers-reduced-motion: reduce) { .paira-m-ai-request__helpers, .paira-m-ai-request__celebrate { transition: none; } }
+
+/* Pivot: the loop frame keeps a fixed height; the component is centred inside */
+.paira-loop-frame {
+  display: grid; align-items: center;
+  height: clamp(24rem, 40vw, 30rem);
+  padding: clamp(1.2rem, 2.6vw, 2rem) clamp(1.4rem, 3vw, 2.6rem);
+  border-radius: 1.5rem;
+  background: var(--paira-ink);
+  overflow: hidden;
+}
+.paira-loop-frame .paira-m-life[data-pm-skin="dark"] { padding: 0; background: transparent; border-radius: 0; margin: 0; }
+@media (max-width: 760px) { .paira-loop-frame { height: auto; min-height: 26rem; } }

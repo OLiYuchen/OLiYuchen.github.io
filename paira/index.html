@@ -278,28 +278,13 @@
           </div>
         </div>
 
-        <p class="paira-pivot-takeaway">The pivot made intent visible. It lowered the social cost of asking, and it gave the AI something better than a profile to work with.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================ 03 CORE EXPERIENCE -->
-  <section class="merlin-report-section paira-act-opener" id="core-experience">
-    <div class="container merlin-report-layout">
-      <aside class="merlin-report-section-label"><p class="section-label">Core Experience</p><span>04</span></aside>
-      <div class="merlin-report-content">
-        <div class="merlin-report-lede">
-          <h2>I own the surfaces where people enter Paira, find something to help with, and decide to give more.</h2>
-          <p>The request flow, chat, and meeting tools were shared work across the team. The five surfaces below are mine end to end, from the first Figma frame to the shipped screen. Each one had to be rethought when the product pivoted.</p>
-        </div>
-
         <!-- PM:08 lifecycle -->
-        <div class="paira-loop-panel">
-          <div class="paira-loop-copy">
-            <p class="project-meta">The loop my surfaces serve</p>
-            <h3>A request stays legible from posting to conversation.</h3>
-            <p>This is Paira’s core loop, shared across the team. A post lands in a helper’s Explore. A reply carries a reason. One helper is chosen, the others are told, and Paira AI writes the introduction. Every surface I own sits somewhere on this line.</p>
-          </div>
+        <div class="paira-stage-copy paira-loop-intro">
+          <p class="project-meta">What happens after you post</p>
+          <h3>A request stays legible from posting to conversation.</h3>
+          <p class="paira-stage-note">Paira’s core loop, shared across the team. A post lands in a helper’s Explore, a reply carries a reason, one helper is chosen and the others are told, and Paira AI writes the introduction. Every surface I own sits somewhere on this line.</p>
+        </div>
+        <div class="paira-loop-frame">
           <ol class="paira-m-life" data-pm-life data-pm-skin="dark" aria-label="Request lifecycle">
             <script type="application/json" data-pm-config>
             { "title": "Request lifecycle",
@@ -314,6 +299,21 @@
               "finalStep": { "chip": { "kind": "completed", "label": "Completed" }, "state": { "avatars": ["CA"], "text": "Marked as completed", "muted": "· 45 min" } } }
             </script>
           </ol>
+        </div>
+
+        <p class="paira-pivot-takeaway">The pivot made intent visible. It lowered the social cost of asking, and it gave the AI something better than a profile to work with.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ 03 CORE EXPERIENCE -->
+  <section class="merlin-report-section paira-act-opener" id="core-experience">
+    <div class="container merlin-report-layout">
+      <aside class="merlin-report-section-label"><p class="section-label">Core Experience</p><span>04</span></aside>
+      <div class="merlin-report-content">
+        <div class="merlin-report-lede">
+          <h2>I own the surfaces where people enter Paira, find something to help with, and decide to give more.</h2>
+          <p>The request flow, chat, and meeting tools were shared work across the team. The five surfaces below are mine end to end, from the first Figma frame to the shipped screen. Each one had to be rethought when the product pivoted.</p>
         </div>
 
         <!-- 3.1 Onboarding -->
@@ -883,7 +883,7 @@
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const revealTargets = document.querySelectorAll('.merlin-report-lede, .merlin-hero-focus, .merlin-meta-frame, .merlin-project-detail-card, .case-cover-image, .paira-premise-line, .paira-framing-path, .paira-market-grid > *, .paira-research-step > *, .paira-pullquote-close, .paira-findings, .paira-direction, .paira-stage-visual, .paira-stage-copy, .paira-loop-panel, .paira-surface, .paira-brand-spread, .paira-motion-pair > *, .paira-brand-gallery, .paira-growth-grid, .paira-film, .paira-traction, .paira-reflection, .paira-live-product');
+  const revealTargets = document.querySelectorAll('.merlin-report-lede, .merlin-hero-focus, .merlin-meta-frame, .merlin-project-detail-card, .case-cover-image, .paira-premise-line, .paira-framing-path, .paira-market-grid > *, .paira-research-step > *, .paira-pullquote-close, .paira-findings, .paira-direction, .paira-stage-visual, .paira-stage-copy, .paira-loop-intro, .paira-loop-frame, .paira-surface, .paira-brand-spread, .paira-motion-pair > *, .paira-brand-gallery, .paira-growth-grid, .paira-film, .paira-traction, .paira-reflection, .paira-live-product');
   revealTargets.forEach((node, index) => { node.classList.add('merlin-reveal'); node.style.setProperty('--merlin-reveal-index', String(index % 4)); });
   if (prefersReducedMotion || !('IntersectionObserver' in window)) {
     revealTargets.forEach((node) => node.classList.add('is-visible'));
