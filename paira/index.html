@@ -832,10 +832,14 @@
         </div>
         <div class="paira-materials" aria-label="Paira brand and launch materials">
           <div class="paira-materials-col">
-            <figure class="paira-poster"><img src="../assets/img/paira/brand-gallery/app-store-poster-01.webp" alt="Paira App Store launch poster" width="1080" height="1350" loading="lazy" decoding="async" /><figcaption>App Store launch poster, Jun 2026</figcaption></figure>
-            <figure class="paira-poster"><img src="../assets/img/paira/brand-gallery/beta-recruitment-poster.webp" alt="Paira beta recruitment poster" width="900" height="1273" loading="lazy" decoding="async" /><figcaption>Beta tester recruitment, Feb 2026</figcaption></figure>
-            <figure class="paira-poster"><img src="../assets/img/paira/brand-gallery/new-poster-2026.webp" alt="Poster: Jobs don't reply, people do. Networking +1, job +1+1+1+1" width="1190" height="1684" loading="lazy" decoding="async" /><figcaption>Back-to-school poster, Sep 2026</figcaption></figure>
-            <figure class="paira-poster"><img src="../assets/img/paira/brand-gallery/beta-launch-poster.webp" alt="Paira beta launch waitlist poster" width="1120" height="1400" loading="lazy" decoding="async" /><figcaption>Waitlist and beta launch</figcaption></figure>
+            <div class="paira-stack">
+              <figure class="paira-poster"><img src="../assets/img/paira/brand-gallery/app-store-poster-01.webp" alt="Paira App Store launch poster" width="1080" height="1350" loading="lazy" decoding="async" /><figcaption>App Store launch poster, Jun 2026</figcaption></figure>
+              <figure class="paira-poster"><img src="../assets/img/paira/brand-gallery/new-poster-2026.webp" alt="Poster: Jobs don't reply, people do. Networking +1, job +1+1+1+1" width="1190" height="1684" loading="lazy" decoding="async" /><figcaption>Back-to-school poster, Sep 2026</figcaption></figure>
+            </div>
+            <div class="paira-stack">
+              <figure class="paira-poster"><img src="../assets/img/paira/brand-gallery/beta-recruitment-poster.webp" alt="Paira beta recruitment poster" width="900" height="1273" loading="lazy" decoding="async" /><figcaption>Beta tester recruitment, Feb 2026</figcaption></figure>
+              <figure class="paira-poster"><img src="../assets/img/paira/brand-gallery/beta-launch-poster.webp" alt="Paira beta launch waitlist poster" width="1120" height="1400" loading="lazy" decoding="async" /><figcaption>Waitlist and beta launch</figcaption></figure>
+            </div>
             <figure class="paira-poster paira-poster-wide"><img src="../assets/img/paira/brand-gallery/beta-user-guide.webp" alt="Paira bilingual beta user guide" width="1400" height="1082" loading="lazy" decoding="async" /><figcaption>Bilingual beta user guide</figcaption></figure>
           </div>
           <div class="paira-materials-col paira-materials-center">
@@ -850,8 +854,12 @@
             </div>
           </div>
           <div class="paira-materials-col">
-            <figure class="paira-poster"><img src="../assets/img/paira/brand-gallery/app-store-feature-mockup.webp" alt="Paira App Store feature mockup" width="1000" height="2167" loading="lazy" decoding="async" /><figcaption>App Store product page artwork</figcaption></figure>
-            <figure class="paira-poster"><img src="../assets/img/paira/brand-gallery/speaker-event-0716.webp" alt="Paira speaker event poster for July 16" width="1120" height="1400" loading="lazy" decoding="async" /><figcaption>Speaker series, Jul 16: product marketing and personal branding</figcaption></figure>
+            <div class="paira-stack">
+              <figure class="paira-poster"><img src="../assets/img/paira/brand-gallery/app-store-feature-mockup.webp" alt="Paira App Store feature mockup" width="1000" height="2167" loading="lazy" decoding="async" /><figcaption>App Store product page artwork</figcaption></figure>
+            </div>
+            <div class="paira-stack">
+              <figure class="paira-poster"><img src="../assets/img/paira/brand-gallery/speaker-event-0716.webp" alt="Paira speaker event poster for July 16" width="1120" height="1400" loading="lazy" decoding="async" /><figcaption>Speaker series, Jul 16: product marketing and personal branding</figcaption></figure>
+            </div>
             <figure class="paira-poster paira-poster-wide"><img src="../assets/img/paira/brand-gallery/join-beta-website.webp" alt="Paira beta installation website" width="1600" height="900" loading="lazy" decoding="async" /><figcaption>Beta install site: “You are in!”</figcaption></figure>
             <figure class="paira-poster paira-poster-wide"><img src="../assets/img/paira/brand-gallery/speaker-event-0713.webp" alt="Paira speaker event poster for July 13" width="1400" height="933" loading="lazy" decoding="async" /><figcaption>Speaker series, Jul 13: breaking into Big Tech</figcaption></figure>
           </div>
@@ -944,7 +952,7 @@
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const revealTargets = document.querySelectorAll('.merlin-report-lede, .merlin-hero-focus, .merlin-meta-frame, .merlin-project-detail-card, .case-cover-image, .paira-premise-line, .paira-framing-path, .paira-market-grid > *, .paira-research-step > *, .paira-pullquote-close, .paira-findings, .paira-pivot-block, .paira-surface, .paira-ds-tile, .paira-materials-col > *, .paira-growth-grid, .paira-traction, .paira-reflection, .paira-live-product');
+  const revealTargets = document.querySelectorAll('.merlin-report-lede, .merlin-hero-focus, .merlin-meta-frame, .merlin-project-detail-card, .case-cover-image, .paira-premise-line, .paira-framing-path, .paira-market-grid > *, .paira-research-step > *, .paira-pullquote-close, .paira-findings, .paira-pivot-block, .paira-surface, .paira-ds-tile, .paira-materials-col > *, .paira-stack > *, .paira-growth-grid, .paira-traction, .paira-reflection, .paira-live-product');
   revealTargets.forEach((node, index) => { node.classList.add('merlin-reveal'); node.style.setProperty('--merlin-reveal-index', String(index % 4)); });
   if (prefersReducedMotion || !('IntersectionObserver' in window)) {
     revealTargets.forEach((node) => node.classList.add('is-visible'));

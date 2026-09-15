@@ -2044,6 +2044,7 @@
 }
 .paira-materials-col { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.9rem; align-content: start; align-items: start; }
 .paira-poster-wide { grid-column: 1 / -1; }
+.paira-stack { display: grid; gap: 0.9rem; align-content: start; }   /* posters in a stack hug the one above */
 .paira-materials-center { grid-template-columns: 1fr; }
 .paira-materials-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.9rem; align-items: start; }
 .paira-materials-row-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
