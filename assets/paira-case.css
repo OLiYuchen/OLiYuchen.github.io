@@ -1873,7 +1873,7 @@
 @media (max-width: 760px) { .paira-loop-frame { height: auto; min-height: 26rem; } }
 
 /* Pivot: the three sub-blocks (what changed / how a request is born / what happens after) share one rhythm */
-.paira-case-page .paira-pivot-block { margin-top: var(--sp-block); padding-top: var(--sp-block); border-top: 1px solid var(--case-line); }
+.paira-case-page .paira-pivot-block { margin-top: var(--sp-stage); }
 .paira-case-page .paira-block-head { max-width: 60rem; margin-bottom: clamp(1.6rem, 3vw, 2.4rem); }
 .paira-case-page .paira-block-head h3 { margin: 0.6rem 0 0.6rem; font-family: var(--font-display); font-size: clamp(1.7rem, 2.6vw, 2.5rem); font-weight: 600; line-height: 1.08; text-wrap: balance; }
 .paira-case-page .paira-block-head p:not(.project-meta) { margin: 0; max-width: 66ch; color: var(--merlin-muted); font-size: 0.98rem; line-height: 1.6; }
