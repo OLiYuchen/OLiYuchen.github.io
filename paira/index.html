@@ -230,8 +230,11 @@
           </script>
         </div>
 
-        <div class="paira-direction">
-          <p class="paira-direction-intro">What that means in the product.</p>
+        <div class="paira-direction paira-pivot-block">
+          <div class="paira-block-head">
+            <p class="project-meta">What changed</p>
+            <h3>What that means in the product.</h3>
+          </div>
           <dl class="paira-direction-list">
             <div><dt>The unit is a request</dt><dd>You describe what you need in plain words. Matching runs on that request, and Paira suggests helpers with the reason each one fits.</dd></div>
             <div><dt>AI does the writing</dt><dd>It asks two or three clarifying questions and drafts the request. When a helper is chosen, it writes a warm introduction and a short action plan, so the first message is already there.</dd></div>
@@ -242,6 +245,12 @@
         </div>
 
         <!-- PM:01 AI request conversation -->
+        <div class="paira-pivot-block">
+          <div class="paira-block-head">
+            <p class="project-meta">How a request is born now</p>
+            <h3>One loose sentence, two quick questions, a request worth answering.</h3>
+            <p>A replay of the seeker flow the team shipped. Pick an answer to steer it, or let it run.</p>
+          </div>
         <div class="paira-stage paira-stage-ai">
           <div class="paira-stage-visual">
             <div class="paira-m-ai-request" data-pm-ai-request aria-label="Replay of the seeker AI flow">
@@ -262,9 +271,6 @@
             </div>
           </div>
           <div class="paira-stage-copy">
-            <p class="project-meta">How a request is born now</p>
-            <h3>One loose sentence, two quick questions, a request worth answering.</h3>
-            <p class="paira-stage-note">A replay of the seeker flow the team shipped. Pick an answer to steer it, or let it run.</p>
             <ol class="paira-beats">
               <li><strong>Say it the way you would to a friend.</strong><span>No form, no fields. The sentence is the only required input.</span></li>
               <li><strong>Two clarifying questions, with answers you can tap.</strong><span>Stage and scope are the two things the matching needs; everything else the AI infers.</span></li>
@@ -277,13 +283,15 @@
             </blockquote>
           </div>
         </div>
+        </div>
 
         <!-- PM:08 lifecycle -->
-        <div class="paira-stage-copy paira-loop-intro">
-          <p class="project-meta">What happens after you post</p>
-          <h3>A request stays legible from posting to conversation.</h3>
-          <p class="paira-stage-note">Paira’s core loop, shared across the team. A post lands in a helper’s Explore, a reply carries a reason, one helper is chosen and the others are told, and Paira AI writes the introduction. Every surface I own sits somewhere on this line.</p>
-        </div>
+        <div class="paira-pivot-block">
+          <div class="paira-block-head">
+            <p class="project-meta">What happens after you post</p>
+            <h3>A request stays legible from posting to conversation.</h3>
+            <p>Paira’s core loop, shared across the team. A post lands in a helper’s Explore, a reply carries a reason, one helper is chosen and the others are told, and Paira AI writes the introduction. Every surface I own sits somewhere on this line.</p>
+          </div>
         <div class="paira-loop-frame">
           <ol class="paira-m-life" data-pm-life data-pm-skin="dark" aria-label="Request lifecycle">
             <script type="application/json" data-pm-config>
@@ -299,6 +307,7 @@
               "finalStep": { "chip": { "kind": "completed", "label": "Completed" }, "state": { "avatars": ["CA"], "text": "Marked as completed", "muted": "· 45 min" } } }
             </script>
           </ol>
+        </div>
         </div>
 
         <p class="paira-pivot-takeaway">The pivot made intent visible. It lowered the social cost of asking, and it gave the AI something better than a profile to work with.</p>
@@ -883,7 +892,7 @@
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const revealTargets = document.querySelectorAll('.merlin-report-lede, .merlin-hero-focus, .merlin-meta-frame, .merlin-project-detail-card, .case-cover-image, .paira-premise-line, .paira-framing-path, .paira-market-grid > *, .paira-research-step > *, .paira-pullquote-close, .paira-findings, .paira-direction, .paira-stage-visual, .paira-stage-copy, .paira-loop-intro, .paira-loop-frame, .paira-surface, .paira-brand-spread, .paira-motion-pair > *, .paira-brand-gallery, .paira-growth-grid, .paira-film, .paira-traction, .paira-reflection, .paira-live-product');
+  const revealTargets = document.querySelectorAll('.merlin-report-lede, .merlin-hero-focus, .merlin-meta-frame, .merlin-project-detail-card, .case-cover-image, .paira-premise-line, .paira-framing-path, .paira-market-grid > *, .paira-research-step > *, .paira-pullquote-close, .paira-findings, .paira-pivot-block, .paira-surface, .paira-brand-spread, .paira-motion-pair > *, .paira-brand-gallery, .paira-growth-grid, .paira-film, .paira-traction, .paira-reflection, .paira-live-product');
   revealTargets.forEach((node, index) => { node.classList.add('merlin-reveal'); node.style.setProperty('--merlin-reveal-index', String(index % 4)); });
   if (prefersReducedMotion || !('IntersectionObserver' in window)) {
     revealTargets.forEach((node) => node.classList.add('is-visible'));

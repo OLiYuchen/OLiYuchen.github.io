@@ -380,9 +380,6 @@
   grid-template-columns: minmax(20rem, 0.85fr) minmax(0, 1.15fr);
   gap: clamp(1.6rem, 4vw, 3.6rem);
   align-items: start;
-  margin-top: clamp(2.6rem, 5vw, 4.4rem);
-  padding-top: clamp(1.8rem, 3.5vw, 2.8rem);
-  border-top: 1px solid var(--case-line);
 }
 
 .paira-stage-visual { min-width: 0; }
@@ -1695,14 +1692,9 @@
 .paira-case-page .paira-findings { margin-top: var(--sp-tight); }
 .paira-case-page .paira-slider-lead { max-width: 30ch; margin: var(--sp-block) 0 0.9rem; font-family: var(--font-display); font-size: clamp(1.5rem, 2.3vw, 2.2rem); font-weight: 600; line-height: 1.12; color: var(--ink); text-wrap: balance; }
 .paira-case-page .paira-m-pivot { margin-top: 0; }
-.paira-case-page .paira-direction { margin-top: var(--sp-tight); }
-.paira-case-page .paira-direction-list { margin-top: 0.9rem; }
-.paira-case-page .paira-stage { margin-top: var(--sp-stage); }
 .paira-case-page .paira-pivot-takeaway { margin-top: var(--sp-rest); }
 
 /* Act 3 · Core: the loop frames the surfaces; each surface is a part; its body hugs its head */
-.paira-case-page .paira-loop-intro { margin-top: var(--sp-stage); max-width: 60rem; }
-.paira-case-page .paira-loop-frame { margin-top: 1.2rem; }
 .paira-case-page .paira-surface { margin-top: var(--sp-part); }
 .paira-case-page .paira-surface-body { margin-top: var(--sp-tight); }
 .paira-case-page .paira-surface-flow .paira-m-device { margin-top: var(--sp-block); }
@@ -1877,3 +1869,12 @@
 }
 .paira-loop-frame .paira-m-life[data-pm-skin="dark"] { padding: 0; background: transparent; border-radius: 0; margin: 0; }
 @media (max-width: 760px) { .paira-loop-frame { height: auto; min-height: 26rem; } }
+
+/* Pivot: the three sub-blocks (what changed / how a request is born / what happens after) share one rhythm */
+.paira-case-page .paira-pivot-block { margin-top: var(--sp-block); padding-top: var(--sp-block); border-top: 1px solid var(--case-line); }
+.paira-case-page .paira-block-head { max-width: 60rem; margin-bottom: 1.2rem; }
+.paira-case-page .paira-block-head h3 { margin: 0.35rem 0 0.5rem; font-family: var(--font-display); font-size: clamp(1.7rem, 2.6vw, 2.5rem); font-weight: 600; line-height: 1.08; text-wrap: balance; }
+.paira-case-page .paira-block-head p:not(.project-meta) { margin: 0; max-width: 66ch; color: var(--merlin-muted); font-size: 0.98rem; line-height: 1.6; }
+.paira-case-page .paira-direction-list { margin-top: 0; }
+.paira-case-page .paira-loop-frame { margin-top: 0; }
+.paira-case-page .paira-pivot-takeaway { margin-top: var(--sp-block); }
