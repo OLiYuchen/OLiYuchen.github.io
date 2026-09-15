@@ -1645,13 +1645,11 @@
 .paira-case-page .paira-stage-copy .project-meta,
 .paira-case-page .paira-loop-copy .project-meta,
 .paira-case-page .paira-surface-head .project-meta,
-.paira-case-page .paira-versions > .project-meta,
-.paira-case-page .paira-findings > .project-meta { display: inline-flex; align-items: center; gap: 0.5rem; }
+.paira-case-page .paira-versions > .project-meta { display: inline-flex; align-items: center; gap: 0.5rem; }
 .paira-case-page .paira-stage-copy .project-meta::before,
 .paira-case-page .paira-loop-copy .project-meta::before,
 .paira-case-page .paira-surface-head .project-meta::before,
-.paira-case-page .paira-versions > .project-meta::before,
-.paira-case-page .paira-findings > .project-meta::before { content: ""; width: 0.45rem; height: 0.45rem; border-radius: 50%; background: currentColor; opacity: 0.8; }
+.paira-case-page .paira-versions > .project-meta::before { content: ""; width: 0.45rem; height: 0.45rem; border-radius: 50%; background: currentColor; opacity: 0.8; }
 
 .paira-case-page .paira-m-device__step:last-child { min-height: 24vh; }
 
