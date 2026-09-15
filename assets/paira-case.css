@@ -573,7 +573,7 @@
   display: block;
   width: 100%;
   height: auto;
-  border-radius: clamp(1rem, 3.2vw, 1.9rem);
+  border-radius: clamp(0.7rem, 2vw, 1.2rem);
   box-shadow: 0 18px 44px rgba(19, 19, 19, 0.16);
   background: var(--paira-ink);
 }
@@ -623,7 +623,7 @@
   display: block;
   width: 100%;
   height: auto;
-  border-radius: 1rem;
+  border-radius: 0.7rem;
   box-shadow: 0 12px 30px rgba(19, 19, 19, 0.14);
   background: var(--paira-ink);
 }
@@ -2098,7 +2098,7 @@
 /* onboarding: all frames visible, wrapping into rows; the key frame is emphasised */
 .paira-screen-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.8rem 0.7rem; align-items: end; }
 .paira-screen-grid figure { margin: 0; min-width: 0; }
-.paira-screen-grid img { display: block; width: 100%; height: auto; border-radius: 1rem; box-shadow: 0 12px 30px rgba(19, 19, 19, 0.14); background: var(--paira-ink); }
+.paira-screen-grid img { display: block; width: 100%; height: auto; border-radius: 0.7rem; box-shadow: 0 12px 30px rgba(19, 19, 19, 0.14); background: var(--paira-ink); }
 .paira-screen-grid figcaption { margin-top: 0.5rem; color: var(--merlin-muted); font-size: 0.78rem; text-wrap: pretty; }
 .paira-screen-grid figure.is-key img { box-shadow: 0 0 0 3px var(--paira-violet), 0 16px 36px rgba(19, 19, 19, 0.2); }
 .paira-screen-grid figure.is-key figcaption { color: var(--ink); font-weight: 600; }
