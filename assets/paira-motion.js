@@ -38,7 +38,15 @@
     postLabel: 'Post and see the helpers',
     postedLabel: 'Posted · finding helpers',
     replayLabel: 'Replay',
-    statusAuto: 'Autoplay', statusManual: 'Your turn', statusDone: 'Drafted',
+    statusAuto: 'Autoplay', statusManual: 'Your turn', statusDone: 'Drafted', statusSent: 'Invites sent',
+    helpersLead: 'We found a few helpers who may be a good fit for your request. Invite the ones you\'d like to connect with.',
+    helpers: [
+      { initials: 'CA', name: 'Chloe Anderson', role: 'Product Design Intern at Meta', reasons: ['Has direct experience with resume review', 'Works in tech and can speak from the inside', 'You both studied at Cornell'] },
+      { initials: 'DJ', name: 'Dylan Johnson', role: 'Product Designer @eBay', reasons: ['Reviewed intern portfolios last spring', 'Strong overlap on resume for tech'] },
+      { initials: 'AT', name: 'Ayanna Thompson', role: 'UX Designer at Google', reasons: ['Hired designers for two internship cohorts'] }
+    ],
+    selectLabel: 'Select', selectedLabel: 'Selected', sendLabel: 'Send Invites', skipLabel: 'Skip for now',
+    celebrateTitle: 'Invites sent to the helpers!', celebrateText: 'You will be able to chat with them when they accept your request.', doneLabel: 'Got it!',
     // timing (ms)
     startDelay: 400, wordDelay: 90, wordJitter: 50, sendPause: 320, think: 500, afterOptions: 1100, pickHold: 420, wrapHold: 900, fieldStagger: 140,   // ≈ 9.5 s autoplay
     threshold: 0.5, autoplay: true
@@ -77,14 +85,23 @@
     review.innerHTML = '<div class="paira-m-ai-request__bar"><span class="paira-m-ai-request__close" aria-hidden="true">×</span><button type="button" class="paira-m-ai-request__restart">' + RESTART + 'Restart Conversation</button></div>' +
       '<div class="paira-m-ai-request__review-body"><div class="paira-m-ai-request__review-lead">' + SPARK + '<p>' + esc(cfg.reviewLead) + '</p><span class="paira-m-ai-request__tag">' + esc(cfg.draftTag) + '</span></div><dl class="paira-m-ai-request__fields"></dl></div>' +
       '<button type="button" class="paira-m-ai-request__post">' + esc(cfg.postLabel) + '</button>';
-    screen.append(bar, thread, composer, review);
+    const helpers = h('div', 'paira-m-ai-request__helpers');
+    helpers.setAttribute('aria-hidden', 'true');
+    helpers.innerHTML = '<div class="paira-m-ai-request__bar"><span class="paira-m-ai-request__close" aria-hidden="true">×</span></div>' +
+      '<div class="paira-m-ai-request__helpers-body"><p class="paira-m-ai-request__helpers-lead">' + SPARK + esc(cfg.helpersLead) + '</p>' +
+      cfg.helpers.map((p, i) => '<div class="paira-m-ai-request__helper" data-i="' + i + '"><div class="paira-m-ai-request__helper-head"><span class="paira-m-ai-request__avatar">' + esc(p.initials) + '</span><div><strong>' + esc(p.name) + '</strong><span>' + esc(p.role) + '</span></div></div><ul>' + p.reasons.map(r => '<li>' + esc(r) + '</li>').join('') + '</ul><button type="button" class="paira-m-ai-request__select" aria-pressed="false">' + esc(cfg.selectLabel) + '</button></div>').join('') + '</div>' +
+      '<div class="paira-m-ai-request__helpers-foot"><button type="button" class="paira-m-ai-request__send" disabled>' + esc(cfg.sendLabel) + '</button><button type="button" class="paira-m-ai-request__skip">' + esc(cfg.skipLabel) + '</button></div>';
+    const celebrate = h('div', 'paira-m-ai-request__celebrate');
+    celebrate.setAttribute('aria-hidden', 'true');
+    celebrate.innerHTML = '<div class="paira-m-ai-request__celebrate-card"><span class="paira-m-ai-request__celebrate-mark" aria-hidden="true"></span><p class="paira-m-ai-request__h4">' + esc(cfg.celebrateTitle) + '</p><p>' + esc(cfg.celebrateText) + '</p></div><button type="button" class="paira-m-ai-request__done">' + esc(cfg.doneLabel) + '</button>';
+    screen.append(bar, thread, composer, review, helpers, celebrate);
     phone.append(screen);
     const controls = h('div', 'paira-m-ai-request__controls');
     const replay = h('button', 'paira-m-ai-request__replay', RESTART + esc(cfg.replayLabel)); replay.type = 'button';
     const status = h('span', 'paira-m-ai-request__status', '');
     controls.append(replay, status);
     root.append(phone, controls);
-    return { phone, screen, thread, empty, input, typed, restart, restart2: review.querySelector('.paira-m-ai-request__restart'), review, fields: review.querySelector('.paira-m-ai-request__fields'), post: review.querySelector('.paira-m-ai-request__post'), replay, status };
+    return { phone, screen, thread, empty, input, typed, restart, restart2: review.querySelector('.paira-m-ai-request__restart'), review, fields: review.querySelector('.paira-m-ai-request__fields'), post: review.querySelector('.paira-m-ai-request__post'), helpers, send: helpers.querySelector('.paira-m-ai-request__send'), skip: helpers.querySelector('.paira-m-ai-request__skip'), celebrate, done: celebrate.querySelector('.paira-m-ai-request__done'), replay, status };
   }
 
   function init(root, overrides) {
@@ -123,6 +140,10 @@
       ui.thread.querySelectorAll('.paira-m-ai-request__msg').forEach(m => m.remove());
       ui.typed.textContent = ''; ui.input.classList.add('is-empty');
       ui.fields.innerHTML = ''; ui.post.classList.remove('is-in', 'is-sent'); ui.post.textContent = cfg.postLabel;
+      root.classList.remove('is-helpers', 'is-celebrate');
+      ui.helpers.setAttribute('aria-hidden', 'true'); ui.celebrate.setAttribute('aria-hidden', 'true');
+      ui.helpers.querySelectorAll('.paira-m-ai-request__select').forEach(b => { b.classList.remove('is-on'); b.setAttribute('aria-pressed', 'false'); b.textContent = cfg.selectLabel; });
+      ui.send.disabled = true; ui.send.textContent = cfg.sendLabel;
       ui.review.setAttribute('aria-hidden', 'true');
       ui.thread.scrollTop = 0;
       setStatus('');
@@ -230,7 +251,21 @@
       const b = e.target.closest('.paira-m-ai-request__option');
       if (b) answer(+b.dataset.q, +b.dataset.k, true);
     });
-    ui.post.addEventListener('click', () => { ui.post.classList.add('is-sent'); ui.post.textContent = cfg.postedLabel; });
+    ui.post.addEventListener('click', () => {
+      ui.post.classList.add('is-sent'); ui.post.textContent = cfg.postedLabel;
+      later(() => { root.classList.add('is-helpers'); ui.helpers.setAttribute('aria-hidden', 'false'); setStatus(cfg.statusManual); }, 520);
+    });
+    const countSel = () => ui.helpers.querySelectorAll('.paira-m-ai-request__select.is-on').length;
+    ui.helpers.addEventListener('click', e => {
+      const b = e.target.closest('.paira-m-ai-request__select'); if (!b) return;
+      const on = !b.classList.contains('is-on');
+      b.classList.toggle('is-on', on); b.setAttribute('aria-pressed', String(on)); b.textContent = on ? cfg.selectedLabel : cfg.selectLabel;
+      const n = countSel(); ui.send.disabled = n === 0; ui.send.textContent = n ? cfg.sendLabel + ' (' + n + ')' : cfg.sendLabel;
+    });
+    const finish = () => { root.classList.add('is-celebrate'); ui.celebrate.setAttribute('aria-hidden', 'false'); setStatus(cfg.statusSent); root.dispatchEvent(new CustomEvent('pm:ai-request:sent', { bubbles: true, detail: { count: countSel() } })); };
+    ui.send.addEventListener('click', finish);
+    ui.skip.addEventListener('click', finish);
+    ui.done.addEventListener('click', () => { reset(); start(); });
     const restartAll = () => { reset(); start(); };
     ui.restart.addEventListener('click', restartAll);
     ui.restart2.addEventListener('click', restartAll);
