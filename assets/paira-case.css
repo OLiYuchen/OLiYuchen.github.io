@@ -1868,7 +1868,7 @@
 
 /* Pivot: the loop frame keeps a fixed height; the component is centred inside */
 .paira-loop-frame {
-  display: grid; align-items: center;
+  display: grid; align-items: start;   /* header and rail stay put; only the card area below changes */
   height: clamp(24rem, 40vw, 30rem);
   padding: clamp(1.2rem, 2.6vw, 2rem) clamp(1.4rem, 3vw, 2.6rem);
   border-radius: 1.5rem;
