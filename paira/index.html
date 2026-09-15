@@ -762,10 +762,9 @@
           <article class="paira-ds-tile paira-ds-mark">
             <p class="paira-ds-label">Mark</p>
             <div class="paira-ds-markstage">
-              <span class="paira-ds-letters" aria-hidden="true">Pa</span>
-              <div class="paira-lottie paira-lottie-small" data-lottie="../assets/img/paira/brand/paira-logo.json" data-lottie-once="true" aria-label="Paira logo animation: two shapes assemble into the mark"></div>
+              <video class="paira-ds-markfilm" src="../assets/img/paira/brand/paira-logo-film.mp4" poster="../assets/img/paira/brand/paira-logo-film-poster.webp" muted playsinline preload="metadata" width="900" height="428" aria-label="Paira wordmark folding into the mark"></video>
             </div>
-            <p class="paira-ds-note">Tap to replay.</p>
+            <p class="paira-ds-note">The wordmark folds into the mark. Tap to replay.</p>
           </article>
           <article class="paira-ds-tile paira-ds-why">
             <p class="paira-ds-label">Why it looks this way</p>
@@ -949,6 +948,18 @@
   }));
   dialog.querySelector('.paira-dialog-close').addEventListener('click', () => dialog.close());
   dialog.addEventListener('click', (event) => { if (event.target === dialog) dialog.close(); });
+
+  /* Logo film: plays once when it comes into view, click to replay */
+  document.querySelectorAll('.paira-ds-markfilm').forEach((film) => {
+    const play = () => { film.currentTime = 0; film.play().catch(() => {}); };
+    film.addEventListener('click', play);
+    film.parentElement.addEventListener('click', play);
+    if (prefersReducedMotion) { film.addEventListener('loadedmetadata', () => { film.currentTime = film.duration - 0.05; }); return; }
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => entries.forEach((entry) => { if (entry.isIntersecting) { play(); io.disconnect(); } }), { threshold: 0.5 });
+      io.observe(film);
+    }
+  });
 
   /* Muted looping clips play only while on screen */
   const clipVideos = document.querySelectorAll('.paira-phone-video video');

@@ -1956,7 +1956,8 @@
 .paira-ds-points strong { display: block; color: var(--tile-ink); font-weight: 600; }
 
 /* mark: the letters sit faintly behind the animated mark */
-.paira-ds-markstage { position: relative; display: grid; place-items: center; min-height: 10rem; }
+.paira-ds-markstage { position: relative; display: grid; place-items: center; min-height: 9rem; cursor: pointer; }
+.paira-ds-markfilm { display: block; width: 100%; height: auto; mix-blend-mode: screen; }
 .paira-ds-letters { position: absolute; inset: 0; display: grid; place-items: center; color: rgba(237, 238, 241, 0.07); font-family: var(--paira-font-display); font-size: 8.5rem; font-weight: 800; line-height: 1; letter-spacing: -0.04em; pointer-events: none; user-select: none; }
 .paira-lottie-small { aspect-ratio: 1 / 1; width: min(100%, 7rem); padding: 0; margin: 0 auto; align-self: center; position: relative; }
 .paira-lottie-small svg { width: 100%; height: 100%; }
