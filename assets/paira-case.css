@@ -635,7 +635,7 @@
   font-size: 0.78rem;
 }
 
-.paira-screen-strip figure.is-key { flex-grow: 1.4; min-width: 6.8rem; }
+.paira-screen-strip figure.is-key { flex-grow: 1.6; min-width: 8.4rem; }
 .paira-screen-strip figure.is-key img { box-shadow: 0 0 0 3px var(--paira-violet), 0 16px 36px rgba(19, 19, 19, 0.2); }
 .paira-screen-strip figure.is-key figcaption { color: var(--ink); font-weight: 600; }
 
@@ -1884,3 +1884,15 @@
 /* AI replay: the App Store quote sits under the stage, full width */
 .paira-case-page .paira-quote-below { max-width: 60rem; margin-top: var(--sp-block); padding: 1.4rem 1.6rem; }
 .paira-case-page .paira-quote-below p { font-size: clamp(1.2rem, 1.7vw, 1.5rem); max-width: 40ch; }
+
+/* Mentor flow: quieter step text so the phone stays the focus */
+.paira-case-page .paira-m-device__step h3 { font-size: clamp(1.25rem, 1.7vw, 1.55rem); line-height: 1.15; }
+.paira-case-page .paira-m-device__body > p:not(.paira-m-device__kicker) { font-size: 0.92rem; line-height: 1.55; max-width: 40ch; }
+.paira-case-page .paira-m-device__kicker { font-size: 0.68rem; }
+
+/* Every numeric marker on the page is sans */
+.paira-case-page .merlin-report-section-label span,
+.paira-case-page .paira-m-device__marker,
+.paira-case-page .paira-m-map__kicker,
+.paira-case-page .paira-m-map .project-meta,
+.paira-case-page .paira-growth-grid > article > span { font-family: var(--font-body); font-weight: 600; }
