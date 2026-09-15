@@ -2111,12 +2111,6 @@
 .paira-phone-scroll-area:focus-visible { outline: 2px solid var(--case-accent); outline-offset: 3px; }
 .paira-phone figcaption small { display: inline; margin-left: 0.4rem; color: var(--merlin-muted); font-size: 0.72rem; letter-spacing: 0; text-transform: none; }
 
-/* profile row: two screens stacked on the left, the long profile beside them at double width and double height */
-.paira-phone-row-profile { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); grid-template-rows: auto auto; align-items: start; }
-.paira-phone-row-profile .paira-phone-scroll { grid-column: 2; grid-row: 1 / 3; }
-.paira-phone-row-profile .paira-phone-scroll .paira-phone-scroll-area { aspect-ratio: 786 / 1704; }   /* a phone shape at double size: matches two stacked phones */
-@media (max-width: 760px) {
-  .paira-phone-row-profile { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: auto; }
-  .paira-phone-row-profile .paira-phone-scroll { grid-column: 1 / 3; grid-row: auto; }
-  .paira-phone-row-profile .paira-phone-scroll .paira-phone-scroll-area { aspect-ratio: 786 / 1704; height: auto; }
-}
+/* profile row: three screens side by side; the long profile scrolls inside its phone-sized frame */
+.paira-phone-row-profile { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; }
+@media (max-width: 760px) { .paira-phone-row-profile { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
