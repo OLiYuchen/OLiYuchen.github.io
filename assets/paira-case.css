@@ -2099,3 +2099,4 @@
 .paira-screen-grid figure.is-key img { box-shadow: 0 0 0 3px var(--paira-violet), 0 16px 36px rgba(19, 19, 19, 0.2); }
 .paira-screen-grid figure.is-key figcaption { color: var(--ink); font-weight: 600; }
 @media (max-width: 760px) { .paira-screen-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.paira-case-page .paira-ds-board { margin-bottom: var(--sp-block); }
