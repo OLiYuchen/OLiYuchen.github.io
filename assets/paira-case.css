@@ -1912,7 +1912,7 @@
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 0.9rem;
-  margin-top: var(--sp-tight);
+  margin-top: 1.2rem;
   color: var(--tile-ink);
   font-family: var(--paira-font-body);
 }
