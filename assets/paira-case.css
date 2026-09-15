@@ -2015,3 +2015,18 @@
   .paira-ds-scale li { grid-template-columns: 1fr; gap: 0.1rem; }
   .paira-ds-letters { font-size: 7rem; }
 }
+
+/* the text tile reads differently from the visual tiles: paper, not glass */
+.paira-ds-tile.paira-ds-why {
+  --tile-ink: var(--ink);
+  --tile-soft: var(--ink-soft);
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid var(--case-line);
+  box-shadow: none;
+  font-family: var(--font-body);
+}
+.paira-ds-tile.paira-ds-why::before { display: none; }
+.paira-ds-why .paira-ds-label { color: var(--case-accent-deep); }
+.paira-ds-why .paira-ds-points { gap: 0.8rem; }
+.paira-ds-why .paira-ds-points li { border-left-color: var(--case-accent); color: var(--ink-soft); font-size: 0.92rem; }
+.paira-ds-why .paira-ds-points strong { color: var(--ink); font-family: var(--font-display); font-size: 1.2rem; font-weight: 600; }
