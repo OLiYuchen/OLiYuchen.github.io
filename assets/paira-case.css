@@ -598,7 +598,7 @@
 .paira-surface-copy-cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 clamp(1.5rem, 3vw, 2.6rem); align-items: start; }
 .paira-surface-copy-cols p { max-width: none; }
 .paira-surface-copy-cols p + p { margin-top: 0; }
-.paira-surface-copy-cols .paira-surface-note { grid-column: 1; margin-top: 1rem; }
+.paira-surface-copy-cols .paira-surface-note { grid-column: 2; margin-top: 1rem; }
 
 /* onboarding strip: nine frames in one row, key frame emphasised; scrolls on narrow screens */
 .paira-screen-strip {
@@ -1900,9 +1900,13 @@
 /* Mentor flow: phone sized to fit the viewport under the header */
 .paira-case-page .paira-m-device { --pm-phone-w: clamp(210px, 17.5vw, 264px); --pm-sticky-top: 5rem; }
 
-/* onboarding strip: twelve frames scroll horizontally; the right edge fades to hint at more */
+/* onboarding strip: at desktop every frame fits in one row (no scrolling, no overlay); narrower screens scroll */
 .paira-screen-strip { position: relative; scroll-padding-inline: 1.25rem; }
-.paira-screen-strip::after { content: ""; position: sticky; right: 0; flex: 0 0 2.5rem; margin-left: -2.5rem; background: linear-gradient(90deg, rgba(247, 247, 250, 0), var(--case-paper)); pointer-events: none; }
+@media (min-width: 1025px) {
+  .paira-screen-strip { overflow: visible; margin: 0; padding: 0.4rem 0 0.6rem; }
+  .paira-screen-strip figure { min-width: 0; }
+  .paira-screen-strip figure.is-key { min-width: 0; flex-grow: 1.35; }
+}
 
 /* ---------- 06 Brand & Motion: black design lock, frosted tiles, slow light behind ---- */
 .paira-ds-board {
