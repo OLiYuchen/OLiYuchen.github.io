@@ -1822,11 +1822,12 @@
   font-weight: 500;
 }
 
-/* Pivot: what the new direction means, as four parts */
-.paira-case-page .paira-direction-intro { max-width: 40ch; margin: 0 0 1.1rem; font-family: var(--font-display); font-size: clamp(1.35rem, 2vw, 1.75rem); font-weight: 500; line-height: 1.25; color: var(--ink); }
-.paira-direction-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.9rem; }
-.paira-direction-grid article { display: grid; align-content: start; gap: 0.35rem; padding: clamp(1.1rem, 2vw, 1.5rem); border: 1px solid var(--case-line); border-radius: 1.1rem; background: rgba(255, 255, 255, 0.72); }
-.paira-direction-grid h3 { margin: 0.1rem 0 0.2rem; font-family: var(--font-display); font-size: clamp(1.25rem, 1.8vw, 1.55rem); font-weight: 600; line-height: 1.15; text-wrap: balance; }
-.paira-case-page .paira-direction-grid p:not(.project-meta) { margin: 0; color: var(--ink-soft); font-size: 0.92rem; line-height: 1.5; max-width: 44ch; }
+/* Pivot: what the new direction means, as a calm list */
+.paira-case-page .paira-direction-intro { margin: 0 0 0.6rem; font-family: var(--font-display); font-size: clamp(1.35rem, 2vw, 1.75rem); font-weight: 500; line-height: 1.25; color: var(--ink); }
+.paira-direction-list { max-width: 62rem; margin: 0; }
+.paira-direction-list > div { display: grid; grid-template-columns: minmax(10rem, 0.32fr) minmax(0, 1fr); gap: 1.2rem; padding: 0.95rem 0; border-top: 1px solid var(--case-line); }
+.paira-direction-list > div:last-child { border-bottom: 1px solid var(--case-line); }
+.paira-direction-list dt { margin: 0; color: var(--ink); font-weight: 600; font-size: 0.98rem; line-height: 1.45; }
+.paira-direction-list dd { margin: 0; color: var(--ink-soft); font-size: 0.95rem; line-height: 1.55; max-width: 60ch; }
 .paira-case-page .paira-direction-note { max-width: 66ch; margin: 1.3rem 0 0; color: var(--merlin-muted); font-size: 0.92rem; }
-@media (max-width: 760px) { .paira-direction-grid { grid-template-columns: 1fr; } }
+@media (max-width: 760px) { .paira-direction-list > div { grid-template-columns: 1fr; gap: 0.25rem; } }
