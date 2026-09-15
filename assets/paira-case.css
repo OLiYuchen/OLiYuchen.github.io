@@ -1701,7 +1701,7 @@
 /* Act 2 · Pivot: findings are the evidence; the slider and the replay are hero moments */
 .paira-case-page .paira-findings { margin-top: var(--sp-tight); }
 .paira-case-page .paira-m-pivot { margin-top: var(--sp-tight); }
-.paira-case-page .paira-lede-tight { margin-top: var(--sp-rest); }
+.paira-case-page .paira-direction { margin-top: var(--sp-rest); }
 .paira-case-page .paira-stage { margin-top: var(--sp-stage); }
 .paira-case-page .paira-pivot-takeaway { margin-top: var(--sp-rest); }
 
@@ -1821,3 +1821,12 @@
   font-size: 0.82rem;
   font-weight: 500;
 }
+
+/* Pivot: what the new direction means, as four parts */
+.paira-case-page .paira-direction-intro { max-width: 40ch; margin: 0 0 1.1rem; font-family: var(--font-display); font-size: clamp(1.35rem, 2vw, 1.75rem); font-weight: 500; line-height: 1.25; color: var(--ink); }
+.paira-direction-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.9rem; }
+.paira-direction-grid article { display: grid; align-content: start; gap: 0.35rem; padding: clamp(1.1rem, 2vw, 1.5rem); border: 1px solid var(--case-line); border-radius: 1.1rem; background: rgba(255, 255, 255, 0.72); }
+.paira-direction-grid h3 { margin: 0.1rem 0 0.2rem; font-family: var(--font-display); font-size: clamp(1.25rem, 1.8vw, 1.55rem); font-weight: 600; line-height: 1.15; text-wrap: balance; }
+.paira-case-page .paira-direction-grid p:not(.project-meta) { margin: 0; color: var(--ink-soft); font-size: 0.92rem; line-height: 1.5; max-width: 44ch; }
+.paira-case-page .paira-direction-note { max-width: 66ch; margin: 1.3rem 0 0; color: var(--merlin-muted); font-size: 0.92rem; }
+@media (max-width: 760px) { .paira-direction-grid { grid-template-columns: 1fr; } }

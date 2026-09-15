@@ -233,9 +233,31 @@
           </script>
         </div>
 
-        <div class="merlin-report-lede paira-lede-tight">
-          <p>Here is what the new direction means in the product. The unit is now a request, not a person. You describe what you need in plain words, and AI asks two or three clarifying questions and drafts the request for you, so nobody has to fill in a form or write a pitch. Matching runs on that request: Paira suggests helpers with the reason each one fits, and when both sides say yes, the AI writes a warm introduction and a short action plan, so the first message and the first step are already there. On the helper’s side, Explore shows a small set of Daily Picks, requests you could answer today, and a mentor-side AI flow turns “what can you help with” into matches in a couple of taps. Even the paid layer follows the same idea: you spend points to boost your request, not to unlock other people.</p>
-          <p>We made that call together, and I did not redesign every screen. My part was to carry the new direction into the surfaces I own, onboarding, Explore, profile, premium, and the mentor-side AI flow, and the next section walks through each one.</p>
+        <div class="paira-direction">
+          <p class="paira-direction-intro">What the new direction means in the product, in four parts.</p>
+          <div class="paira-direction-grid">
+            <article>
+              <p class="project-meta">The unit is a request</p>
+              <h3>Not a person to browse. A need to answer.</h3>
+              <p>You describe what you need in plain words. Matching runs on that request, and Paira suggests helpers with the reason each one fits.</p>
+            </article>
+            <article>
+              <p class="project-meta">AI does the writing</p>
+              <h3>The ask, the introduction, and the first step.</h3>
+              <p>AI asks two or three clarifying questions and drafts the request. When a helper is chosen, it writes a warm introduction and a short action plan, so the first message is already there.</p>
+            </article>
+            <article>
+              <p class="project-meta">Helpers get a short list</p>
+              <h3>Daily Picks and a two-tap mentor flow.</h3>
+              <p>Explore shows a small set of requests you could answer today. The mentor-side AI flow turns “what can you help with” into matches in a couple of taps.</p>
+            </article>
+            <article>
+              <p class="project-meta">Paid means visibility</p>
+              <h3>Boost a request, not unlock a profile.</h3>
+              <p>Points buy your request more attention for 24 hours. The paid layer follows the same idea as everything else: help the ask, not the ego.</p>
+            </article>
+          </div>
+          <p class="paira-direction-note">We made that call together, and I did not redesign every screen. My part was to carry the new direction into the surfaces I own, onboarding, Explore, profile, premium, and the mentor-side AI flow. The next section walks through each one.</p>
         </div>
 
         <!-- PM:01 AI request conversation -->
@@ -880,7 +902,7 @@
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const revealTargets = document.querySelectorAll('.merlin-report-lede, .merlin-hero-focus, .merlin-meta-frame, .merlin-project-detail-card, .case-cover-image, .paira-premise-line, .paira-framing-path, .paira-market-grid > *, .paira-research-step > *, .paira-pullquote-close, .paira-findings, .paira-stage-visual, .paira-stage-copy, .paira-loop-panel, .paira-surface, .paira-brand-spread, .paira-motion-pair > *, .paira-brand-gallery, .paira-growth-grid, .paira-film, .paira-traction, .paira-reflection, .paira-live-product');
+  const revealTargets = document.querySelectorAll('.merlin-report-lede, .merlin-hero-focus, .merlin-meta-frame, .merlin-project-detail-card, .case-cover-image, .paira-premise-line, .paira-framing-path, .paira-market-grid > *, .paira-research-step > *, .paira-pullquote-close, .paira-findings, .paira-direction-grid > article, .paira-stage-visual, .paira-stage-copy, .paira-loop-panel, .paira-surface, .paira-brand-spread, .paira-motion-pair > *, .paira-brand-gallery, .paira-growth-grid, .paira-film, .paira-traction, .paira-reflection, .paira-live-product');
   revealTargets.forEach((node, index) => { node.classList.add('merlin-reveal'); node.style.setProperty('--merlin-reveal-index', String(index % 4)); });
   if (prefersReducedMotion || !('IntersectionObserver' in window)) {
     revealTargets.forEach((node) => node.classList.add('is-visible'));
