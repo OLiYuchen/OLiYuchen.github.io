@@ -981,6 +981,31 @@
     }
   });
 
+  /* Long screens: the first time one comes into view it scrolls itself once, slowly; any touch hands control back */
+  document.querySelectorAll('.paira-phone-scroll-area').forEach((area) => {
+    if (prefersReducedMotion || !('IntersectionObserver' in window)) return;
+    let cancelled = false, raf = 0;
+    const stop = () => { cancelled = true; if (raf) cancelAnimationFrame(raf); };
+    ['wheel', 'touchstart', 'pointerdown', 'keydown'].forEach((type) => area.addEventListener(type, stop, { passive: true }));
+    const tour = () => {
+      const max = area.scrollHeight - area.clientHeight; if (max <= 0) return;
+      const duration = Math.min(14000, Math.max(6000, max * 4));
+      const start = performance.now();
+      const ease = (x) => x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
+      const step = (now) => {
+        if (cancelled) return;
+        const k = Math.min(1, (now - start) / duration);
+        area.scrollTop = ease(k) * max;
+        if (k < 1) raf = requestAnimationFrame(step);
+      };
+      raf = requestAnimationFrame(step);
+    };
+    const io = new IntersectionObserver((entries) => entries.forEach((entry) => {
+      if (entry.isIntersecting && !area.dataset.toured) { area.dataset.toured = '1'; io.disconnect(); setTimeout(tour, 600); }
+    }), { threshold: 0.6 });
+    io.observe(area);
+  });
+
   /* Muted looping clips play only while on screen */
   const clipVideos = document.querySelectorAll('.paira-phone-video video');
   if (clipVideos.length && 'IntersectionObserver' in window && !prefersReducedMotion) {
