@@ -1904,3 +1904,84 @@
 /* onboarding strip: twelve frames scroll horizontally; the right edge fades to hint at more */
 .paira-screen-strip { position: relative; scroll-padding-inline: 1.25rem; }
 .paira-screen-strip::after { content: ""; position: sticky; right: 0; flex: 0 0 2.5rem; margin-left: -2.5rem; background: linear-gradient(90deg, rgba(247, 247, 250, 0), var(--case-paper)); pointer-events: none; }
+
+/* ---------- 06 Brand & Motion: design-system board ------------------------- */
+.paira-ds-board {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin-top: var(--sp-tight);
+  padding: 0.8rem;
+  border-radius: 1.5rem;
+  background: var(--paira-ink);
+  color: #edeef1;
+  font-family: var(--paira-font-body);
+}
+.paira-ds-tile { display: grid; align-content: start; gap: 0.7rem; min-width: 0; padding: 1.1rem 1.15rem 1.15rem; border-radius: 1rem; background: #1c1c1c; border: 1px solid rgba(255, 255, 255, 0.08); }
+.paira-ds-mark, .paira-ds-loading { grid-column: span 1; }
+.paira-ds-type { grid-column: span 4; }
+.paira-ds-color { grid-column: span 3; }
+.paira-ds-components { grid-column: span 2; }
+.paira-ds-shape { grid-column: span 1; }
+.paira-ds-label { margin: 0; color: #b9b8ff; font-size: 0.66rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; }
+.paira-case-page .paira-ds-note { margin: 0; color: rgba(237, 238, 241, 0.62); font-size: 0.76rem; line-height: 1.45; }
+.paira-lottie-small { aspect-ratio: 1 / 1; width: min(100%, 7.5rem); padding: 0; margin: 0 auto; }
+.paira-lottie-small svg { width: 100%; height: 100%; }
+.paira-ds-mark .paira-lottie-small { cursor: pointer; }
+
+/* type */
+.paira-case-page .paira-ds-type-hero { margin: 0.2rem 0 0.4rem; color: #edeef1; font-family: var(--paira-font-display); font-size: clamp(1.8rem, 3vw, 2.7rem); font-weight: 700; line-height: 1.15; letter-spacing: 0.01em; }
+.paira-ds-type-hero em { color: var(--paira-yellow); font-style: italic; font-weight: 500; }
+.paira-ds-scale { display: grid; gap: 0; margin: 0; padding: 0; list-style: none; }
+.paira-ds-scale li { display: grid; grid-template-columns: minmax(7rem, 0.4fr) minmax(0, 1fr); gap: 1rem; align-items: baseline; padding: 0.45rem 0; border-top: 1px solid rgba(255, 255, 255, 0.08); color: rgba(237, 238, 241, 0.62); font-size: 0.74rem; }
+.paira-ds-sample { color: #edeef1; }
+.paira-ds-sample-display { font-family: var(--paira-font-display); font-size: 1.5rem; font-weight: 800; letter-spacing: 0.02em; }
+.paira-ds-sample-h1 { font-family: var(--paira-font-display); font-size: 1.15rem; font-weight: 700; }
+.paira-ds-sample-body { font-size: 0.95rem; font-weight: 400; }
+.paira-ds-sample-foot { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.02em; }
+.paira-ds-sample-button { font-size: 0.9rem; font-weight: 800; }
+
+/* color */
+.paira-ds-ramps { display: grid; gap: 0.6rem; }
+.paira-ds-ramp { display: grid; grid-template-columns: repeat(5, 1.6rem) minmax(0, 1fr); grid-template-rows: auto auto; gap: 0.25rem 0.3rem; align-items: center; }
+.paira-ds-ramp > span { grid-column: 1 / -1; color: rgba(237, 238, 241, 0.62); font-size: 0.72rem; }
+.paira-ds-ramp i { display: block; height: 1.6rem; border-radius: 0.4rem; background: var(--c); border: 1px solid rgba(255, 255, 255, 0.08); }
+.paira-ds-ramp b { margin-left: 0.3rem; color: #edeef1; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.04em; }
+
+/* components */
+.paira-ds-row { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; }
+.paira-ds-chip { padding: 0.2rem 0.55rem; border-radius: 999px; border: 1px solid var(--c); color: var(--c); background: color-mix(in srgb, var(--c) 10%, transparent); font-size: 0.68rem; font-weight: 500; letter-spacing: 0.02em; }
+.paira-ds-badge { padding: 0.26rem 0.6rem; border-radius: 999px; color: var(--paira-ink); background: var(--b); font-size: 0.7rem; font-weight: 600; }
+.paira-ds-badge-boost { color: #fff; background: var(--paira-violet); }
+.paira-ds-btn { padding: 0.5rem 0.85rem; border-radius: 999px; font-size: 0.74rem; font-weight: 800; letter-spacing: 0.01em; }
+.paira-ds-btn-yellow { color: var(--paira-ink); background: var(--paira-yellow); }
+.paira-ds-btn-violet { color: #fff; background: var(--paira-violet); }
+.paira-ds-btn-ghost { color: rgba(237, 238, 241, 0.75); border: 1px solid rgba(255, 255, 255, 0.18); }
+
+/* shape & motion */
+.paira-ds-radii { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.4rem; }
+.paira-ds-radii i { display: grid; place-items: center; aspect-ratio: 1 / 1; border-radius: var(--r); background: #2a2a2a; border: 1px solid rgba(255, 255, 255, 0.12); }
+.paira-ds-radii b { color: rgba(237, 238, 241, 0.7); font-size: 0.62rem; font-weight: 600; }
+.paira-ds-motion { display: grid; gap: 0.5rem; margin: 0.2rem 0 0; padding: 0; list-style: none; color: rgba(237, 238, 241, 0.62); font-size: 0.72rem; line-height: 1.4; }
+.paira-ds-motion li { display: grid; grid-template-columns: 0.9rem 1fr; gap: 0.5rem; align-items: start; }
+.paira-ds-dot { width: 0.55rem; height: 0.55rem; margin-top: 0.3rem; border-radius: 50%; background: var(--paira-yellow); animation: paira-ds-tap 1.8s cubic-bezier(.22,1,.36,1) infinite; }
+.paira-ds-dot-slow { background: var(--paira-violet); animation: paira-ds-slide 3s cubic-bezier(.22,1,.36,1) infinite; }
+.paira-ds-dot-breathe { background: #b9b8ff; animation: paira-ds-breathe 2.4s ease-in-out infinite; }
+@keyframes paira-ds-tap { 0%, 70%, 100% { transform: scale(1); } 78% { transform: scale(1.5); } }
+@keyframes paira-ds-slide { 0%, 55%, 100% { transform: translateX(0); } 70%, 85% { transform: translateX(0.35rem); } }
+@keyframes paira-ds-breathe { 0%, 100% { opacity: 0.35; } 50% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .paira-ds-dot, .paira-ds-dot-slow, .paira-ds-dot-breathe { animation: none; } }
+
+@media (max-width: 1024px) {
+  .paira-ds-board { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .paira-ds-mark, .paira-ds-loading { grid-column: span 2; }
+  .paira-ds-type, .paira-ds-color { grid-column: span 4; }
+  .paira-ds-components { grid-column: span 3; }
+  .paira-ds-shape { grid-column: span 1; }
+}
+@media (max-width: 760px) {
+  .paira-ds-board { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .paira-ds-mark, .paira-ds-loading { grid-column: span 1; }
+  .paira-ds-type, .paira-ds-color, .paira-ds-components, .paira-ds-shape { grid-column: span 2; }
+  .paira-ds-scale li { grid-template-columns: 1fr; gap: 0.1rem; }
+}

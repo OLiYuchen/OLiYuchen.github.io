@@ -345,9 +345,7 @@
               <figure><img src="../assets/img/paira/onboarding/11-name.webp" alt="What should we call you? Name fields" width="393" height="852" loading="lazy" decoding="async" /><figcaption>Name</figcaption></figure>
               <figure><img src="../assets/img/paira/onboarding/12-basics-photo-headline.webp" alt="Profile basics: photo and headline" width="393" height="852" loading="lazy" decoding="async" /><figcaption>Photo + headline</figcaption></figure>
               <figure><img src="../assets/img/paira/onboarding/13-intentions.webp" alt="So, what's on your radar? Things I can do and things I want to do" width="393" height="852" loading="lazy" decoding="async" /><figcaption>Intentions</figcaption></figure>
-              <figure><img src="../assets/img/paira/onboarding/14-industries.webp" alt="Industry selection" width="393" height="852" loading="lazy" decoding="async" /><figcaption>Industries</figcaption></figure>
               <figure><img src="../assets/img/paira/onboarding/15-notifications.webp" alt="Get notified permission screen" width="393" height="852" loading="lazy" decoding="async" /><figcaption>Notifications</figcaption></figure>
-              <figure><img src="../assets/img/paira/onboarding/16-referral.webp" alt="Referral code screen with 50 free points" width="393" height="852" loading="lazy" decoding="async" /><figcaption>Referral</figcaption></figure>
               <figure class="is-key"><img src="../assets/img/paira/onboarding/17-ai-home.webp" alt="Hey Olivia, what would you like to do today? I'm looking for help, or I want to help others" width="786" height="1704" loading="lazy" decoding="async" /><figcaption>Straight into the AI flow</figcaption></figure>
               <figure><img src="../assets/img/paira/onboarding/18-request-hub-empty.webp" alt="Request Hub, empty: you haven't posted any requests yet, try chatting with Paira to create your first one" width="786" height="1704" loading="lazy" decoding="async" /><figcaption>First request, first thing</figcaption></figure>
             </div>
@@ -760,28 +758,58 @@
           <h2>I designed Paira to look like the opposite of a corporate networking room, then kept it consistent across the app, the site, and the street.</h2>
           <p>Paira lives on near-black with two voices: an acid yellow for the person asking, and a soft violet for the person helping and for the AI. Headlines are Playfair Display in italic and body text is Plus Jakarta Sans, which lets a screen feel editorial without feeling formal. The mark is two rounded shapes that overlap, one blue, one yellow: the person asking and the person helping. I drew the logo and the icon family, then built the loading animation so the same two shapes do the waiting. The component library is shared with the team. The identity is mine.</p>
         </div>
-        <div class="paira-brand-spread">
-          <article class="paira-brand-mark">
-            <p class="project-meta">App icon</p>
-            <img src="../assets/img/paira/brand-gallery/app-icon.webp" alt="Paira app icon" width="700" height="700" loading="lazy" decoding="async" />
-            <p>The two-part mark holds both sides of the exchange: asking and helping.</p>
+        <div class="paira-ds-board" aria-label="Paira design system board">
+          <article class="paira-ds-tile paira-ds-mark">
+            <p class="paira-ds-label">Mark</p>
+            <div class="paira-lottie paira-lottie-small" data-lottie="../assets/img/paira/brand/paira-logo.json" data-lottie-once="true" aria-label="Paira logo animation: two shapes assemble into the mark"></div>
+            <p class="paira-ds-note">Two shapes, one asking and one helping. Tap to replay.</p>
           </article>
-          <article class="paira-brand-language">
-            <p class="project-meta">Visual language</p>
-            <h3>Electric clarity, softened by playful form.</h3>
-            <div class="paira-swatches" aria-label="Paira color palette"><span title="Paira yellow #FBFF5C" style="--sw:#fbff5c"></span><span title="Paira violet #605CFF" style="--sw:#605cff"></span><span title="Ink #131313" style="--sw:#131313"></span><span title="Soft lilac #E5E5FF" style="--sw:#e5e5ff"></span></div>
-            <p>Color carries action and recognition. Neutral surfaces keep dense content readable. Motion follows the same rule as the copy: short, clear, and pointed at the next thing.</p>
+          <article class="paira-ds-tile paira-ds-loading">
+            <p class="paira-ds-label">Loading</p>
+            <div class="paira-lottie paira-lottie-small" data-lottie="../assets/img/paira/brand/paira-loading.json" aria-label="Paira loading animation"></div>
+            <p class="paira-ds-note">The same two shapes do the waiting. Breathe, never spin.</p>
           </article>
-        </div>
-        <div class="paira-motion-pair">
-          <figure class="paira-lottie-card">
-            <div class="paira-lottie" data-lottie="../assets/img/paira/brand/paira-loading.json" aria-label="Paira loading animation: the two shapes of the mark breathe while the app waits"></div>
-            <figcaption><span>Loading</span> The mark does the waiting. Loading states breathe rather than spin.</figcaption>
-          </figure>
-          <figure class="paira-lottie-card paira-lottie-card-logo">
-            <div class="paira-lottie" data-lottie="../assets/img/paira/brand/paira-logo.json" data-lottie-once="true" aria-label="Paira logo animation: the two shapes assemble into the mark"></div>
-            <figcaption><span>Logo</span> The two shapes assemble into the mark. Plays once on the splash screen.</figcaption>
-          </figure>
+          <article class="paira-ds-tile paira-ds-type">
+            <p class="paira-ds-label">Type</p>
+            <p class="paira-ds-type-hero">Find the help. <em>Be the help.</em></p>
+            <ul class="paira-ds-scale">
+              <li><span class="paira-ds-sample paira-ds-sample-display">Display</span><span>Playfair Display · 56 / 44 / 34 / 26 · 700–800</span></li>
+              <li><span class="paira-ds-sample paira-ds-sample-h1">Headline</span><span>Playfair 23 · Plus Jakarta 22 / 18 / 15 · 600–700</span></li>
+              <li><span class="paira-ds-sample paira-ds-sample-body">Body</span><span>Plus Jakarta Sans · 18 / 15 / 13 · 400</span></li>
+              <li><span class="paira-ds-sample paira-ds-sample-foot">Footnote</span><span>Plus Jakarta Sans · 12 · 500 · +2% tracking</span></li>
+              <li><span class="paira-ds-sample paira-ds-sample-button">Button</span><span>Plus Jakarta Sans · 18 / 16 / 14 · 700–800</span></li>
+            </ul>
+          </article>
+          <article class="paira-ds-tile paira-ds-color">
+            <p class="paira-ds-label">Color</p>
+            <div class="paira-ds-ramps">
+              <div class="paira-ds-ramp"><span>Yellow · the person asking</span><i style="--c:#fbff5c"></i><i style="--c:#d2d600"></i><i style="--c:#abae00"></i><i style="--c:#848700"></i><i style="--c:#606200"></i><b>#FBFF5C</b></div>
+              <div class="paira-ds-ramp"><span>Violet · the person helping, and the AI</span><i style="--c:#e5e5ff"></i><i style="--c:#b9b8ff"></i><i style="--c:#8e8cff"></i><i style="--c:#605cff"></i><i style="--c:#2616ff"></i><b>#605CFF</b></div>
+              <div class="paira-ds-ramp"><span>Neutral · surfaces and text</span><i style="--c:#f7f7f1"></i><i style="--c:#cecec9"></i><i style="--c:#82827f"></i><i style="--c:#3d3d3b"></i><i style="--c:#131313"></i><b>#131313</b></div>
+              <div class="paira-ds-ramp paira-ds-ramp-status"><span>Status</span><i style="--c:#1cba5b" title="Open"></i><i style="--c:#cfbb21" title="In progress"></i><i style="--c:#bbe289" title="Chatting"></i><i style="--c:#6383f7" title="Completed"></i><i style="--c:#d37164" title="Due"></i><b>Open · Progress · Chat · Done · Due</b></div>
+            </div>
+          </article>
+          <article class="paira-ds-tile paira-ds-components">
+            <p class="paira-ds-label">Components</p>
+            <div class="paira-ds-row">
+              <span class="paira-ds-chip" style="--c:#1cba5b">Open</span><span class="paira-ds-chip" style="--c:#cfbb21">In Progress</span><span class="paira-ds-chip" style="--c:#6383f7">Completed</span><span class="paira-ds-chip" style="--c:#d37164">Due in 3 days</span>
+            </div>
+            <div class="paira-ds-row">
+              <span class="paira-ds-badge" style="--b:#fbff5c">Strong Match</span><span class="paira-ds-badge" style="--b:#d9f7c6">Quick Win</span><span class="paira-ds-badge" style="--b:#ffe0b8">High Upside</span><span class="paira-ds-badge paira-ds-badge-boost">Boosted</span>
+            </div>
+            <div class="paira-ds-row">
+              <span class="paira-ds-btn paira-ds-btn-yellow">Post and see the helpers</span><span class="paira-ds-btn paira-ds-btn-violet">Confirm &amp; See Matches</span><span class="paira-ds-btn paira-ds-btn-ghost">Skip for now</span>
+            </div>
+          </article>
+          <article class="paira-ds-tile paira-ds-shape">
+            <p class="paira-ds-label">Shape &amp; motion</p>
+            <div class="paira-ds-radii"><i style="--r:4px"><b>4</b></i><i style="--r:12px"><b>12</b></i><i style="--r:16px"><b>16</b></i><i style="--r:20px"><b>20</b></i><i style="--r:36px"><b>36</b></i><i style="--r:999px"><b>pill</b></i></div>
+            <ul class="paira-ds-motion">
+              <li><span class="paira-ds-dot"></span>Short: 150 to 300 ms for taps and chips</li>
+              <li><span class="paira-ds-dot paira-ds-dot-slow"></span>Sheets and screens: 420 ms, ease out, no bounce</li>
+              <li><span class="paira-ds-dot paira-ds-dot-breathe"></span>AI states show their work for a beat, then leave</li>
+            </ul>
+          </article>
         </div>
       </div>
     </div>
@@ -892,7 +920,7 @@
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const revealTargets = document.querySelectorAll('.merlin-report-lede, .merlin-hero-focus, .merlin-meta-frame, .merlin-project-detail-card, .case-cover-image, .paira-premise-line, .paira-framing-path, .paira-market-grid > *, .paira-research-step > *, .paira-pullquote-close, .paira-findings, .paira-pivot-block, .paira-surface, .paira-brand-spread, .paira-motion-pair > *, .paira-brand-gallery, .paira-growth-grid, .paira-film, .paira-traction, .paira-reflection, .paira-live-product');
+  const revealTargets = document.querySelectorAll('.merlin-report-lede, .merlin-hero-focus, .merlin-meta-frame, .merlin-project-detail-card, .case-cover-image, .paira-premise-line, .paira-framing-path, .paira-market-grid > *, .paira-research-step > *, .paira-pullquote-close, .paira-findings, .paira-pivot-block, .paira-surface, .paira-ds-tile, .paira-brand-gallery, .paira-growth-grid, .paira-film, .paira-traction, .paira-reflection, .paira-live-product');
   revealTargets.forEach((node, index) => { node.classList.add('merlin-reveal'); node.style.setProperty('--merlin-reveal-index', String(index % 4)); });
   if (prefersReducedMotion || !('IntersectionObserver' in window)) {
     revealTargets.forEach((node) => node.classList.add('is-visible'));
