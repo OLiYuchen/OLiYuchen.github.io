@@ -909,7 +909,7 @@
       <div class="merlin-report-content">
         <div class="merlin-report-lede">
           <h2>A year at Paira taught me two things at once: how to grow inside a team, and how to make the team work better.</h2>
-          <p>Shipping a product from an idea with a small team means the roles blur. I went in as a designer and came out with a clearer sense of what I can carry, and with a few working methods the team still uses.</p>
+          <p>Shipping a product from an idea with a small team means the roles blur. I joined as a designer; a year in, I have a much clearer sense of what I can carry, and a few working methods the team now runs on.</p>
         </div>
 
         <div class="paira-reflect">
@@ -931,10 +931,7 @@
           </div>
         </div>
 
-        <div class="merlin-outcome-panel paira-reflection">
-          <div><p class="project-meta">What I would keep</p><p>The request as the unit of the product, badges that explain instead of score, and a daily Explore that ends. Clear limits made the helper side feel finishable, and every change earned its place through review and user tests.</p></div>
-          <div><p class="project-meta">What comes next</p><p>Focus the paid layer on request visibility, evolve the match-era features into request-first ones, and measure how much profile a first request really needs.</p></div>
-        </div>
+        
       </div>
     </div>
   </section>
@@ -969,7 +966,7 @@
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const revealTargets = document.querySelectorAll('.merlin-report-lede, .merlin-hero-focus, .merlin-meta-frame, .merlin-project-detail-card, .case-cover-image, .paira-premise-line, .paira-framing-path, .paira-market-grid > *, .paira-research-step > *, .paira-pullquote-close, .paira-findings, .paira-pivot-block, .paira-surface, .paira-ds-tile, .paira-materials-col > *, .paira-stack > *, .paira-growth-grid, .paira-reflect-col, .paira-reflection, .paira-live-product');
+  const revealTargets = document.querySelectorAll('.merlin-report-lede, .merlin-hero-focus, .merlin-meta-frame, .merlin-project-detail-card, .case-cover-image, .paira-premise-line, .paira-framing-path, .paira-market-grid > *, .paira-research-step > *, .paira-pullquote-close, .paira-findings, .paira-pivot-block, .paira-surface, .paira-ds-tile, .paira-materials-col > *, .paira-stack > *, .paira-growth-grid, .paira-reflect-col, .paira-live-product');
   revealTargets.forEach((node, index) => { node.classList.add('merlin-reveal'); node.style.setProperty('--merlin-reveal-index', String(index % 4)); });
   if (prefersReducedMotion || !('IntersectionObserver' in window)) {
     revealTargets.forEach((node) => node.classList.add('is-visible'));
