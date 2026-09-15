@@ -2127,3 +2127,13 @@
 .paira-live-art { margin: 0; justify-self: center; width: min(100%, 22rem); }
 .paira-live-art img { display: block; width: 100%; height: auto; filter: drop-shadow(0 14px 24px rgba(19, 19, 19, 0.12)); }
 @media (max-width: 760px) { .paira-live-art { width: min(100%, 16rem); } }
+
+/* ---------- 09 Reflection: two directions, three points each ---------------- */
+.paira-reflect { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.6rem, 4vw, 3.4rem); margin-top: var(--sp-block); }
+.paira-reflect-list { display: grid; margin: 0.6rem 0 0; padding: 0; list-style: none; counter-reset: rf; }
+.paira-reflect-list li { position: relative; padding: 0.9rem 0 0.9rem 2.1rem; border-top: 1px solid var(--case-line); counter-increment: rf; color: var(--ink-soft); font-size: 0.95rem; line-height: 1.55; }
+.paira-reflect-list li:last-child { border-bottom: 1px solid var(--case-line); }
+.paira-reflect-list li::before { content: counter(rf, decimal-leading-zero); position: absolute; top: 1.05rem; left: 0; color: var(--case-accent-deep); font-family: var(--font-body); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; }
+.paira-reflect-list strong { display: block; margin-bottom: 0.15rem; color: var(--ink); font-family: var(--font-display); font-size: 1.2rem; font-weight: 600; line-height: 1.2; }
+.paira-case-page .paira-reflection { margin-top: var(--sp-block); }
+@media (max-width: 760px) { .paira-reflect { grid-template-columns: 1fr; } }

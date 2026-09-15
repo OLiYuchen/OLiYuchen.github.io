@@ -908,14 +908,33 @@
       <aside class="merlin-report-section-label"><p class="section-label">Reflection</p><span>09</span></aside>
       <div class="merlin-report-content">
         <div class="merlin-report-lede">
-          <h2>A pivot is only real when the smallest surfaces agree with it.</h2>
-          <p>Paira taught me to hold two altitudes at once: the product-level call to build around a request, and the screen-level work of making that call felt in an onboarding step, a badge label, or a points menu. Direction and interface are the same decision made at two scales. It also showed me where the next round of work is. Premium Ping and “See who Paira’d you” are the next surfaces to bring in line with requests, and the mentor-side AI flow, now shipped, is ready to be measured with real helpers. The product is still moving, and so is the plan.</p>
+          <h2>A year at Paira taught me two things at once: how to grow inside a team, and how to make the team work better.</h2>
+          <p>Shipping a product from an idea with a small team means the roles blur. I went in as a designer and came out with a clearer sense of what I can carry, and with a few working methods the team still uses.</p>
         </div>
+
+        <div class="paira-reflect">
+          <div class="paira-reflect-col">
+            <p class="project-meta">How I grew</p>
+            <ol class="paira-reflect-list">
+              <li><strong>From collaborator to shipper.</strong> I worked with the PM and the developers on requirements from the first frame to the App Store, and often was the PM, and half a developer, when the work needed it.</li>
+              <li><strong>Finding better ways to work together.</strong> We moved from everyone working separately and posting updates, to using AI to carry ideas, and to putting the prototype on the web so the whole team could brainstorm and vibe-code on the same screens.</li>
+              <li><strong>Defining the product, and my place in it.</strong> In mixed roles and an unknown market, I learned to help decide what Paira should become next, and where my strengths are most useful: product judgment, systems, and the craft of the screen.</li>
+            </ol>
+          </div>
+          <div class="paira-reflect-col">
+            <p class="project-meta">What I built for the team</p>
+            <ol class="paira-reflect-list">
+              <li><strong>A cleaner path from design to code.</strong> As the app grew, the hard questions became: where is the latest screen, what is in development, what is built but still has issues. I organized the current screens and wrote a simple set of rules each role follows, so everyone stays in sync.</li>
+              <li><strong>One design system, app and web.</strong> Bringing the app’s system to the web version made the marketing site faster to build, and made this case study possible.</li>
+              <li><strong>AI as a working partner.</strong> I keep testing where AI helps UI/UX design and where it does not, and I build my own small tools and agents along the way, so my learning compounds with the team’s.</li>
+            </ol>
+          </div>
+        </div>
+
         <div class="merlin-outcome-panel paira-reflection">
-          <div><p class="project-meta">What I would keep</p><p>The request as the unit of the product, badges that explain instead of score, and a daily Explore that ends. Clear limits made the helper side feel finishable.</p></div>
-          <div><p class="project-meta">What I would change next</p><p>Focus the paid layer on request visibility, evolve the match-era features into request-first ones, and measure how much profile a first request really needs.</p></div>
+          <div><p class="project-meta">What I would keep</p><p>The request as the unit of the product, badges that explain instead of score, and a daily Explore that ends. Clear limits made the helper side feel finishable, and every change earned its place through review and user tests.</p></div>
+          <div><p class="project-meta">What comes next</p><p>Focus the paid layer on request visibility, evolve the match-era features into request-first ones, and measure how much profile a first request really needs.</p></div>
         </div>
-        
       </div>
     </div>
   </section>
@@ -950,7 +969,7 @@
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const revealTargets = document.querySelectorAll('.merlin-report-lede, .merlin-hero-focus, .merlin-meta-frame, .merlin-project-detail-card, .case-cover-image, .paira-premise-line, .paira-framing-path, .paira-market-grid > *, .paira-research-step > *, .paira-pullquote-close, .paira-findings, .paira-pivot-block, .paira-surface, .paira-ds-tile, .paira-materials-col > *, .paira-stack > *, .paira-growth-grid, .paira-reflection, .paira-live-product');
+  const revealTargets = document.querySelectorAll('.merlin-report-lede, .merlin-hero-focus, .merlin-meta-frame, .merlin-project-detail-card, .case-cover-image, .paira-premise-line, .paira-framing-path, .paira-market-grid > *, .paira-research-step > *, .paira-pullquote-close, .paira-findings, .paira-pivot-block, .paira-surface, .paira-ds-tile, .paira-materials-col > *, .paira-stack > *, .paira-growth-grid, .paira-reflect-col, .paira-reflection, .paira-live-product');
   revealTargets.forEach((node, index) => { node.classList.add('merlin-reveal'); node.style.setProperty('--merlin-reveal-index', String(index % 4)); });
   if (prefersReducedMotion || !('IntersectionObserver' in window)) {
     revealTargets.forEach((node) => node.classList.add('is-visible'));
