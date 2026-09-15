@@ -2030,3 +2030,58 @@
 .paira-ds-why .paira-ds-points { gap: 0.8rem; }
 .paira-ds-why .paira-ds-points li { border-left-color: var(--case-accent); color: var(--ink-soft); font-size: 0.92rem; }
 .paira-ds-why .paira-ds-points strong { color: var(--ink); font-family: var(--font-display); font-size: 1.2rem; font-weight: 600; }
+
+/* ---------- 07 Brand in the World: materials around the film ---------------- */
+.paira-materials {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 0.9rem;
+  align-items: start;
+  margin-top: var(--sp-tight);
+}
+.paira-materials-col { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.9rem; align-content: start; }
+.paira-materials-center { grid-template-columns: 1fr; }
+.paira-materials-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.9rem; }
+
+.paira-poster { margin: 0; overflow: hidden; border: 1px solid var(--case-line); border-radius: 0.9rem; background: rgba(255, 255, 255, 0.78); }
+.paira-poster img { display: block; width: 100%; height: auto; }
+.paira-poster figcaption { padding: 0.55rem 0.7rem 0.65rem; border-top: 1px solid var(--case-line); color: var(--merlin-muted); font-size: 0.7rem; font-weight: 600; line-height: 1.35; }
+
+/* the film tile: poster frame, play mark, and a short invitation */
+.paira-film-tile {
+  position: relative; display: grid; width: 100%; padding: 0; overflow: hidden;
+  border: 1px solid var(--case-line); border-radius: 1.1rem; background: var(--paira-ink); color: #fff;
+  cursor: pointer; text-align: left; font: inherit;
+  box-shadow: 0 20px 44px rgba(19, 19, 19, 0.18);
+  transition: transform 220ms cubic-bezier(.22,1,.36,1), box-shadow 220ms ease;
+}
+.paira-film-tile:hover { transform: translateY(-3px); box-shadow: 0 26px 54px rgba(19, 19, 19, 0.24); }
+.paira-film-tile:focus-visible { outline: 3px solid var(--case-accent); outline-offset: 3px; }
+.paira-film-tile img { display: block; width: 100%; height: auto; opacity: 0.92; transition: transform 400ms cubic-bezier(.22,1,.36,1); }
+.paira-film-tile:hover img { transform: scale(1.02); }
+.paira-film-tile-play {
+  position: absolute; top: 50%; left: 50%; width: 4rem; height: 4rem; border-radius: 50%;
+  transform: translate(-50%, -75%); background: rgba(19, 19, 19, 0.55); border: 1px solid rgba(255, 255, 255, 0.35);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+}
+.paira-film-tile-play::after { content: ""; position: absolute; top: 50%; left: 54%; transform: translate(-50%, -50%); border-left: 1.1rem solid #fff; border-top: 0.7rem solid transparent; border-bottom: 0.7rem solid transparent; }
+.paira-film-tile-text { display: grid; gap: 0.15rem; padding: 0.9rem 1rem 1rem; border-top: 1px solid rgba(255, 255, 255, 0.1); background: rgba(19, 19, 19, 0.96); font-family: var(--paira-font-body); }
+.paira-film-tile-text em { color: #b9b8ff; font-size: 0.66rem; font-style: normal; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+.paira-film-tile-text strong { font-family: var(--paira-font-display); font-style: italic; font-weight: 500; font-size: 1.25rem; line-height: 1.15; }
+.paira-film-tile-text span { color: rgba(255, 255, 255, 0.68); font-size: 0.78rem; line-height: 1.4; }
+
+/* film dialog: the film block in a modal */
+.paira-film-dialog { width: min(94vw, 78rem); max-height: 92vh; padding: 0; overflow: auto; border: 0; border-radius: 1.4rem; background: var(--paira-ink); color: #fff; }
+.paira-film-dialog::backdrop { background: rgba(19, 19, 19, 0.7); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+.paira-film-dialog .paira-dialog-close { border-color: rgba(255, 255, 255, 0.2); color: #fff; background: rgba(255, 255, 255, 0.12); }
+.paira-film-in-dialog { margin-top: 0; border-radius: 0; }
+
+@media (max-width: 1024px) {
+  .paira-materials { grid-template-columns: 1fr; }
+  .paira-materials-col { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .paira-materials-center { grid-template-columns: 1fr; order: -1; }
+}
+@media (max-width: 760px) {
+  .paira-materials-col { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .paira-materials-row { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.5rem; }
+}
