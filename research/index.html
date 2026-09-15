@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="追踪团队研究中每一次新发现如何改变当前认知。" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Research OS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar" aria-label="项目导航">
+      <div class="sidebar-head">
+        <button class="workspace-switch" type="button" aria-label="切换工作区">
+          <span class="workspace-mark" aria-hidden="true">R</span>
+          <span><strong>Research OS</strong><small>Olivia's Workspace</small></span>
+          <i data-lucide="chevrons-up-down" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <div class="project-label">
+        <span>当前项目</span>
+        <button class="icon-btn" type="button" title="新建项目" aria-label="新建项目" data-action="new-project">
+          <i data-lucide="plus" aria-hidden="true"></i>
+        </button>
+      </div>
+      <button class="project-switch" type="button">
+        <span class="project-dot" aria-hidden="true"></span>
+        <span><strong id="sidebarProjectName">Corgi ETF 研究</strong><small>3 人协作</small></span>
+        <i data-lucide="chevron-down" aria-hidden="true"></i>
+      </button>
+
+      <nav class="project-nav" aria-label="研究区域">
+        <button class="nav-item is-active" type="button" data-view="overview"><i data-lucide="layout-dashboard"></i><span>概览</span></button>
+        <button class="nav-item" type="button" data-view="my-research"><i data-lucide="lock-keyhole"></i><span>我的研究</span><span class="nav-count" id="privateCount">4</span></button>
+        <button class="nav-item" type="button" data-view="team-research"><i data-lucide="users"></i><span>团队研究</span></button>
+        <button class="nav-item" type="button" data-view="questions"><i data-lucide="circle-help"></i><span>待解问题</span><span class="nav-count" id="questionCount">3</span></button>
+        <button class="nav-item" type="button" data-view="synthesis"><i data-lucide="file-check-2"></i><span>当前结论</span></button>
+        <button class="nav-item" type="button" data-view="research-log"><i data-lucide="history"></i><span>研究日志</span></button>
+        <button class="nav-item" type="button" data-view="sources"><i data-lucide="library"></i><span>资料来源</span></button>
+      </nav>
+
+      <div class="privacy-note">
+        <i data-lucide="shield-check" aria-hidden="true"></i>
+        <p><strong>私人内容仅你可见</strong><span>只有发布后才会进入团队结论。</span></p>
+      </div>
+
+      <div class="profile-row">
+        <span class="avatar avatar-olivia">OF</span>
+        <span><strong>Olivia Feng</strong><small>Workspace owner</small></span>
+        <button class="icon-btn" type="button" title="设置" aria-label="设置"><i data-lucide="settings"></i></button>
+      </div>
+    </aside>
+    <button class="sidebar-scrim" id="sidebarScrim" type="button" aria-label="关闭导航"></button>
+
+    <main class="main-area">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="icon-btn mobile-menu" id="menuButton" type="button" aria-label="打开导航"><i data-lucide="menu"></i></button>
+          <div class="project-heading">
+            <strong id="topProjectName">Corgi ETF 基础设施研究</strong>
+            <span><span class="status-dot"></span>Active</span>
+          </div>
+        </div>
+        <div class="topbar-actions">
+          <label class="global-search">
+            <i data-lucide="search" aria-hidden="true"></i>
+            <input id="globalSearchInput" type="search" placeholder="搜索研究内容" aria-label="搜索研究内容" />
+            <kbd>⌘ K</kbd>
+          </label>
+          <button class="btn secondary compact-hide" type="button" data-action="add-source"><i data-lucide="paperclip"></i><span>添加资料</span></button>
+          <button class="btn primary" type="button" data-action="publish"><i data-lucide="send"></i><span>发布贡献</span></button>
+        </div>
+      </header>
+
+      <div class="content" id="content" tabindex="-1"></div>
+    </main>
+  </div>
+
+  <dialog id="sourceDialog" class="dialog">
+    <form method="dialog" id="sourceForm">
+      <div class="dialog-head">
+        <div><h2>添加资料</h2><p>新资料默认只保存在你的私人研究中。</p></div>
+        <button class="icon-btn" value="cancel" aria-label="关闭" type="submit"><i data-lucide="x"></i></button>
+      </div>
+      <div class="segmented" role="radiogroup" aria-label="资料类型">
+        <label><input type="radio" name="sourceType" value="URL" checked /><span><i data-lucide="link"></i>网页链接</span></label>
+        <label><input type="radio" name="sourceType" value="File" /><span><i data-lucide="file-up"></i>上传文件</span></label>
+        <label><input type="radio" name="sourceType" value="Text" /><span><i data-lucide="text"></i>粘贴文字</span></label>
+      </div>
+      <label class="field"><span>标题</span><input name="title" required placeholder="这份资料是什么" /></label>
+      <label class="field source-url"><span>链接</span><input name="url" type="url" placeholder="https://" /></label>
+      <label class="field source-file" hidden><span>文件</span><input name="file" type="file" accept=".pdf,.docx,.pptx,.txt,.md,.xlsx" /></label>
+      <label class="field source-text" hidden><span>内容</span><textarea name="text" rows="6" placeholder="粘贴需要保留的原文……"></textarea></label>
+      <div class="dialog-actions"><button class="btn secondary" value="cancel" type="submit">取消</button><button class="btn primary" value="default" type="submit"><i data-lucide="plus"></i>保存到私人研究</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="noteDialog" class="dialog">
+    <form method="dialog" id="noteForm">
+      <div class="dialog-head">
+        <div><h2>新建私人笔记</h2><p>草稿不会影响团队的当前结论。</p></div>
+        <button class="icon-btn" value="cancel" aria-label="关闭" type="submit"><i data-lucide="x"></i></button>
+      </div>
+      <label class="field"><span>标题</span><input name="title" required placeholder="记录一个方向或想法" /></label>
+      <label class="field"><span>笔记</span><textarea name="content" rows="9" required placeholder="这里可以是尚未成熟的研究过程……"></textarea></label>
+      <div class="dialog-actions"><button class="btn secondary" value="cancel" type="submit">取消</button><button class="btn primary" value="default" type="submit"><i data-lucide="save"></i>保存笔记</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="publishDialog" class="dialog dialog-wide">
+    <form method="dialog" id="publishForm">
+      <div class="dialog-head">
+        <div><h2>发布研究贡献</h2><p>发布后团队可见，并可用于 Research Diff 和结论更新。</p></div>
+        <button class="icon-btn" value="cancel" aria-label="关闭" type="submit"><i data-lucide="x"></i></button>
+      </div>
+      <div class="publish-grid">
+        <div class="form-stack">
+          <label class="field"><span>标题</span><input name="title" required placeholder="一句话说明这条发现" /></label>
+          <div class="field-row">
+            <label class="field"><span>类型</span><select name="type"><option>Finding</option><option>Evidence</option><option>Analysis</option><option>Hypothesis</option><option>Counterargument</option><option>Context</option><option>Recommendation</option></select></label>
+            <label class="field"><span>信心度</span><select name="confidence"><option>High</option><option selected>Medium</option><option>Low</option></select></label>
+          </div>
+          <label class="field"><span>发现摘要</span><textarea name="summary" rows="5" required placeholder="仅写可验证的事实或明确标注的判断……"></textarea></label>
+          <label class="field"><span>为什么重要</span><textarea name="why" rows="3" required placeholder="它如何影响当前认知或下一步研究？"></textarea></label>
+          <label class="field"><span>关联待解问题</span><select name="question" id="publishQuestion"></select></label>
+          <fieldset class="field source-picker"><legend>证据来源</legend><div id="publishSources"></div></fieldset>
+        </div>
+        <aside class="preflight" aria-live="polite">
+          <div class="preflight-head"><i data-lucide="sparkles"></i><strong>发布前检查</strong><span>AI 建议</span></div>
+          <div id="preflightResult" class="preflight-empty">填写标题和摘要后，系统会检查重复、冲突和新信息。</div>
+          <p class="ai-note"><i data-lucide="info"></i>检查结果不会阻止发布，最终判断由你完成。</p>
+        </aside>
+      </div>
+      <div class="dialog-actions"><button class="btn secondary" value="cancel" type="submit">保留草稿</button><button class="btn primary" value="default" type="submit"><i data-lucide="send"></i>发布到团队</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="challengeDialog" class="dialog">
+    <form method="dialog" id="challengeForm">
+      <input type="hidden" name="contributionId" />
+      <div class="dialog-head"><div><h2>质疑这条贡献</h2><p>原始内容会保留，你的理由将成为新的研究记录。</p></div><button class="icon-btn" value="cancel" aria-label="关闭" type="submit"><i data-lucide="x"></i></button></div>
+      <label class="field"><span>质疑理由</span><textarea name="reason" rows="5" required placeholder="指出可验证的冲突或证据缺口……"></textarea></label>
+      <label class="field"><span>支持证据（可选）</span><input name="evidence" placeholder="资料标题或链接" /></label>
+      <div class="dialog-actions"><button class="btn secondary" value="cancel" type="submit">取消</button><button class="btn danger" value="default" type="submit"><i data-lucide="message-square-warning"></i>提交质疑</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="questionDialog" class="dialog">
+    <form method="dialog" id="questionForm">
+      <div class="dialog-head"><div><h2>添加待解问题</h2><p>问题不是任务，不需要指定唯一负责人。</p></div><button class="icon-btn" value="cancel" aria-label="关闭" type="submit"><i data-lucide="x"></i></button></div>
+      <label class="field"><span>问题</span><input name="title" required placeholder="团队还需要回答什么？" /></label>
+      <label class="field"><span>为什么重要</span><textarea name="why" rows="4" required></textarea></label>
+      <label class="field"><span>优先级</span><select name="priority"><option>High</option><option selected>Medium</option><option>Low</option></select></label>
+      <div class="dialog-actions"><button class="btn secondary" value="cancel" type="submit">取消</button><button class="btn primary" value="default" type="submit"><i data-lucide="plus"></i>添加问题</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="searchDialog" class="dialog search-dialog">
+    <div class="search-dialog-head"><i data-lucide="search"></i><input id="searchDialogInput" type="search" placeholder="搜索贡献、资料、问题和日志" aria-label="全局搜索" /><button class="icon-btn" type="button" data-action="close-search" aria-label="关闭"><i data-lucide="x"></i></button></div>
+    <div id="searchResults" class="search-results"></div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

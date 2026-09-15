@@ -1,0 +1,1 @@
+window.docxPreview = window.docx;

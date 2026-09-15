@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Technique Explorations | Olivia Feng</title>
+  <meta
+    name="description"
+    content="Skill and technique explorations by Olivia Feng across physical computing, prototyping, fabrication, and tactile interaction design."
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="icon" type="image/png" href="/assets/img/personal-logo.png" />
+  <link rel="stylesheet" href="/assets/style.css" />
+</head>
+<body class="portfolio-home exploration-page">
+  <div class="page-orbit" aria-hidden="true"></div>
+
+  <header class="site-header home-header">
+    <div class="container header-row">
+      <a class="brand" href="/"><img class="brand-logo" src="/assets/img/personal-logo.png" alt="" aria-hidden="true" /><span>Olivia Feng</span></a>
+      <nav class="nav" aria-label="Primary">
+        <div class="nav-links">
+          <a href="/#selected-work">Work</a>
+          <a href="/about/">About</a>
+          <a href="/#contact">Contact</a>
+        </div>
+        <a class="btn btn-clear nav-cta" href="/assets/Yuchen_Olivia_Feng_Resume.pdf" target="_blank" rel="noreferrer">
+          <span class="nav-cta-icon" aria-hidden="true">&#8595;</span>
+          <span>Resume</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- <section class="section exploration-hero">
+      <div class="container exploration-hero-shell">
+        <a class="merlin-back-link exploration-back-link" href="/#technique-explorations"><span aria-hidden="true">←</span> Back to skill gallery</a>
+        <p class="section-label">Technique explorations</p>
+        <h1>Prototypes, circuits, and material studies that shaped my craft.</h1>
+      </div>
+    </section> -->
+
+    <section class="section exploration-section exploration-prototypes" aria-labelledby="physical-computing-heading">
+      <div class="container exploration-layout">
+        <aside class="exploration-jump-nav" aria-label="Skill gallery sections" tabindex="0">
+          <a href="#physical-computing">Physical Computing</a>
+          <a href="#bloom-fabric-book">Bloom Fabric Book</a>
+          <a href="#thermostat-flow">Thermostat Flow</a>
+          <a href="#voting-interaction">Voting Interaction</a>
+          <a href="#pet-care-appliance">Pet Care Appliance</a>
+          <a href="#sewn-chalk-bag">Sewn Chalk Bag</a>
+          <a href="#flat-pack-laptop-stand">Flat-Pack Stand</a>
+          <a href="#climbing-recovery-concept">Video Prototype</a>
+        </aside>
+
+        <div class="exploration-main">
+        <div class="section-heading exploration-category-heading">
+          <h2 id="physical-computing-heading">Physical Computing & Arduino systems</h2>
+        </div>
+        <article id="physical-computing" class="exploration-feature-detail exploration-feature-detail-compact">
+          <div class="exploration-detail-copy">
+            <div class="exploration-chip-row" aria-label="Physical computing techniques">
+              <span>Arduino</span>
+              <span>Capacitive sensing</span>
+              <span>Input/output logic</span>
+              <span>Web serial</span>
+            </div>
+            <h2 id="physical-computing-title">Sensor-driven hardware studies</h2>
+            <p>
+              A sequence of Arduino studies covering LED timing, PWM fading, photoresistor input, capacitive touch,
+              servo control, MOSFET load switching, joystick-to-web control, and a final cat-proof charging station.
+            </p>
+          </div>
+
+
+          <!-- <figure class="physical-overview-media">
+            <img src="/assets/img/physical-computing-overview.png" alt="Physical computing PIR motion sensor notes, circuit sketches, and charging station prototype" />
+          </figure> -->
+          <div class="exploration-evidence-grid" aria-label="Physical computing project evidence">
+            <figure>
+              <button class="exploration-motion-preview" type="button" aria-label="Play PWM fading prototype motion" aria-pressed="false">
+                <img src="/assets/img/explorations/pwm-fading-poster.webp" data-poster-src="/assets/img/explorations/pwm-fading-poster.webp" data-motion-src="/assets/img/explorations/pwm-fading-motion.webp" alt="PWM LED fading circuit with button input" width="260" height="146" loading="lazy" decoding="async" />
+                <span aria-hidden="true">&#9654;</span>
+              </button>
+              <figcaption>PWM fading and pushbutton-controlled LED behavior.</figcaption>
+            </figure>
+            <figure>
+              <button class="exploration-motion-preview" type="button" aria-label="Play photoresistor input prototype motion" aria-pressed="false">
+                <img src="/assets/img/explorations/photoresistor-input-poster.webp" data-poster-src="/assets/img/explorations/photoresistor-input-poster.webp" data-motion-src="/assets/img/explorations/photoresistor-input-motion.webp" alt="Photoresistor input controlling LEDs" width="330" height="186" loading="lazy" decoding="async" />
+                <span aria-hidden="true">&#9654;</span>
+              </button>
+              <figcaption>Photoresistor input mapped to sequential LED feedback.</figcaption>
+            </figure>
+            <figure>
+              <button class="exploration-motion-preview" type="button" aria-label="Play capacitive servo prototype motion" aria-pressed="false">
+                <img src="/assets/img/explorations/capacitive-servo-poster.webp" data-poster-src="/assets/img/explorations/capacitive-servo-poster.webp" data-motion-src="/assets/img/explorations/capacitive-servo-motion.webp" alt="Capacitive touch servo control prototype" width="260" height="146" loading="lazy" decoding="async" />
+                <span aria-hidden="true">&#9654;</span>
+              </button>
+              <figcaption>Capacitive touch mapped to servo motion.</figcaption>
+            </figure>
+            <figure>
+              <button class="exploration-motion-preview" type="button" aria-label="Play capacitive LED strip prototype motion" aria-pressed="false">
+                <img src="/assets/img/explorations/capacitive-led-strip-poster.webp" data-poster-src="/assets/img/explorations/capacitive-led-strip-poster.webp" data-motion-src="/assets/img/explorations/capacitive-led-strip-motion.webp" alt="Capacitive touch controlling LED strip brightness through transistor circuit" width="354" height="200" loading="lazy" decoding="async" />
+                <span aria-hidden="true">&#9654;</span>
+              </button>
+              <figcaption>MOSFET load switching for capacitive LED strip control.</figcaption>
+            </figure>
+            <figure>
+              <button class="exploration-motion-preview" type="button" aria-label="Play joystick web control prototype motion" aria-pressed="false">
+                <img src="/assets/img/explorations/joystick-web-control-poster.webp" data-poster-src="/assets/img/explorations/joystick-web-control-poster.webp" data-motion-src="/assets/img/explorations/joystick-web-control-motion.webp" alt="Joystick controlled web game prototype" width="382" height="250" loading="lazy" decoding="async" />
+                <span aria-hidden="true">&#9654;</span>
+              </button>
+              <figcaption>Joystick input driving a web game through serial communication.</figcaption>
+            </figure>
+            <figure><img src="/assets/img/explorations/charging-station-schematic.webp" alt="Cat-proof charging station schematic" loading="lazy" decoding="async" fetchpriority="low" /><figcaption>Final PIR, capacitive touch, LED strip, buzzer, and safety logic.</figcaption></figure>
+          </div>
+          <div class="exploration-text-grid">
+            <div>
+              <h3>Context</h3>
+              <p>I explored how physical inputs can shape digital or environmental feedback, starting with simple LED timing and building toward sensed interaction systems.</p>
+            </div>
+            <div>
+              <h3>Process</h3>
+              <p>Each circuit paired a schematic, breadboard implementation, firmware, and operation test. The final study combined a PIR motion sensor, capacitive touch, LED strip, and buzzer into one safety-oriented prototype.</p>
+            </div>
+            <div>
+              <h3>Outcome</h3>
+              <p>The work strengthened my technical fluency with sensors, PWM control, calibration, serial communication, and translating interaction intent into hardware behavior.</p>
+            </div>
+          </div>
+        </article>
+
+        <div class="section-heading exploration-category-heading">
+          <h2 id="prototype-gallery-title">Material, interface, and storytelling prototypes.</h2>
+        </div>
+
+        <article id="bloom-fabric-book" class="bloom-case-study bloom-compact-study">
+          <div class="bloom-compact-copy">
+            <div class="exploration-chip-row" aria-label="Bloom prototype methods">
+              <span>Featured prototype</span>
+              <span>Tactile learning</span>
+              <span>Fabric book</span>
+              <span>Soft anatomy</span>
+            </div>
+            <h2>Bloom Fabric Book</h2>
+            <p>
+              A soft puberty education toolkit that turns body literacy, period products, and self-preparation
+              into tactile pages young users can open, touch, and practice with.
+            </p>
+          </div>
+          <div class="bloom-compact-media">
+            <div class="bloom-video-frame">
+              <iframe
+                src="https://www.youtube.com/embed/Apy2kuGkbiE?autoplay=1&mute=1&loop=1&playlist=Apy2kuGkbiE&playsinline=1"
+                title="Bloom prototype walkthrough"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+            <div class="bloom-image-strip" aria-label="Bloom process images">
+              <img loading="lazy" decoding="async" fetchpriority="low" src="/assets/img/explorations/assets-final-cover-process.webp" alt="Bloom flower-inspired fabric cover process" />
+              <img loading="lazy" decoding="async" fetchpriority="low" src="/assets/img/explorations/assets-final-vulva-page-process.webp" alt="Bloom sewn vulva page process" />
+              <img loading="lazy" decoding="async" fetchpriority="low" src="/assets/img/explorations/assets-final-uterus-page-process.webp" alt="Bloom 3D printed uterus page process" />
+              <img loading="lazy" decoding="async" fetchpriority="low" src="/assets/img/explorations/assets-final-pad-placement-process.webp" alt="Bloom fabric pad placement process" />
+            </div>
+          </div>
+          <div class="bloom-compact-notes">
+            <div>
+              <h3>Challenge</h3>
+              <p>Make puberty education feel approachable, private, and less clinical.</p>
+            </div>
+            <div>
+              <h3>Prototype</h3>
+              <p>Fabric, felt, stuffing, 3D printing, laser cutting, and sewn interaction cues.</p>
+            </div>
+            <div>
+              <h3>Reflection</h3>
+              <p>The tactile format felt warm and clear; future iterations should reduce bulk and improve durability.</p>
+            </div>
+          </div>
+        </article>
+<!--
+        <div class="section-heading exploration-detail-heading">
+          <h2>A compact record of technique-led prototype work.</h2>
+        </div> -->
+
+        <div class="exploration-detail-list">
+          <article id="thermostat-flow" class="exploration-detail-card">
+            <div class="exploration-card-main">
+              <img loading="lazy" decoding="async" fetchpriority="low" src="/assets/img/explorations/assets-exercise-1-img-4218.webp" alt="Paper thermostat interface prototype" />
+            </div>
+            <div class="exploration-card-copy">
+              <p class="project-meta">Paper interface</p>
+              <h3>Thermostat Flow Sprint</h3>
+              <p>Design a thermostat interface that supports core home programming tasks.</p>
+              <dl class="exploration-mini-meta">
+                <div><dt>Method</dt><dd>Paper screens, flow diagram, rapid group synthesis</dd></div>
+                <div><dt>Takeaway</dt><dd>Paper prototyping exposed the logic quickly and made missing states easy to discuss.</dd></div>
+              </dl>
+              <div class="exploration-thumb-row" aria-label="Thermostat prototype details">
+                <img loading="lazy" decoding="async" fetchpriority="low" src="/assets/img/explorations/assets-exercise-1-img-4222.webp" alt="Thermostat user flow diagram" />
+                <img loading="lazy" decoding="async" fetchpriority="low" src="/assets/img/explorations/assets-exercise-1-img-4220.webp" alt="Thermostat paper prototype screen" />
+                <img loading="lazy" decoding="async" fetchpriority="low" src="/assets/img/explorations/assets-exercise-1-img-4221.webp" alt="Thermostat prototype testing setup" />
+              </div>
+            </div>
+          </article>
+
+          <article id="voting-interaction" class="exploration-detail-card">
+            <div class="exploration-card-main">
+              <img loading="lazy" decoding="async" fetchpriority="low" src="/assets/img/explorations/assets-exercise-2-voting-machine-cover.webp" alt="Low-fidelity voting machine prototype" />
+            </div>
+            <div class="exploration-card-copy">
+              <p class="project-meta">Low-fidelity system</p>
+              <h3>Voting Interaction Model</h3>
+              <p>Design a low-fidelity voting machine prototype with fewer steps and moving parts.</p>
+              <dl class="exploration-mini-meta">
+                <div><dt>Method</dt><dd>Sketch merging, physical low-fi model, fast peer testing</dd></div>
+                <div><dt>Outcome</dt><dd>Testing surfaced usability edge cases quickly and clarified where the interaction needed stronger feedback.</dd></div>
+              </dl>
+              <div class="exploration-thumb-row" aria-label="Voting prototype details">
+                <img loading="lazy" decoding="async" fetchpriority="low" src="/assets/img/explorations/assets-exercise-2-early-sketches.webp" alt="Voting machine early sketches" />
+                <img loading="lazy" decoding="async" fetchpriority="low" src="/assets/img/explorations/assets-exercise-2-user-flow.webp" alt="Voting machine user flow" />
+                <img loading="lazy" decoding="async" fetchpriority="low" src="/assets/img/explorations/assets-exercise-2-voting-machine-prototype.webp" alt="Voting machine prototype detail" />
+              </div>
+            </div>
+          </article>
+
+          <article id="pet-care-appliance" class="exploration-detail-card">
+            <div class="exploration-card-main">
+              <img loading="lazy" decoding="async" fetchpriority="low" src="/assets/img/explorations/assets-assignment-1-prompt-product-shot.webp" alt="All-in-one pet grooming appliance prototype" />
+            </div>
+            <div class="exploration-card-copy">
+              <p class="project-meta">3D low-fi product</p>
+              <h3>Pet Care Appliance</h3>
+              <p>A compact grooming concept built around usability, comfort, and multi-function pet care.</p>
+              <dl class="exploration-mini-meta">
+                <div><dt>Features</dt><dd>Fur brushing, nail filing, massage, calming sounds, and removable comb attachments.</dd></div>
+                <div><dt>Critique</dt><dd>Six testers liked the realistic weight and manual comb, but wanted clearer controls and simpler speed settings.</dd></div>
+              </dl>
+              <div class="exploration-thumb-row exploration-thumb-row-rich" aria-label="Pet care appliance process">
+                <img loading="lazy" decoding="async" fetchpriority="low" src="/assets/img/explorations/assets-assignment-1-design-exploration-1.webp" alt="Pet grooming appliance design exploration" />
+                <img loading="lazy" decoding="async" fetchpriority="low" src="/assets/img/explorations/assets-assignment-1-design-exploration-2.webp" alt="Pet grooming appliance alternate sketch" />
+                <img loading="lazy" decoding="async" fetchpriority="low" src="/assets/img/explorations/assets-assignment-1-prototype-step-1.webp" alt="Pet appliance prototype material setup" />
+                <img loading="lazy" decoding="async" fetchpriority="low" src="/assets/img/explorations/assets-assignment-1-prototype-step-4.webp" alt="Pet appliance prototype assembly process" />
+                <img loading="lazy" decoding="async" fetchpriority="low" src="/assets/img/explorations/assets-assignment-1-prototype-step-10.webp" alt="Pet appliance prototype final process" />
+              </div>
+            </div>
+          </article>
+
+          <article id="sewn-chalk-bag" class="exploration-detail-card">
+            <div class="exploration-card-main">
+              <img loading="lazy" decoding="async" fetchpriority="low" src="/assets/img/explorations/assignments-a2-final13.webp" alt="Sewn Jellycat-inspired bouldering chalk bag prototype" />
+            </div>
+            <div class="exploration-card-copy">
+              <p class="project-meta">Soft goods</p>
+              <h3>Sewn Chalk Bag</h3>
+              <p>A sewn chalk bag that remixes the visual language of a Jellycat gift bag.</p>
+              <dl class="exploration-mini-meta">
+                <div><dt>Method</dt><dd>Sketching, paper structure studies, muslin testing, machine sewing, drawstring closure.</dd></div>
+                <div><dt>Outcome</dt><dd>The final bag used layered construction to reduce chalk leakage while keeping a playful outer shell.</dd></div>
+              </dl>
+              <div class="exploration-thumb-row exploration-thumb-row-rich" aria-label="Sewn chalk bag process">
+                <img loading="lazy" decoding="async" fetchpriority="low" src="/assets/img/explorations/assets-assignment-2-sketch.webp" alt="Chalk bag initial sketch" />
+                <img loading="lazy" decoding="async" fetchpriority="low" src="/assets/img/explorations/assets-assignment-2-process-step-1.webp" alt="Chalk bag paper process step" />
+                <img loading="lazy" decoding="async" fetchpriority="low" src="/assets/img/explorations/assets-assignment-2-process-step-3.webp" alt="Chalk bag muslin process step" />
+                <img loading="lazy" decoding="async" fetchpriority="low" src="/assets/img/explorations/assets-assignment-2-process-step-6.webp" alt="Chalk bag final assembly process step" />
+                <img loading="lazy" decoding="async" fetchpriority="low" src="/assets/img/explorations/assignments-a2-final10.webp" alt="Chalk bag final construction detail" />
+              </div>
+            </div>
+          </article>
+
+          <article id="flat-pack-laptop-stand" class="exploration-detail-card">
+            <div class="exploration-card-main">
+              <img loading="lazy" decoding="async" fetchpriority="low" src="/assets/img/explorations/assets-assignment-3-process-10-assemble.webp" alt="Laser-cut flat-pack laptop stand prototype" />
+            </div>
+            <div class="exploration-card-copy">
+              <p class="project-meta">Laser-cut fabrication</p>
+              <h3>Flat-Pack Laptop Stand</h3>
+              <p>One structure supporting laptop use, flat-pack storage, book display, and desk organization.</p>
+              <dl class="exploration-mini-meta">
+                <div><dt>Method</dt><dd>Parametric Onshape modeling, auto laser joints, Kiri:Moto layout, kerf and allowance tests.</dd></div>
+                <div><dt>Outcome</dt><dd>The final -0.05 kerf and -0.03 allowance combination created firm joints without glue or tape.</dd></div>
+              </dl>
+              <div class="exploration-thumb-row exploration-thumb-row-rich" aria-label="Laptop stand fabrication process">
+                <img loading="lazy" decoding="async" fetchpriority="low" src="/assets/img/explorations/assets-assignment-3-sketch.webp" alt="Laptop stand sketch" />
+                <img loading="lazy" decoding="async" fetchpriority="low" src="/assets/img/explorations/assets-assignment-3-process-1-set-variables.webp" alt="Laptop stand parametric variable setup" />
+                <img loading="lazy" decoding="async" fetchpriority="low" src="/assets/img/explorations/assets-assignment-3-process-3-laser-joint.webp" alt="Laptop stand laser joint modeling" />
+                <img loading="lazy" decoding="async" fetchpriority="low" src="/assets/img/explorations/assets-assignment-3-process-6-fit-tests.webp" alt="Laptop stand fit tests" />
+                <img loading="lazy" decoding="async" fetchpriority="low" src="/assets/img/explorations/assets-assignment-3-process-10-assemble.webp" alt="Laptop stand final assembly" />
+              </div>
+            </div>
+          </article>
+
+          <article id="climbing-recovery-concept" class="exploration-detail-card">
+            <div class="exploration-card-main">
+              <img loading="lazy" decoding="async" fetchpriority="low" src="/assets/img/explorations/assets-assignment-5-storyboard-final.webp" alt="Storyboard for climbing recovery video prototype" />
+            </div>
+            <div class="exploration-card-copy">
+              <p class="project-meta">Video prototype</p>
+              <h3>Climbing Recovery Concept</h3>
+              <p>A novel interaction for a wellness product communicated through a scenario-based video prototype.</p>
+              <dl class="exploration-mini-meta">
+                <div><dt>Concept</dt><dd>A bracelet records climbing force, reports session metrics, and recommends recovery timing.</dd></div>
+                <div><dt>Outcome</dt><dd>Viewers understood the concept clearly because the video made the interaction feel realistic and situated.</dd></div>
+              </dl>
+              <div class="exploration-thumb-row exploration-thumb-row-four" aria-label="Video prototype storyboard process">
+                <img loading="lazy" decoding="async" fetchpriority="low" src="/assets/img/explorations/assets-assignment-5-storyboard-brainstorm.webp" alt="Climbing recovery storyboard brainstorm" />
+                <img loading="lazy" decoding="async" fetchpriority="low" src="/assets/img/explorations/assets-assignment-5-reflection-figma-components.webp" alt="Video prototype Figma components" />
+                <img loading="lazy" decoding="async" fetchpriority="low" src="/assets/img/explorations/assets-assignment-5-reflection-editing.webp" alt="Video editing reflection artifact" />
+                <img loading="lazy" decoding="async" fetchpriority="low" src="/assets/img/explorations/assets-assignment-5-reflection-materials.webp" alt="Video prototype materials and production notes" />
+              </div>
+            </div>
+          </article>
+
+        </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer home-footer">
+    <div class="container footer-row">
+      <p>© <span id="year"></span> Olivia Yuchen Feng</p>
+      <p>Designed with lots of 🧠🐱❤️</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const jumpNav = document.querySelector(".exploration-jump-nav");
+    const jumpLinks = Array.from(document.querySelectorAll(".exploration-jump-nav a"));
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const jumpTargets = jumpLinks
+      .map((link) => {
+        const id = link.getAttribute("href")?.slice(1);
+        return id ? document.getElementById(id) : null;
+      })
+      .filter(Boolean);
+
+    const setActiveJump = (id) => {
+      const activeIndex = jumpLinks.findIndex((link) => link.getAttribute("href") === `#${id}`);
+      jumpLinks.forEach((link, index) => {
+        const isActive = link.getAttribute("href") === `#${id}`;
+        link.classList.toggle("is-active", isActive);
+        link.classList.toggle("is-neighbor", Math.abs(index - activeIndex) === 1);
+        if (isActive) {
+          link.setAttribute("aria-current", "true");
+        } else {
+          link.removeAttribute("aria-current");
+        }
+      });
+
+      if (jumpNav && activeIndex >= 0) {
+        const progress = jumpLinks.length > 1 ? activeIndex / (jumpLinks.length - 1) : 0;
+        jumpNav.style.setProperty("--exploration-read-progress", `${progress * 100}%`);
+        jumpNav.style.setProperty("--exploration-read-progress-ratio", progress);
+
+        const activeLink = jumpLinks[activeIndex];
+        if (window.innerWidth <= 1024 && jumpNav.scrollWidth > jumpNav.clientWidth) {
+          const target = activeLink.offsetLeft - (jumpNav.clientWidth - activeLink.offsetWidth) / 2;
+          const maxScroll = Math.max(0, jumpNav.scrollWidth - jumpNav.clientWidth);
+          jumpNav.scrollTo({
+            left: Math.min(maxScroll, Math.max(0, target)),
+            behavior: reducedMotion.matches ? "auto" : "smooth"
+          });
+        }
+      }
+    };
+
+    if (jumpTargets.length) {
+      let jumpFrame = 0;
+      const alignHashTarget = () => {
+        const id = window.location.hash.slice(1);
+        const target = id ? document.getElementById(id) : null;
+        if (!target) return;
+
+        target.scrollIntoView({
+          block: "start",
+          behavior: "auto"
+        });
+        setActiveJump(id);
+      };
+      const updateActiveJump = () => {
+        jumpFrame = 0;
+        const marker = window.scrollY + Math.min(window.innerHeight * 0.34, 280);
+        let activeTarget = jumpTargets[0];
+
+        jumpTargets.forEach((target) => {
+          if (target.offsetTop <= marker) activeTarget = target;
+        });
+
+        setActiveJump(activeTarget.id);
+      };
+
+      const requestJumpUpdate = () => {
+        if (jumpFrame) return;
+        jumpFrame = window.requestAnimationFrame(updateActiveJump);
+      };
+
+      window.addEventListener("scroll", requestJumpUpdate, { passive: true });
+      window.addEventListener("resize", requestJumpUpdate);
+      window.addEventListener("load", () => {
+        window.requestAnimationFrame(() => {
+          alignHashTarget();
+          window.requestAnimationFrame(alignHashTarget);
+        });
+        [300, 900, 1800].forEach((delay) => {
+          window.setTimeout(alignHashTarget, delay);
+        });
+      });
+      updateActiveJump();
+
+      jumpLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          const id = link.getAttribute("href")?.slice(1);
+          if (id) setActiveJump(id);
+          if (window.matchMedia("(max-width: 1024px), (pointer: coarse)").matches) {
+            window.setTimeout(() => {
+              link.blur();
+              jumpNav?.blur();
+            });
+          }
+        });
+      });
+    }
+
+    const motionPreviews = document.querySelectorAll(".exploration-motion-preview");
+    const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
+    motionPreviews.forEach((preview) => {
+      const image = preview.querySelector("img[data-motion-src]");
+      if (!image) return;
+      let hoverTimer;
+
+      const play = () => {
+        if (image.src.endsWith(image.dataset.motionSrc)) return;
+        image.src = image.dataset.motionSrc;
+        preview.classList.add("is-playing");
+        preview.setAttribute("aria-pressed", "true");
+      };
+      const stop = () => {
+        image.src = image.dataset.posterSrc;
+        preview.classList.remove("is-playing");
+        preview.setAttribute("aria-pressed", "false");
+      };
+
+      if (!reducedMotion.matches && finePointer.matches) {
+        preview.addEventListener("pointerenter", () => {
+          hoverTimer = window.setTimeout(play, 180);
+        });
+        preview.addEventListener("pointerleave", () => {
+          window.clearTimeout(hoverTimer);
+          stop();
+        });
+      }
+      preview.addEventListener("click", () => {
+        if (preview.classList.contains("is-playing")) stop();
+        else play();
+      });
+    });
+  </script>
+</body>
+</html>
