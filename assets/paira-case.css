@@ -2037,7 +2037,7 @@
 /* ---------- 07 Brand in the World: materials around the film ---------------- */
 .paira-materials {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.7fr) minmax(0, 0.85fr);
   gap: 0.9rem;
   align-items: start;
   margin-top: var(--sp-tight);
@@ -2082,8 +2082,8 @@
 .paira-film-in-dialog { align-items: center; }
 .paira-film-in-dialog .paira-film-copy { align-self: center; }
 .paira-film-dialog::backdrop { background: rgba(19, 19, 19, 0.7); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
-.paira-film-dialog .paira-dialog-close { border-color: rgba(255, 255, 255, 0.2); color: #fff; background: rgba(255, 255, 255, 0.12); }
-.paira-film-in-dialog { margin-top: 0; border-radius: 0; }
+.paira-film-dialog .paira-dialog-close { position: absolute; top: 1rem; right: 1rem; float: none; margin: 0; z-index: 3; border-color: rgba(255, 255, 255, 0.2); color: #fff; background: rgba(255, 255, 255, 0.12); }
+.paira-film-in-dialog { margin-top: 0; border-radius: 0; padding: clamp(2.4rem, 4.5vw, 3.4rem) clamp(2rem, 4vw, 3.2rem); }
 
 @media (max-width: 1024px) {
   .paira-materials { grid-template-columns: 1fr; }
@@ -2114,3 +2114,9 @@
 /* profile row: three screens side by side; the long profile scrolls inside its phone-sized frame */
 .paira-phone-row-profile { grid-template-columns: minmax(0, 0.8fr) minmax(0, 0.8fr) minmax(0, 1.4fr); align-items: start; }
 @media (max-width: 760px) { .paira-phone-row-profile { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* film tile plays inline, muted, while on screen */
+.paira-film-tile-media { display: block; }
+.paira-film-tile-media video { display: block; width: 100%; height: auto; background: #000; }
+.paira-film-tile:hover .paira-film-tile-play { opacity: 1; }
+.paira-film-tile-play { opacity: 0.85; transition: opacity 200ms ease; }
