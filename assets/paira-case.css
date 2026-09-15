@@ -356,7 +356,9 @@
 .paira-findings li strong { color: var(--ink); font-weight: 600; }
 
 .paira-findings-note {
-  margin: 1.6rem 0 0;
+  margin: var(--sp-block) 0 0;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--case-line);
   color: var(--merlin-muted);
   font-size: 0.92rem;
 }
@@ -1698,7 +1700,7 @@
 
 /* Act 2 · Pivot: findings are the evidence; the slider and the replay are hero moments */
 .paira-case-page .paira-findings { margin-top: var(--sp-tight); }
-.paira-case-page .paira-m-pivot { margin-top: var(--sp-stage); }
+.paira-case-page .paira-m-pivot { margin-top: var(--sp-tight); }
 .paira-case-page .paira-lede-tight { margin-top: var(--sp-rest); }
 .paira-case-page .paira-stage { margin-top: var(--sp-stage); }
 .paira-case-page .paira-pivot-takeaway { margin-top: var(--sp-rest); }
