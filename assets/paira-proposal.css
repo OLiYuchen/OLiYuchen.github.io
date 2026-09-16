@@ -69,4 +69,4 @@
 /* proposal-only chrome */
 .paira-proposal-banner { position: sticky; top: 0; z-index: 50; padding: .6rem 1rem; text-align: center; font-size: .82rem; color: #fff; background: var(--case-accent-deep); }
 .paira-proposal-banner a { color: #fff; text-decoration: underline; }
-.paira-proposal-mark { outline: 2px dashed rgba(96, 92, 255, .55); outline-offset: 8px; border-radius: 1rem; }
+
