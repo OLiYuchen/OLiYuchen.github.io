@@ -57,10 +57,14 @@
   .paira-concepts-notes li:last-child::before { background: var(--case-accent-deep); color: #fff; border-color: transparent; }
   .paira-concepts-notes strong { color: var(--ink); font-weight: 600; }
   @media (max-width: 760px) { .paira-concepts { grid-template-columns: 1fr; } }
-  .paira-ways { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 1.6rem minmax(0, 3.6fr); gap: 1rem; align-items: start; margin-top: 1rem; }
+  .paira-ways { display: grid; grid-template-columns: minmax(0, 1.25fr) 1.6rem minmax(0, 3fr); gap: 1rem; align-items: start; margin-top: 1rem; }
+  .paira-way-tried-phones { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; max-width: 15rem; }
+  .paira-way-tried-note { margin: .7rem 0 0; font-size: .92rem; line-height: 1.5; color: var(--ink-soft); }
+  .paira-way-tried-note b { display: block; color: var(--ink); font-weight: 600; margin-bottom: .1rem; }
   .paira-way { margin: 0; min-width: 0; }
   .paira-way img { display: block; width: 100%; height: auto; border-radius: .7rem; box-shadow: 0 10px 26px rgba(19,19,19,.12); background: var(--paira-ink); opacity: .78; filter: saturate(.85); }
-  .paira-way figcaption, .paira-way-shipped-note { margin-top: .7rem; font-size: .92rem; line-height: 1.5; color: var(--ink-soft); }
+  .paira-way figcaption { margin-top: .45rem; font-size: .76rem; text-align: center; color: var(--merlin-muted); }
+  .paira-way-shipped-note { margin-top: .7rem; font-size: .92rem; line-height: 1.5; color: var(--ink-soft); }
   .paira-way figcaption b, .paira-way-shipped-note b { display: block; color: var(--ink); font-weight: 600; margin-bottom: .1rem; }
   .paira-way-arrow { align-self: center; padding-top: 0; color: var(--case-accent-deep); font-size: 1.3rem; text-align: center; }
   .paira-way-shipped { padding: .7rem .8rem .8rem; border-radius: 1rem; background: var(--case-accent-soft); border: 1px solid rgba(63,60,199,.18); }
@@ -70,7 +74,7 @@
   .paira-way-shipped-note { margin: .7rem 0 0; max-width: 60ch; }
   .paira-way-shipped-note b { color: var(--case-accent-deep); }
   .paira-explore-process .paira-surface-note { margin-top: 1.2rem; max-width: 60ch; }
-  @media (max-width: 1024px) { .paira-ways { grid-template-columns: 1fr 1fr; } .paira-way-arrow { display: none; } .paira-way-shipped { grid-column: 1 / -1; } }
+  @media (max-width: 1024px) { .paira-ways { grid-template-columns: 1fr; } .paira-way-arrow { display: none; } }
 </style>
 </head>
 <body class="merlin-report-page case-study-page paira-case-page">
@@ -230,8 +234,13 @@
           <div class="paira-explore-process">
             <p class="project-meta">Explore iterations: two concepts tested, one shipped</p>
             <div class="paira-ways">
-              <figure class="paira-way paira-way-tried"><img src="../assets/img/paira/screens/explore-concept-stream.webp" alt="Explore concept: request cards drifting across the screen like a comment stream" loading="lazy" decoding="async" /><figcaption><b>Iteration 1 · Request stream</b>High information density and fast to scan, the most novel of the three. Usability testing showed a high reading load and pressure to respond, so it is parked for a later release.</figcaption></figure>
-              <figure class="paira-way paira-way-tried"><img src="../assets/img/paira/screens/explore-concept-cards.webp" alt="Explore concept: one large AI pick above a grid of smaller cards" loading="lazy" decoding="async" /><figcaption><b>Iteration 2 · Hero card and grid</b>One large AI pick above a grid of compact cards. The compact cards failed legibility, and the visual hierarchy gave some requests more exposure than others. Until premium ships, every request gets equal exposure.</figcaption></figure>
+              <div class="paira-way-tried-group">
+                <div class="paira-way-tried-phones">
+                  <figure class="paira-way"><img src="../assets/img/paira/screens/explore-concept-stream.webp" alt="Explore concept: request cards drifting across the screen like a comment stream" loading="lazy" decoding="async" /><figcaption>Request stream</figcaption></figure>
+                  <figure class="paira-way"><img src="../assets/img/paira/screens/explore-concept-cards.webp" alt="Explore concept: one large AI pick above a grid of smaller cards" loading="lazy" decoding="async" /><figcaption>Hero card and grid</figcaption></figure>
+                </div>
+                <p class="paira-way-tried-note"><b>Iterations 1 and 2</b>A request stream with high information density, and a hero card above a grid of compact cards. Usability testing showed a high reading load and pressure to respond in the stream, and legibility and exposure problems in the grid: compact cards were hard to read, and the hierarchy gave some requests more visibility than others. The stream is parked for a later release; until premium ships, every request gets equal exposure.</p>
+              </div>
               <div class="paira-way-arrow" aria-hidden="true">→</div>
               <div class="paira-way-shipped">
                 <div class="paira-way-shipped-row">
