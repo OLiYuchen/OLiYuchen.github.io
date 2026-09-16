@@ -43,6 +43,19 @@
   .paira-explore-final .paira-phone-row { margin-top: 1rem; }
   .paira-explore-final .paira-surface-note { margin-top: 1.2rem; max-width: 60ch; }
   .prop-concepts figcaption { font-size: .88rem; }
+  .paira-concepts { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); gap: clamp(1.4rem, 3vw, 2.6rem); align-items: start; margin-top: 1rem; }
+  .paira-concepts-phones { display: grid; grid-template-columns: .8fr .8fr 1fr; gap: .7rem; align-items: end; }
+  .paira-concepts-phones figure { margin: 0; min-width: 0; }
+  .paira-concepts-phones img { display: block; width: 100%; height: auto; border-radius: .7rem; box-shadow: 0 10px 26px rgba(19,19,19,.14); background: var(--paira-ink); opacity: .82; }
+  .paira-concepts-phones figure.is-final img { opacity: 1; box-shadow: 0 0 0 2px var(--paira-violet), 0 12px 30px rgba(19,19,19,.18); }
+  .paira-concepts-phones figcaption { margin-top: .45rem; font-size: .74rem; font-weight: 600; color: var(--merlin-muted); text-align: center; }
+  .paira-concepts-phones figure.is-final figcaption { color: var(--case-accent-deep); }
+  .paira-concepts-notes { display: grid; gap: .6rem; margin: 0; padding: 0; list-style: none; counter-reset: cn; }
+  .paira-concepts-notes li { position: relative; padding-left: 1.6rem; color: var(--ink-soft); font-size: .9rem; line-height: 1.5; counter-increment: cn; }
+  .paira-concepts-notes li::before { content: counter(cn); position: absolute; left: 0; top: .1rem; width: 1.15rem; height: 1.15rem; border-radius: 50%; border: 1px solid var(--case-line); color: var(--case-accent-deep); font-size: .66rem; font-weight: 700; display: grid; place-items: center; }
+  .paira-concepts-notes li:last-child::before { background: var(--case-accent-deep); color: #fff; border-color: transparent; }
+  .paira-concepts-notes strong { color: var(--ink); font-weight: 600; }
+  @media (max-width: 760px) { .paira-concepts { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body class="merlin-report-page case-study-page paira-case-page">
@@ -201,16 +214,22 @@
 
           <div class="paira-explore-process">
             <p class="project-meta">Three ways to show a request</p>
-            <div class="prop-concepts prop-concepts-3">
-              <figure><img src="../assets/img/paira/screens/explore-concept-stream.webp" alt="Explore concept: request cards drifting across the screen like a comment stream" loading="lazy" decoding="async" /><figcaption><b>1 · Request stream</b> Cards drift across the screen like live comments: dense, quick to scan, the most inventive of the three. It asks for fast English reading and puts pressure on people to read and respond, so it waits for a later release.</figcaption></figure>
-              <figure><img src="../assets/img/paira/screens/explore-concept-cards.webp" alt="Explore concept: one large AI pick above a grid of smaller cards" loading="lazy" decoding="async" /><figcaption><b>2 · Big and small cards</b> One large AI pick, then a grid of small ones. Small cards were hard to read, and the size difference gives some requests more chance than others. Until premium launches, every request gets an equal chance to be seen.</figcaption></figure>
-              <figure class="is-final"><img src="../assets/img/paira/screens/explore-daily-picks.webp" alt="Final Explore: Your Daily Picks" loading="lazy" decoding="async" /><figcaption><b>3 · Your Daily Picks, shipped</b> A short list of equal cards, a badge that says why each is here, save for later, done for today.</figcaption></figure>
+            <div class="paira-concepts">
+              <div class="paira-concepts-phones">
+                <figure><img src="../assets/img/paira/screens/explore-concept-stream.webp" alt="Explore concept: request cards drifting across the screen like a comment stream" loading="lazy" decoding="async" /><figcaption>1</figcaption></figure>
+                <figure><img src="../assets/img/paira/screens/explore-concept-cards.webp" alt="Explore concept: one large AI pick above a grid of smaller cards" loading="lazy" decoding="async" /><figcaption>2</figcaption></figure>
+                <figure class="is-final"><img src="../assets/img/paira/screens/explore-daily-picks.webp" alt="Final Explore: Your Daily Picks" loading="lazy" decoding="async" /><figcaption>3 · shipped</figcaption></figure>
+              </div>
+              <ol class="paira-concepts-notes">
+                <li><strong>Request stream.</strong> Cards drift across the screen like live comments: dense, quick to scan, the most inventive of the three. It asks for fast English reading and puts pressure on people to read and respond, so it waits for a later release.</li>
+                <li><strong>Big and small cards.</strong> One large AI pick, then a grid of small ones. Small cards were hard to read, and the size difference gives some requests more chance than others. Until premium launches, every request gets an equal chance to be seen.</li>
+                <li><strong>Your Daily Picks.</strong> A short list of equal cards, a badge that says why each is here, save for later, done for today. Tested one-on-one with six mentors, same tasks each time: a list that ends felt finishable, and a reason on each card beat a number.</li>
+              </ol>
             </div>
-            <p class="paira-findings-note">Tested one-on-one with six mentors, same tasks each time. The pattern was consistent: a list that ends felt finishable, and a reason on each card beat a number. Daily Picks won.</p>
           </div>
 
           <div class="paira-explore-final">
-            <p class="project-meta">The shipped surface</p>
+            <p class="project-meta">Shipped</p>
             <div class="paira-phone-row" aria-label="Explore screens">
               <figure class="paira-phone paira-phone-video">
                 <video src="../assets/img/paira/screens/explore-browse-save.mp4" poster="../assets/img/paira/screens/explore-daily-picks.webp" muted loop playsinline preload="none" width="786" height="1704" aria-label="Browsing Daily Picks, saving one, and opening a request"></video>
