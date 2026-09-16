@@ -24,6 +24,14 @@
   .paira-signals3-evidence li strong { color: var(--ink); font-weight: 600; }
   .paira-flowstrip-inline { margin-top: .8rem; }
   .paira-flowstrip-inline span { font-size: .78rem; padding: .35rem .65rem; }
+  .prop-explore-tests { margin-top: 1.4rem; }
+  .prop-concepts { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: .9rem; margin-top: .6rem; }
+  .prop-concepts figure { margin: 0; }
+  .prop-placeholder { display: grid; place-items: center; aspect-ratio: 393 / 852; border-radius: .9rem; border: 1px dashed rgba(63,60,199,.35); background: rgba(255,255,255,.6); color: var(--merlin-muted); font-size: .8rem; text-align: center; line-height: 1.4; }
+  .prop-placeholder.is-final { border: 2px solid var(--paira-violet); background: var(--paira-ink); color: #fff; }
+  .prop-concepts figcaption { margin-top: .55rem; font-size: .82rem; line-height: 1.45; color: var(--ink-soft); }
+  .prop-concepts figcaption b { display: block; color: var(--ink); font-weight: 600; }
+  @media (max-width: 760px) { .prop-concepts { grid-template-columns: repeat(2, minmax(0,1fr)); } }
 </style>
 </head>
 <body class="merlin-report-page case-study-page paira-case-page">
@@ -54,7 +62,7 @@
       <div class="merlin-report-content">
         <div class="merlin-report-lede">
           <h2>Your four findings, grouped under three signals.</h2>
-          <p class="prop-note"><span class="prop-tag prop-tag-edit">Edit</span> Where: replaces the current four-bullet list after the Pivot lede. Nothing removed: your four points become the evidence under three headings, and the second heading is the good news. Method note stays, with 30+ interviews added. <span class="prop-tag prop-tag-ask">Confirm</span> the interview count.</p>
+          <p class="prop-note"><span class="prop-tag prop-tag-edit">Edit</span> Where: replaces the current four-bullet list after the Pivot lede. Nothing removed: your four points become the evidence under three headings, and the second heading is the good news. Method note rewritten to be direct: think-aloud sessions, six or more users, same tasks.</p>
         </div>
         <div class="paira-findings" aria-label="What the beta taught us">
           <p class="project-meta">What the beta taught us</p>
@@ -81,7 +89,7 @@
               </ul>
             </article>
           </div>
-          <p class="paira-findings-note">We designed and ran the tests as a design team: one-on-one sessions with potential users, a think-aloud protocol, and set tasks to complete, on top of 30+ user interviews across both chapters. We brought the findings to the team and shaped the new direction together.</p>
+          <p class="paira-findings-note">The evidence came from one-on-one think-aloud sessions with six or more potential users, each given the same set of tasks, designed and run by the design team. We brought the findings to the whole team and shaped the new direction together.</p>
         </div>
       </div>
     </div>
@@ -92,8 +100,8 @@
       <aside class="merlin-report-section-label"><p class="section-label">Profile</p><span>E</span></aside>
       <div class="merlin-report-content">
         <div class="merlin-report-lede">
-          <h2>Trust signals, added to 4.3 as one paragraph.</h2>
-          <p class="prop-note"><span class="prop-tag prop-tag-edit">Edit</span> Below is 4.3 exactly as it is now, plus one paragraph (marked with the violet bar) after “Why.” It names what the long profile already shows: trust signals, recommendations, Open to switches. No list, no new block.</p>
+          <h2>4.3 rewritten around three constraints: screen size, the decision, and trust.</h2>
+          <p class="prop-note"><span class="prop-tag prop-tag-edit">Edit</span> Same screens, shorter copy. The first paragraph states the three constraints and what each one decided; the second says what the design gave us. Trust signals are described where they appear on the long profile.</p>
         </div>
         <article class="paira-surface" id="surface-profile">
           <header class="paira-surface-head">
@@ -105,9 +113,8 @@
           </header>
           <div class="paira-surface-body">
             <div class="paira-surface-copy">
-              <p>The profile leads with two lists, “Can help with” and “Want to do,” an “Open to networking” switch, and recommendations written by people you have actually worked with. Experience and education are there, but lower down, and the editor breaks them into small steps so nobody stalls on a blank form. Points, Request Boost, and settings also live here, because this is where a person decides how much of themselves to put into the platform. The profile is never demanded up front; the app asks you to complete it at the moment it starts to matter, when mentees are deciding whether to trust you.</p>
-              <p><strong>Why.</strong> A profile is read by someone deciding whether to accept your help, or by the AI deciding whether to suggest you. Both need to know what you can do, not where you went to school. Asking for it later, in context, is what lets onboarding stay short without losing match quality.</p>
-              <p class="prop-added"><strong>Trust signals.</strong> Under the headline sit the numbers a mentee reads before saying yes: requests helped, likes received, days on Paira, and average response time. Recommendations from people you actually helped come next, and the “Open to” switches say what you offer, so nobody asks for what you did not. Trust is built into the profile rather than promised in a bio.</p>
+              <p>Three constraints shaped the profile. A phone screen is small, so only what helps a decision goes above the fold. A mentee decides in seconds, so the profile leads with what you can help with, what you want to do, and the reason you were suggested. And the decision is about trust, so the numbers a mentee checks sit right under the headline: requests helped, likes received, days on Paira, response time, then recommendations from people you actually helped.</p>
+              <p><strong>What that gave us.</strong> Experience and education are still there, lower down, and the editor breaks them into small steps so nobody stalls on a blank form. “Open to” switches say what you offer, so nobody asks for what you did not. Points, Request Boost, and settings live here too, because this is where a person decides how much of themselves to put in. The profile is never demanded up front; the app asks for it when it starts to matter, which is what lets onboarding stay short without losing match quality.</p>
             </div>
             <div class="paira-phone-row paira-phone-row-profile" aria-label="Profile screens">
               <figure class="paira-phone"><img src="../assets/img/paira/screens/profile-tab.webp" alt="Own profile tab with points banner and Request Boost entry" width="786" height="1704" loading="lazy" decoding="async" /><figcaption>My profile</figcaption></figure>
@@ -140,8 +147,8 @@
           <div class="paira-reflect-col">
             <h3 class="paira-reflect-head">What I learned at work</h3>
             <ol class="paira-reflect-list">
-              <li><strong>A cleaner path from design to code.</strong> As the app grew, the hard questions became: where is the latest screen, what is in development, what is built but still has issues. I organized the current screens and wrote a simple set of rules each role follows, so everyone stays in sync.
-                <div class="paira-flowstrip-row paira-flowstrip-inline prop-added" aria-label="How a decision travels now"><span>Meeting</span><i>→</i><span class="is-ai">AI notes and decision log</span><i>→</i><span>Ticket</span><i>→</i><span class="is-mine">Prototype on the web</span><i>→</i><span class="is-mine">Latest-screen inventory</span><i>→</i><span class="is-mine">Role rules for sync</span><i>→</i><span>iOS build</span></div>
+              <li><strong>A cleaner path from design to code.</strong> As the app grew, three questions kept coming back: where is the latest screen, what is in development, and what is built but still broken. I answered them once instead of every day: a single inventory of current screens, a prototype on the web that anyone can open, and a short rule per role for how a change moves from a meeting to the build.
+                <div class="paira-flowstrip-row paira-flowstrip-inline prop-added" aria-label="How a change moves now"><span>Team meeting</span><i>→</i><span class="is-ai">AI meeting notes, decisions logged</span><i>→</i><span>Ticket</span><i>→</i><span class="is-mine">Web prototype, one link for everyone</span><i>→</i><span class="is-mine">Latest-screen inventory</span><i>→</i><span class="is-mine">Per-role sync rules</span><i>→</i><span>iOS build</span></div>
               </li>
               <li><strong>One design system, app and web.</strong> Bringing the app’s system to the web version made the marketing site faster to build, and made this case study possible.</li>
               <li><strong>AI as a working partner.</strong> I keep testing where AI helps UI/UX design and where it does not, and I build my own small tools and agents along the way, so my learning compounds with the team’s.</li>
@@ -153,6 +160,38 @@
       </div>
     </div>
   
+      </div>
+    </div>
+  </section>
+
+  <section class="merlin-report-section paira-act-opener" id="g">
+    <div class="container merlin-report-layout">
+      <aside class="merlin-report-section-label"><p class="section-label">Explore</p><span>G</span></aside>
+      <div class="merlin-report-content">
+        <div class="merlin-report-lede">
+          <h2>The Explore concepts we tried, and the one six mentors chose.</h2>
+          <p class="prop-note"><span class="prop-tag prop-tag-new">New</span> Where: inside 4.2 Explore, between the copy and the four phones. A row of the earlier concepts (grey boxes below are placeholders for your drafts), a line on what each one tried, and what the six mentor sessions said. The final version is the one already shown. <span class="prop-tag prop-tag-ask">Confirm</span> send me the earlier design files and the one or two sentences per concept you remember from testing.</p>
+        </div>
+        <article class="paira-surface" id="surface-explore">
+          <header class="paira-surface-head">
+            <span class="paira-surface-number">4.2</span>
+            <div>
+              <p class="project-meta">Explore, “Your Daily Picks”</p>
+              <h3>A short daily list of requests to help with, so helping feels finishable.</h3>
+            </div>
+          </header>
+          
+          <div class="prop-explore-tests">
+            <p class="project-meta">Before the Daily Picks</p>
+            <div class="prop-concepts">
+              <figure><div class="prop-placeholder">Concept A<br><small>draft screen</small></div><figcaption><b>Feed</b> An endless list of open requests, newest first. Mentors read a few and stopped: too much to owe.</figcaption></figure>
+              <figure><div class="prop-placeholder">Concept B<br><small>draft screen</small></div><figcaption><b>Filters first</b> Choose type, level, and industry before seeing anything. Precise, but nobody wanted to set filters before they had a reason.</figcaption></figure>
+              <figure><div class="prop-placeholder">Concept C<br><small>draft screen</small></div><figcaption><b>Swipe requests</b> One request at a time, yes or no. Familiar, but the decision came too early and the good ones got lost.</figcaption></figure>
+              <figure class="is-final"><div class="prop-placeholder is-final">Final<br><small>Your Daily Picks</small></div><figcaption><b>A short daily list with reasons</b> Five picks, a badge that says why, save for later, done for today. The version six mentors chose.</figcaption></figure>
+            </div>
+            <p class="paira-findings-note">Tested one-on-one with six mentors, same tasks each time. The pattern was consistent: a list that ends felt finishable, and a reason on each card beat a number.</p>
+          </div>
+        </article>
       </div>
     </div>
   </section>
