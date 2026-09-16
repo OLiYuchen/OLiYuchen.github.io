@@ -9,195 +9,147 @@
 <link rel="stylesheet" href="../assets/style.css" />
 <link rel="stylesheet" href="../assets/paira-case.css" />
 <link rel="stylesheet" href="../assets/paira-proposal.css" />
-<script src="../assets/paira-motion-proposal.js" defer></script>
 <style>
   .prop-note { max-width: 66ch; margin: 0 0 1.4rem; padding: .9rem 1.1rem; border-left: 3px solid var(--case-accent); background: rgba(255,255,255,.7); color: var(--ink-soft); font-size: .92rem; line-height: 1.55; }
   .prop-tag { display: inline-block; margin-right: .4rem; padding: .15rem .55rem; border-radius: 999px; font-size: .66rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; vertical-align: middle; }
   .prop-tag-new { color: #fff; background: var(--case-accent-deep); }
   .prop-tag-edit { color: var(--case-accent-deep); background: var(--case-accent-soft); border: 1px solid var(--case-line); }
   .prop-tag-ask { color: #7a4a00; background: #fff1d6; border: 1px solid #f0d9a8; }
-  .prop-list { max-width: 70ch; } .prop-list li { margin: .5rem 0; color: var(--ink-soft); line-height: 1.55; } .prop-list b { color: var(--ink); }
-  .paira-proposal-mark { outline: none; }
-  .prop-hero-context { display: grid; gap: .6rem; margin-top: 1rem; }
+  .prop-added { box-shadow: -3px 0 0 0 var(--case-accent); padding-left: .8rem; }
+  .prop-context { opacity: .55; }
+  .paira-chapters-6 { grid-template-columns: repeat(6, minmax(0,1fr)); }
+  .paira-signals3-evidence ul { margin: .4rem 0 0; padding: 0; list-style: none; display: grid; grid-template-columns: 1fr; gap: .5rem; }
+  .paira-signals3-evidence li { position: relative; padding-left: 1.1rem; color: var(--ink-soft); font-size: .9rem; line-height: 1.5; }
+  .paira-signals3-evidence li::before { content: ""; position: absolute; left: 0; top: .55rem; width: .45rem; height: .45rem; border-radius: 50%; background: var(--paira-violet); }
+  .paira-signals3-evidence li strong { color: var(--ink); font-weight: 600; }
+  .paira-flowstrip-inline { margin-top: .8rem; }
+  .paira-flowstrip-inline span { font-size: .78rem; padding: .35rem .65rem; }
 </style>
 </head>
 <body class="merlin-report-page case-study-page paira-case-page">
 <header class="site-header home-header"><div class="container header-row"><a class="brand" href="/"><img class="brand-logo" src="../assets/img/personal-logo.png" alt="" aria-hidden="true" /><span>Olivia Feng</span></a><nav class="nav" aria-label="Primary"><div class="nav-links"><a href="/paira/">Current Paira page</a></div></nav></div></header>
-<div class="paira-proposal-banner">Proposal draft, standalone. Nothing here is on the live page.</div>
+<div class="paira-proposal-banner">Proposal draft, standalone. Nothing here is on the live page. A violet bar on the left marks the added text.</div>
 
 <main class="merlin-report">
-  <section class="merlin-report-section paira-act-opener" id="intro">
-    <div class="container merlin-report-layout">
-      <aside class="merlin-report-section-label"><p class="section-label">Proposal</p><span>00</span></aside>
-      <div class="merlin-report-content">
-        <div class="merlin-report-lede">
-          <h2>Seven blocks I would add to the Paira page, each built in your page’s style.</h2>
-          <p><span class="prop-tag prop-tag-new">New</span> a block that does not exist yet · <span class="prop-tag prop-tag-edit">Edit</span> a change to an existing block · <span class="prop-tag prop-tag-ask">Confirm</span> a fact I would only use with your say-so. Where each one would go is written in the note above it.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="merlin-report-section merlin-report-band paira-act-cont" id="a">
+  <section class="merlin-report-section paira-act-opener" id="a">
     <div class="container merlin-report-layout">
       <aside class="merlin-report-section-label"><p class="section-label">Hero</p><span>A</span></aside>
       <div class="merlin-report-content">
         <div class="merlin-report-lede">
-          <h2>The dated chapters, one calm row under the four cards.</h2>
-          <p class="prop-note"><span class="prop-tag prop-tag-new">New</span> Where: between Role / Timeline / Team / Skills and the cover image. No Problem / Move / Result box; your hero already says that. <span class="prop-tag prop-tag-ask">Confirm</span> Dec 2025 (1.0 beta) and Apr 2026 (2.0 beta) come from the other case study.</p>
+          <h2>The dated chapters, ending on now.</h2>
+          <p class="prop-note"><span class="prop-tag prop-tag-new">New</span> Where: between the four cards and the cover image. Six nodes; the last is the present, so the line reads as ongoing. <span class="prop-tag prop-tag-ask">Confirm</span> Dec 2025 (1.0 beta) and Apr 2026 (2.0 beta).</p>
         </div>
-        <div class="paira-chapters" aria-label="Chapters">
+        <div class="paira-chapters paira-chapters-6" aria-label="Chapters">
         <div><b>Aug 2025</b>Joined with an idea and a few screens</div>
         <div><b>Dec 2025</b>1.0 beta: swipe to match</div>
         <div><b>Feb 2026</b>User tests; the pivot begins</div>
         <div><b>Apr 2026</b>2.0 beta: request first</div>
-        <div class="is-now"><b>Jun 2026</b>App Store launch. Still shipping</div>
-      </div>
-
-      
       </div>
     </div>
   </section>
 
-  <section class="merlin-report-section paira-act-opener" id="b">
+  <section class="merlin-report-section merlin-report-band paira-act-cont" id="b">
     <div class="container merlin-report-layout">
       <aside class="merlin-report-section-label"><p class="section-label">The Pivot</p><span>B</span></aside>
       <div class="merlin-report-content">
         <div class="merlin-report-lede">
-          <h2>What the beta taught us, as three signals, one of them good news.</h2>
-          <p class="prop-note"><span class="prop-tag prop-tag-edit">Edit</span> Where: replaces the four user-test bullets after the Pivot lede. The note below states the research basis; the only number is 30+ interviews. <span class="prop-tag prop-tag-ask">Confirm</span> the n for the think-aloud round (you said about six).</p>
+          <h2>Your four findings, grouped under three signals.</h2>
+          <p class="prop-note"><span class="prop-tag prop-tag-edit">Edit</span> Where: replaces the current four-bullet list after the Pivot lede. Nothing removed: your four points become the evidence under three headings, and the second heading is the good news. Method note stays, with 30+ interviews added. <span class="prop-tag prop-tag-ask">Confirm</span> the interview count.</p>
         </div>
         <div class="paira-findings" aria-label="What the beta taught us">
           <p class="project-meta">What the beta taught us</p>
-          <div class="paira-signals3">
-            <article><p class="project-meta">Signal 1</p><h3>Browsing people stalled.</h3><p>Swiping felt familiar, and each card asked for a decision on trust, fit, and value at once. Sessions ended without a next step.</p></article>
-            <article><p class="project-meta">Signal 2</p><h3>Real requests got answered.</h3><p>Of the beta’s three features, requests drew the strongest response. A specific need started real conversations on both sides.</p></article>
-            <article><p class="project-meta">Signal 3</p><h3>One-shot AI was not enough.</h3><p>Search understood the intent, then left people on their own. Intent needed a guided path from the ask to the match.</p></article>
+          <div class="paira-signals3 paira-signals3-evidence">
+            <article>
+              <p class="project-meta">Signal 1</p><h3>Browsing people stalled.</h3>
+              <ul>
+                <li><strong>Swiping had friction.</strong> Each card demanded a decision right away, and that pressure made people quit instead of choose.</li>
+                <li><strong>Everyone wanted to know more.</strong> In a job search, a headline is not enough to say yes or no to a person.</li>
+              </ul>
+            </article>
+            <article>
+              <p class="project-meta">Signal 2</p><h3>Real requests got answered.</h3>
+              <ul>
+                <li><strong>A specific need started real conversations.</strong> Of the beta’s three features, requests drew the strongest response, on both sides.</li>
+                <li><strong>The mentor side needed the same clarity.</strong> Helpers swiping through people had nothing concrete to respond to; helpers reading a request did.</li>
+              </ul>
+            </article>
+            <article>
+              <p class="project-meta">Signal 3</p><h3>A match was not yet a conversation.</h3>
+              <ul>
+                <li><strong>Two people who liked each other still had to invent the first message.</strong></li>
+                <li><strong>One-shot AI was not enough.</strong> Search understood the intent, then left people on their own. Intent needed a guided path from the ask to the match.</li>
+              </ul>
+            </article>
           </div>
-          <p class="paira-findings-note">These came from 30+ user interviews across both chapters and a round of one-on-one think-aloud tests on the beta, which we designed and ran as a design team: set tasks, potential users, notes shared with the whole team. In February 2026 we began rebuilding the product around the request; the request-first beta shipped in April.</p>
+          <p class="paira-findings-note">We designed and ran the tests as a design team: one-on-one sessions with potential users, a think-aloud protocol, and set tasks to complete, on top of 30+ user interviews across both chapters. We brought the findings to the team and shaped the new direction together.</p>
         </div>
-
-        
       </div>
     </div>
   </section>
 
-  <section class="merlin-report-section merlin-report-band paira-act-cont" id="c">
-    <div class="container merlin-report-layout">
-      <aside class="merlin-report-section-label"><p class="section-label">The Pivot</p><span>C</span></aside>
-      <div class="merlin-report-content">
-        <div class="merlin-report-lede">
-          <h2>The loop, before and after, with your five surfaces on it.</h2>
-          <p class="prop-note"><span class="prop-tag prop-tag-new">New</span> Where: right after the three signals, before the decision line and the slider. Top row is the loop a user walked in 1.0 with the gap under each step; the dark row is the closed loop, and the small labels are where your surfaces sit on it.</p>
-        </div>
-        <div class="paira-loop" aria-label="The user loop before and after the pivot">
-          <div class="paira-loop-row">
-            <div class="paira-loop-tag">Before</div>
-            <div>
-              <div class="paira-loop-steps">
-                <div><b>Vague intent</b><p>No way to turn a need into words.</p></div>
-                <div><b>Browse people</b><p>Trust, fit, and value judged in one swipe.</p></div>
-                <div><b>Match</b><p>Nothing concrete for a helper to answer.</p></div>
-                <div><b>Chat</b><p>Two people, no first message.</p></div>
-                <div><b>Unclear outcome</b><p>No status, no completion.</p></div>
-              </div>
-              <p class="paira-loop-caption">The product had features, not a loop. Each step left the person guessing what came next.</p>
-            </div>
-          </div>
-          <div class="paira-loop-row paira-loop-row-after">
-            <div class="paira-loop-tag">After</div>
-            <div>
-              <div class="paira-loop-steps">
-                <div><b>Say the need</b><p><strong>Onboarding</strong>Intentions first, then straight into the AI.</p></div>
-                <div><b class="is-ai">AI drafts the request</b><p><strong>Request first</strong>One sentence, two questions, a request.</p></div>
-                <div><b>Helpers see it</b><p><strong>Explore · Mentor AI</strong>Daily Picks, and two taps for helpers.</p></div>
-                <div><b class="is-ai">Warm intro + plan</b><p><strong>Profile</strong>Read as “what I can help with”.</p></div>
-                <div><b>Completed</b><p><strong>Premium</strong>Points boost the request, not unlock people.</p></div>
-              </div>
-              <p class="paira-loop-caption paira-loop-caption-dark">The same loop, closed. The five surfaces I own sit on it.</p>
-            </div>
-          </div>
-        </div>
-
-        
-      </div>
-    </div>
-  </section>
-
-  <section class="merlin-report-section paira-act-opener" id="d">
-    <div class="container merlin-report-layout">
-      <aside class="merlin-report-section-label"><p class="section-label">Lifecycle</p><span>D</span></aside>
-      <div class="merlin-report-content">
-        <div class="merlin-report-lede">
-          <h2>The same lifecycle animation, with a seeker lane above and a helper lane below.</h2>
-          <p class="prop-note"><span class="prop-tag prop-tag-edit">Edit</span> Where: your existing “What happens after you post” block; the rail and card animate exactly as now, the two lanes are static and line up with the five steps. Yellow border = seeker, violet = helper. It shows in one picture that Explore, profile, and the mentor flow are the helper lane.</p>
-        </div>
-        <!-- PM:08 lifecycle -->
-        <div class="paira-pivot-block">
-          <div class="paira-block-head">
-            <p class="project-meta">What happens after you post</p>
-            <h3>A request stays legible from posting to conversation.</h3>
-            <p>Paira’s core loop, shared across the team. A post lands in a helper’s Explore, a reply carries a reason, one helper is chosen and the others are told, and Paira AI writes the introduction. Every surface I own sits somewhere on this line.</p>
-          </div>
-        <div class="paira-loop-frame">
-          <ol class="paira-m-life" data-pm-life data-pm-skin="dark" aria-label="Request lifecycle">
-            <script type="application/json" data-pm-config>
-            { "title": "Request lifecycle",
-              "card": { "title": "Resume review for a product design internship", "meta": "Resume Review · Design · $30 reward", "due": "Due in 3 days" },
-              "steps": [
-                { "label": "Post", "caption": "One sentence becomes a request.", "chip": { "kind": "open", "label": "Open" }, "boost": "Boosted", "state": { "muted": "No responds yet", "button": "Invite helpers" } },
-                { "label": "Browse", "caption": "Helpers see it in Explore as a Daily Pick.", "side": "helper", "chip": { "kind": "open", "label": "Open" }, "boost": "Boosted", "state": { "avatars": ["HT", "CA", "PS"], "text": "3 helpers see it" } },
-                { "label": "Respond", "caption": "A reply with a reason attached.", "side": "helper", "chip": { "kind": "responded", "label": "Responded" }, "state": { "avatars": ["CA"], "reply": { "name": "Chloe Anderson", "text": "I reviewed intern portfolios at Meta this spring. Happy to help." } } },
-                { "label": "Select", "caption": "One helper chosen, the others told.", "chip": { "kind": "progress", "label": "In Progress" }, "state": { "avatars": ["CA"], "text": "Chloe chosen", "muted": "others told" } },
-                { "label": "Chat", "caption": "Paira AI writes the introduction.", "chip": { "kind": "chatting", "label": "Chatting" }, "state": { "bubble": { "meta": "AI introduction", "text": "Hi Chloe, Sam is a new grad applying to product design internships and would like one honest resume review." } } }
-              ],
-              "finalStep": { "chip": { "kind": "completed", "label": "Completed" }, "state": { "avatars": ["CA"], "text": "Marked as completed", "muted": "· 45 min" } },
-              "lanes": { "seekerLabel": "Seeker", "helperLabel": "Helper",
-                "seeker": ["Says a need; AI drafts it", "Waits, or invites helpers", "Reads the reply", "Picks one; others are told", "Gets the intro and a plan"],
-                "helper": ["Sees it in Daily Picks", "Opens the request", "Replies with a reason", "Accepts the selection", "Helps, earns a recommendation"] } }
-            </script>
-          </ol>
-        </div>
-        </div>
-
-        
-      </div>
-    </div>
-  </section>
-
-  <section class="merlin-report-section merlin-report-band paira-act-cont" id="e">
+  <section class="merlin-report-section paira-act-opener" id="e">
     <div class="container merlin-report-layout">
       <aside class="merlin-report-section-label"><p class="section-label">Profile</p><span>E</span></aside>
       <div class="merlin-report-content">
         <div class="merlin-report-lede">
-          <h2>Trust, built into the profile.</h2>
-          <p class="prop-note"><span class="prop-tag prop-tag-new">New</span> Where: 4.3 Profile, under the “Why.” paragraph, as a four-item hairline list. <span class="prop-tag prop-tag-ask">Confirm</span> which of the four you designed or co-designed; I would show only those.</p>
+          <h2>Trust signals, added to 4.3 as one paragraph.</h2>
+          <p class="prop-note"><span class="prop-tag prop-tag-edit">Edit</span> Below is 4.3 exactly as it is now, plus one paragraph (marked with the violet bar) after “Why.” It names what the long profile already shows: trust signals, recommendations, Open to switches. No list, no new block.</p>
         </div>
-        <div class="paira-surface-copy" style="max-width:40rem"><ul class="paira-trust" aria-label="Trust, built into the profile">
-                <li><b>Trust signals</b>Requests helped, likes, days on Paira, response time: what a mentee reads before saying yes.</li>
-                <li><b>Recommendations</b>Completed help becomes a line on the profile, written by the person you helped.</li>
-                <li><b>Open to</b>Networking and referral advice as switches, so nobody asks for what you did not offer.</li>
-                <li><b>Control</b>Report, hide, block, and unmatch kept separate, each one clear action.</li>
-              </ul></div>
+        <article class="paira-surface" id="surface-profile">
+          <header class="paira-surface-head">
+            <span class="paira-surface-number">4.3</span>
+            <div>
+              <p class="project-meta">Profile</p>
+              <h3>A profile that reads as “what I can help with,” filled in when it starts to matter.</h3>
+            </div>
+          </header>
+          <div class="paira-surface-body">
+            <div class="paira-surface-copy">
+              <p>The profile leads with two lists, “Can help with” and “Want to do,” an “Open to networking” switch, and recommendations written by people you have actually worked with. Experience and education are there, but lower down, and the editor breaks them into small steps so nobody stalls on a blank form. Points, Request Boost, and settings also live here, because this is where a person decides how much of themselves to put into the platform. The profile is never demanded up front; the app asks you to complete it at the moment it starts to matter, when mentees are deciding whether to trust you.</p>
+              <p><strong>Why.</strong> A profile is read by someone deciding whether to accept your help, or by the AI deciding whether to suggest you. Both need to know what you can do, not where you went to school. Asking for it later, in context, is what lets onboarding stay short without losing match quality.</p>
+              <p class="prop-added"><strong>Trust signals.</strong> Under the headline sit the numbers a mentee reads before saying yes: requests helped, likes received, days on Paira, and average response time. Recommendations from people you actually helped come next, and the “Open to” switches say what you offer, so nobody asks for what you did not. Trust is built into the profile rather than promised in a bio.</p>
+            </div>
+            <div class="paira-phone-row paira-phone-row-profile" aria-label="Profile screens">
+              <figure class="paira-phone"><img src="../assets/img/paira/screens/profile-tab.webp" alt="Own profile tab with points banner and Request Boost entry" width="786" height="1704" loading="lazy" decoding="async" /><figcaption>My profile</figcaption></figure>
+              <figure class="paira-phone"><img src="../assets/img/paira/screens/profile-edit.webp" alt="Edit profile in small steps" width="786" height="1704" loading="lazy" decoding="async" /><figcaption>Editor</figcaption></figure>
+              <figure class="paira-phone paira-phone-scroll"><div class="paira-phone-scroll-area" tabindex="0" aria-label="Scrollable: the full helper profile as seen by a seeker"><img src="../assets/img/paira/screens/helper-profile-long.webp" alt="The full helper profile as seen by a seeker: match badge, can help with and want to do, why you are seeing this person, overview, trust signals, request history, experience, recent requests, education, links, recommendations" width="786" height="5580" loading="lazy" decoding="async" /></div><figcaption>Seen by others <small>scroll to read</small></figcaption></figure>
+            </div>
+          </div>
+        </article>
       </div>
     </div>
   </section>
 
-  <section class="merlin-report-section paira-act-opener" id="f">
+  <section class="merlin-report-section merlin-report-band paira-act-cont" id="f">
     <div class="container merlin-report-layout">
       <aside class="merlin-report-section-label"><p class="section-label">Reflection</p><span>F</span></aside>
       <div class="merlin-report-content">
         <div class="merlin-report-lede">
-          <h2>How a decision travels now.</h2>
-          <p class="prop-note"><span class="prop-tag prop-tag-edit">Edit</span> Where: the bottom of Reflection, under the two columns. Outlined pills are the steps you set up; violet is where AI does the work. <span class="prop-tag prop-tag-ask">Confirm</span> whether “Meeting → AI notes → ticket” is a step you use or only the other designer.</p>
+          <h2>The decision flow, inside the point it belongs to.</h2>
+          <p class="prop-note"><span class="prop-tag prop-tag-edit">Edit</span> Below is Reflection as it is now. The strip sits inside “A cleaner path from design to code”, under its sentence, as a small row of pills: outlined = steps you set up, violet = AI does the work. Nothing else changes. <span class="prop-tag prop-tag-ask">Confirm</span> the first three steps (Meeting → AI notes → Ticket) are part of your team’s routine.</p>
         </div>
-        <div class="paira-flowstrip" style="margin-top:0;padding-top:0;border-top:0">
-          <h3 class="paira-reflect-head">How a decision travels now</h3>
-          <div class="paira-flowstrip-row">
-            <span>Meeting</span><i>→</i><span class="is-ai">AI notes and decision log</span><i>→</i><span>Ticket</span><i>→</i><span class="is-mine">Prototype on the web</span><i>→</i><span class="is-mine">Latest-screen inventory</span><i>→</i><span class="is-mine">Role rules for sync</span><i>→</i><span>iOS build</span>
+        <div class="paira-reflect">
+          <div class="paira-reflect-col">
+            <h3 class="paira-reflect-head">How I grew</h3>
+            <ol class="paira-reflect-list">
+              <li><strong>From collaborator to shipper.</strong> I worked with the PM and the developers on requirements from the first frame to the App Store, and often was the PM, and half a developer, when the work needed it.</li>
+              <li><strong>Finding better ways to work together.</strong> We moved from everyone working separately and posting updates, to using AI to carry ideas, and to putting the prototype on the web so the whole team could brainstorm and vibe-code on the same screens.</li>
+              <li><strong>Defining the product, and my place in it.</strong> In mixed roles and an unknown market, I learned to help decide what Paira should become next, and where my strengths are most useful: product judgment, systems, and the craft of the screen.</li>
+            </ol>
           </div>
-          <p class="paira-flowstrip-note">Outlined steps are the ones I set up. Everyone works from the same screens, nobody asks which version is current, and the design system is shared by the app and the web.</p>
+          <div class="paira-reflect-col">
+            <h3 class="paira-reflect-head">What I learned at work</h3>
+            <ol class="paira-reflect-list">
+              <li><strong>A cleaner path from design to code.</strong> As the app grew, the hard questions became: where is the latest screen, what is in development, what is built but still has issues. I organized the current screens and wrote a simple set of rules each role follows, so everyone stays in sync.
+                <div class="paira-flowstrip-row paira-flowstrip-inline prop-added" aria-label="How a decision travels now"><span>Meeting</span><i>→</i><span class="is-ai">AI notes and decision log</span><i>→</i><span>Ticket</span><i>→</i><span class="is-mine">Prototype on the web</span><i>→</i><span class="is-mine">Latest-screen inventory</span><i>→</i><span class="is-mine">Role rules for sync</span><i>→</i><span>iOS build</span></div>
+              </li>
+              <li><strong>One design system, app and web.</strong> Bringing the app’s system to the web version made the marketing site faster to build, and made this case study possible.</li>
+              <li><strong>AI as a working partner.</strong> I keep testing where AI helps UI/UX design and where it does not, and I build my own small tools and agents along the way, so my learning compounds with the team’s.</li>
+            </ol>
+          </div>
         </div>
+
+        
       </div>
     </div>
   
@@ -207,7 +159,8 @@
 </main>
 <footer class="site-footer home-footer"><div class="container footer-row small muted"><p>Proposal draft, not linked from the site.</p><p><a href="/paira/">Back to the current page</a></p></div></footer>
 <script>
-  document.querySelectorAll('.merlin-report-lede, .paira-chapters, .paira-findings, .paira-loop, .paira-pivot-block, .paira-flowstrip').forEach(n => n.classList.add('merlin-reveal','is-visible'));
+  document.querySelectorAll('.merlin-reveal, .merlin-report-lede, .paira-chapters, .paira-findings, .paira-surface, .paira-reflect-col').forEach(n => n.classList.add('merlin-reveal','is-visible'));
+  document.querySelectorAll('.paira-phone-scroll-area').forEach(a => { a.style.overflowY = 'auto'; });
 </script>
 </body>
 </html>
