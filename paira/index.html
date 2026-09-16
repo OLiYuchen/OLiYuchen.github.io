@@ -78,14 +78,6 @@
         </article>
       </div>
 
-      <div class="paira-chapters" aria-label="Chapters">
-        <div><b>Aug 2025</b>Joined with an idea and a few screens</div>
-        <div><b>Dec 2025</b>1.0 beta: swipe to match</div>
-        <div><b>Feb 2026</b>User tests; the pivot begins</div>
-        <div><b>Apr 2026</b>2.0 beta: request first</div>
-        <div class="is-now"><b>Jun 2026</b>App Store launch. Still shipping</div>
-      </div>
-
       <figure class="case-cover-image case-cover-image-paira">
         <img src="../assets/img/paira/paira-overview.webp" alt="Paira on the App Store: the request flow, helper profile, chat, and Explore screens" width="2887" height="1277" />
       </figure>
@@ -203,61 +195,32 @@
       <div class="merlin-report-content">
         <div class="merlin-report-lede">
           <h2>We changed the unit of the product from a person to a request, and I redesigned my surfaces around it.</h2>
-          <p>The early Paira borrowed its shape from dating apps: a People tab you swiped through, a Request tab with small bounty posts, and AI promised for later. We shipped that version to beta testers over TestFlight in December 2025. People liked the demo, and it taught us what would make them come back: even after two people matched, they still needed a reason to talk. We moved to a request-based product step by step, through several rounds of design, review, and user testing. The round of user tests below is the one that made the decision clear.</p>
+          <p>The early Paira borrowed its shape from dating apps: a People tab you swiped through, a Request tab with small bounty posts, and AI promised for later. We shipped that version to beta testers over TestFlight in early 2026. People liked the demo, and it taught us what would make them come back: even after two people matched, they still needed a reason to talk. We moved to a request-based product step by step, through several rounds of design, review, and user testing. The round of user tests below is the one that made the decision clear.</p>
         </div>
 
-        <div class="paira-findings" aria-label="What the beta taught us">
-          <p class="project-meta">What the beta taught us</p>
-          <div class="paira-signals3">
-            <article><p class="project-meta">Signal 1</p><h3>Browsing people stalled.</h3><p>Swiping felt familiar, and each card asked for a decision on trust, fit, and value at once. Sessions ended without a next step.</p></article>
-            <article><p class="project-meta">Signal 2</p><h3>Real requests got answered.</h3><p>Of the beta’s three features, requests drew the strongest response. A specific need started real conversations on both sides.</p></article>
-            <article><p class="project-meta">Signal 3</p><h3>One-shot AI was not enough.</h3><p>Search understood the intent, then left people on their own. Intent needed a guided path from the ask to the match.</p></article>
-          </div>
-          <p class="paira-findings-note">These came from 30+ user interviews across both chapters and a round of one-on-one think-aloud tests on the beta, which we designed and ran as a design team: set tasks, potential users, notes shared with the whole team. In February 2026 we began rebuilding the product around the request; the request-first beta shipped in April.</p>
-        </div>
-
-        <!-- The loop, before and after -->
-        <div class="paira-loop" aria-label="The user loop before and after the pivot">
-          <div class="paira-loop-row">
-            <div class="paira-loop-tag">Before</div>
-            <div>
-              <div class="paira-loop-steps">
-                <div><b>Vague intent</b><p>No way to turn a need into words.</p></div>
-                <div><b>Browse people</b><p>Trust, fit, and value judged in one swipe.</p></div>
-                <div><b>Match</b><p>Nothing concrete for a helper to answer.</p></div>
-                <div><b>Chat</b><p>Two people, no first message.</p></div>
-                <div><b>Unclear outcome</b><p>No status, no completion.</p></div>
-              </div>
-              <p class="paira-loop-caption">The product had features, not a loop. Each step left the person guessing what came next.</p>
-            </div>
-          </div>
-          <div class="paira-loop-row paira-loop-row-after">
-            <div class="paira-loop-tag">After</div>
-            <div>
-              <div class="paira-loop-steps">
-                <div><b>Say the need</b><p><strong>Onboarding</strong>Intentions first, then straight into the AI.</p></div>
-                <div><b class="is-ai">AI drafts the request</b><p><strong>Request first</strong>One sentence, two questions, a request.</p></div>
-                <div><b>Helpers see it</b><p><strong>Explore · Mentor AI</strong>Daily Picks, and two taps for helpers.</p></div>
-                <div><b class="is-ai">Warm intro + plan</b><p><strong>Profile</strong>Read as “what I can help with”.</p></div>
-                <div><b>Completed</b><p><strong>Premium</strong>Points boost the request, not unlock people.</p></div>
-              </div>
-              <p class="paira-loop-caption paira-loop-caption-dark">The same loop, closed. The five surfaces I own sit on it.</p>
-            </div>
-          </div>
+        <div class="paira-findings" aria-label="What the beta test showed">
+          <p class="project-meta">What a round of user tests told us</p>
+          <ul>
+            <li><strong>Swiping had friction.</strong> Each card demanded a decision right away, and that pressure made people quit instead of choose.</li>
+            <li><strong>Everyone wanted to know more.</strong> In a job search, a headline is not enough to say yes or no to a person.</li>
+            <li><strong>The mentor side was inefficient.</strong> Helpers had to swipe through people with nothing concrete to respond to, so the deck went stale on their end.</li>
+            <li><strong>A match was not a conversation.</strong> Two people who liked each other still had to invent the first message.</li>
+          </ul>
+          <p class="paira-findings-note">We designed and ran the tests as a design team: one-on-one sessions with potential users, a think-aloud protocol, and set tasks to complete. We brought the findings to the team and shaped the new direction together.</p>
         </div>
 
         <!-- PM:02 pivot slider -->
-        <p class="paira-slider-lead">From February 2026 we rebuilt the product around the request.</p>
+        <p class="paira-slider-lead">In spring 2026 we rebuilt the product around the request.</p>
         <div class="paira-m-pivot" data-pm-pivot aria-label="Before and after the pivot">
           <script type="application/json" data-pm-config>
           {
             "mode": "image",
             "beforeImage": "../assets/img/paira/screens/pivot-before-people-swipe.webp",
             "afterImage": "../assets/img/paira/screens/ai-request-review.webp",
-            "beforeAlt": "1.0 beta, December 2025: the People tab, a swipe card with like and decline actions",
+            "beforeAlt": "Beta, February 2026: the People tab, a swipe card with like and decline actions",
             "afterAlt": "App Store, June 2026: an AI-drafted request ready to post",
             "position": 50,
-            "beforeTag": "Before: browse profiles · 1.0 beta, Dec 2025",
+            "beforeTag": "Before: browse profiles · beta, Feb 2026",
             "afterTag": "After: state a request · App Store, Jun 2026",
             "toggleBefore": "Before",
             "toggleAfter": "After",
@@ -338,10 +301,7 @@
                 { "label": "Select", "caption": "One helper chosen, the others told.", "chip": { "kind": "progress", "label": "In Progress" }, "state": { "avatars": ["CA"], "text": "Chloe chosen", "muted": "others told" } },
                 { "label": "Chat", "caption": "Paira AI writes the introduction.", "chip": { "kind": "chatting", "label": "Chatting" }, "state": { "bubble": { "meta": "AI introduction", "text": "Hi Chloe, Sam is a new grad applying to product design internships and would like one honest resume review." } } }
               ],
-              "finalStep": { "chip": { "kind": "completed", "label": "Completed" }, "state": { "avatars": ["CA"], "text": "Marked as completed", "muted": "· 45 min" } },
-              "lanes": { "seekerLabel": "Seeker", "helperLabel": "Helper",
-                "seeker": ["Says a need; AI drafts it", "Waits, or invites helpers", "Reads the reply", "Picks one; others are told", "Gets the intro and a plan"],
-                "helper": ["Sees it in Daily Picks", "Opens the request", "Replies with a reason", "Accepts the selection", "Helps, earns a recommendation"] } }
+              "finalStep": { "chip": { "kind": "completed", "label": "Completed" }, "state": { "avatars": ["CA"], "text": "Marked as completed", "muted": "· 45 min" } } }
             </script>
           </ol>
         </div>
@@ -435,12 +395,6 @@
             <div class="paira-surface-copy">
               <p>The profile leads with two lists, “Can help with” and “Want to do,” an “Open to networking” switch, and recommendations written by people you have actually worked with. Experience and education are there, but lower down, and the editor breaks them into small steps so nobody stalls on a blank form. Points, Request Boost, and settings also live here, because this is where a person decides how much of themselves to put into the platform. The profile is never demanded up front; the app asks you to complete it at the moment it starts to matter, when mentees are deciding whether to trust you.</p>
               <p><strong>Why.</strong> A profile is read by someone deciding whether to accept your help, or by the AI deciding whether to suggest you. Both need to know what you can do, not where you went to school. Asking for it later, in context, is what lets onboarding stay short without losing match quality.</p>
-              <ul class="paira-trust" aria-label="Trust, built into the profile">
-                <li><b>Trust signals</b>Requests helped, likes, days on Paira, response time: what a mentee reads before saying yes.</li>
-                <li><b>Recommendations</b>Completed help becomes a line on the profile, written by the person you helped.</li>
-                <li><b>Open to</b>Networking and referral advice as switches, so nobody asks for what you did not offer.</li>
-                <li><b>Control</b>Report, hide, block, and unmatch kept separate, each one clear action.</li>
-              </ul>
             </div>
             <div class="paira-phone-row paira-phone-row-profile" aria-label="Profile screens">
               <figure class="paira-phone"><img src="../assets/img/paira/screens/profile-tab.webp" alt="Own profile tab with points banner and Request Boost entry" width="786" height="1704" loading="lazy" decoding="async" /><figcaption>My profile</figcaption></figure>
@@ -977,13 +931,7 @@
           </div>
         </div>
 
-        <div class="paira-flowstrip">
-          <h3 class="paira-reflect-head">How a decision travels now</h3>
-          <div class="paira-flowstrip-row">
-            <span>Meeting</span><i>→</i><span class="is-ai">AI notes and decision log</span><i>→</i><span>Ticket</span><i>→</i><span class="is-mine">Prototype on the web</span><i>→</i><span class="is-mine">Latest-screen inventory</span><i>→</i><span class="is-mine">Role rules for sync</span><i>→</i><span>iOS build</span>
-          </div>
-          <p class="paira-flowstrip-note">Outlined steps are the ones I set up. Everyone works from the same screens, nobody asks which version is current, and the design system is shared by the app and the web.</p>
-        </div>
+        
       </div>
     </div>
   </section>
@@ -1018,7 +966,7 @@
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const revealTargets = document.querySelectorAll('.merlin-report-lede, .merlin-hero-focus, .merlin-meta-frame, .merlin-project-detail-card, .case-cover-image, .paira-premise-line, .paira-framing-path, .paira-market-grid > *, .paira-research-step > *, .paira-pullquote-close, .paira-findings, .paira-loop, .paira-pivot-block, .paira-surface, .paira-ds-tile, .paira-materials-col > *, .paira-stack > *, .paira-growth-grid, .paira-reflect-col, .paira-flowstrip, .paira-live-product');
+  const revealTargets = document.querySelectorAll('.merlin-report-lede, .merlin-hero-focus, .merlin-meta-frame, .merlin-project-detail-card, .case-cover-image, .paira-premise-line, .paira-framing-path, .paira-market-grid > *, .paira-research-step > *, .paira-pullquote-close, .paira-findings, .paira-pivot-block, .paira-surface, .paira-ds-tile, .paira-materials-col > *, .paira-stack > *, .paira-growth-grid, .paira-reflect-col, .paira-live-product');
   revealTargets.forEach((node, index) => { node.classList.add('merlin-reveal'); node.style.setProperty('--merlin-reveal-index', String(index % 4)); });
   if (prefersReducedMotion || !('IntersectionObserver' in window)) {
     revealTargets.forEach((node) => node.classList.add('is-visible'));
