@@ -40,7 +40,8 @@
   .paira-explore-process { margin-top: var(--sp-block); padding-top: var(--sp-block); border-top: 1px solid var(--case-line); }
   .paira-explore-process .prop-concepts { margin-top: 1rem; }
   .paira-explore-final { margin-top: var(--sp-block); padding-top: var(--sp-block); border-top: 1px solid var(--case-line); }
-  .paira-explore-final .paira-phone-row { margin-top: 1rem; }
+  .paira-explore-final .paira-phone-row { margin-top: 1rem; max-width: 38rem; gap: .7rem; }
+  .paira-explore-final .paira-phone figcaption { font-size: .74rem; }
   .paira-explore-final .paira-surface-note { margin-top: 1.2rem; max-width: 60ch; }
   .prop-concepts figcaption { font-size: .88rem; }
   .paira-concepts { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); gap: clamp(1.4rem, 3vw, 2.6rem); align-items: start; margin-top: 1rem; }
@@ -251,6 +252,11 @@
 <script>
   document.querySelectorAll('.merlin-reveal, .merlin-report-lede, .paira-chapters, .paira-findings, .paira-surface, .paira-reflect-col').forEach(n => n.classList.add('merlin-reveal','is-visible'));
   document.querySelectorAll('.paira-phone-scroll-area').forEach(a => { a.style.overflowY = 'auto'; });
+  const clips = document.querySelectorAll('.paira-phone-video video');
+  if (clips.length && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => entries.forEach((e) => { if (e.isIntersecting) e.target.play().catch(() => {}); else e.target.pause(); }), { threshold: 0.4 });
+    clips.forEach((v) => io.observe(v));
+  }
 </script>
 </body>
 </html>
