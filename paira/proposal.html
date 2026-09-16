@@ -57,6 +57,20 @@
   .paira-concepts-notes li:last-child::before { background: var(--case-accent-deep); color: #fff; border-color: transparent; }
   .paira-concepts-notes strong { color: var(--ink); font-weight: 600; }
   @media (max-width: 760px) { .paira-concepts { grid-template-columns: 1fr; } }
+  .paira-ways { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, .85fr) 1.6rem minmax(0, 4fr); gap: .8rem; align-items: start; margin-top: 1rem; }
+  .paira-way { margin: 0; min-width: 0; }
+  .paira-way img { display: block; width: 100%; height: auto; border-radius: .7rem; box-shadow: 0 10px 26px rgba(19,19,19,.12); background: var(--paira-ink); opacity: .78; filter: saturate(.85); }
+  .paira-way figcaption, .paira-way-shipped-note { margin-top: .6rem; font-size: .8rem; line-height: 1.45; color: var(--ink-soft); }
+  .paira-way figcaption b, .paira-way-shipped-note b { display: block; color: var(--ink); font-weight: 600; margin-bottom: .1rem; }
+  .paira-way-arrow { align-self: center; padding-top: 0; color: var(--case-accent-deep); font-size: 1.3rem; text-align: center; }
+  .paira-way-shipped { padding: .7rem .8rem .8rem; border-radius: 1rem; background: var(--case-accent-soft); border: 1px solid rgba(63,60,199,.18); }
+  .paira-way-shipped-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .6rem; }
+  .paira-way-shipped-row .paira-phone img, .paira-way-shipped-row .paira-phone video { border-radius: .7rem; box-shadow: 0 10px 26px rgba(19,19,19,.14); }
+  .paira-way-shipped-row .paira-phone figcaption { margin-top: .45rem; font-size: .72rem; }
+  .paira-way-shipped-note { margin: .7rem 0 0; max-width: 60ch; }
+  .paira-way-shipped-note b { color: var(--case-accent-deep); }
+  .paira-explore-process .paira-surface-note { margin-top: 1.2rem; max-width: 60ch; }
+  @media (max-width: 1024px) { .paira-ways { grid-template-columns: 1fr 1fr; } .paira-way-arrow { display: none; } .paira-way-shipped { grid-column: 1 / -1; } }
 </style>
 </head>
 <body class="merlin-report-page case-study-page paira-case-page">
@@ -214,32 +228,21 @@
           </div>
 
           <div class="paira-explore-process">
-            <p class="project-meta">Three ways to show a request</p>
-            <div class="paira-concepts">
-              <div class="paira-concepts-phones">
-                <figure><img src="../assets/img/paira/screens/explore-concept-stream.webp" alt="Explore concept: request cards drifting across the screen like a comment stream" loading="lazy" decoding="async" /><figcaption>1</figcaption></figure>
-                <figure><img src="../assets/img/paira/screens/explore-concept-cards.webp" alt="Explore concept: one large AI pick above a grid of smaller cards" loading="lazy" decoding="async" /><figcaption>2</figcaption></figure>
-                <figure class="is-final"><img src="../assets/img/paira/screens/explore-daily-picks.webp" alt="Final Explore: Your Daily Picks" loading="lazy" decoding="async" /><figcaption>3 · shipped</figcaption></figure>
+            <p class="project-meta">Three ways to show a request, and the one that shipped</p>
+            <div class="paira-ways">
+              <figure class="paira-way paira-way-tried"><img src="../assets/img/paira/screens/explore-concept-stream.webp" alt="Explore concept: request cards drifting across the screen like a comment stream" loading="lazy" decoding="async" /><figcaption><b>1 · Request stream</b>Dense and inventive; asks for fast reading and adds pressure to respond. Kept for a later release.</figcaption></figure>
+              <figure class="paira-way paira-way-tried"><img src="../assets/img/paira/screens/explore-concept-cards.webp" alt="Explore concept: one large AI pick above a grid of smaller cards" loading="lazy" decoding="async" /><figcaption><b>2 · Big and small cards</b>Small cards were hard to read, and size gives some requests more chance than others. Before premium, every request gets an equal chance.</figcaption></figure>
+              <div class="paira-way-arrow" aria-hidden="true">→</div>
+              <div class="paira-way-shipped">
+                <div class="paira-way-shipped-row">
+                  <figure class="paira-phone paira-phone-video"><video src="../assets/img/paira/screens/explore-browse-save.mp4" poster="../assets/img/paira/screens/explore-daily-picks.webp" muted loop playsinline preload="none" width="786" height="1704" aria-label="Browsing Daily Picks, saving one, and opening a request"></video><figcaption>Browse, save, open</figcaption></figure>
+                  <figure class="paira-phone"><img src="../assets/img/paira/screens/explore-tutorial-overlay.webp" alt="First-visit tutorial" width="786" height="1704" loading="lazy" decoding="async" /><figcaption>First visit</figcaption></figure>
+                  <figure class="paira-phone"><img src="../assets/img/paira/screens/explore-request-detail.webp" alt="Request detail with I'm Interested action" width="786" height="1704" loading="lazy" decoding="async" /><figcaption>Request detail</figcaption></figure>
+                  <figure class="paira-phone"><img src="../assets/img/paira/screens/explore-saved-requests.webp" alt="Saved requests sheet" width="786" height="1704" loading="lazy" decoding="async" /><figcaption>Saved picks</figcaption></figure>
+                </div>
+                <p class="paira-way-shipped-note"><b>3 · Your Daily Picks, shipped</b>A short list of equal cards, a badge that says why each is here, save for later, done for today. Tested one-on-one with six mentors on the same tasks: a list that ends felt finishable, and a reason on each card beat a number.</p>
               </div>
-              <ol class="paira-concepts-notes">
-                <li><strong>Request stream.</strong> Cards drift across the screen like live comments: dense, quick to scan, the most inventive of the three. It asks for fast English reading and puts pressure on people to read and respond, so it waits for a later release.</li>
-                <li><strong>Big and small cards.</strong> One large AI pick, then a grid of small ones. Small cards were hard to read, and the size difference gives some requests more chance than others. Until premium launches, every request gets an equal chance to be seen.</li>
-                <li><strong>Your Daily Picks.</strong> A short list of equal cards, a badge that says why each is here, save for later, done for today. Tested one-on-one with six mentors, same tasks each time: a list that ends felt finishable, and a reason on each card beat a number.</li>
-              </ol>
             </div>
-          </div>
-
-          <div class="paira-explore-final">
-                        <div class="paira-phone-row" aria-label="Explore screens">
-              <figure class="paira-phone paira-phone-video">
-                <video src="../assets/img/paira/screens/explore-browse-save.mp4" poster="../assets/img/paira/screens/explore-daily-picks.webp" muted loop playsinline preload="none" width="786" height="1704" aria-label="Browsing Daily Picks, saving one, and opening a request"></video>
-                <figcaption>Browse, save, open</figcaption>
-              </figure>
-              <figure class="paira-phone"><img src="../assets/img/paira/screens/explore-tutorial-overlay.webp" alt="First-visit tutorial: save a request, drag to refresh, tap to view details" width="786" height="1704" loading="lazy" decoding="async" /><figcaption>First visit</figcaption></figure>
-              <figure class="paira-phone"><img src="../assets/img/paira/screens/explore-request-detail.webp" alt="Request detail with I'm Interested action" width="786" height="1704" loading="lazy" decoding="async" /><figcaption>Request detail</figcaption></figure>
-              <figure class="paira-phone"><img src="../assets/img/paira/screens/explore-saved-requests.webp" alt="Saved requests sheet" width="786" height="1704" loading="lazy" decoding="async" /><figcaption>Saved picks</figcaption></figure>
-            </div>
-          </div>
             <p class="paira-surface-note"><strong>What changed.</strong> From a swipe deck of bounties to a list you read, save, and return to, where every card is something you can act on today.</p>
           </div>
         </article>
