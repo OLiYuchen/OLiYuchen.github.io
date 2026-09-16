@@ -32,6 +32,10 @@
   .prop-concepts figcaption { margin-top: .55rem; font-size: .82rem; line-height: 1.45; color: var(--ink-soft); }
   .prop-concepts figcaption b { display: block; color: var(--ink); font-weight: 600; }
   @media (max-width: 760px) { .prop-concepts { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+  .prop-concepts-3 { grid-template-columns: repeat(3, minmax(0,1fr)); gap: 1.2rem; }
+  .prop-concepts img { display: block; width: 100%; height: auto; border-radius: 1rem; box-shadow: 0 16px 40px rgba(19,19,19,.16); }
+  .prop-concepts figure.is-final img { box-shadow: 0 0 0 3px var(--paira-violet), 0 16px 40px rgba(19,19,19,.2); }
+  @media (max-width: 760px) { .prop-concepts-3 { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body class="merlin-report-page case-study-page paira-case-page">
@@ -170,7 +174,7 @@
       <div class="merlin-report-content">
         <div class="merlin-report-lede">
           <h2>The Explore concepts we tried, and the one six mentors chose.</h2>
-          <p class="prop-note"><span class="prop-tag prop-tag-new">New</span> Where: inside 4.2 Explore, between the copy and the four phones. A row of the earlier concepts (grey boxes below are placeholders for your drafts), a line on what each one tried, and what the six mentor sessions said. The final version is the one already shown. <span class="prop-tag prop-tag-ask">Confirm</span> send me the earlier design files and the one or two sentences per concept you remember from testing.</p>
+          <p class="prop-note"><span class="prop-tag prop-tag-new">New</span> Where: inside 4.2 Explore, between the copy and the four phones. Two earlier concepts with your reasoning, then the final, with the six-mentor test as the deciding evidence. Positive framing kept: the stream is “for a later release”, the cards are “equal chance to be seen”.</p>
         </div>
         <article class="paira-surface" id="surface-explore">
           <header class="paira-surface-head">
@@ -183,13 +187,11 @@
           
           <div class="prop-explore-tests">
             <p class="project-meta">Before the Daily Picks</p>
-            <div class="prop-concepts">
-              <figure><div class="prop-placeholder">Concept A<br><small>draft screen</small></div><figcaption><b>Feed</b> An endless list of open requests, newest first. Mentors read a few and stopped: too much to owe.</figcaption></figure>
-              <figure><div class="prop-placeholder">Concept B<br><small>draft screen</small></div><figcaption><b>Filters first</b> Choose type, level, and industry before seeing anything. Precise, but nobody wanted to set filters before they had a reason.</figcaption></figure>
-              <figure><div class="prop-placeholder">Concept C<br><small>draft screen</small></div><figcaption><b>Swipe requests</b> One request at a time, yes or no. Familiar, but the decision came too early and the good ones got lost.</figcaption></figure>
-              <figure class="is-final"><div class="prop-placeholder is-final">Final<br><small>Your Daily Picks</small></div><figcaption><b>A short daily list with reasons</b> Five picks, a badge that says why, save for later, done for today. The version six mentors chose.</figcaption></figure>
+            <div class="prop-concepts prop-concepts-3">
+              <figure><img src="../assets/img/paira/screens/explore-concept-stream.webp" alt="Explore concept: request cards drifting across the screen like a comment stream" loading="lazy" decoding="async" /><figcaption><b>Request stream</b> Cards drift across the screen like live comments. Dense and quick to scan, and the most inventive of the three; it asks for fast English reading and puts pressure on people to read and respond, so it waits for a later release.</figcaption></figure>
+              <figure><img src="../assets/img/paira/screens/explore-concept-cards.webp" alt="Explore concept: one large AI pick above a grid of smaller cards" loading="lazy" decoding="async" /><figcaption><b>Big and small cards</b> One large AI pick, then a grid of small ones. The small cards were hard to read, and the size difference gives some requests more chance than others. Until premium launches, every request should have an equal chance to be seen.</figcaption></figure>
+              <figure class="is-final"><img src="../assets/img/paira/screens/explore-daily-picks.webp" alt="Final Explore: Your Daily Picks, a short list of equal cards with a badge on each" loading="lazy" decoding="async" /><figcaption><b>Your Daily Picks, the final</b> A short list of equal cards, a badge that says why each one is here, save for later, done for today. Tested one-on-one with six mentors, same tasks each time: a list that ends felt finishable, and a reason on each card beat a number.</figcaption></figure>
             </div>
-            <p class="paira-findings-note">Tested one-on-one with six mentors, same tasks each time. The pattern was consistent: a list that ends felt finishable, and a reason on each card beat a number.</p>
           </div>
         </article>
       </div>
