@@ -849,7 +849,12 @@
     card.setAttribute('aria-live', 'polite');
     card.innerHTML = '<div class="paira-m-life__chips"></div><p class="paira-m-life__card-title">' + esc(cfg.card.title) + '</p><p class="paira-m-life__card-meta">' + esc(cfg.card.meta) + '</p><div class="paira-m-life__state"></div>';
     const frame = h('div', 'paira-m-life__frame'); frame.append(card);
-    root.append(head, track, frame);
+    // optional seeker / helper lanes above and below the rail, one cell per step, same columns
+    const lane = (name, items, cls) => { if (!items || !items.length) return null; const l = h('div', 'paira-m-life__lane ' + cls); l.setAttribute('aria-label', name); l.innerHTML = '<span class="paira-m-life__lane-name">' + esc(name) + '</span>' + cfg.steps.map((_, i) => '<span class="paira-m-life__lane-cell">' + esc(items[i] || '') + '</span>').join(''); return l; };
+    const laneTop = cfg.lanes ? lane(cfg.lanes.seekerLabel || 'Seeker', cfg.lanes.seeker, 'paira-m-life__lane--seeker') : null;
+    const laneBottom = cfg.lanes ? lane(cfg.lanes.helperLabel || 'Helper', cfg.lanes.helper, 'paira-m-life__lane--helper') : null;
+    root.append(head); if (laneTop) root.append(laneTop); root.append(track); if (laneBottom) root.append(laneBottom); root.append(frame);
+    if (laneTop || laneBottom) root.classList.add('has-lanes');
     const steps = [...track.querySelectorAll('.paira-m-life__step')];
     const chips = card.querySelector('.paira-m-life__chips'), state = card.querySelector('.paira-m-life__state');
 
