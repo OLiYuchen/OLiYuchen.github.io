@@ -198,15 +198,32 @@
           <p>The early Paira borrowed its shape from dating apps: a People tab you swiped through, a Request tab with small bounty posts, and AI promised for later. We shipped that version to beta testers over TestFlight in early 2026. People liked the demo, and it taught us what would make them come back: even after two people matched, they still needed a reason to talk. We moved to a request-based product step by step, through several rounds of design, review, and user testing. The round of user tests below is the one that made the decision clear.</p>
         </div>
 
-        <div class="paira-findings" aria-label="What the beta test showed">
-          <p class="project-meta">What a round of user tests told us</p>
-          <ul>
-            <li><strong>Swiping had friction.</strong> Each card demanded a decision right away, and that pressure made people quit instead of choose.</li>
-            <li><strong>Everyone wanted to know more.</strong> In a job search, a headline is not enough to say yes or no to a person.</li>
-            <li><strong>The mentor side was inefficient.</strong> Helpers had to swipe through people with nothing concrete to respond to, so the deck went stale on their end.</li>
-            <li><strong>A match was not a conversation.</strong> Two people who liked each other still had to invent the first message.</li>
-          </ul>
-          <p class="paira-findings-note">We designed and ran the tests as a design team: one-on-one sessions with potential users, a think-aloud protocol, and set tasks to complete. We brought the findings to the team and shaped the new direction together.</p>
+        <div class="paira-findings" aria-label="What the beta taught us">
+          <p class="project-meta">What the beta taught us</p>
+          <div class="paira-signals3 paira-signals3-evidence">
+            <article>
+              <p class="project-meta">Signal 1</p><h3>Browsing people stalled.</h3>
+              <ul>
+                <li><strong>Swiping had friction.</strong> Each card demanded a decision right away, and that pressure made people quit instead of choose.</li>
+                <li><strong>Everyone wanted to know more.</strong> In a job search, a headline is not enough to say yes or no to a person.</li>
+              </ul>
+            </article>
+            <article>
+              <p class="project-meta">Signal 2</p><h3>Real requests got answered.</h3>
+              <ul>
+                <li><strong>A specific need started real conversations.</strong> Of the beta’s three features, requests drew the strongest response, on both sides.</li>
+                <li><strong>The mentor side needed the same clarity.</strong> Helpers swiping through people had nothing concrete to respond to; helpers reading a request did.</li>
+              </ul>
+            </article>
+            <article>
+              <p class="project-meta">Signal 3</p><h3>A match was not yet a conversation.</h3>
+              <ul>
+                <li><strong>Two people who liked each other still had to invent the first message.</strong></li>
+                <li><strong>One-shot AI was not enough.</strong> Search understood the intent, then left people on their own. Intent needed a guided path from the ask to the match.</li>
+              </ul>
+            </article>
+          </div>
+          <p class="paira-findings-note">The evidence came from one-on-one think-aloud sessions with six or more potential users, each given the same set of tasks, designed and run by the design team. We brought the findings to the whole team and shaped the new direction together.</p>
         </div>
 
         <!-- PM:02 pivot slider -->
@@ -393,8 +410,8 @@
           </header>
           <div class="paira-surface-body">
             <div class="paira-surface-copy">
-              <p>The profile leads with two lists, “Can help with” and “Want to do,” an “Open to networking” switch, and recommendations written by people you have actually worked with. Experience and education are there, but lower down, and the editor breaks them into small steps so nobody stalls on a blank form. Points, Request Boost, and settings also live here, because this is where a person decides how much of themselves to put into the platform. The profile is never demanded up front; the app asks you to complete it at the moment it starts to matter, when mentees are deciding whether to trust you.</p>
-              <p><strong>Why.</strong> A profile is read by someone deciding whether to accept your help, or by the AI deciding whether to suggest you. Both need to know what you can do, not where you went to school. Asking for it later, in context, is what lets onboarding stay short without losing match quality.</p>
+              <p>Three constraints shaped the profile. A phone screen is small, so only what helps a decision goes above the fold. A mentee decides in seconds, so the profile leads with what you can help with, what you want to do, and the reason you were suggested. And the decision is about trust, so the numbers a mentee checks sit right under the headline: requests helped, likes received, days on Paira, response time, then recommendations from people you actually helped.</p>
+              <p><strong>What that gave us.</strong> Experience and education are still there, lower down, and the editor breaks them into small steps so nobody stalls on a blank form. “Open to” switches say what you offer, so nobody asks for what you did not. Points, Request Boost, and settings live here too, because this is where a person decides how much of themselves to put in. The profile is never demanded up front; the app asks for it when it starts to matter, which is what lets onboarding stay short without losing match quality.</p>
             </div>
             <div class="paira-phone-row paira-phone-row-profile" aria-label="Profile screens">
               <figure class="paira-phone"><img src="../assets/img/paira/screens/profile-tab.webp" alt="Own profile tab with points banner and Request Boost entry" width="786" height="1704" loading="lazy" decoding="async" /><figcaption>My profile</figcaption></figure>
@@ -924,7 +941,9 @@
           <div class="paira-reflect-col">
             <h3 class="paira-reflect-head">What I learned at work</h3>
             <ol class="paira-reflect-list">
-              <li><strong>A cleaner path from design to code.</strong> As the app grew, the hard questions became: where is the latest screen, what is in development, what is built but still has issues. I organized the current screens and wrote a simple set of rules each role follows, so everyone stays in sync.</li>
+              <li><strong>A cleaner path from design to code.</strong> As the app grew, three questions kept coming back: where is the latest screen, what is in development, and what is built but still broken. I answered them once instead of every day: a single inventory of current screens, a prototype on the web that anyone can open, and a short rule per role for how a change moves from a meeting to the build.
+                <div class="paira-flowstrip-row paira-flowstrip-inline" aria-label="How a change moves now"><span>Team meeting</span><i>→</i><span class="is-ai">AI meeting notes, decisions logged</span><i>→</i><span>Ticket</span><i>→</i><span class="is-mine">Web prototype, one link for everyone</span><i>→</i><span class="is-mine">Latest-screen inventory</span><i>→</i><span class="is-mine">Per-role sync rules</span><i>→</i><span>iOS build</span></div>
+              </li>
               <li><strong>One design system, app and web.</strong> Bringing the app’s system to the web version made the marketing site faster to build, and made this case study possible.</li>
               <li><strong>AI as a working partner.</strong> I keep testing where AI helps UI/UX design and where it does not, and I build my own small tools and agents along the way, so my learning compounds with the team’s.</li>
             </ol>
