@@ -36,6 +36,13 @@
   .prop-concepts img { display: block; width: 100%; height: auto; border-radius: 1rem; box-shadow: 0 16px 40px rgba(19,19,19,.16); }
   .prop-concepts figure.is-final img { box-shadow: 0 0 0 3px var(--paira-violet), 0 16px 40px rgba(19,19,19,.2); }
   @media (max-width: 760px) { .prop-concepts-3 { grid-template-columns: 1fr; } }
+  #g .paira-surface-copy-cols { margin-top: var(--sp-tight); }
+  .paira-explore-process { margin-top: var(--sp-block); padding-top: var(--sp-block); border-top: 1px solid var(--case-line); }
+  .paira-explore-process .prop-concepts { margin-top: 1rem; }
+  .paira-explore-final { margin-top: var(--sp-block); padding-top: var(--sp-block); border-top: 1px solid var(--case-line); }
+  .paira-explore-final .paira-phone-row { margin-top: 1rem; }
+  .paira-explore-final .paira-surface-note { margin-top: 1.2rem; max-width: 60ch; }
+  .prop-concepts figcaption { font-size: .88rem; }
 </style>
 </head>
 <body class="merlin-report-page case-study-page paira-case-page">
@@ -173,8 +180,8 @@
       <aside class="merlin-report-section-label"><p class="section-label">Explore</p><span>G</span></aside>
       <div class="merlin-report-content">
         <div class="merlin-report-lede">
-          <h2>The Explore concepts we tried, and the one six mentors chose.</h2>
-          <p class="prop-note"><span class="prop-tag prop-tag-new">New</span> Where: inside 4.2 Explore, between the copy and the four phones. Two earlier concepts with your reasoning, then the final, with the six-mentor test as the deciding evidence. Positive framing kept: the stream is “for a later release”, the cards are “equal chance to be seen”.</p>
+          <h2>4.2 as it would read: the surface, the three ways we tried, the one that shipped.</h2>
+          <p class="prop-note"><span class="prop-tag prop-tag-edit">Edit</span> Full preview of 4.2. Order: what Explore is and why the limits are deliberate (two columns, badges) → the three concepts with your reasoning and the six-mentor test → the shipped screens with “What changed”. The four phones are the same as today; only their position moves down.</p>
         </div>
         <article class="paira-surface" id="surface-explore">
           <header class="paira-surface-head">
@@ -184,14 +191,37 @@
               <h3>A short daily list of requests to help with, so helping feels finishable.</h3>
             </div>
           </header>
-          
-          <div class="prop-explore-tests">
-            <p class="project-meta">Before the Daily Picks</p>
+          <div class="paira-surface-copy paira-surface-copy-cols">
+            <p>Explore is the helper’s front door. Each day it shows a handful of open requests matched to you, and each one carries a badge that says why it is there. You can save a pick before it refreshes away, pull to refresh, and when the day’s picks run out the screen tells you when the next batch arrives. Tapping a pick opens the request. “I’m Interested” moves it into your Request Hub as something you are helping with.</p>
+            <p>The limits are deliberate. An endless feed made helpers scroll and leave; a small daily set makes helping a favor you can finish today, so helpers come back. Badges give a reason instead of a percentage, so the AI’s judgment stays readable. The first visit teaches two gestures, save and refresh, and nothing else.</p>
+            <div class="paira-badges" aria-label="Explore badge system">
+                <span data-tone="strong">Strong Match</span><span data-tone="quick">Quick Win</span><span data-tone="upside">High Upside</span><span data-tone="trend">Trending Now</span><span data-tone="recent">Recently Viewed</span><span data-tone="boost">Boosted</span>
+              </div>
+          </div>
+
+          <div class="paira-explore-process">
+            <p class="project-meta">Three ways to show a request</p>
             <div class="prop-concepts prop-concepts-3">
-              <figure><img src="../assets/img/paira/screens/explore-concept-stream.webp" alt="Explore concept: request cards drifting across the screen like a comment stream" loading="lazy" decoding="async" /><figcaption><b>Request stream</b> Cards drift across the screen like live comments. Dense and quick to scan, and the most inventive of the three; it asks for fast English reading and puts pressure on people to read and respond, so it waits for a later release.</figcaption></figure>
-              <figure><img src="../assets/img/paira/screens/explore-concept-cards.webp" alt="Explore concept: one large AI pick above a grid of smaller cards" loading="lazy" decoding="async" /><figcaption><b>Big and small cards</b> One large AI pick, then a grid of small ones. The small cards were hard to read, and the size difference gives some requests more chance than others. Until premium launches, every request should have an equal chance to be seen.</figcaption></figure>
-              <figure class="is-final"><img src="../assets/img/paira/screens/explore-daily-picks.webp" alt="Final Explore: Your Daily Picks, a short list of equal cards with a badge on each" loading="lazy" decoding="async" /><figcaption><b>Your Daily Picks, the final</b> A short list of equal cards, a badge that says why each one is here, save for later, done for today. Tested one-on-one with six mentors, same tasks each time: a list that ends felt finishable, and a reason on each card beat a number.</figcaption></figure>
+              <figure><img src="../assets/img/paira/screens/explore-concept-stream.webp" alt="Explore concept: request cards drifting across the screen like a comment stream" loading="lazy" decoding="async" /><figcaption><b>1 · Request stream</b> Cards drift across the screen like live comments: dense, quick to scan, the most inventive of the three. It asks for fast English reading and puts pressure on people to read and respond, so it waits for a later release.</figcaption></figure>
+              <figure><img src="../assets/img/paira/screens/explore-concept-cards.webp" alt="Explore concept: one large AI pick above a grid of smaller cards" loading="lazy" decoding="async" /><figcaption><b>2 · Big and small cards</b> One large AI pick, then a grid of small ones. Small cards were hard to read, and the size difference gives some requests more chance than others. Until premium launches, every request gets an equal chance to be seen.</figcaption></figure>
+              <figure class="is-final"><img src="../assets/img/paira/screens/explore-daily-picks.webp" alt="Final Explore: Your Daily Picks" loading="lazy" decoding="async" /><figcaption><b>3 · Your Daily Picks, shipped</b> A short list of equal cards, a badge that says why each is here, save for later, done for today.</figcaption></figure>
             </div>
+            <p class="paira-findings-note">Tested one-on-one with six mentors, same tasks each time. The pattern was consistent: a list that ends felt finishable, and a reason on each card beat a number. Daily Picks won.</p>
+          </div>
+
+          <div class="paira-explore-final">
+            <p class="project-meta">The shipped surface</p>
+            <div class="paira-phone-row" aria-label="Explore screens">
+              <figure class="paira-phone paira-phone-video">
+                <video src="../assets/img/paira/screens/explore-browse-save.mp4" poster="../assets/img/paira/screens/explore-daily-picks.webp" muted loop playsinline preload="none" width="786" height="1704" aria-label="Browsing Daily Picks, saving one, and opening a request"></video>
+                <figcaption>Browse, save, open</figcaption>
+              </figure>
+              <figure class="paira-phone"><img src="../assets/img/paira/screens/explore-tutorial-overlay.webp" alt="First-visit tutorial: save a request, drag to refresh, tap to view details" width="786" height="1704" loading="lazy" decoding="async" /><figcaption>First visit</figcaption></figure>
+              <figure class="paira-phone"><img src="../assets/img/paira/screens/explore-request-detail.webp" alt="Request detail with I'm Interested action" width="786" height="1704" loading="lazy" decoding="async" /><figcaption>Request detail</figcaption></figure>
+              <figure class="paira-phone"><img src="../assets/img/paira/screens/explore-saved-requests.webp" alt="Saved requests sheet" width="786" height="1704" loading="lazy" decoding="async" /><figcaption>Saved picks</figcaption></figure>
+            </div>
+          </div>
+            <p class="paira-surface-note"><strong>What changed.</strong> From a swipe deck of bounties to a list you read, save, and return to, where every card is something you can act on today.</p>
           </div>
         </article>
       </div>

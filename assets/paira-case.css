@@ -321,8 +321,6 @@
 .paira-findings {
   max-width: 66rem;
   margin-top: clamp(2rem, 4.5vw, 3.6rem);
-  padding: clamp(1.4rem, 3vw, 2.4rem) 0 0;
-  border-top: 1px solid var(--case-line);
 }
 
 .paira-findings ul {
