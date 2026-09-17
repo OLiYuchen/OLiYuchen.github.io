@@ -57,24 +57,23 @@
   .paira-concepts-notes li:last-child::before { background: var(--case-accent-deep); color: #fff; border-color: transparent; }
   .paira-concepts-notes strong { color: var(--ink); font-weight: 600; }
   @media (max-width: 760px) { .paira-concepts { grid-template-columns: 1fr; } }
-  .paira-ways { display: grid; grid-template-columns: minmax(0, 1.25fr) 1.6rem minmax(0, 3fr); gap: 1rem; align-items: start; margin-top: 1rem; }
-  .paira-way-tried-phones { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; max-width: 15rem; }
-  .paira-way-tried-note { margin: .7rem 0 0; font-size: .92rem; line-height: 1.5; color: var(--ink-soft); }
-  .paira-way-tried-note b { display: block; color: var(--ink); font-weight: 600; margin-bottom: .1rem; }
+  .paira-ways { display: grid; grid-template-columns: minmax(0, 2fr) 1.6rem minmax(0, 3fr); grid-template-rows: auto auto; gap: .9rem 1rem; align-items: end; margin-top: 1rem; }
+  .paira-ways-phones { display: grid; gap: .7rem; align-items: end; }
+  .paira-ways-tried { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-column: 1; grid-row: 1; }
+  .paira-ways-shipped { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-column: 3; grid-row: 1; }
   .paira-way { margin: 0; min-width: 0; }
-  .paira-way img { display: block; width: 100%; height: auto; border-radius: .7rem; box-shadow: 0 10px 26px rgba(19,19,19,.12); background: var(--paira-ink); opacity: .78; filter: saturate(.85); }
+  .paira-way img { display: block; width: 100%; height: auto; border-radius: .7rem; box-shadow: 0 10px 26px rgba(19,19,19,.12); background: var(--paira-ink); opacity: .8; filter: saturate(.85); }
   .paira-way figcaption { margin-top: .45rem; font-size: .76rem; text-align: center; color: var(--merlin-muted); }
-  .paira-way-shipped-note { margin-top: .7rem; font-size: .92rem; line-height: 1.5; color: var(--ink-soft); }
-  .paira-way figcaption b, .paira-way-shipped-note b { display: block; color: var(--ink); font-weight: 600; margin-bottom: .1rem; }
-  .paira-way-arrow { align-self: center; padding-top: 0; color: var(--case-accent-deep); font-size: 1.3rem; text-align: center; }
-  .paira-way-shipped { padding: .7rem .8rem .8rem; border-radius: 1rem; background: var(--case-accent-soft); border: 1px solid rgba(63,60,199,.18); }
-  .paira-way-shipped-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .7rem; max-width: 30rem; }
-  .paira-way-shipped-row .paira-phone img, .paira-way-shipped-row .paira-phone video { border-radius: .7rem; box-shadow: 0 10px 26px rgba(19,19,19,.14); }
-  .paira-way-shipped-row .paira-phone figcaption { margin-top: .5rem; font-size: .8rem; }
-  .paira-way-shipped-note { margin: .7rem 0 0; max-width: 60ch; }
-  .paira-way-shipped-note b { color: var(--case-accent-deep); }
-  .paira-explore-process .paira-surface-note { margin-top: 1.2rem; max-width: 60ch; }
-  @media (max-width: 1024px) { .paira-ways { grid-template-columns: 1fr; } .paira-way-arrow { display: none; } }
+  .paira-ways-shipped .paira-phone img, .paira-ways-shipped .paira-phone video { border-radius: .7rem; box-shadow: 0 0 0 2px rgba(96,92,255,.55), 0 10px 26px rgba(19,19,19,.14); }
+  .paira-ways-shipped .paira-phone figcaption { margin-top: .45rem; font-size: .76rem; text-align: center; }
+  .paira-way-arrow { align-self: center; grid-row: 1; grid-column: 2; color: var(--case-accent-deep); font-size: 1.3rem; text-align: center; }
+  .paira-way-note { grid-row: 2; margin: 0; font-size: .92rem; line-height: 1.5; color: var(--ink-soft); align-self: start; }
+  .paira-way-note-tried { grid-column: 1; }
+  .paira-way-note-shipped { grid-column: 3; }
+  .paira-way-note b { display: block; color: var(--ink); font-weight: 600; margin-bottom: .15rem; }
+  .paira-way-note-shipped b { color: var(--case-accent-deep); }
+  .paira-explore-process .paira-surface-note { margin-top: 1.4rem; max-width: 60ch; }
+  @media (max-width: 760px) { .paira-ways { grid-template-columns: 1fr; grid-template-rows: auto; } .paira-way-arrow { display: none; } .paira-ways-tried, .paira-ways-shipped, .paira-way-note { grid-row: auto; grid-column: 1; } }
 </style>
 </head>
 <body class="merlin-report-page case-study-page paira-case-page">
@@ -234,22 +233,18 @@
           <div class="paira-explore-process">
             <p class="project-meta">Explore iterations: two concepts tested, one shipped</p>
             <div class="paira-ways">
-              <div class="paira-way-tried-group">
-                <div class="paira-way-tried-phones">
-                  <figure class="paira-way"><img src="../assets/img/paira/screens/explore-concept-stream.webp" alt="Explore concept: request cards drifting across the screen like a comment stream" loading="lazy" decoding="async" /><figcaption>Request stream</figcaption></figure>
-                  <figure class="paira-way"><img src="../assets/img/paira/screens/explore-concept-cards.webp" alt="Explore concept: one large AI pick above a grid of smaller cards" loading="lazy" decoding="async" /><figcaption>Hero card and grid</figcaption></figure>
-                </div>
-                <p class="paira-way-tried-note"><b>Iterations 1 and 2</b>A request stream with high information density, and a hero card above a grid of compact cards. Usability testing showed a high reading load and pressure to respond in the stream, and legibility and exposure problems in the grid: compact cards were hard to read, and the hierarchy gave some requests more visibility than others. The stream is parked for a later release; until premium ships, every request gets equal exposure.</p>
+              <div class="paira-ways-phones paira-ways-tried">
+                <figure class="paira-way"><img src="../assets/img/paira/screens/explore-concept-stream.webp" alt="Explore concept: request cards drifting across the screen like a comment stream" loading="lazy" decoding="async" /><figcaption>Request stream</figcaption></figure>
+                <figure class="paira-way"><img src="../assets/img/paira/screens/explore-concept-cards.webp" alt="Explore concept: one large AI pick above a grid of smaller cards" loading="lazy" decoding="async" /><figcaption>Hero card and grid</figcaption></figure>
               </div>
               <div class="paira-way-arrow" aria-hidden="true">→</div>
-              <div class="paira-way-shipped">
-                <div class="paira-way-shipped-row">
-                  <figure class="paira-phone paira-phone-video"><video src="../assets/img/paira/screens/explore-browse-save.mp4" poster="../assets/img/paira/screens/explore-daily-picks.webp" muted loop playsinline preload="none" width="786" height="1704" aria-label="Browsing Daily Picks, saving one, and opening a request"></video><figcaption>Browse, save, open</figcaption></figure>
-                  <figure class="paira-phone"><img src="../assets/img/paira/screens/explore-request-detail.webp" alt="Request detail with I'm Interested action" width="786" height="1704" loading="lazy" decoding="async" /><figcaption>Request detail</figcaption></figure>
-                  <figure class="paira-phone"><img src="../assets/img/paira/screens/explore-saved-requests.webp" alt="Saved requests sheet" width="786" height="1704" loading="lazy" decoding="async" /><figcaption>Saved picks</figcaption></figure>
-                </div>
-                <p class="paira-way-shipped-note"><b>Iteration 3 · Your Daily Picks, shipped</b>A bounded daily set of equal cards, each with a match-reason badge, save for later, and a clear end state. Validated in one-on-one think-aloud sessions with six mentors on the same task set: the bounded list read as finishable, and an explicit reason outperformed a match score.</p>
+              <div class="paira-ways-phones paira-ways-shipped">
+                <figure class="paira-phone paira-phone-video"><video src="../assets/img/paira/screens/explore-browse-save.mp4" poster="../assets/img/paira/screens/explore-daily-picks.webp" muted loop playsinline preload="none" width="786" height="1704" aria-label="Browsing Daily Picks, saving one, and opening a request"></video><figcaption>Browse, save, open</figcaption></figure>
+                <figure class="paira-phone"><img src="../assets/img/paira/screens/explore-request-detail.webp" alt="Request detail with I'm Interested action" width="786" height="1704" loading="lazy" decoding="async" /><figcaption>Request detail</figcaption></figure>
+                <figure class="paira-phone"><img src="../assets/img/paira/screens/explore-saved-requests.webp" alt="Saved requests sheet" width="786" height="1704" loading="lazy" decoding="async" /><figcaption>Saved picks</figcaption></figure>
               </div>
+              <p class="paira-way-note paira-way-note-tried"><b>Iterations 1 and 2</b>A request stream with high information density, and a hero card above a grid of compact cards. Usability testing showed a high reading load and pressure to respond in the stream, and legibility and exposure problems in the grid. The stream is parked for a later release; until premium ships, every request gets equal exposure.</p>
+              <p class="paira-way-note paira-way-note-shipped"><b>Iteration 3 · Your Daily Picks, shipped</b>A bounded daily set of equal cards, each with a match-reason badge, save for later, and a clear end state. Validated in one-on-one think-aloud sessions with six mentors on the same task set: the bounded list read as finishable, and an explicit reason outperformed a match score.</p>
             </div>
             <p class="paira-surface-note"><strong>What changed.</strong> From a swipe deck of bounties to a list you read, save, and return to, where every card is something you can act on today.</p>
           </div>
