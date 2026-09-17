@@ -57,7 +57,7 @@
   .paira-concepts-notes li:last-child::before { background: var(--case-accent-deep); color: #fff; border-color: transparent; }
   .paira-concepts-notes strong { color: var(--ink); font-weight: 600; }
   @media (max-width: 760px) { .paira-concepts { grid-template-columns: 1fr; } }
-  .paira-ways { display: grid; grid-template-columns: minmax(0, 2fr) 1.6rem minmax(0, 3fr); grid-template-rows: auto auto auto; gap: .9rem 1rem; row-gap: .6rem; align-items: end; margin-top: 1rem; }
+  .paira-ways { display: grid; grid-template-columns: minmax(0, 2fr) 1.6rem minmax(0, 3fr); grid-template-rows: auto auto; gap: .9rem 1rem; align-items: end; margin-top: 1rem; }
   .paira-ways > .paira-way-note-shipped { margin-bottom: 0; }
   .paira-ways-phones { display: grid; gap: .7rem; align-items: end; }
   .paira-ways-tried { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-column: 1; grid-row: 1; }
@@ -69,12 +69,15 @@
   .paira-ways-shipped .paira-phone figcaption { margin-top: .45rem; font-size: .76rem; text-align: center; }
   .paira-way-arrow { align-self: center; grid-row: 1; grid-column: 2; color: var(--case-accent-deep); font-size: 1.3rem; text-align: center; }
   .paira-way-note { grid-row: 2; margin: 0; font-size: .92rem; line-height: 1.5; color: var(--ink-soft); align-self: start; }
+  .paira-way-note-tried { align-self: start; }
   .paira-way-note-tried { grid-column: 1; }
   .paira-way-note-shipped { grid-column: 3; }
   .paira-way-note b { display: block; color: var(--ink); font-weight: 600; margin-bottom: .15rem; }
   .paira-way-note-shipped b { color: var(--case-accent-deep); }
-  .paira-way-changed { grid-column: 3; grid-row: 3; margin: -.9rem 0 0; padding: .45rem .9rem; }
-  @media (max-width: 760px) { .paira-way-changed { grid-column: 1; grid-row: auto; } }
+  .paira-way-shipped-col { grid-column: 3; grid-row: 2; align-self: start; }
+  .paira-way-shipped-col .paira-way-note { grid-row: auto; grid-column: auto; }
+  .paira-way-changed { margin: .7rem 0 0; padding: .55rem .9rem; }
+  @media (max-width: 760px) { .paira-way-shipped-col { grid-column: 1; grid-row: auto; } }
   @media (max-width: 760px) { .paira-ways { grid-template-columns: 1fr; grid-template-rows: auto; } .paira-way-arrow { display: none; } .paira-ways-tried, .paira-ways-shipped, .paira-way-note { grid-row: auto; grid-column: 1; } }
 </style>
 </head>
@@ -245,8 +248,10 @@
                 <figure class="paira-phone"><img src="../assets/img/paira/screens/explore-saved-requests.webp" alt="Saved requests sheet" width="786" height="1704" loading="lazy" decoding="async" /><figcaption>Saved picks</figcaption></figure>
               </div>
               <p class="paira-way-note paira-way-note-tried"><b>Iterations 1 and 2</b>First a stream of requests drifting across the screen, then one large AI pick above a grid of small cards. In usability tests the stream packed in a lot but demanded fast reading and felt like pressure to respond; in the grid the small cards were hard to read, and the big card got attention the others did not. We kept the stream for a later release, and decided that until premium launches, every request gets the same chance to be seen.</p>
-              <p class="paira-way-note paira-way-note-shipped"><b>Iteration 3 · Shipped</b>A bounded daily set of equal cards, each with a match-reason badge, save for later, and a clear end state. Validated in one-on-one think-aloud sessions with six mentors on the same task set: the bounded list read as finishable, and an explicit reason outperformed a match score.</p>
-            <p class="paira-surface-note paira-way-changed"><strong>What changed.</strong> From a swipe deck of bounties to a short list you read, save, and come back to, where every card is something you can act on today, and every request gets an equal chance.</p>
+              <div class="paira-way-shipped-col">
+                <p class="paira-way-note paira-way-note-shipped"><b>Iteration 3 · Shipped</b>A bounded daily set of equal cards, each with a match-reason badge, save for later, and a clear end state. Validated in one-on-one think-aloud sessions with six mentors on the same task set: the bounded list read as finishable, and an explicit reason outperformed a match score.</p>
+                <p class="paira-surface-note paira-way-changed"><strong>What changed.</strong> From a swipe deck of bounties to a short list you read, save, and come back to, where every card is something you can act on today, and every request gets an equal chance.</p>
+              </div>
             </div>
           </div>
         </article>
