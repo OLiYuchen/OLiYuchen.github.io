@@ -57,7 +57,8 @@
   .paira-concepts-notes li:last-child::before { background: var(--case-accent-deep); color: #fff; border-color: transparent; }
   .paira-concepts-notes strong { color: var(--ink); font-weight: 600; }
   @media (max-width: 760px) { .paira-concepts { grid-template-columns: 1fr; } }
-  .paira-ways { display: grid; grid-template-columns: minmax(0, 2fr) 1.6rem minmax(0, 3fr); grid-template-rows: auto auto; gap: .9rem 1rem; align-items: end; margin-top: 1rem; }
+  .paira-ways { display: grid; grid-template-columns: minmax(0, 2fr) 1.6rem minmax(0, 3fr); grid-template-rows: auto auto auto; gap: .9rem 1rem; align-items: end; margin-top: 1rem; }
+  .paira-ways > .paira-way-note-shipped { margin-bottom: 0; }
   .paira-ways-phones { display: grid; gap: .7rem; align-items: end; }
   .paira-ways-tried { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-column: 1; grid-row: 1; }
   .paira-ways-shipped { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-column: 3; grid-row: 1; }
@@ -72,7 +73,7 @@
   .paira-way-note-shipped { grid-column: 3; }
   .paira-way-note b { display: block; color: var(--ink); font-weight: 600; margin-bottom: .15rem; }
   .paira-way-note-shipped b { color: var(--case-accent-deep); }
-  .paira-way-changed { grid-column: 3; grid-row: 3; margin: .2rem 0 0; }
+  .paira-way-changed { grid-column: 3; grid-row: 3; margin: -.3rem 0 0; }
   @media (max-width: 760px) { .paira-way-changed { grid-column: 1; grid-row: auto; } }
   @media (max-width: 760px) { .paira-ways { grid-template-columns: 1fr; grid-template-rows: auto; } .paira-way-arrow { display: none; } .paira-ways-tried, .paira-ways-shipped, .paira-way-note { grid-row: auto; grid-column: 1; } }
 </style>
