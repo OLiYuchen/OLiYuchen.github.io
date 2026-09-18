@@ -378,23 +378,31 @@
               <h3>A short daily list of requests to help with, so helping feels finishable.</h3>
             </div>
           </header>
-          <div class="paira-surface-body paira-surface-body-wide">
-            <div class="paira-surface-copy">
-              <p>Explore is the helper’s front door. Each day it shows a handful of open requests matched to you, and each one carries a badge that says why it is there. You can save a pick before it refreshes away, pull to refresh, and when the day’s picks run out the screen tells you when the next batch arrives. Tapping a pick opens the request. “I’m Interested” moves it into your Request Hub as something you are helping with.</p>
-              <p>The limits are deliberate. An endless feed made helpers scroll and leave; a small daily set makes helping a favor you can finish today, so helpers come back. Badges give a reason instead of a percentage, so the AI’s judgment stays readable. The first visit teaches two gestures, save and refresh, and nothing else.</p>
-              <div class="paira-badges" aria-label="Explore badge system">
+          <div class="paira-surface-copy paira-surface-copy-cols">
+            <p>Explore is where a helper finds something to do. Each day it shows a handful of open requests matched to you, with a badge on each that says why it is there. You can save a pick, pull to refresh, and when the day’s picks run out, the screen tells you when the next batch arrives. Tap a pick to read it; “I’m Interested” moves it into your Request Hub.</p>
+            <p>The question we kept testing was how to show requests to a helper. A feed that never ends makes helping feel like a debt. A short list that ends makes it feel like a favor you can finish today, so helpers come back. And a reason on each card is easier to trust than a score. Three iterations got us there.</p>
+            <div class="paira-badges" aria-label="Explore badge system">
                 <span data-tone="strong">Strong Match</span><span data-tone="quick">Quick Win</span><span data-tone="upside">High Upside</span><span data-tone="trend">Trending Now</span><span data-tone="recent">Recently Viewed</span><span data-tone="boost">Boosted</span>
               </div>
-              <p class="paira-surface-note"><strong>What changed.</strong> From a swipe deck of bounties to a list you read, save, and return to, where every card is something you can act on today.</p>
-            </div>
-            <div class="paira-phone-row" aria-label="Explore screens">
-              <figure class="paira-phone paira-phone-video">
-                <video src="../assets/img/paira/screens/explore-browse-save.mp4" poster="../assets/img/paira/screens/explore-daily-picks.webp" muted loop playsinline preload="none" width="786" height="1704" aria-label="Browsing Daily Picks, saving one, and opening a request"></video>
-                <figcaption>Browse, save, open</figcaption>
-              </figure>
-              <figure class="paira-phone"><img src="../assets/img/paira/screens/explore-tutorial-overlay.webp" alt="First-visit tutorial: save a request, drag to refresh, tap to view details" width="786" height="1704" loading="lazy" decoding="async" /><figcaption>First visit</figcaption></figure>
-              <figure class="paira-phone"><img src="../assets/img/paira/screens/explore-request-detail.webp" alt="Request detail with I'm Interested action" width="786" height="1704" loading="lazy" decoding="async" /><figcaption>Request detail</figcaption></figure>
-              <figure class="paira-phone"><img src="../assets/img/paira/screens/explore-saved-requests.webp" alt="Saved requests sheet" width="786" height="1704" loading="lazy" decoding="async" /><figcaption>Saved picks</figcaption></figure>
+          </div>
+
+          <div class="paira-explore-process">
+            <div class="paira-ways">
+              <div class="paira-ways-phones paira-ways-tried">
+                <figure class="paira-way"><img src="../assets/img/paira/screens/explore-concept-stream.webp" alt="Explore concept: request cards drifting across the screen like a comment stream" loading="lazy" decoding="async" /><figcaption>Request stream</figcaption></figure>
+                <figure class="paira-way"><img src="../assets/img/paira/screens/explore-concept-cards.webp" alt="Explore concept: one large AI pick above a grid of smaller cards" loading="lazy" decoding="async" /><figcaption>Hero card and grid</figcaption></figure>
+              </div>
+              <div class="paira-way-arrow" aria-hidden="true">→</div>
+              <div class="paira-ways-phones paira-ways-shipped">
+                <figure class="paira-phone paira-phone-video"><video src="../assets/img/paira/screens/explore-browse-save.mp4" poster="../assets/img/paira/screens/explore-daily-picks.webp" muted loop playsinline preload="none" width="786" height="1704" aria-label="Browsing Daily Picks, saving one, and opening a request"></video><figcaption>Browse, save, open</figcaption></figure>
+                <figure class="paira-phone"><img src="../assets/img/paira/screens/explore-request-detail.webp" alt="Request detail with I'm Interested action" width="786" height="1704" loading="lazy" decoding="async" /><figcaption>Request detail</figcaption></figure>
+                <figure class="paira-phone"><img src="../assets/img/paira/screens/explore-saved-requests.webp" alt="Saved requests sheet" width="786" height="1704" loading="lazy" decoding="async" /><figcaption>Saved picks</figcaption></figure>
+              </div>
+              <p class="paira-way-note paira-way-note-tried"><b>Iterations 1 and 2</b>First a stream of requests drifting across the screen, then one large AI pick above a grid of small cards. In usability tests the stream packed in a lot but demanded fast reading and felt like pressure to respond; in the grid the small cards were hard to read, and the big card got attention the others did not. We kept the stream for a later release, and decided that until premium launches, every request gets the same chance to be seen.</p>
+              <div class="paira-way-shipped-col">
+                <p class="paira-way-note paira-way-note-shipped"><b>Iteration 3 · Shipped</b>A bounded daily set of equal cards, each with a match-reason badge, save for later, and a clear end state. Validated in one-on-one think-aloud sessions with six mentors on the same task set: the bounded list read as finishable, and an explicit reason outperformed a match score.</p>
+                <p class="paira-surface-note paira-way-changed"><strong>What changed.</strong> From a swipe deck of bounties to a short list you read, save, and come back to, where every card is something you can act on today, and every request gets an equal chance.</p>
+              </div>
             </div>
           </div>
         </article>
