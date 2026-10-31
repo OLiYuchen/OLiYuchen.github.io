@@ -46,32 +46,32 @@
         </div>
       </div>
 
-      <div class="fab-hero-art">
-        <figure>
+      <div class="fab-hero-spread">
+        <figure class="fab-hero-art">
           <a class="fab-image" href="/assets/img/focus-house/process-00.webp" data-gallery="hero" data-caption="Sliding the window shut. The gesture is the whole interface.">
             <img src="/assets/img/focus-house/previews/process-00.webp" width="1080" height="1440" alt="A hand sliding the window of a small laser cut wooden house closed on a desk." fetchpriority="high" decoding="async" />
           </a>
         </figure>
-      </div>
 
-      <dl class="fab-spec">
-        <div>
-          <dt>Role</dt>
-          <dd>Sole designer and fabricator. Concept, CAD, tolerance testing, build.</dd>
-        </div>
-        <div>
-          <dt>Process</dt>
-          <dd>Cardboard mock-up &rarr; CAD &rarr; laser cut sheet &rarr; press-fit assembly.</dd>
-        </div>
-        <div>
-          <dt>Tools</dt>
-          <dd>Fusion 360, laser cutter, calipers, a salvaged mouse PCB.</dd>
-        </div>
-        <div>
-          <dt>Output</dt>
-          <dd>A working object in 52 parts, assembled without glue.</dd>
-        </div>
-      </dl>
+        <dl class="fab-spec">
+          <div>
+            <dt>Role</dt>
+            <dd>Sole designer and fabricator. Concept, CAD, tolerance testing, build.</dd>
+          </div>
+          <div>
+            <dt>Process</dt>
+            <dd>Cardboard mock-up &rarr; CAD &rarr; laser cut sheet &rarr; press-fit assembly.</dd>
+          </div>
+          <div>
+            <dt>Tools</dt>
+            <dd>Fusion 360, laser cutter, calipers, a salvaged mouse PCB.</dd>
+          </div>
+          <div>
+            <dt>Output</dt>
+            <dd>A working object in 52 parts, assembled without glue.</dd>
+          </div>
+        </dl>
+      </div>
 
       <dl class="fab-figures">
         <div>
@@ -80,15 +80,15 @@
         </div>
         <div>
           <b class="fab-num">52</b>
-          <p>Individual parts nested onto one cut sheet, generated from <strong>13</strong> source files.</p>
+          <p>Individual parts nested onto one cut sheet, cut in a single pass and assembled <strong>without glue</strong>.</p>
         </div>
         <div>
           <b class="fab-num">25</b>
           <p>Identical window layers stacked to build the depth the sliding track runs in.</p>
         </div>
         <div>
-          <b class="fab-num">0</b>
-          <p>Drops of glue. Every layer is held by the slot geometry alone, so the house can come apart.</p>
+          <b class="fab-num">13</b>
+          <p>Distinct part profiles, from a single roof connector to the board that carries the PCB.</p>
         </div>
       </dl>
     </div>
@@ -107,97 +107,88 @@
   </nav>
 
   <!-- ============ 01 IDEA ============ -->
-  <section id="idea" class="fab-chapter">
+  <section id="idea" class="fab-section">
     <div class="fab-wrap">
-      <div class="fab-head">
-        <p class="fab-head-no">01</p>
-        <div>
+      <div class="fab-layout">
+        <div class="fab-label"><span class="fab-no">01</span><p class="fab-label-name">The idea</p></div>
+        <div class="fab-col">
           <h2>A gesture instead of a menu</h2>
           <p class="fab-lede">I started with a mouse PCB and a question: what else can a board that only knows how to report a button press be? Putting it inside another mouse shape felt like the least interesting answer, so I looked for an everyday physical action that could stand in for a digital one.</p>
-        </div>
-      </div>
 
-      <div class="fab-rail">
-        <div class="fab-split fab-split-wide">
-          <figure>
-            <a class="fab-image" href="/assets/img/focus-house/process-01.webp" data-gallery="idea" data-caption="The window open. The house sits on a desk the way a small ornament would.">
-              <img src="/assets/img/focus-house/previews/process-01.webp" width="1080" height="1440" alt="A finger resting on the open window of a small wooden house on a desk." loading="lazy" decoding="async" />
-            </a>
-          </figure>
-          <div>
-            <p class="fab-tag">Why a house</p>
-            <h3>Shutting a window is already a thing people understand</h3>
-            <p class="fab-body">A house carries comfort, privacy and the sense of making a space for yourself, and its window gives the object a part that is supposed to move. Closing it reads as shutting out distraction without anyone needing to explain the metaphor.</p>
-            <p class="fab-body">The form also earns its keep structurally. Building the house from stacked sheet layers leaves a cavity for the PCB and lets the sliding track be cut rather than assembled, so the decorative choice and the mechanical one are the same choice.</p>
+          <div class="fab-split fab-split-text">
+            <figure>
+              <a class="fab-image" href="/assets/img/focus-house/process-17.webp" data-gallery="idea" data-caption="The assembled house, seen from the front right.">
+                <img src="/assets/img/focus-house/previews/process-17.webp" width="1080" height="1440" alt="The assembled wooden house standing on a desk, seen from the front right." loading="lazy" decoding="async" />
+              </a>
+              <figcaption>A house, a roof, a window that moves. Nothing about it announces that it is a computer peripheral.</figcaption>
+            </figure>
+            <div>
+              <p class="fab-tag">Why a house</p>
+              <h3>Shutting a window is already a thing people understand</h3>
+              <p class="fab-body">A house carries comfort, privacy and the sense of making a space for yourself, and its window gives the object a part that is supposed to move. Closing it reads as shutting out distraction without anyone needing to explain the metaphor.</p>
+              <p class="fab-body">The form also earns its keep structurally. Building the house from stacked sheet layers leaves a cavity for the PCB and lets the sliding track be cut rather than assembled, so the decorative choice and the mechanical one are the same choice.</p>
+            </div>
           </div>
-        </div>
 
-        <div class="fab-keep" style="margin-top: var(--sp-stage);">
-          <div>
-            <p class="fab-tag">The chain</p>
-            <h3>What the gesture actually does</h3>
-            <p class="fab-body">Sliding the window down presses the original right mouse button on the PCB inside. That input is mapped to a keyboard shortcut, which turns on macOS Focus Mode and swaps the desktop wallpaper, so the physical state of the object and the state of the screen agree with each other.</p>
+          <div class="fab-split">
+            <div>
+              <p class="fab-tag">The chain</p>
+              <h3>What the gesture actually does</h3>
+              <p class="fab-body">Sliding the window down presses the original right mouse button on the PCB inside. That input is mapped to a keyboard shortcut, which turns on macOS Focus Mode and swaps the desktop wallpaper, so the physical state of the object and the state of the screen agree with each other.</p>
+            </div>
+            <figure>
+              <a class="fab-image" href="/assets/img/focus-house/process-03.webp" data-gallery="idea" data-caption="The companion desktop: the wallpaper changes when the window closes.">
+                <img src="/assets/img/focus-house/previews/process-03.webp" width="1440" height="937" alt="A macOS desktop showing a line drawn cabin and the word Focused as the wallpaper." loading="lazy" decoding="async" />
+              </a>
+              <figcaption>The wallpaper the shortcut switches to, drawn to match the object on the desk.</figcaption>
+            </figure>
           </div>
-          <figure>
-            <a class="fab-image" href="/assets/img/focus-house/process-03.webp" data-gallery="idea" data-caption="The companion desktop: the wallpaper changes when the window closes.">
-              <img src="/assets/img/focus-house/previews/process-03.webp" width="1440" height="937" alt="A macOS desktop showing a line drawn cabin and the word Focused as the wallpaper." loading="lazy" decoding="async" />
-            </a>
-            <figcaption>The wallpaper the shortcut switches to, drawn to match the object on the desk.</figcaption>
-          </figure>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ============ 02 SKETCHES ============ -->
-  <section id="sketches" class="fab-chapter fab-band">
+  <section id="sketches" class="fab-section fab-band">
     <div class="fab-wrap">
-      <div class="fab-head">
-        <p class="fab-head-no">02</p>
-        <div>
+      <div class="fab-layout">
+        <div class="fab-label"><span class="fab-no">02</span><p class="fab-label-name">Sketches</p></div>
+        <div class="fab-col">
           <h2>From a shape to a stack of layers</h2>
           <p class="fab-lede">Once the house was chosen, the drawing shifted from how it looks to how it is made. Sheet construction means the object has to be described as a set of flat profiles, so I sketched the form from several angles and then cut it apart layer by layer.</p>
-        </div>
-      </div>
 
-      <div class="fab-rail">
-        <div class="fab-two fab-offset">
-          <figure>
-            <a class="fab-image" href="/assets/img/focus-house/process-04.webp" data-gallery="sketches" data-caption="Early exploration: everyday gestures that could stand in for a digital switch.">
-              <img src="/assets/img/focus-house/previews/process-04.webp" width="1440" height="968" alt="A sketchbook page exploring different objects that could house a mouse circuit board." loading="lazy" decoding="async" />
-            </a>
-            <figcaption>Looking for an action worth repeating, rather than a shape to hide a board in.</figcaption>
-          </figure>
-          <figure>
-            <a class="fab-image" href="/assets/img/focus-house/process-05.webp" data-gallery="sketches" data-caption="The house broken into individual sheet layers, with the slider and the PCB cavity worked out.">
-              <img src="/assets/img/focus-house/previews/process-05.webp" width="1440" height="1175" alt="Sketches of the house from several angles, with its construction broken into flat layers." loading="lazy" decoding="async" />
-            </a>
-            <figcaption>Four problems to solve at once: enclose the board, hold the structure, guide the window, and position the part that presses the switch.</figcaption>
-          </figure>
-        </div>
+          <div class="fab-two">
+            <figure>
+              <a class="fab-image" href="/assets/img/focus-house/process-04.webp" data-gallery="sketches" data-caption="Early exploration: everyday gestures that could stand in for a digital switch.">
+                <img src="/assets/img/focus-house/previews/process-04.webp" width="1440" height="968" alt="A sketchbook page exploring different objects that could house a mouse circuit board." loading="lazy" decoding="async" />
+              </a>
+              <figcaption>Looking for an action worth repeating, rather than a shape to hide a board in.</figcaption>
+            </figure>
+            <figure>
+              <a class="fab-image" href="/assets/img/focus-house/process-05.webp" data-gallery="sketches" data-caption="The house broken into individual sheet layers, with the slider and the PCB cavity worked out.">
+                <img src="/assets/img/focus-house/previews/process-05.webp" width="1440" height="1175" alt="Sketches of the house from several angles, with its construction broken into flat layers." loading="lazy" decoding="async" />
+              </a>
+              <figcaption>Four problems to solve at once: enclose the board, hold the structure, guide the window, and position the part that presses the switch.</figcaption>
+            </figure>
+          </div>
 
-        <p class="fab-note fab-rail" style="margin-top: var(--sp-block);"><span style="max-width: 64ch; display: block;">These drawings raised the two questions that decided what to prototype first: whether the supporting beams could hold the house square, and what keeps the window in its track.</span></p>
+          <p class="fab-note">These drawings raised the two questions that decided what to prototype first: whether the supporting beams could hold the house square, and what keeps the window in its track.</p>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- ============ 03 TESTS ============ -->
-  <section id="tests" class="fab-chapter">
+  <section id="tests" class="fab-section">
     <div class="fab-wrap">
-      <div class="fab-head">
-        <p class="fab-head-no">03</p>
-        <div>
+      <div class="fab-layout">
+        <div class="fab-label"><span class="fab-no">03</span><p class="fab-label-name">Three tests</p></div>
+        <div class="fab-col">
           <h2>Three tests, three answers</h2>
           <p class="fab-lede">Each prototype was built to settle one question rather than to look like a smaller version of the finished thing. That kept them cheap, and it meant every answer went straight into the model.</p>
-        </div>
-      </div>
 
-      <div class="fab-rail">
-        <!-- 3.1 -->
-        <div class="fab-finding">
-          <p class="fab-finding-no">3.1</p>
-          <div>
-            <p class="fab-tag">Cardboard</p>
+          <div class="fab-finding">
+            <p class="fab-finding-head"><span class="fab-num">3.1</span> Cardboard</p>
             <h3>A path is not the same as a constraint</h3>
             <p class="fab-ask">Can the supporting beams hold the structure, and can a window slide without leaving its track?</p>
             <p class="fab-body">I cut the whole thing by hand in cardboard before committing to accurate CAD, because at that stage the relationships between the moving parts mattered more than any dimension. Two findings came out of it. The beams needed to be arranged symmetrically and braced in more than one direction to keep the house square. And two bars set into the wall guided the window along the right path while still letting it drop out of the track entirely.</p>
@@ -206,26 +197,22 @@
               The slider gained layers on both the inside and the outside, so the window is captured between them. A guide that only defines where a part may travel is doing half the job; it also has to define where the part may not go.
             </div>
           </div>
-        </div>
 
-        <div class="fab-two" style="margin-top: var(--sp-block);">
-          <figure>
-            <a class="fab-image" href="/assets/img/focus-house/process-06.webp" data-gallery="tests" data-caption="The first cardboard model, testing the supporting structure.">
-              <img src="/assets/img/focus-house/previews/process-06.webp" width="1080" height="1440" alt="A rough cardboard model of the house used to test its internal supporting structure." loading="lazy" decoding="async" />
-            </a>
-          </figure>
-          <figure>
-            <a class="fab-image" href="/assets/img/focus-house/process-07.webp" data-gallery="tests" data-caption="Cardboard assembly, checking stability and the path of the window.">
-              <img src="/assets/img/focus-house/previews/process-07.webp" width="1080" height="1440" alt="Cardboard pieces assembled into the house form to check stability and the window path." loading="lazy" decoding="async" />
-            </a>
-          </figure>
-        </div>
+          <div class="fab-two">
+            <figure>
+              <a class="fab-image" href="/assets/img/focus-house/process-06.webp" data-gallery="tests" data-caption="The first cardboard model, testing the supporting structure.">
+                <img src="/assets/img/focus-house/previews/process-06.webp" width="1080" height="1440" alt="A rough cardboard model of the house used to test its internal supporting structure." loading="lazy" decoding="async" />
+              </a>
+            </figure>
+            <figure>
+              <a class="fab-image" href="/assets/img/focus-house/process-07.webp" data-gallery="tests" data-caption="Cardboard assembly, checking stability and the path of the window.">
+                <img src="/assets/img/focus-house/previews/process-07.webp" width="1080" height="1440" alt="Cardboard pieces assembled into the house form to check stability and the window path." loading="lazy" decoding="async" />
+              </a>
+            </figure>
+          </div>
 
-        <!-- 3.2 -->
-        <div class="fab-finding" style="margin-top: var(--sp-act);">
-          <p class="fab-finding-no">3.2</p>
-          <div>
-            <p class="fab-tag">Laser cut</p>
+          <div class="fab-finding">
+            <p class="fab-finding-head"><span class="fab-num">3.2</span> Laser cut</p>
             <h3>The board fits, and the kerf is why</h3>
             <p class="fab-ask">Do the PCB dimensions taken from my CAD sketch survive the trip into a real cutout?</p>
             <p class="fab-body">I cut the board outline straight from the sketch, and ran an engraving test in the same session to see how engraving could carry detail later. The board dropped into the opening without rework. The clearance it needed came from the process rather than the drawing: the laser removes a little material at the edge and darkens what is left, and that was enough.</p>
@@ -234,22 +221,16 @@
               The board outline was frozen and the enclosure was designed around it, instead of the two being adjusted against each other. Accurate CAD gets you close, and the cutting process decides the last fraction, so a fit is worth confirming in the real material before anything depends on it.
             </div>
           </div>
-        </div>
 
-        <div class="fab-rail" style="margin-top: var(--sp-block);">
-          <figure style="max-width: 46%;">
+          <figure class="fab-portrait">
             <a class="fab-image" href="/assets/img/focus-house/process-10.webp" data-gallery="tests" data-caption="Checking the mouse PCB against the laser cut outline.">
               <img src="/assets/img/focus-house/previews/process-10.webp" width="1080" height="1440" alt="A mouse circuit board held against a laser cut opening to check the fit." loading="lazy" decoding="async" />
             </a>
             <figcaption>The board in its cutout, straight off the first attempt.</figcaption>
           </figure>
-        </div>
 
-        <!-- 3.3 -->
-        <div class="fab-finding" style="margin-top: var(--sp-act);">
-          <p class="fab-finding-no">3.3</p>
-          <div>
-            <p class="fab-tag">Tolerance</p>
+          <div class="fab-finding">
+            <p class="fab-finding-head"><span class="fab-num">3.3</span> Tolerance</p>
             <h3><span class="fab-num">2.90</span> down to <span class="fab-num">2.68</span>, in five cuts</h3>
             <p class="fab-ask">What slot width holds the layers together without glue, and still goes together by hand?</p>
             <p class="fab-body">Rather than test a generic joint, I cut a miniature version of the actual supporting beam structure, with the same slot geometry the finished house would use. Then I narrowed the slot across five versions and assembled each one by hand.</p>
@@ -259,96 +240,94 @@
               That number went into every slot in the final structure. Across the whole range the difference is a fifth of a millimetre, and it decides whether the joint is loose, right, or too tight to assemble.
             </div>
           </div>
-        </div>
 
-        <div class="fab-rail" style="margin-top: var(--sp-block);">
-          <ul class="fab-ladder">
-            <li><b class="fab-num">2.90</b><span>Assembles easily, shifts in the hand</span></li>
-            <li><b class="fab-num">2.75</b><span>Closer, still some play</span></li>
-            <li><b class="fab-num">2.70</b><span>Nearly there</span></li>
-            <li><b class="fab-num">2.68</b><span>Firm by hand, holds square</span></li>
-          </ul>
-          <p class="fab-note" style="margin-top: 1.1rem;">Slot width in millimetres, tested on the real beam geometry rather than a sample joint. Five pieces were cut in all; these are the four widths worth keeping.</p>
-        </div>
+          <div>
+            <ul class="fab-ladder">
+              <li><b class="fab-num">2.90</b><span>Assembles easily, shifts in the hand</span></li>
+              <li><b class="fab-num">2.75</b><span>Closer, still some play</span></li>
+              <li><b class="fab-num">2.70</b><span>Nearly there</span></li>
+              <li><b class="fab-num">2.68</b><span>Firm by hand, holds square</span></li>
+            </ul>
+            <p class="fab-note" style="margin-top: 1rem;">Slot width in millimetres, tested on the real beam geometry rather than a sample joint. Five pieces were cut in all; these are the four widths worth keeping.</p>
+          </div>
 
-        <div class="fab-two" style="margin-top: var(--sp-stage);">
-          <figure>
-            <a class="fab-image" href="/assets/img/focus-house/process-08.webp" data-gallery="tests" data-caption="The miniature press-fit structure used to test the supporting joints.">
-              <img src="/assets/img/focus-house/previews/process-08.webp" width="1080" height="1440" alt="Small laser cut test pieces assembled into a miniature version of the supporting beam structure." loading="lazy" decoding="async" />
-            </a>
-            <figcaption>The test piece is the real joint, shrunk. A generic slot would have answered a different question.</figcaption>
-          </figure>
-          <figure>
-            <a class="fab-image" href="/assets/img/focus-house/process-09.webp" data-gallery="tests" data-caption="Cutting and engraving tests at the laser.">
-              <img src="/assets/img/focus-house/previews/process-09.webp" width="1080" height="1440" alt="Laser cut test pieces and engraving samples on the machine bed." loading="lazy" decoding="async" />
-            </a>
-            <figcaption>Cut and engraving tests run together, so one session answered two questions.</figcaption>
-          </figure>
+          <div class="fab-two">
+            <figure>
+              <a class="fab-image" href="/assets/img/focus-house/process-08.webp" data-gallery="tests" data-caption="The miniature press-fit structure used to test the supporting joints.">
+                <img src="/assets/img/focus-house/previews/process-08.webp" width="1080" height="1440" alt="Small laser cut test pieces assembled into a miniature version of the supporting beam structure." loading="lazy" decoding="async" />
+              </a>
+              <figcaption>The test piece is the real joint, shrunk. A generic slot would have answered a different question.</figcaption>
+            </figure>
+            <figure>
+              <a class="fab-image" href="/assets/img/focus-house/process-09.webp" data-gallery="tests" data-caption="Cutting and engraving tests at the laser.">
+                <img src="/assets/img/focus-house/previews/process-09.webp" width="1080" height="1440" alt="Laser cut test pieces and engraving samples on the machine bed." loading="lazy" decoding="async" />
+              </a>
+              <figcaption>Cut and engraving tests run together, so one session answered two questions.</figcaption>
+            </figure>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ============ 04 CAD ============ -->
-  <section id="cad" class="fab-chapter fab-band">
+  <section id="cad" class="fab-section fab-band">
     <div class="fab-wrap">
-      <div class="fab-head">
-        <p class="fab-head-no">04</p>
-        <div>
+      <div class="fab-layout">
+        <div class="fab-label"><span class="fab-no">04</span><p class="fab-label-name">CAD and cut sheet</p></div>
+        <div class="fab-col">
           <h2>The model, and the sheet it becomes</h2>
           <p class="fab-lede">The house exists twice: once as a solid model with the PCB cavity, the track and the tested slot width in it, and once as a flat sheet of cut paths. Getting from the first to the second is most of the work, because every layer in the stack has to appear as its own profile with its own slots.</p>
-        </div>
-      </div>
 
-      <div class="fab-rail">
-        <div class="fab-two">
-          <figure>
-            <a class="fab-image" href="/assets/img/focus-house/process-02.webp" data-gallery="cad" data-caption="The house in Fusion: stacked layers, the window opening and the cable exit.">
-              <img src="/assets/img/focus-house/previews/process-02.webp" width="720" height="782" alt="A Fusion 360 model of the house showing its stacked layer construction, window opening and door." loading="lazy" decoding="async" />
-            </a>
-            <figcaption>The model carries the depth. The thickness of the wall is a count of layers, not a dimension.</figcaption>
-          </figure>
+          <div class="fab-split fab-split-text">
+            <figure>
+              <a class="fab-image" href="/assets/img/focus-house/process-02.webp" data-gallery="cad" data-caption="The house in Fusion: stacked layers, the window opening and the cable exit.">
+                <img src="/assets/img/focus-house/previews/process-02.webp" width="720" height="782" alt="A Fusion 360 model of the house showing its stacked layer construction, window opening and door." loading="lazy" decoding="async" />
+              </a>
+              <figcaption>The model carries the depth. The thickness of the wall is a count of layers, not a dimension.</figcaption>
+            </figure>
+            <div>
+              <p class="fab-tag">How the stack works</p>
+              <h3>Depth built from repeats</h3>
+              <p class="fab-body">The wall is made by repeating two profiles: <span class="fab-num">25</span> window layers that carry the opening and the track, and <span class="fab-num">10</span> solid layers behind them. Changing how deep the track runs means changing a count, which is a far safer edit than redrawing a solid.</p>
+              <p class="fab-body">The rest is small, specific parts: roof connectors, floor connectors, slide side connectors, the back board, the board that carries the PCB, and the one with the cable hole in it.</p>
+            </div>
+          </div>
+
+          <div class="fab-plate">
+            <figure>
+              <a class="fab-image" href="/assets/img/focus-house/cutsheet.webp" data-gallery="cad" data-caption="The consolidated cut sheet: 52 parts nested at actual size, cut paths only.">
+                <img src="/assets/img/focus-house/previews/cutsheet.webp" width="1500" height="875" alt="A laser cut nesting sheet showing 52 house shaped parts and connectors arranged in rows." loading="lazy" decoding="async" />
+              </a>
+            </figure>
+            <div class="fab-plate-bar">
+              <strong>Final laser cut sheet</strong>
+              <span>52 parts</span>
+              <span>13 source files</span>
+              <span>Cut paths at 1:1</span>
+              <span>Units mm</span>
+            </div>
+          </div>
+
           <div>
-            <p class="fab-tag">How the stack works</p>
-            <h3>Depth built from repeats</h3>
-            <p class="fab-body">The wall is made by repeating two profiles: <span class="fab-num">25</span> window layers that carry the opening and the track, and <span class="fab-num">10</span> solid layers behind them. Changing how deep the track runs means changing a count, which is a far safer edit than redrawing a solid.</p>
-            <p class="fab-body">The rest is small, specific parts: roof connectors, floor connectors, slide side connectors, the back board, the board that carries the PCB, and the one with the cable hole in it.</p>
-          </div>
-        </div>
-
-        <div class="fab-plate" style="margin-top: var(--sp-stage);">
-          <figure>
-            <a class="fab-image" href="/assets/img/focus-house/cutsheet.webp" data-gallery="cad" data-caption="The consolidated cut sheet: 52 parts nested at actual size, cut paths only.">
-              <img src="/assets/img/focus-house/previews/cutsheet.webp" width="1500" height="875" alt="A laser cut nesting sheet showing 52 house shaped parts and connectors arranged in rows." loading="lazy" decoding="async" />
-            </a>
-          </figure>
-          <div class="fab-plate-bar">
-            <strong>Final laser cut sheet</strong>
-            <span>52 parts</span>
-            <span>13 source files</span>
-            <span>Cut paths at 1:1</span>
-            <span>Units mm</span>
-          </div>
-        </div>
-
-        <div class="fab-rail" style="margin-top: var(--sp-stage);">
-          <p class="fab-tag">What goes on the sheet</p>
-          <div class="fab-table-wrap">
-            <table class="fab-table">
-              <thead>
-                <tr><th scope="col">Part</th><th scope="col">Qty</th><th scope="col">What it does</th></tr>
-              </thead>
-              <tbody>
-                <tr><th scope="row">Window house layer</th><td>25</td><td>Stacked to build the wall depth the window track runs in</td></tr>
-                <tr><th scope="row">Non-window house layer</th><td>10</td><td>Solid layers behind the opening, closing the cavity</td></tr>
-                <tr><th scope="row">Roof connector</th><td>4</td><td>Braces the roof in two directions so the house holds square</td></tr>
-                <tr><th scope="row">Floor connector</th><td>2</td><td>Ties the base to the walls at the tested slot width</td></tr>
-                <tr><th scope="row">Window slide side connector</th><td>2</td><td>Captures the window from the outside of the track</td></tr>
-                <tr><th scope="row">House window slide layer</th><td>2</td><td>Forms the inner wall of the track</td></tr>
-                <tr><th scope="row">Button press part</th><td>1</td><td>Carries the window's travel onto the switch on the board</td></tr>
-                <tr><th scope="row">PCB board, back, base, cable hole board</th><td>5</td><td>Hold the board, close the back, and let the cable out</td></tr>
-              </tbody>
-            </table>
+            <p class="fab-tag">What goes on the sheet</p>
+            <div class="fab-table-wrap">
+              <table class="fab-table">
+                <thead>
+                  <tr><th scope="col">Part</th><th scope="col">Qty</th><th scope="col">What it does</th></tr>
+                </thead>
+                <tbody>
+                  <tr><th scope="row">Window house layer</th><td>25</td><td>Stacked to build the wall depth the window track runs in</td></tr>
+                  <tr><th scope="row">Non-window house layer</th><td>10</td><td>Solid layers behind the opening, closing the cavity</td></tr>
+                  <tr><th scope="row">Roof connector</th><td>4</td><td>Braces the roof in two directions so the house holds square</td></tr>
+                  <tr><th scope="row">Floor connector</th><td>2</td><td>Ties the base to the walls at the tested slot width</td></tr>
+                  <tr><th scope="row">Window slide side connector</th><td>2</td><td>Captures the window from the outside of the track</td></tr>
+                  <tr><th scope="row">House window slide layer</th><td>2</td><td>Forms the inner wall of the track</td></tr>
+                  <tr><th scope="row">Button press part</th><td>1</td><td>Carries the window's travel onto the switch on the board</td></tr>
+                  <tr><th scope="row">PCB board, back, base, cable hole board</th><td>5</td><td>Hold the board, close the back, and let the cable out</td></tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
@@ -356,54 +335,52 @@
   </section>
 
   <!-- ============ 05 BUILD ============ -->
-  <section id="build" class="fab-chapter">
+  <section id="build" class="fab-section">
     <div class="fab-wrap">
-      <div class="fab-head">
-        <p class="fab-head-no">05</p>
-        <div>
+      <div class="fab-layout">
+        <div class="fab-label"><span class="fab-no">05</span><p class="fab-label-name">The build</p></div>
+        <div class="fab-col">
           <h2>Assembly and check</h2>
           <p class="fab-lede">With no glue in the design, assembly is also the test. Each joint either holds at the slot width it was cut to or it does not, so the parts went together with calipers on the bench.</p>
-        </div>
-      </div>
 
-      <div class="fab-rail">
-        <div class="fab-four fab-offset">
-          <figure>
-            <a class="fab-image" href="/assets/img/focus-house/process-19.webp" data-gallery="build" data-caption="Measuring the enclosure after cutting.">
-              <img src="/assets/img/focus-house/previews/process-19.webp" width="1080" height="1440" alt="Calipers measuring the laser cut house enclosure." loading="lazy" decoding="async" />
-            </a>
-            <figcaption>The enclosure, checked against the model.</figcaption>
-          </figure>
-          <figure>
-            <a class="fab-image" href="/assets/img/focus-house/process-20.webp" data-gallery="build" data-caption="Checking the supporting structure with calipers.">
-              <img src="/assets/img/focus-house/previews/process-20.webp" width="1080" height="1440" alt="Calipers measuring the internal supporting structure of the house." loading="lazy" decoding="async" />
-            </a>
-            <figcaption>The beams, at the width the tests settled.</figcaption>
-          </figure>
-          <figure>
-            <a class="fab-image" href="/assets/img/focus-house/process-21.webp" data-gallery="build" data-caption="Measuring an individual connection.">
-              <img src="/assets/img/focus-house/previews/process-21.webp" width="1080" height="1440" alt="Calipers measuring a single press fit connection between two layers." loading="lazy" decoding="async" />
-            </a>
-            <figcaption>One joint at a time.</figcaption>
-          </figure>
-          <figure>
-            <a class="fab-image" href="/assets/img/focus-house/process-22.webp" data-gallery="build" data-caption="Checking the width of the assembled house.">
-              <img src="/assets/img/focus-house/previews/process-22.webp" width="1080" height="1440" alt="Calipers measuring the overall width of the assembled house." loading="lazy" decoding="async" />
-            </a>
-            <figcaption>The stack, measured assembled.</figcaption>
-          </figure>
-        </div>
+          <div class="fab-four">
+            <figure>
+              <a class="fab-image" href="/assets/img/focus-house/process-19.webp" data-gallery="build" data-caption="Measuring the enclosure after cutting.">
+                <img src="/assets/img/focus-house/previews/process-19.webp" width="1080" height="1440" alt="Calipers measuring the laser cut house enclosure." loading="lazy" decoding="async" />
+              </a>
+              <figcaption>The enclosure, checked against the model.</figcaption>
+            </figure>
+            <figure>
+              <a class="fab-image" href="/assets/img/focus-house/process-20.webp" data-gallery="build" data-caption="Checking the supporting structure with calipers.">
+                <img src="/assets/img/focus-house/previews/process-20.webp" width="1080" height="1440" alt="Calipers measuring the internal supporting structure of the house." loading="lazy" decoding="async" />
+              </a>
+              <figcaption>The beams, at the width the tests settled.</figcaption>
+            </figure>
+            <figure>
+              <a class="fab-image" href="/assets/img/focus-house/process-21.webp" data-gallery="build" data-caption="Measuring an individual connection.">
+                <img src="/assets/img/focus-house/previews/process-21.webp" width="1080" height="1440" alt="Calipers measuring a single press fit connection between two layers." loading="lazy" decoding="async" />
+              </a>
+              <figcaption>One joint at a time.</figcaption>
+            </figure>
+            <figure>
+              <a class="fab-image" href="/assets/img/focus-house/process-22.webp" data-gallery="build" data-caption="Checking the width of the assembled house.">
+                <img src="/assets/img/focus-house/previews/process-22.webp" width="1080" height="1440" alt="Calipers measuring the overall width of the assembled house." loading="lazy" decoding="async" />
+              </a>
+              <figcaption>The stack, measured assembled.</figcaption>
+            </figure>
+          </div>
 
-        <div class="fab-split" style="margin-top: var(--sp-stage);">
-          <figure>
-            <a class="fab-image" href="/assets/img/focus-house/process-23.webp" data-gallery="build" data-caption="The sliding window mechanism, separated into its layers.">
-              <img src="/assets/img/focus-house/previews/process-23.webp" width="1080" height="1440" alt="The layers of the sliding window mechanism laid out separately." loading="lazy" decoding="async" />
-            </a>
-          </figure>
-          <div>
-            <p class="fab-tag">The mechanism</p>
-            <h3>Captured from both sides</h3>
-            <p class="fab-body">This is the fix from the cardboard test, cut: the window runs in a guided track and is held between an inner and an outer layer, so it can travel the length of the opening and cannot leave it. The part that presses the switch rides at the bottom of that travel.</p>
+          <div class="fab-split fab-split-text">
+            <figure>
+              <a class="fab-image" href="/assets/img/focus-house/process-23.webp" data-gallery="build" data-caption="The sliding window mechanism, separated into its layers.">
+                <img src="/assets/img/focus-house/previews/process-23.webp" width="1080" height="1440" alt="The layers of the sliding window mechanism laid out separately." loading="lazy" decoding="async" />
+              </a>
+            </figure>
+            <div>
+              <p class="fab-tag">The mechanism</p>
+              <h3>Captured from both sides</h3>
+              <p class="fab-body">This is the fix from the cardboard test, cut: the window runs in a guided track and is held between an inner and an outer layer, so it can travel the length of the opening and cannot leave it. The part that presses the switch rides at the bottom of that travel.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -411,99 +388,95 @@
   </section>
 
   <!-- ============ 06 FINISHED ============ -->
-  <section id="finished" class="fab-chapter fab-band">
+  <section id="finished" class="fab-section fab-band">
     <div class="fab-wrap">
-      <div class="fab-head">
-        <p class="fab-head-no">06</p>
-        <div>
+      <div class="fab-layout">
+        <div class="fab-label"><span class="fab-no">06</span><p class="fab-label-name">Finished</p></div>
+        <div class="fab-col">
           <h2>Finished</h2>
           <p class="fab-lede">Stacked layers, a window that slides, a board inside, and a cable out of the back. The object does one thing, and the whole build exists so that one thing feels deliberate.</p>
-        </div>
-      </div>
 
-      <div class="fab-rail">
-        <div class="fab-four">
-          <figure>
-            <a class="fab-image" href="/assets/img/focus-house/process-16.webp" data-gallery="final" data-caption="The assembled house from the front left.">
-              <img src="/assets/img/focus-house/previews/process-16.webp" width="1080" height="1440" alt="The assembled wooden house seen from the front left." loading="lazy" decoding="async" />
-            </a>
-          </figure>
-          <figure>
-            <a class="fab-image" href="/assets/img/focus-house/process-15.webp" data-gallery="final" data-caption="Straight on, with the window in its track.">
-              <img src="/assets/img/focus-house/previews/process-15.webp" width="1080" height="1440" alt="The house seen straight on, showing the sliding window." loading="lazy" decoding="async" />
-            </a>
-          </figure>
-          <figure>
-            <a class="fab-image" href="/assets/img/focus-house/process-11.webp" data-gallery="final" data-caption="Side view, showing the stacked layer construction.">
-              <img src="/assets/img/focus-house/previews/process-11.webp" width="1080" height="1440" alt="Side view of the house, showing the edges of its stacked layers." loading="lazy" decoding="async" />
-            </a>
-          </figure>
-          <figure>
-            <a class="fab-image" href="/assets/img/focus-house/process-14.webp" data-gallery="final" data-caption="The back, with the cable exit.">
-              <img src="/assets/img/focus-house/previews/process-14.webp" width="1080" height="1440" alt="The back of the house with its USB cable leaving through a cut opening." loading="lazy" decoding="async" />
-            </a>
-          </figure>
-        </div>
-
-        <div class="fab-split" style="margin-top: var(--sp-stage);">
-          <div>
-            <p class="fab-tag">Inside</p>
-            <h3>Where the board sits</h3>
-            <p class="fab-body">The PCB sits on its own board inside the cavity, positioned so the window's travel lands on the right mouse switch. The cable leaves through the back, which is why that one layer has a hole in it that none of the others do.</p>
+          <div class="fab-four">
+            <figure>
+              <a class="fab-image" href="/assets/img/focus-house/process-16.webp" data-gallery="final" data-caption="The assembled house from the front left.">
+                <img src="/assets/img/focus-house/previews/process-16.webp" width="1080" height="1440" alt="The assembled wooden house seen from the front left." loading="lazy" decoding="async" />
+              </a>
+            </figure>
+            <figure>
+              <a class="fab-image" href="/assets/img/focus-house/process-15.webp" data-gallery="final" data-caption="Straight on, with the window in its track.">
+                <img src="/assets/img/focus-house/previews/process-15.webp" width="1080" height="1440" alt="The house seen straight on, showing the sliding window." loading="lazy" decoding="async" />
+              </a>
+            </figure>
+            <figure>
+              <a class="fab-image" href="/assets/img/focus-house/process-11.webp" data-gallery="final" data-caption="Side view, showing the stacked layer construction.">
+                <img src="/assets/img/focus-house/previews/process-11.webp" width="1080" height="1440" alt="Side view of the house, showing the edges of its stacked layers." loading="lazy" decoding="async" />
+              </a>
+            </figure>
+            <figure>
+              <a class="fab-image" href="/assets/img/focus-house/process-14.webp" data-gallery="final" data-caption="The back, with the cable exit.">
+                <img src="/assets/img/focus-house/previews/process-14.webp" width="1080" height="1440" alt="The back of the house with its USB cable leaving through a cut opening." loading="lazy" decoding="async" />
+              </a>
+            </figure>
           </div>
-          <figure>
-            <a class="fab-image" href="/assets/img/focus-house/process-25.webp" data-gallery="final" data-caption="Inside the enclosure: the mouse PCB and its wiring.">
-              <img src="/assets/img/focus-house/previews/process-25.webp" width="1080" height="1440" alt="The inside of the house showing the mouse circuit board and its wiring." loading="lazy" decoding="async" />
-            </a>
-          </figure>
-        </div>
 
-        <div class="fab-two" style="margin-top: var(--sp-stage);">
-          <figure>
-            <a class="fab-image" href="/assets/img/focus-house/process-26.webp" data-gallery="final" data-caption="The window mechanism beside the mouse switch it presses.">
-              <img src="/assets/img/focus-house/previews/process-26.webp" width="1080" height="1440" alt="Close view of the sliding window mechanism next to the switch on the circuit board." loading="lazy" decoding="async" />
-            </a>
-            <figcaption>The last millimetre of the gesture, where the object meets the circuit.</figcaption>
-          </figure>
-          <figure>
-            <a class="fab-image" href="/assets/img/focus-house/process-13.webp" data-gallery="final" data-caption="The finished house with its cable, on the desk.">
-              <img src="/assets/img/focus-house/previews/process-13.webp" width="1080" height="1440" alt="The finished house standing on a desk with its cable running out of the back." loading="lazy" decoding="async" />
-            </a>
-            <figcaption>On the desk, where it is meant to live.</figcaption>
-          </figure>
+          <div class="fab-split">
+            <div>
+              <p class="fab-tag">Inside</p>
+              <h3>Where the board sits</h3>
+              <p class="fab-body">The PCB sits on its own board inside the cavity, positioned so the window's travel lands on the right mouse switch. The cable leaves through the back, which is why that one layer has a hole in it that none of the others do.</p>
+            </div>
+            <figure>
+              <a class="fab-image" href="/assets/img/focus-house/process-25.webp" data-gallery="final" data-caption="Inside the enclosure: the mouse PCB and its wiring.">
+                <img src="/assets/img/focus-house/previews/process-25.webp" width="1080" height="1440" alt="The inside of the house showing the mouse circuit board and its wiring." loading="lazy" decoding="async" />
+              </a>
+            </figure>
+          </div>
+
+          <div class="fab-two">
+            <figure>
+              <a class="fab-image" href="/assets/img/focus-house/process-26.webp" data-gallery="final" data-caption="The window mechanism beside the mouse switch it presses.">
+                <img src="/assets/img/focus-house/previews/process-26.webp" width="1080" height="1440" alt="Close view of the sliding window mechanism next to the switch on the circuit board." loading="lazy" decoding="async" />
+              </a>
+              <figcaption>The last millimetre of the gesture, where the object meets the circuit.</figcaption>
+            </figure>
+            <figure>
+              <a class="fab-image" href="/assets/img/focus-house/process-13.webp" data-gallery="final" data-caption="The finished house with its cable, on the desk.">
+                <img src="/assets/img/focus-house/previews/process-13.webp" width="1080" height="1440" alt="The finished house standing on a desk with its cable running out of the back." loading="lazy" decoding="async" />
+              </a>
+              <figcaption>On the desk, where it is meant to live.</figcaption>
+            </figure>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ============ REFLECTION ============ -->
-  <section class="fab-chapter">
+  <!-- ============ 07 REFLECTION ============ -->
+  <section class="fab-section">
     <div class="fab-wrap">
-      <div class="fab-head">
-        <p class="fab-head-no">07</p>
-        <div>
+      <div class="fab-layout">
+        <div class="fab-label"><span class="fab-no">07</span><p class="fab-label-name">Reflection</p></div>
+        <div class="fab-col">
           <h2>What I took from it</h2>
           <p class="fab-lede">The idea was one sentence long: close a little window, enter focus mode. Making that sentence physically true took stability, motion constraints, dimensional accuracy and assembly tolerance, and that gap is the thing I actually learned.</p>
-        </div>
-      </div>
 
-      <div class="fab-rail">
-        <div class="fab-reflect">
-          <div>
-            <h3 style="font-size: 1.25rem;">How I work now</h3>
-            <ol>
-              <li>I give each prototype one question. Cardboard answered the mechanism, a cut test answered the board fit, and five slot widths answered the joint.</li>
-              <li>I test the real geometry, not a stand-in. The press-fit sample was a miniature of the actual beam, which is why its answer transferred.</li>
-              <li>I treat the process as part of the dimension. The laser kerf was the reason the board fitted, and a drawing alone would not have told me that.</li>
-            </ol>
-          </div>
-          <div>
-            <h3 style="font-size: 1.25rem;">What I would try next</h3>
-            <ol>
-              <li>Design the feel of the slide: how much resistance the window gives and what tells you it has reached the closed position.</li>
-              <li>Make leaving focus mode as physical as entering it, using the same window rather than a second control.</li>
-              <li>Carry the engraving test into the finish, now that I know what detail the material holds.</li>
-            </ol>
+          <div class="fab-reflect">
+            <div>
+              <h3>How I work now</h3>
+              <ol>
+                <li>I give each prototype one question. Cardboard answered the mechanism, a cut test answered the board fit, and five slot widths answered the joint.</li>
+                <li>I test the real geometry, not a stand-in. The press-fit sample was a miniature of the actual beam, which is why its answer transferred.</li>
+                <li>I treat the process as part of the dimension. The laser kerf was the reason the board fitted, and a drawing alone would not have told me that.</li>
+              </ol>
+            </div>
+            <div>
+              <h3>What I would try next</h3>
+              <ol>
+                <li>Design the feel of the slide: how much resistance the window gives and what tells you it has reached the closed position.</li>
+                <li>Make leaving focus mode as physical as entering it, using the same window rather than a second control.</li>
+                <li>Carry the engraving test into the finish, now that I know what detail the material holds.</li>
+              </ol>
+            </div>
           </div>
         </div>
       </div>
