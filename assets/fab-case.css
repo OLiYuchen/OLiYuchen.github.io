@@ -130,8 +130,8 @@
    A mood board of what the brief came from: the hotel, the flower, the first
    sketches. Columns rather than a grid, so each frame keeps its own height and
    nothing has to be cut to make a row line up. */
-.fab-board { columns: 3; column-gap: var(--fab-gap); }
-.fab-board figure { break-inside: avoid; margin-bottom: var(--fab-gap); }
+.fab-board { display: grid; grid-template-columns: 1.3fr .9fr .95fr; gap: var(--fab-gap); align-items: start; }
+.fab-board figure { min-width: 0; }
 .fab-board figcaption { margin-top: .5rem; font-size: .74rem; }
 
 /* The drawing the board resolves to, given its own weight below it. */
@@ -227,6 +227,7 @@
   .fab-chain { grid-template-columns: repeat(2, 1fr); row-gap: 2rem; }
   .fab-split, .fab-split-text { grid-template-columns: 1fr; gap: 1.8rem; }
   .fab-four { grid-template-columns: repeat(2, 1fr); }
+  .fab-board { grid-template-columns: 1fr 1fr; }
   .fab-portrait { max-width: 62%; }
   .fab-feature { grid-template-columns: 1fr; gap: 1.6rem; }
   .fab-layout { grid-template-columns: minmax(7rem, 0.16fr) minmax(0, 1fr); gap: 2rem; }
@@ -238,7 +239,7 @@
   .fab-label .fab-no { width: 2.5rem; height: 2.5rem; font-size: .8rem; }
   .fab-label .fab-label-name { max-width: none; }
   .fab-two, .fab-three, .fab-keep, .fab-reflect { grid-template-columns: 1fr; gap: 1.5rem; }
-  .fab-board { columns: 2; }
+  .fab-board { grid-template-columns: 1fr; }
   .fab-four { grid-template-columns: 1fr 1fr; }
   .fab-hero-art, .fab-portrait { max-width: 100%; }
   .fab-spec { grid-template-columns: 1fr 1fr; gap: 1.2rem; }
