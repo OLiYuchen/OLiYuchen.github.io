@@ -12965,15 +12965,16 @@ article#physical-computing .exploration-detail-copy p:not(.project-meta) {
 .portfolio-home .current-project:focus-visible { outline: 2px solid var(--accent-deep); outline-offset: 6px; border-radius: 2px; }
 @media (prefers-reduced-motion: reduce) { .portfolio-home .current-project-title { transition: none; } }
 
-/* "Currently working on": the two fabrication projects, between selected work
-   and the technique archive. These covers are photographs of objects and are
-   shown whole, never cropped, so each card runs the image down one side at its
-   own 3:4 proportion with the copy beside it. */
-.current-work { padding-top: clamp(1rem, 2vw, 2rem); padding-bottom: clamp(3.4rem, 5.5vw, 5rem); }
-.current-work-heading { display: flex; flex-direction: column; }
-.current-work-label { order: -1; margin: 0 0 .75rem; font-size: .74rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--accent-deep); }
-.current-work-label::after { content: ''; display: inline-block; width: 26px; height: 1px; margin-left: .7rem; vertical-align: middle; background: var(--line-strong); }
-.current-work .project-card { display: grid; grid-template-columns: minmax(0, 0.47fr) minmax(0, 1fr); align-items: center; }
+/* "Currently Working On": the two fabrication projects, between selected work
+   and the technique archive. The heading follows Selected Work exactly, an h2
+   on its own. These covers are photographs of objects and are shown whole,
+   never cropped, so each card runs the image down one side at its own 3:4
+   proportion with the copy beside it. */
+.current-work { padding-top: clamp(4rem, 6.5vw, 6rem); padding-bottom: clamp(3.4rem, 5.5vw, 5rem); }
+/* Heading and card titles share the size of the technique archive heading. */
+.current-work .section-heading h2,
+.current-work .project-card h3 { font-size: clamp(1.65rem, 2.7vw, 2.45rem); }
+.current-work .project-card { display: grid; grid-template-columns: minmax(0, 0.42fr) minmax(0, 1fr); align-items: center; }
 .current-work .project-card .project-card-media { aspect-ratio: 3 / 4; background: var(--paper-strong); }
 .current-work .project-card .project-card-media img { object-fit: contain; object-position: center; }
 @media (max-width: 760px) {

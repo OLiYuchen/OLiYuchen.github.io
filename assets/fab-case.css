@@ -61,25 +61,30 @@
 .fab-hero-kicker { display: flex; flex-wrap: wrap; gap: .5rem 1.1rem; font-size: .77rem; color: var(--ink-soft); margin: 0 0 1.4rem; }
 .fab-hero-kicker span { display: inline-flex; align-items: center; gap: .55rem; }
 .fab-hero-kicker span + span::before { content: ''; width: 14px; height: 1px; background: var(--fab-line); }
-.fab-hero-top { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(2rem, 4.5vw, 4.5rem); align-items: end; }
-.fab-hero-deck { max-width: 42ch; font-size: clamp(1.05rem, 1.35vw, 1.22rem); line-height: 1.52; margin: 0; }
+.fab-hero-deck { max-width: 44ch; font-size: clamp(1.05rem, 1.35vw, 1.22rem); line-height: 1.52; margin: 0; }
 .fab-hero-deck + .fab-note { margin-top: .9rem; }
+/* Everything that is not the photograph stacks in the column beside it, so the
+   specification block sits under the deck rather than alone in open space. The
+   note hugs the deck; only the specification block takes the larger break. */
+.fab-hero-side { display: grid; align-content: start; }
+.fab-hero-side > .fab-note { margin-top: .9rem; }
+.fab-hero-side > .fab-figures { margin-top: clamp(1.8rem, 3.2vw, 2.8rem); }
 
 /* The cover photograph keeps its own proportions, so it sits in a column
    beside the specification list rather than filling the page width. */
-.fab-hero-spread { display: grid; grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr); gap: clamp(2rem, 4.5vw, 4.2rem); align-items: stretch; margin-top: var(--sp-stage); }
+.fab-hero-spread { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); gap: clamp(2rem, 4.5vw, 4.2rem); align-items: start; margin-top: clamp(2rem, 3.5vw, 3rem); }
 .fab-hero-art img { display: block; width: 100%; height: auto; border-radius: 5px; }
-/* The specification list spreads down the full height of the cover photograph
-   instead of clustering at one end of it. */
-.fab-spec { display: grid; align-content: space-between; gap: 1.25rem; margin: 0; }
-.fab-spec div { min-width: 0; padding-top: .9rem; border-top: 1px solid var(--fab-hair); }
-.fab-spec div:first-child { border-top: 1px solid var(--fab-line); }
+/* A compact 2x2 block, centred against the cover photograph. Stretching four
+   entries down a tall portrait frame left gaps big enough to read as a fault. */
+/* Role, process, tools and output run as a band under the cover photograph. */
+.fab-spec { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem clamp(1.4rem, 2.6vw, 2.4rem); margin: var(--sp-stage) 0 0; padding: 1.4rem 0; border-block: 1px solid var(--fab-line); }
+.fab-spec div { min-width: 0; }
 .fab-spec dt { font: 600 .7rem/1 var(--font-body); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: .55rem; }
 .fab-spec dd { margin: 0; font-size: .9rem; line-height: 1.55; }
 
-/* key numbers */
-.fab-figures { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem clamp(1.4rem, 2.6vw, 2.4rem); margin: var(--sp-stage) 0 0; padding: 1.4rem 0; border-block: 1px solid var(--fab-line); }
-.fab-figures div { min-width: 0; }
+/* The headline figures sit beside the cover photograph, two by two. */
+.fab-figures { display: grid; grid-template-columns: 1fr 1fr; align-content: start; gap: clamp(1.3rem, 2.4vw, 2rem) clamp(1.4rem, 2.8vw, 2.4rem); margin: 0; }
+.fab-figures div { min-width: 0; padding-top: .85rem; border-top: 1px solid var(--fab-line); }
 .fab-figures b { display: block; font: 600 clamp(1.55rem, 2.4vw, 2.1rem)/1 var(--font-body); letter-spacing: -.03em; font-variant-numeric: tabular-nums; color: var(--ink); }
 .fab-figures p { margin: .55rem 0 0; font-size: .8rem; line-height: 1.55; color: var(--ink-soft); }
 .fab-figures p strong { color: var(--ink); font-weight: 600; }
@@ -203,10 +208,9 @@
 /* ---------- responsive ---------- */
 @media (max-width: 1024px) {
   .fab-wrap { width: calc(100% - 56px); }
-  .fab-hero-top, .fab-hero-spread { grid-template-columns: 1fr; gap: 1.8rem; align-items: start; }
-  .fab-spec { align-content: start; }
+  .fab-hero-spread { grid-template-columns: 1fr; gap: 1.8rem; }
   .fab-hero-art { max-width: 68%; }
-  .fab-figures { grid-template-columns: repeat(2, 1fr); }
+  .fab-spec { grid-template-columns: repeat(2, 1fr); }
   .fab-chain { grid-template-columns: repeat(2, 1fr); row-gap: 2rem; }
   .fab-split, .fab-split-text { grid-template-columns: 1fr; gap: 1.8rem; }
   .fab-four { grid-template-columns: repeat(2, 1fr); }
@@ -222,7 +226,7 @@
   .fab-two, .fab-three, .fab-keep, .fab-reflect { grid-template-columns: 1fr; gap: 1.5rem; }
   .fab-four { grid-template-columns: 1fr 1fr; }
   .fab-hero-art, .fab-portrait { max-width: 100%; }
-  .fab-figures { grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+  .fab-spec { grid-template-columns: 1fr 1fr; gap: 1.2rem; }
   .fab-chain { grid-template-columns: 1fr; }
   .fab-plate { padding: .7rem; }
   .fab-lightbox { padding: 12px; }
