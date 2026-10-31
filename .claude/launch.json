@@ -2,16 +2,10 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "static-portfolio",
+      "name": "portfolio",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "3000"],
-      "port": 3000
-    },
-    {
-      "name": "vercel-dev",
-      "runtimeExecutable": "npx",
-      "runtimeArgs": ["vercel", "dev", "--listen", "3001"],
-      "port": 3001
+      "runtimeArgs": ["-m", "http.server", "8766", "--bind", "127.0.0.1"],
+      "port": 8766
     }
   ]
 }

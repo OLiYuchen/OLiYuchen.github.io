@@ -12964,3 +12964,17 @@ article#physical-computing .exploration-detail-copy p:not(.project-meta) {
 .portfolio-home .current-project:hover .current-project-title { color: var(--accent-deep); text-decoration-color: currentColor; }
 .portfolio-home .current-project:focus-visible { outline: 2px solid var(--accent-deep); outline-offset: 6px; border-radius: 2px; }
 @media (prefers-reduced-motion: reduce) { .portfolio-home .current-project-title { transition: none; } }
+
+/* "Currently working on": the two fabrication projects, between selected work
+   and the technique archive. Reuses the project-card shell so the shelf reads
+   as part of the same system, with its own quiet label above the heading. */
+.current-work { padding-top: clamp(1rem, 2vw, 2rem); padding-bottom: clamp(3.4rem, 5.5vw, 5rem); }
+.current-work-heading { display: flex; flex-direction: column; }
+.current-work-label { order: -1; margin: 0 0 .75rem; font-size: .74rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--accent-deep); }
+.current-work-label::after { content: ''; display: inline-block; width: 26px; height: 1px; margin-left: .7rem; vertical-align: middle; background: var(--line-strong); }
+.current-work .project-card-media { background: var(--paper-strong); }
+.project-card-mooncake .project-card-media img { object-position: center 42%; }
+.project-card-focus .project-card-media img { object-position: center 58%; }
+@media (max-width: 760px) {
+  .current-work { padding-bottom: 3rem; }
+}
