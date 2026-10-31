@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s --max-time 10 -X POST -H \"Content-Type: application/x-www-form-urlencoded\" -H \"User-Agent: Mozilla/5.0\" \"http://www.cninfo.com.cn/new/hisAnnouncement/query\" -d \"stock=00700,gshk0000700&tabName=fulltext&pageSize=5&pageNum=1&column=hke&seDate=2025-01-01~2026-07-10\")",
+      "Bash(curl -s --max-time 10 -X POST -H \"Content-Type: application/x-www-form-urlencoded\" -H \"User-Agent: Mozilla/5.0\" \"http://www.cninfo.com.cn/new/information/topSearch/query\" -d \"keyWord=阿里巴巴&maxNum=10\")",
+      "Bash(curl -s --max-time 10 -X POST -H \"Content-Type: application/x-www-form-urlencoded\" -H \"User-Agent: Mozilla/5.0\" \"http://www.cninfo.com.cn/new/information/topSearch/query\" -d \"keyWord=拼多多&maxNum=10\")",
+      "Bash(curl -s --max-time 10 -X POST -H \"Content-Type: application/x-www-form-urlencoded\" -H \"User-Agent: Mozilla/5.0\" \"http://www.cninfo.com.cn/new/information/topSearch/query\" -d \"keyWord=AAPL&maxNum=10\")",
+      "Bash(curl -s --max-time 15 -A \"test test@test.com\" \"https://www.sec.gov/files/company_tickers.json\" -o /tmp/tickers.json)",
+      "Bash(python3 -c ' *)",
+      "Bash(curl -s --max-time 10 -X POST -H \"Content-Type: application/x-www-form-urlencoded\" -H \"User-Agent: Mozilla/5.0\" \"http://www.cninfo.com.cn/new/hisAnnouncement/query\" -d \"stock=002594,gshk0001211&tabName=fulltext&pageSize=3&pageNum=1&column=szse&seDate=2025-01-01~2026-07-10\")",
+      "Bash(node -e ' *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)"
+    ]
+  }
+}

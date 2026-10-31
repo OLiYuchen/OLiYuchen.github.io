@@ -1,0 +1,596 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Orchid Mooncake | Olivia Feng</title>
+<meta name="description" content="A vacuum forming buck for a Halekulani mooncake. CAD configurations, draft angle, vent design and the plaster cast that came out of it." />
+<link rel="icon" type="image/png" href="/assets/img/personal-logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/style.css" />
+<link rel="stylesheet" href="/assets/fab-case.css" />
+<script src="/assets/fab-case.js" defer></script>
+</head>
+<body class="fab-case mooncake-case">
+
+<header class="site-header home-header">
+  <div class="container header-row">
+    <a class="brand" href="/"><img class="brand-logo" src="/assets/img/personal-logo.png" alt="" aria-hidden="true" /><span>Olivia Feng</span></a>
+    <nav class="nav" aria-label="Primary">
+      <div class="nav-links">
+        <a href="/#selected-work">Work</a>
+        <a href="/about/">About</a>
+        <a href="/#contact">Contact</a>
+      </div>
+      <a class="btn btn-clear nav-cta" href="/assets/Yuchen_Olivia_Feng_Resume.pdf" target="_blank" rel="noreferrer">
+        <span class="nav-cta-icon" aria-hidden="true">&#8595;</span>
+        <span>Resume</span>
+      </a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="fab-main">
+
+  <!-- ============ HERO ============ -->
+  <section class="fab-hero">
+    <div class="fab-wrap">
+      <p class="fab-hero-kicker"><span>Fabrication</span><span>Mechanical design</span><span>2026</span></p>
+      <h1>Orchid Mooncake</h1>
+
+      <div class="fab-hero-spread">
+        <figure class="fab-hero-art">
+          <a class="fab-image" href="/assets/img/mooncake/hero.webp" data-gallery="hero" data-caption="The finished plaster mooncake beside the vacuum formed sheet it was cast in.">
+            <img src="/assets/img/mooncake/previews/hero.webp" width="1125" height="1500" alt="A white plaster mooncake with a raised orchid, standing next to the clear vacuum formed sheet it was cast in." fetchpriority="high" decoding="async" />
+          </a>
+        </figure>
+
+        <div class="fab-hero-side">
+            <p class="fab-hero-deck">A mid-autumn mooncake mould for Halekulani, Waikiki, traced from the hotel's Cattleya orchid and engineered to survive vacuum forming.</p>
+            <p class="fab-note">One printed buck pulls a plastic negative, and the negative casts the plaster cake. Everything the cake shows has to be designed into the first part.</p>
+
+          <dl class="fab-figures">
+            <div>
+              <b class="fab-num">4&deg;</b>
+              <p>Draft on the full <strong>18 mm</strong> outer wall, so the formed sheet lifts off the 28 scallops without dragging.</p>
+            </div>
+            <div>
+              <b class="fab-num">8 &times; &#216;1</b>
+              <p>Vent holes through to the pattern recess, including one that reaches a pocket nothing else can.</p>
+            </div>
+            <div>
+              <b class="fab-num">28</b>
+              <p>Scallops at <strong>12.857&deg;</strong>, carried from the crest border and doubling as the fluted cake edge.</p>
+            </div>
+            <div>
+              <b class="fab-num">5</b>
+              <p>Configurations in one CAD file, so every test print is a switch rather than a new model.</p>
+            </div>
+          </dl>
+        </div>
+      </div>
+
+      <dl class="fab-spec">
+        <div>
+          <dt>Role</dt>
+          <dd>Sole designer and fabricator. Concept, CAD, print, forming, casting.</dd>
+        </div>
+        <div>
+          <dt>Process</dt>
+          <dd>CAD model &rarr; FDM printed buck &rarr; vacuum formed sheet &rarr; plaster cast.</dd>
+        </div>
+        <div>
+          <dt>Tools</dt>
+          <dd>Fusion 360 with configurations, FDM printer, vacuum former, plaster.</dd>
+        </div>
+        <div>
+          <dt>Output</dt>
+          <dd>One final buck, a full engineering drawing, and a batch of cast mooncakes.</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ============ NAV ============ -->
+  <nav class="fab-nav" aria-label="Case study chapters">
+    <div class="fab-wrap">
+      <a href="#brief">The brief</a>
+      <a href="#constraints">Designing for the process</a>
+      <a href="#cad">CAD</a>
+      <a href="#air">Giving the air a way out</a>
+      <a href="#making">Making it</a>
+      <a href="#result">Result</a>
+      <a href="#drawing">Drawing</a>
+    </div>
+  </nav>
+
+  <!-- ============ 01 BRIEF ============ -->
+  <section id="brief" class="fab-section">
+    <div class="fab-wrap">
+      <div class="fab-layout">
+        <div class="fab-label"><span class="fab-no">01</span><p class="fab-label-name">The brief</p></div>
+        <div class="fab-col">
+          <h2>Reading a logo as a mould</h2>
+          <p class="fab-lede">Halekulani means house befitting heaven. Its whole identity rests on one flower, the white Cattleya orchid, which turns up in the logo, in the restaurant named after it, and in over a million glass tiles at the bottom of the pool.</p>
+
+          <div class="fab-board">
+            <figure>
+              <a class="fab-image" href="/assets/img/mooncake/hotel-pool.webp" data-gallery="brief" data-caption="The Cattleya laid into the floor of the Halekulani pool in glass tile.">
+                <img src="/assets/img/mooncake/previews/hotel-pool.webp" width="798" height="598" alt="The Halekulani pool at sunset with a large Cattleya orchid rendered in blue glass tile on its floor." loading="lazy" decoding="async" />
+              </a>
+              <figcaption>The same flower, at the scale of a swimming pool.</figcaption>
+            </figure>
+            <figure>
+              <a class="fab-image" href="/assets/img/mooncake/orchid.webp" data-gallery="brief" data-caption="The Cattleya orchid, the Halekulani house flower.">
+                <img src="/assets/img/mooncake/previews/orchid.webp" width="399" height="501" alt="A pink and magenta Cattleya orchid in bloom." loading="lazy" decoding="async" />
+              </a>
+              <figcaption>The lip, the heart shaped petal, becomes the hardest part of the mould to vent.</figcaption>
+            </figure>
+            <figure>
+              <a class="fab-image" href="/assets/img/mooncake/sketch-six.webp" data-gallery="brief" data-caption="Six directions on paper: flat round, orchid outline, crest with lettering, square with a palm tree, name on the side, and the fluted round with an orchid.">
+                <img src="/assets/img/mooncake/previews/sketch-six.webp" width="1125" height="1500" alt="A sketchbook page with six mooncake direction sketches drawn in blue pen." loading="lazy" decoding="async" />
+              </a>
+              <figcaption>Six directions. Lettering, deep petal gaps and square corners each fail in their own way.</figcaption>
+            </figure>
+          </div>
+          <p class="fab-note">Pool photograph from halekulani.com, used here as reference for the brief.</p>
+
+          <div class="fab-keep">
+            <div>
+              <p class="fab-tag">Kept as geometry</p>
+              <ul>
+                <li>The orchid, as a <span class="fab-num">2 mm</span> relief.</li>
+                <li>The scalloped border, which also reads as the fluted edge of a mooncake.</li>
+                <li>White, which is the colour plaster already is.</li>
+              </ul>
+            </div>
+            <div>
+              <p class="fab-tag">Left as drawing</p>
+              <ul>
+                <li>Lettering, with strokes under <span class="fab-num">1 mm</span>.</li>
+                <li>The dotted ring, too fine for the sheet to reach.</li>
+                <li>Palm trees, which say Hawaii rather than Halekulani.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="fab-feature">
+            <div class="fab-plate">
+              <figure>
+                <a class="fab-image" href="/assets/img/mooncake/sketch-final.webp" data-gallery="brief" data-caption="The final outline traced in Fusion: orchid, scalloped edge and vent positions only.">
+                  <img src="/assets/img/mooncake/previews/sketch-final.webp" width="1064" height="880" alt="A line drawing of the mooncake: a scalloped circle with a Cattleya orchid at the centre and small vent circles." loading="lazy" decoding="async" />
+                </a>
+              </figure>
+              <div class="fab-plate-bar">
+                <strong>Final outline</strong>
+                <span>Traced in Fusion</span>
+                <span>28 scallops</span>
+                <span>8 vent positions</span>
+              </div>
+            </div>
+            <div class="fab-feature-note">
+              <p class="fab-tag">What the board resolved to</p>
+              <p class="fab-body">A formed sheet only records height. Anything shallower than the sheet can follow disappears, and anything that wraps under itself traps the sheet and keeps it there.</p>
+              <p class="fab-body">So the crest reduces to the parts that are heights: a silhouette, one clear step, and the holes the air will need.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 02 CONSTRAINTS ============ -->
+  <section id="constraints" class="fab-section fab-band">
+    <div class="fab-wrap">
+      <div class="fab-layout">
+        <div class="fab-label"><span class="fab-no">02</span><p class="fab-label-name">Designing for the process</p></div>
+        <div class="fab-col">
+          <h2>One shape, three materials</h2>
+         
+
+          <ol class="fab-chain">
+            <li>
+              <h3>Print the buck</h3>
+              <p>A PLA positive with vent holes running from the base through to the pattern recess.</p>
+              <figure>
+                <a class="fab-image" href="/assets/img/mooncake/print-bed.webp" data-gallery="chain" data-caption="The buck printing on the platen, with earlier test prints alongside.">
+                  <img src="/assets/img/mooncake/previews/print-bed.webp" width="1125" height="1500" alt="An FDM printer laying down a round black part on the build platen." loading="lazy" decoding="async" />
+                </a>
+              </figure>
+            </li>
+            <li>
+              <h3>Vacuum form</h3>
+              <p>A heated sheet is pulled down over the buck and the air is drawn out through the vents.</p>
+              <figure>
+                <a class="fab-image" href="/assets/img/mooncake/former-press.webp" data-gallery="chain" data-caption="The heated sheet drawn down over the buck on the vacuum former.">
+                  <img src="/assets/img/mooncake/previews/former-press.webp" width="1125" height="1500" alt="A blue vacuum former with a white sheet pulled down over a round buck." loading="lazy" decoding="async" />
+                </a>
+              </figure>
+            </li>
+            <li>
+              <h3>Pour plaster</h3>
+              <p>The formed sheet becomes the negative. Flipped over, it is filled with plaster.</p>
+              <figure>
+                <a class="fab-image" href="/assets/img/mooncake/casting.webp" data-gallery="chain" data-caption="Plaster poured into the formed sheets.">
+                  <img src="/assets/img/mooncake/previews/casting.webp" width="1125" height="1500" alt="Formed plastic sheets on a cutting mat, filled with wet plaster, beside a mixing cup." loading="lazy" decoding="async" />
+                </a>
+              </figure>
+            </li>
+            <li>
+              <h3>Demould</h3>
+              <p>The same draft that released the sheet releases the cured plaster cake.</p>
+              <figure>
+                <a class="fab-image" href="/assets/img/mooncake/curing.webp" data-gallery="chain" data-caption="Casts curing in their sheets before demoulding.">
+                  <img src="/assets/img/mooncake/previews/curing.webp" width="1125" height="1500" alt="Several formed sheets holding curing plaster, lined up on a dark surface." loading="lazy" decoding="async" />
+                </a>
+              </figure>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 03 CAD ============ -->
+  <section id="cad" class="fab-section">
+    <div class="fab-wrap">
+      <div class="fab-layout">
+        <div class="fab-label"><span class="fab-no">03</span><p class="fab-label-name">CAD</p></div>
+        <div class="fab-col">
+          <h2>One file, many versions</h2>
+          <p class="fab-lede">Rather than save a new model for every idea, I built one base part and used Fusion configurations to switch features on and off inside it. Each test print is a configuration, so the versions stay comparable and a change to the shared geometry reaches all of them at once.</p>
+
+          <div class="fab-plate">
+            <figure>
+              <a class="fab-image" href="/assets/img/mooncake/configs.webp" data-gallery="cad" data-caption="Configuration comparison A to E: isometric views, sections at the axis, and a parameter table of every value that differs.">
+                <img src="/assets/img/mooncake/previews/configs.webp" width="1500" height="1063" alt="An engineering comparison sheet showing five mooncake configurations in isometric view with section views and a parameter comparison table." loading="lazy" decoding="async" />
+              </a>
+            </figure>
+            <div class="fab-plate-bar">
+              <strong>Configuration comparison A to E</strong>
+              <span>Isometric, section A-A at the axis</span>
+              <span>Scale 1.25:1</span>
+              <span>Units mm</span>
+            </div>
+          </div>
+
+
+          <div class="fab-two">
+            <figure>
+              <a class="fab-image" href="/assets/img/mooncake/cad-iso.webp" data-gallery="cad" data-caption="The final configuration in Fusion, isometric view.">
+                <img src="/assets/img/mooncake/previews/cad-iso.webp" width="1500" height="976" alt="Fusion 360 isometric view of the mooncake buck, showing the scalloped wall and the raised orchid." loading="lazy" decoding="async" />
+              </a>
+              <figcaption>The final part in Fusion. The orchid sits proud of a recessed field, and the whole outer wall carries the release angle.</figcaption>
+            </figure>
+            <figure>
+              <a class="fab-image" href="/assets/img/mooncake/cad-top.webp" data-gallery="cad" data-caption="Top view of the final configuration, with the vent positions visible in the recessed field.">
+                <img src="/assets/img/mooncake/previews/cad-top.webp" width="1500" height="976" alt="Fusion 360 top view of the mooncake buck, showing the orchid motif and small vent holes around the ring." loading="lazy" decoding="async" />
+              </a>
+              <figcaption>Top view. The vent ring is a circular pattern, so changing hole size or count is a single edit.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 04 AIR ============ -->
+  <section id="air" class="fab-section fab-band">
+    <div class="fab-wrap">
+      <div class="fab-layout">
+        <div class="fab-label"><span class="fab-no">04</span><p class="fab-label-name">Giving the air a way out</p></div>
+        <div class="fab-col">
+          <h2>Giving the air a way out</h2>
+          <p class="fab-lede">The first round of prints settled the question I had been going back and forth on, and it was not the one I expected to answer. Raised against engraved turned out not to matter. What mattered was whether air could leave the recess.</p>
+
+          <div class="fab-finding">
+            <p class="fab-finding-head"><span class="fab-num">4.1</span> Round one</p>
+            <h3>The outline formed. The orchid stayed flat.</h3>
+            <p class="fab-ask">Does the motif read better raised or engraved?</p>
+            <p class="fab-body">I printed three bucks at once: blank, raised orchid and engraved orchid. The outline and the scallops came through on all of them, and the orchid came through on none. The vents were specified at <span class="fab-num">&#216;0.4</span>, which is below what the printer can hold open, so they closed up as they printed. With no exit, the air sitting in the <span class="fab-num">2 mm</span> recesses held the sheet up and it bridged straight across the motif.</p>
+            <p class="fab-body">The rims also gripped on release. At <span class="fab-num">22 mm</span> tall with only <span class="fab-num">2&deg;</span> of draft, the sheet had very little room to let go of the scallops.</p>
+            <div class="fab-settled">
+              <b>What it settled</b>
+              Two independent variables, cleanly separated: hole size controls whether the motif forms at all, and draft angle controls whether the sheet releases. Neither has anything to do with raised against engraved, so that question could be decided on looks alone.
+            </div>
+          </div>
+
+          <div class="fab-three">
+            <figure>
+              <a class="fab-image" href="/assets/img/mooncake/test-bucks.webp" data-gallery="air" data-caption="The three round one bucks: engraved, raised and blank.">
+                <img src="/assets/img/mooncake/previews/test-bucks.webp" width="1125" height="1500" alt="Three black printed mooncake bucks on a desk: one engraved, one with a raised orchid, one blank." loading="lazy" decoding="async" />
+              </a>
+              <figcaption>Three bucks printed together so the only difference between them is the motif.</figcaption>
+            </figure>
+            <figure>
+              <a class="fab-image" href="/assets/img/mooncake/test-flat-a.webp" data-gallery="air" data-caption="A round one sheet: the scalloped outline formed, the orchid field stayed flat.">
+                <img src="/assets/img/mooncake/previews/test-flat-a.webp" width="1125" height="1500" alt="A gloved hand holding a formed plastic sheet in which the round fluted edge is visible but the centre is flat." loading="lazy" decoding="async" />
+              </a>
+              <figcaption>The edge formed cleanly. The centre is where the trapped air shows.</figcaption>
+            </figure>
+            <figure>
+              <a class="fab-image" href="/assets/img/mooncake/test-flat-b.webp" data-gallery="air" data-caption="Both round one sheets beside the bucks that pulled them.">
+                <img src="/assets/img/mooncake/previews/test-flat-b.webp" width="1125" height="1500" alt="Two formed plastic sheets laid next to two black printed bucks on a grey surface." loading="lazy" decoding="async" />
+              </a>
+              <figcaption>Both sheets behaved the same way, which is what made the reading so clear.</figcaption>
+            </figure>
+          </div>
+
+          <div class="fab-finding">
+            <p class="fab-finding-head"><span class="fab-num">4.2</span> The pocket nothing could reach</p>
+            <h3>The recess is two regions, not one</h3>
+            <p class="fab-body">Enlarging the holes to <span class="fab-num">&#216;1</span> made them print open, and six of them on a bolt circle covered most of the recessed field. Before committing I checked the floor of the recess for connectivity rather than assuming it was a single region, and it is not. The raised lip of the orchid, the heart shaped petal, closes a contour around itself. Inside that contour sits a <span class="fab-num">66.5 mm&sup2;</span> pocket walled off from the <span class="fab-num">900.3 mm&sup2;</span> main field by the full <span class="fab-num">2 mm</span> step, with no path between them at any point.</p>
+            <p class="fab-body">No hole on the ring can serve it. So the vent count went to eight: six on the bolt circle, one inside the lip pocket, and one at the orchid centre.</p>
+            <div class="fab-settled">
+              <b>Why it is worth drawing</b>
+              The two areas sum to <span class="fab-num">966.8 mm&sup2;</span> against a measured recess floor of <span class="fab-num">966.7</span>, which confirms the split is real and complete rather than an artefact of how the surface was read.
+            </div>
+          </div>
+
+          <div class="fab-plate">
+            <figure>
+              <a class="fab-image" href="/assets/img/mooncake/vents.webp" data-gallery="air" data-caption="Vent coverage of the pattern recess. Blue is the main field reached by the ring holes; orange is the enclosed pocket inside the orchid lip, served only by V7.">
+                <img src="/assets/img/mooncake/previews/vents.webp" width="1417" height="1500" alt="A vent coverage diagram of the mooncake recess, with the main field in blue, an enclosed pocket inside the orchid lip in orange, and eight numbered vent holes." loading="lazy" decoding="async" />
+              </a>
+            </figure>
+            <div class="fab-plate-bar">
+              <strong>Vent coverage of the 2 mm recess</strong>
+              <span>Main field 900.3 mm&sup2;</span>
+              <span>Enclosed pocket 66.5 mm&sup2;</span>
+              <span>6 &times; &#216;1 on &#216;39.13 B.C. at 60&deg;</span>
+            </div>
+          </div>
+
+          <div class="fab-finding">
+            <p class="fab-finding-head"><span class="fab-num">4.3</span> Draft</p>
+            <h3>From <span class="fab-num">2&deg;</span> to <span class="fab-num">4&deg;</span>, and from <span class="fab-num">22 mm</span> to <span class="fab-num">20</span></h3>
+            <p class="fab-body">With the vents opened up, release became the remaining variable. At <span class="fab-num">2&deg;</span> the buck had to be worked out of the sheet. Taking the wall to <span class="fab-num">4&deg;</span> and the height down to <span class="fab-num">20 mm</span> lifts it off cleanly, and at that angle the scallops are still crisp enough that the change is invisible in the finished cake.</p>
+            <p class="fab-body">The angle is small enough to be worth checking rather than trusting. Across the <span class="fab-num">18 mm</span> drafted wall the base radius drops by <span class="fab-num">1.2585 mm</span>, and the arctangent of that over the height returns <span class="fab-num">4.0000&deg;</span>, so what the drawing claims and what the model holds are the same number.</p>
+          </div>
+
+          <ul class="fab-ladder">
+            <li><b class="fab-num">&#216;0.4</b><span>Closed up during printing</span></li>
+            <li><b class="fab-num">&#216;1</b><span>Prints open, 6 on the ring</span></li>
+            <li><b class="fab-num">8 &times; &#216;1</b><span>Lip pocket and orchid centre added</span></li>
+          </ul>
+
+          <div>
+            <p class="fab-tag">Three rounds, measured the same way</p>
+            <div class="fab-table-wrap">
+              <table class="fab-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Parameter</th>
+                    <th scope="col">Round 1</th>
+                    <th scope="col">Round 2</th>
+                    <th scope="col" class="is-final">Final</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><th scope="row">Height</th><td>22 mm</td><td>20 mm</td><td class="is-final">20 mm</td></tr>
+                  <tr><th scope="row">Draft</th><td>2&deg;</td><td>4&deg;</td><td class="is-final">4&deg;</td></tr>
+                  <tr><th scope="row">Vents</th><td>6 &times; &#216;0.4</td><td>8 &times; &#216;1</td><td class="is-final">8 &times; &#216;1</td></tr>
+                  <tr><th scope="row">Orchid in the sheet</th><td>Flat</td><td>Full depth</td><td class="is-final">Full depth</td></tr>
+                  <tr><th scope="row">Release</th><td>Sheet gripped</td><td>Clean</td><td class="is-final">Clean</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="fab-note" style="margin-top: 1.1rem;">One more thing carried over from the bench rather than the model: wetting the printed buck slightly before forming makes the sheet release noticeably more easily.</p>
+          </div>
+
+          <div class="fab-two">
+            <figure>
+              <a class="fab-image" href="/assets/img/mooncake/formed-orchid.webp" data-gallery="air" data-caption="The first sheet to carry the full orchid, including the pocket inside the lip.">
+                <img src="/assets/img/mooncake/previews/formed-orchid.webp" width="1125" height="1500" alt="A formed plastic sheet on a cutting mat showing a fully formed orchid relief at its centre." loading="lazy" decoding="async" />
+              </a>
+              <figcaption>With the eight vents open, the sheet reaches every recess, the lip pocket included.</figcaption>
+            </figure>
+            <figure>
+              <a class="fab-image" href="/assets/img/mooncake/buck-yellow.webp" data-gallery="air" data-caption="The final buck beside the sheet it pulled.">
+                <img src="/assets/img/mooncake/previews/buck-yellow.webp" width="1125" height="1500" alt="A yellow printed mooncake buck resting beside a formed sheet with a matching orchid impression." loading="lazy" decoding="async" />
+              </a>
+              <figcaption>The final buck and its negative. Everything the cake will show is already here.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 05 MAKING ============ -->
+  <section id="making" class="fab-section">
+    <div class="fab-wrap">
+      <div class="fab-layout">
+        <div class="fab-label"><span class="fab-no">05</span><p class="fab-label-name">Making it</p></div>
+        <div class="fab-col">
+          <h2>Printing, forming, casting</h2>
+          <p class="fab-lede">Six bucks across two rounds, then forming and casting in batches.</p>
+
+          <div class="fab-four">
+            <figure>
+              <a class="fab-image" href="/assets/img/mooncake/bucks-six.webp" data-gallery="making" data-caption="All six printed bucks across both rounds.">
+                <img src="/assets/img/mooncake/previews/bucks-six.webp" width="1125" height="1500" alt="Six printed mooncake bucks, three yellow and three black, arranged on a white surface." loading="lazy" decoding="async" />
+              </a>
+              <figcaption>Six bucks, two rounds.</figcaption>
+            </figure>
+            <figure>
+              <a class="fab-image" href="/assets/img/mooncake/former-open.webp" data-gallery="making" data-caption="The buck on the platen with the sheet clamped in the frame above it.">
+                <img src="/assets/img/mooncake/previews/former-open.webp" width="1125" height="1500" alt="A vacuum former with its heater raised, a yellow buck on the platen and a sheet in the frame." loading="lazy" decoding="async" />
+              </a>
+              <figcaption>Buck on the platen, sheet in the frame.</figcaption>
+            </figure>
+            <figure>
+              <a class="fab-image" href="/assets/img/mooncake/sheets-pair.webp" data-gallery="making" data-caption="A used sheet beside a fresh one.">
+                <img src="/assets/img/mooncake/previews/sheets-pair.webp" width="1125" height="1500" alt="Two formed plastic sheets, one already cast in and one fresh, on a cutting mat." loading="lazy" decoding="async" />
+              </a>
+              <figcaption>Each sheet casts more than once.</figcaption>
+            </figure>
+            <figure>
+              <a class="fab-image" href="/assets/img/mooncake/result-batch.webp" data-gallery="making" data-caption="The batch: cast mooncakes with the sheets they came out of.">
+                <img src="/assets/img/mooncake/previews/result-batch.webp" width="1500" height="1125" alt="Several white plaster mooncakes on a board, surrounded by the formed sheets they were cast in." loading="lazy" decoding="async" />
+              </a>
+              <figcaption>A batch and its moulds.</figcaption>
+            </figure>
+          </div>
+
+          <div class="fab-keep">
+            <div>
+              <p class="fab-tag">Noted at the bench</p>
+              <h3>Fill line</h3>
+              <p class="fab-body">Some cups went over and plaster spilled onto the flange. A marked fill line on the sheet would make the pour repeatable and keep the rim clean.</p>
+            </div>
+            <div>
+              <p class="fab-tag">Noted at the bench</p>
+              <h3>Draft works twice</h3>
+              <p class="fab-body">The <span class="fab-num">4&deg;</span> that frees the sheet from the buck also frees the plaster from the sheet, so one decision pays for itself at both handovers.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 06 RESULT ============ -->
+  <section id="result" class="fab-section fab-band">
+    <div class="fab-wrap">
+      <div class="fab-layout">
+        <div class="fab-label"><span class="fab-no">06</span><p class="fab-label-name">Result</p></div>
+        <div class="fab-col">
+          <h2>Lip, petals and flutes all came through</h2>
+          <p class="fab-lede">The cast cake carries the full orchid, the heart shaped lip that needed its own vent, and all twenty eight flutes around the edge. Held next to the logo it reads as the same flower.</p>
+
+          <div class="fab-two">
+            <figure>
+              <a class="fab-image" href="/assets/img/mooncake/result-single.webp" data-gallery="result" data-caption="A single cast mooncake, three quarter view.">
+                <img src="/assets/img/mooncake/previews/result-single.webp" width="1125" height="1500" alt="A white plaster mooncake with a raised orchid on top and fluted sides, photographed on a black surface." loading="lazy" decoding="async" />
+              </a>
+              <figcaption>One cake. The relief holds its full <span class="fab-num">2 mm</span> and the flutes stay sharp all the way down the wall.</figcaption>
+            </figure>
+            <figure>
+              <a class="fab-image" href="/assets/img/mooncake/result-group.webp" data-gallery="result" data-caption="Four cast mooncakes from the same buck.">
+                <img src="/assets/img/mooncake/previews/result-group.webp" width="1125" height="1500" alt="Four white plaster mooncakes with orchid reliefs arranged on a brown board." loading="lazy" decoding="async" />
+              </a>
+              <figcaption>Four from the same buck. The repeat is what makes it a tool rather than a one off.</figcaption>
+            </figure>
+          </div>
+
+          <div class="fab-keep">
+            <div>
+              <p class="fab-tag">Up close</p>
+              <h3>Layer lines</h3>
+              <p class="fab-body">The sheet copies the print layers on the wall, so the side of the cake carries the buck's finish. Sanding the buck before forming would read straight through to a smooth flute.</p>
+            </div>
+            <div>
+              <p class="fab-tag">Up close</p>
+              <h3>Petal texture</h3>
+              <p class="fab-body">Print texture shows faintly across the orchid. Priming the buck is the next thing to try, since surface quality travels down the whole chain from the first part.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 07 DRAWING ============ -->
+  <section id="drawing" class="fab-section">
+    <div class="fab-wrap">
+      <div class="fab-layout">
+        <div class="fab-label"><span class="fab-no">07</span><p class="fab-label-name">Drawing</p></div>
+        <div class="fab-col">
+          <h2>The drawing</h2>
+          <p class="fab-lede">A drawing someone else could build from, and a decision about what to leave undimensioned.</p>
+
+          <div class="fab-plate">
+            <figure>
+              <a class="fab-image" href="/assets/img/mooncake/drawing.webp" data-gallery="drawing" data-caption="The final engineering drawing: isometric, bottom, top, front and right views with dimensions and notes.">
+                <img src="/assets/img/mooncake/previews/drawing.webp" width="1500" height="1057" alt="An A3 engineering drawing of the mooncake buck with isometric, bottom, top, front and right views, dimensions and a title block." loading="lazy" decoding="async" />
+              </a>
+            </figure>
+            <div class="fab-plate-bar">
+              <strong>Mooncake forming buck, Cattleya orchid</strong>
+              <span>HLP-C03-001</span>
+              <span>Rev 1.0</span>
+              <span>A3, first angle</span>
+              <span>Units mm</span>
+            </div>
+          </div>
+
+          <div class="fab-keep">
+            <div>
+              <p class="fab-tag">Dimensioned</p>
+              <ul>
+                <li>Base circle <span class="fab-num">&#216;50</span> and scalloped outer circle <span class="fab-num">&#216;51.70</span>, so the controlling circle and the real outer size are both visible.</li>
+                <li>Total height <span class="fab-num">20</span>, drafted wall <span class="fab-num">18</span>, pattern recess <span class="fab-num">2</span>.</li>
+                <li>Vent bolt circle <span class="fab-num">&#216;39.13</span> at <span class="fab-num">60&deg;</span>, with the two centre holes placed from the axis.</li>
+                <li>Scallop arc <span class="fab-num">R2.92</span> on a <span class="fab-num">&#216;45.86</span> centre circle, in a detail view.</li>
+              </ul>
+            </div>
+            <div>
+              <p class="fab-tag">Deliberately not dimensioned</p>
+              <ul>
+                <li>The orchid outline and the edge of the pattern field. Both were traced from artwork rather than constructed, and the field radius wanders by about <span class="fab-num">0.6 mm</span> around the circle.</li>
+                <li>Putting a diameter on a traced curve would invent a tolerance nobody can hold, so those are called out as decorative profile per the model instead.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 08 REFLECTION ============ -->
+  <section class="fab-section fab-band">
+    <div class="fab-wrap">
+      <div class="fab-layout">
+        <div class="fab-label"><span class="fab-no">08</span><p class="fab-label-name">Reflection</p></div>
+        <div class="fab-col">
+          <h2>What I took from it</h2>
+          <p class="fab-lede">This was my first part designed around a forming process rather than around how it looks, and most of what I learned sits in the gap between a model that is correct and a model that can actually be made.</p>
+
+          <div class="fab-reflect">
+            <div>
+              <h3>How I work now</h3>
+              <ol>
+                <li>I design the handovers, not just the part. Every rule in the model traces back to a moment where one material has to let go of another.</li>
+                <li>I check the thing I am about to assume. The recess looked like one region, and analysing it rather than trusting it is what found the sealed pocket.</li>
+                <li>I keep versions in one file. Configurations made five test prints comparable, and kept the parameter table honest because it reads from the model.</li>
+              </ol>
+            </div>
+            <div>
+              <h3>What I would try next</h3>
+              <ol>
+                <li>Prime and sand the buck before forming, since surface finish travels all the way down to the cast cake.</li>
+                <li>Add a moulded fill line to the sheet so the pour is repeatable and the flange stays clean.</li>
+                <li>Test the draft angle in smaller steps between <span class="fab-num">2&deg;</span> and <span class="fab-num">4&deg;</span>, to find the shallowest wall that still releases.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="fab-foot fab-wrap">
+    <a href="/#currently-working">&larr; Currently working on</a>
+    <span>Orchid Mooncake &middot; Olivia Feng</span>
+    <a href="/focus-house/">Focus House &rarr;</a>
+  </footer>
+</main>
+
+<dialog class="fab-lightbox" aria-label="Project photo viewer">
+  <div class="fab-viewer-top">
+    <span class="fab-viewer-count" aria-live="polite"></span>
+    <button type="button" class="fab-close" aria-label="Close photo viewer">Close <span aria-hidden="true">&times;</span></button>
+  </div>
+  <div class="fab-viewer-image"><img alt="" /></div>
+  <div class="fab-viewer-bottom">
+    <button type="button" class="fab-prev" aria-label="Previous photo">&larr;</button>
+    <p class="fab-viewer-caption" aria-live="polite"></p>
+    <button type="button" class="fab-next" aria-label="Next photo">&rarr;</button>
+  </div>
+</dialog>
+
+</body>
+</html>

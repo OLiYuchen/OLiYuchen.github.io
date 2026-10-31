@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Portugal Intel · 葡萄牙市场情报</title>
+  <link rel="stylesheet" href="/portugal-intel/styles.css?v=3" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/portugal-intel">
+      <span class="brand-mark">PT</span>
+      <span>
+        <strong>Portugal Intel</strong>
+        <small>葡萄牙战略与金融情报</small>
+      </span>
+    </a>
+    <label class="global-search">
+      <span>搜索</span>
+      <input id="globalSearch" type="search" placeholder="Fidelidade / ASF / 中资 / banking..." />
+    </label>
+    <nav class="nav" aria-label="Portugal Intel navigation">
+      <button class="nav-btn active" data-view="today" type="button">今日</button>
+      <button class="nav-btn" data-view="events" type="button">事件</button>
+      <button class="nav-btn" data-view="sources" type="button">来源</button>
+      <button class="nav-btn" data-view="memory" type="button">记忆</button>
+      <button class="nav-btn" data-view="settings" type="button">设置</button>
+    </nav>
+  </header>
+
+  <main class="shell">
+    <section class="coverage-bar" id="coverageBar">
+      <div>
+        <span class="health-dot" id="healthDot"></span>
+        <strong id="coverageState">检查覆盖状态</strong>
+        <span id="coverageMeta">官方源、Tavily、YouTube、Gemini、Resend</span>
+      </div>
+      <div class="run-actions">
+        <span id="lastRunText">最近发现：尚未运行</span>
+        <button id="runDiscoveryBtn" class="secondary-btn" type="button">立即扫描</button>
+        <button id="runDigestBtn" class="primary-btn" type="button">生成简报</button>
+      </div>
+    </section>
+
+    <section class="view active" id="todayView">
+      <div class="daily-layout">
+        <section class="brief-column">
+          <div class="section-head">
+            <div>
+              <p class="section-label">每日中文简报</p>
+              <h1>今日葡萄牙市场情报</h1>
+            </div>
+            <time id="briefDate"></time>
+          </div>
+          <article class="one-line" id="oneLine"></article>
+          <div class="major-list" id="majorEvents"></div>
+        </section>
+
+        <aside class="side-column">
+          <section class="panel">
+            <h2>发现漏斗</h2>
+            <div class="funnel" id="funnel"></div>
+          </section>
+          <section class="panel">
+            <h2>市场记忆预览</h2>
+            <div id="memoryPreview"></div>
+          </section>
+        </aside>
+      </div>
+
+      <section class="category-grid" id="categoryGrid"></section>
+    </section>
+
+    <section class="view" id="eventsView">
+      <div class="section-head">
+        <div>
+          <p class="section-label">事件账本</p>
+          <h1>去重后的市场事件</h1>
+        </div>
+        <div class="filters">
+          <select id="topicFilter" aria-label="按主题过滤"></select>
+          <select id="freshnessFilter" aria-label="按新鲜度过滤"></select>
+          <select id="importanceFilter" aria-label="按重要度过滤">
+            <option value="0">全部重要度</option>
+            <option value="55">55+</option>
+            <option value="65">65+</option>
+            <option value="80">80+</option>
+          </select>
+        </div>
+      </div>
+      <div class="event-ledger" id="eventLedger"></div>
+    </section>
+
+    <section class="view" id="sourcesView">
+      <div class="section-head">
+        <div>
+          <p class="section-label">来源与证据</p>
+          <h1>原始来源库</h1>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>来源</th>
+              <th>发布方</th>
+              <th>类型</th>
+              <th>主题</th>
+              <th>相关事件</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody id="sourceRows"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="view" id="memoryView">
+      <div class="section-head">
+        <div>
+          <p class="section-label">市场 / 主题 / 实体记忆</p>
+          <h1>当前判断与依据</h1>
+        </div>
+      </div>
+      <div class="memory-tabs" id="memoryTabs"></div>
+      <div class="memory-board" id="memoryBoard"></div>
+    </section>
+
+    <section class="view" id="settingsView">
+      <div class="section-head">
+        <div>
+          <p class="section-label">配置</p>
+          <h1>查询包、实体、服务状态</h1>
+        </div>
+      </div>
+      <div class="settings-layout">
+        <section class="panel digest-panel">
+          <h2>每日推送</h2>
+          <p class="muted">主消费入口是每日中文邮件；安静日也会明确说明「今日无重大新增」，并附覆盖状态。</p>
+          <label>收件邮箱 <input id="digestEmail" type="email" placeholder="PORTUGAL_INTEL_EMAIL_TO" /></label>
+          <label>发送时区 <input id="deliveryTimezone" value="Asia/Shanghai" /></label>
+          <label>葡萄牙市场时区 <input id="marketTimezone" value="Europe/Lisbon" /></label>
+          <label>发送时间 <input id="digestTime" type="time" value="08:30" /></label>
+          <label>简报最低重要度 <input id="digestImportance" type="number" min="0" max="100" value="55" /></label>
+          <button id="saveDigestBtn" class="primary-btn" type="button">保存推送偏好</button>
+        </section>
+        <section class="panel">
+          <div class="panel-head">
+            <h2>Watch Topics</h2>
+            <button id="addTopicBtn" class="secondary-btn" type="button">添加主题</button>
+          </div>
+          <div id="topicList" class="config-list"></div>
+        </section>
+        <section class="panel">
+          <div class="panel-head">
+            <h2>Entity Watchlist</h2>
+            <button id="addEntityBtn" class="secondary-btn" type="button">添加实体</button>
+          </div>
+          <div id="entityList" class="config-list"></div>
+        </section>
+        <section class="panel env-panel">
+          <h2>环境变量</h2>
+          <dl class="env-list" id="envList"></dl>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <aside class="drawer" id="drawer" aria-hidden="true">
+    <div class="drawer-head">
+      <div>
+        <p class="section-label" id="drawerKicker"></p>
+        <h2 id="drawerTitle"></h2>
+      </div>
+      <button id="closeDrawerBtn" class="icon-btn" type="button" aria-label="关闭">×</button>
+    </div>
+    <div id="drawerBody"></div>
+  </aside>
+
+  <dialog id="configDialog">
+    <form method="dialog" id="configForm">
+      <div class="dialog-head">
+        <h2 id="dialogTitle">添加</h2>
+        <button class="icon-btn" value="cancel" type="submit" aria-label="关闭">×</button>
+      </div>
+      <input name="mode" type="hidden" />
+      <label>名称 <input name="name" required /></label>
+      <label>说明 / 别名 <textarea name="description" rows="3"></textarea></label>
+      <label>关键词 <textarea name="keywords" rows="3" placeholder="一行或逗号分隔"></textarea></label>
+      <menu>
+        <button class="secondary-btn" value="cancel" type="submit">取消</button>
+        <button class="primary-btn" value="default" type="submit">保存</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <script src="/portugal-intel/app.js?v=3"></script>
+</body>
+</html>

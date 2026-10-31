@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Paira proposal (draft)</title>
+<meta name="robots" content="noindex" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@1,500;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../assets/style.css" />
+<link rel="stylesheet" href="../assets/paira-case.css" />
+<link rel="stylesheet" href="../assets/paira-proposal.css" />
+<style>
+  .prop-note { max-width: 66ch; margin: 0 0 1.4rem; padding: .9rem 1.1rem; border-left: 3px solid var(--case-accent); background: rgba(255,255,255,.7); color: var(--ink-soft); font-size: .92rem; line-height: 1.55; }
+  .prop-tag { display: inline-block; margin-right: .4rem; padding: .15rem .55rem; border-radius: 999px; font-size: .66rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; vertical-align: middle; }
+  .prop-tag-new { color: #fff; background: var(--case-accent-deep); }
+  .prop-tag-edit { color: var(--case-accent-deep); background: var(--case-accent-soft); border: 1px solid var(--case-line); }
+  .prop-tag-ask { color: #7a4a00; background: #fff1d6; border: 1px solid #f0d9a8; }
+  .prop-added { box-shadow: -3px 0 0 0 var(--case-accent); padding-left: .8rem; }
+  .prop-context { opacity: .55; }
+  .paira-chapters-6 { grid-template-columns: repeat(6, minmax(0,1fr)); }
+  .paira-signals3-evidence ul { margin: .4rem 0 0; padding: 0; list-style: none; display: grid; grid-template-columns: 1fr; gap: .5rem; }
+  .paira-signals3-evidence li { position: relative; padding-left: 1.1rem; color: var(--ink-soft); font-size: .9rem; line-height: 1.5; }
+  .paira-signals3-evidence li::before { content: ""; position: absolute; left: 0; top: .55rem; width: .45rem; height: .45rem; border-radius: 50%; background: var(--paira-violet); }
+  .paira-signals3-evidence li strong { color: var(--ink); font-weight: 600; }
+  .paira-flowstrip-inline { margin-top: .8rem; }
+  .paira-flowstrip-inline span { font-size: .78rem; padding: .35rem .65rem; }
+  .prop-explore-tests { margin-top: 1.4rem; }
+  .prop-concepts { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: .9rem; margin-top: .6rem; }
+  .prop-concepts figure { margin: 0; }
+  .prop-placeholder { display: grid; place-items: center; aspect-ratio: 393 / 852; border-radius: .9rem; border: 1px dashed rgba(63,60,199,.35); background: rgba(255,255,255,.6); color: var(--merlin-muted); font-size: .8rem; text-align: center; line-height: 1.4; }
+  .prop-placeholder.is-final { border: 2px solid var(--paira-violet); background: var(--paira-ink); color: #fff; }
+  .prop-concepts figcaption { margin-top: .55rem; font-size: .82rem; line-height: 1.45; color: var(--ink-soft); }
+  .prop-concepts figcaption b { display: block; color: var(--ink); font-weight: 600; }
+  @media (max-width: 760px) { .prop-concepts { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+  .prop-concepts-3 { grid-template-columns: repeat(3, minmax(0,1fr)); gap: 1.2rem; }
+  .prop-concepts img { display: block; width: 100%; height: auto; border-radius: 1rem; box-shadow: 0 16px 40px rgba(19,19,19,.16); }
+  .prop-concepts figure.is-final img { box-shadow: 0 0 0 3px var(--paira-violet), 0 16px 40px rgba(19,19,19,.2); }
+  @media (max-width: 760px) { .prop-concepts-3 { grid-template-columns: 1fr; } }
+  #g .paira-surface-copy-cols { margin-top: var(--sp-tight); }
+  .paira-explore-process { margin-top: var(--sp-block); }
+  .paira-explore-process .prop-concepts { margin-top: 1rem; }
+  .paira-explore-final { margin-top: var(--sp-tight); }
+  .paira-explore-final .paira-phone-row { margin-top: 1rem; max-width: 38rem; gap: .7rem; }
+  .paira-explore-final .paira-phone figcaption { font-size: .74rem; }
+  .paira-explore-final .paira-surface-note { margin-top: 1.2rem; max-width: 60ch; }
+  .prop-concepts figcaption { font-size: .88rem; }
+  .paira-concepts { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); gap: clamp(1.4rem, 3vw, 2.6rem); align-items: start; margin-top: 1rem; }
+  .paira-concepts-phones { display: grid; grid-template-columns: .8fr .8fr 1fr; gap: .7rem; align-items: end; }
+  .paira-concepts-phones figure { margin: 0; min-width: 0; }
+  .paira-concepts-phones img { display: block; width: 100%; height: auto; border-radius: .7rem; box-shadow: 0 10px 26px rgba(19,19,19,.14); background: var(--paira-ink); opacity: .82; }
+  .paira-concepts-phones figure.is-final img { opacity: 1; box-shadow: 0 0 0 2px var(--paira-violet), 0 12px 30px rgba(19,19,19,.18); }
+  .paira-concepts-phones figcaption { margin-top: .45rem; font-size: .74rem; font-weight: 600; color: var(--merlin-muted); text-align: center; }
+  .paira-concepts-phones figure.is-final figcaption { color: var(--case-accent-deep); }
+  .paira-concepts-notes { display: grid; gap: .6rem; margin: 0; padding: 0; list-style: none; counter-reset: cn; }
+  .paira-concepts-notes li { position: relative; padding-left: 1.6rem; color: var(--ink-soft); font-size: .9rem; line-height: 1.5; counter-increment: cn; }
+  .paira-concepts-notes li::before { content: counter(cn); position: absolute; left: 0; top: .1rem; width: 1.15rem; height: 1.15rem; border-radius: 50%; border: 1px solid var(--case-line); color: var(--case-accent-deep); font-size: .66rem; font-weight: 700; display: grid; place-items: center; }
+  .paira-concepts-notes li:last-child::before { background: var(--case-accent-deep); color: #fff; border-color: transparent; }
+  .paira-concepts-notes strong { color: var(--ink); font-weight: 600; }
+  @media (max-width: 760px) { .paira-concepts { grid-template-columns: 1fr; } }
+  .paira-ways { display: grid; grid-template-columns: minmax(0, 2fr) 1.6rem minmax(0, 3fr); grid-template-rows: auto auto; gap: .9rem 1rem; align-items: end; margin-top: 1rem; }
+  .paira-ways > .paira-way-note-shipped { margin-bottom: 0; }
+  .paira-ways-phones { display: grid; gap: .7rem; align-items: end; }
+  .paira-ways-tried { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-column: 1; grid-row: 1; }
+  .paira-ways-shipped { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-column: 3; grid-row: 1; }
+  .paira-way { margin: 0; min-width: 0; }
+  .paira-way img { display: block; width: 100%; height: auto; border-radius: .7rem; box-shadow: 0 10px 26px rgba(19,19,19,.12); background: var(--paira-ink); opacity: .8; filter: saturate(.85); }
+  .paira-way figcaption { margin-top: .45rem; font-size: .76rem; text-align: center; color: var(--merlin-muted); }
+  .paira-ways-shipped .paira-phone img, .paira-ways-shipped .paira-phone video { border-radius: .7rem; box-shadow: 0 0 0 2px rgba(96,92,255,.55), 0 10px 26px rgba(19,19,19,.14); }
+  .paira-ways-shipped .paira-phone figcaption { margin-top: .45rem; font-size: .76rem; text-align: center; }
+  .paira-way-arrow { align-self: center; grid-row: 1; grid-column: 2; color: var(--case-accent-deep); font-size: 1.3rem; text-align: center; }
+  .paira-way-note { grid-row: 2; margin: 0; font-size: .92rem; line-height: 1.5; color: var(--ink-soft); align-self: start; }
+  .paira-way-note-tried { align-self: start; }
+  .paira-way-note-tried { grid-column: 1; }
+  .paira-way-note-shipped { grid-column: 3; }
+  .paira-way-note b { display: block; color: var(--ink); font-weight: 600; margin-bottom: .15rem; }
+  .paira-way-note-shipped b { color: var(--case-accent-deep); }
+  .paira-way-shipped-col { grid-column: 3; grid-row: 2; align-self: start; }
+  .paira-way-shipped-col .paira-way-note { grid-row: auto; grid-column: auto; }
+  .paira-way-changed { margin: 1.2rem 0 0; padding: .7rem .9rem; }
+  @media (max-width: 760px) { .paira-way-shipped-col { grid-column: 1; grid-row: auto; } }
+  @media (max-width: 760px) { .paira-ways { grid-template-columns: 1fr; grid-template-rows: auto; } .paira-way-arrow { display: none; } .paira-ways-tried, .paira-ways-shipped, .paira-way-note { grid-row: auto; grid-column: 1; } }
+</style>
+</head>
+<body class="merlin-report-page case-study-page paira-case-page">
+<header class="site-header home-header"><div class="container header-row"><a class="brand" href="/"><img class="brand-logo" src="../assets/img/personal-logo.png" alt="" aria-hidden="true" /><span>Olivia Feng</span></a><nav class="nav" aria-label="Primary"><div class="nav-links"><a href="/paira/">Current Paira page</a></div></nav></div></header>
+<div class="paira-proposal-banner">Proposal draft, standalone. Nothing here is on the live page. A violet bar on the left marks the added text.</div>
+
+<main class="merlin-report">
+  <section class="merlin-report-section paira-act-opener" id="a">
+    <div class="container merlin-report-layout">
+      <aside class="merlin-report-section-label"><p class="section-label">Hero</p><span>A</span></aside>
+      <div class="merlin-report-content">
+        <div class="merlin-report-lede">
+          <h2>The dated chapters, ending on now.</h2>
+          <p class="prop-note"><span class="prop-tag prop-tag-new">New</span> Where: between the four cards and the cover image. Six nodes; the last is the present, so the line reads as ongoing. <span class="prop-tag prop-tag-ask">Confirm</span> Dec 2025 (1.0 beta) and Apr 2026 (2.0 beta).</p>
+        </div>
+        <div class="paira-chapters paira-chapters-6" aria-label="Chapters">
+        <div><b>Aug 2025</b>Joined with an idea and a few screens</div>
+        <div><b>Dec 2025</b>1.0 beta: swipe to match</div>
+        <div><b>Feb 2026</b>User tests; the pivot begins</div>
+        <div><b>Apr 2026</b>2.0 beta: request first</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="merlin-report-section merlin-report-band paira-act-cont" id="b">
+    <div class="container merlin-report-layout">
+      <aside class="merlin-report-section-label"><p class="section-label">The Pivot</p><span>B</span></aside>
+      <div class="merlin-report-content">
+        <div class="merlin-report-lede">
+          <h2>Your four findings, grouped under three signals.</h2>
+          <p class="prop-note"><span class="prop-tag prop-tag-edit">Edit</span> Where: replaces the current four-bullet list after the Pivot lede. Nothing removed: your four points become the evidence under three headings, and the second heading is the good news. Method note rewritten to be direct: think-aloud sessions, six or more users, same tasks.</p>
+        </div>
+        <div class="paira-findings" aria-label="What the beta taught us">
+          <p class="project-meta">What the beta taught us</p>
+          <div class="paira-signals3 paira-signals3-evidence">
+            <article>
+              <p class="project-meta">Signal 1</p><h3>Browsing people stalled.</h3>
+              <ul>
+                <li><strong>Swiping had friction.</strong> Each card demanded a decision right away, and that pressure made people quit instead of choose.</li>
+                <li><strong>Everyone wanted to know more.</strong> In a job search, a headline is not enough to say yes or no to a person.</li>
+              </ul>
+            </article>
+            <article>
+              <p class="project-meta">Signal 2</p><h3>Real requests got answered.</h3>
+              <ul>
+                <li><strong>A specific need started real conversations.</strong> Of the beta’s three features, requests drew the strongest response, on both sides.</li>
+                <li><strong>The mentor side needed the same clarity.</strong> Helpers swiping through people had nothing concrete to respond to; helpers reading a request did.</li>
+              </ul>
+            </article>
+            <article>
+              <p class="project-meta">Signal 3</p><h3>A match was not yet a conversation.</h3>
+              <ul>
+                <li><strong>Two people who liked each other still had to invent the first message.</strong></li>
+                <li><strong>One-shot AI was not enough.</strong> Search understood the intent, then left people on their own. Intent needed a guided path from the ask to the match.</li>
+              </ul>
+            </article>
+          </div>
+          <p class="paira-findings-note">The evidence came from one-on-one think-aloud sessions with six or more potential users, each given the same set of tasks, designed and run by the design team. We brought the findings to the whole team and shaped the new direction together.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="merlin-report-section paira-act-opener" id="e">
+    <div class="container merlin-report-layout">
+      <aside class="merlin-report-section-label"><p class="section-label">Profile</p><span>E</span></aside>
+      <div class="merlin-report-content">
+        <div class="merlin-report-lede">
+          <h2>4.3 rewritten around three constraints: screen size, the decision, and trust.</h2>
+          <p class="prop-note"><span class="prop-tag prop-tag-edit">Edit</span> Same screens, shorter copy. The first paragraph states the three constraints and what each one decided; the second says what the design gave us. Trust signals are described where they appear on the long profile.</p>
+        </div>
+        <article class="paira-surface" id="surface-profile">
+          <header class="paira-surface-head">
+            <span class="paira-surface-number">4.3</span>
+            <div>
+              <p class="project-meta">Profile</p>
+              <h3>A profile that reads as “what I can help with,” filled in when it starts to matter.</h3>
+            </div>
+          </header>
+          <div class="paira-surface-body">
+            <div class="paira-surface-copy">
+              <p>Three constraints shaped the profile. A phone screen is small, so only what helps a decision goes above the fold. A mentee decides in seconds, so the profile leads with what you can help with, what you want to do, and the reason you were suggested. And the decision is about trust, so the numbers a mentee checks sit right under the headline: requests helped, likes received, days on Paira, response time, then recommendations from people you actually helped.</p>
+              <p><strong>What that gave us.</strong> Experience and education are still there, lower down, and the editor breaks them into small steps so nobody stalls on a blank form. “Open to” switches say what you offer, so nobody asks for what you did not. Points, Request Boost, and settings live here too, because this is where a person decides how much of themselves to put in. The profile is never demanded up front; the app asks for it when it starts to matter, which is what lets onboarding stay short without losing match quality.</p>
+            </div>
+            <div class="paira-phone-row paira-phone-row-profile" aria-label="Profile screens">
+              <figure class="paira-phone"><img src="../assets/img/paira/screens/profile-tab.webp" alt="Own profile tab with points banner and Request Boost entry" width="786" height="1704" loading="lazy" decoding="async" /><figcaption>My profile</figcaption></figure>
+              <figure class="paira-phone"><img src="../assets/img/paira/screens/profile-edit.webp" alt="Edit profile in small steps" width="786" height="1704" loading="lazy" decoding="async" /><figcaption>Editor</figcaption></figure>
+              <figure class="paira-phone paira-phone-scroll"><div class="paira-phone-scroll-area" tabindex="0" aria-label="Scrollable: the full helper profile as seen by a seeker"><img src="../assets/img/paira/screens/helper-profile-long.webp" alt="The full helper profile as seen by a seeker: match badge, can help with and want to do, why you are seeing this person, overview, trust signals, request history, experience, recent requests, education, links, recommendations" width="786" height="5580" loading="lazy" decoding="async" /></div><figcaption>Seen by others <small>scroll to read</small></figcaption></figure>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="merlin-report-section merlin-report-band paira-act-cont" id="f">
+    <div class="container merlin-report-layout">
+      <aside class="merlin-report-section-label"><p class="section-label">Reflection</p><span>F</span></aside>
+      <div class="merlin-report-content">
+        <div class="merlin-report-lede">
+          <h2>The decision flow, inside the point it belongs to.</h2>
+          <p class="prop-note"><span class="prop-tag prop-tag-edit">Edit</span> Below is Reflection as it is now. The strip sits inside “A cleaner path from design to code”, under its sentence, as a small row of pills: outlined = steps you set up, violet = AI does the work. Nothing else changes. <span class="prop-tag prop-tag-ask">Confirm</span> the first three steps (Meeting → AI notes → Ticket) are part of your team’s routine.</p>
+        </div>
+        <div class="paira-reflect">
+          <div class="paira-reflect-col">
+            <h3 class="paira-reflect-head">How I grew</h3>
+            <ol class="paira-reflect-list">
+              <li><strong>From collaborator to shipper.</strong> I worked with the PM and the developers on requirements from the first frame to the App Store, and often was the PM, and half a developer, when the work needed it.</li>
+              <li><strong>Finding better ways to work together.</strong> We moved from everyone working separately and posting updates, to using AI to carry ideas, and to putting the prototype on the web so the whole team could brainstorm and vibe-code on the same screens.</li>
+              <li><strong>Defining the product, and my place in it.</strong> In mixed roles and an unknown market, I learned to help decide what Paira should become next, and where my strengths are most useful: product judgment, systems, and the craft of the screen.</li>
+            </ol>
+          </div>
+          <div class="paira-reflect-col">
+            <h3 class="paira-reflect-head">What I learned at work</h3>
+            <ol class="paira-reflect-list">
+              <li><strong>A cleaner path from design to code.</strong> As the app grew, three questions kept coming back: where is the latest screen, what is in development, and what is built but still broken. I answered them once instead of every day: a single inventory of current screens, a prototype on the web that anyone can open, and a short rule per role for how a change moves from a meeting to the build.
+                <div class="paira-flowstrip-row paira-flowstrip-inline prop-added" aria-label="How a change moves now"><span>Team meeting</span><i>→</i><span class="is-ai">AI meeting notes, decisions logged</span><i>→</i><span>Ticket</span><i>→</i><span class="is-mine">Web prototype, one link for everyone</span><i>→</i><span class="is-mine">Latest-screen inventory</span><i>→</i><span class="is-mine">Per-role sync rules</span><i>→</i><span>iOS build</span></div>
+              </li>
+              <li><strong>One design system, app and web.</strong> Bringing the app’s system to the web version made the marketing site faster to build, and made this case study possible.</li>
+              <li><strong>AI as a working partner.</strong> I keep testing where AI helps UI/UX design and where it does not, and I build my own small tools and agents along the way, so my learning compounds with the team’s.</li>
+            </ol>
+          </div>
+        </div>
+
+        
+      </div>
+    </div>
+  
+      </div>
+    </div>
+  </section>
+
+  <section class="merlin-report-section paira-act-opener" id="g">
+    <div class="container merlin-report-layout">
+      <aside class="merlin-report-section-label"><p class="section-label">Explore</p><span>G</span></aside>
+      <div class="merlin-report-content">
+        <div class="merlin-report-lede">
+          <h2>4.2 as it would read: the surface, the three ways we tried, the one that shipped.</h2>
+          <p class="prop-note"><span class="prop-tag prop-tag-edit">Edit</span> Full preview of 4.2. Order: what Explore is and why the limits are deliberate (two columns, badges) → the three concepts with your reasoning and the six-mentor test → the shipped screens with “What changed”. The four phones are the same as today; only their position moves down.</p>
+        </div>
+        <article class="paira-surface" id="surface-explore">
+          <header class="paira-surface-head">
+            <span class="paira-surface-number">4.2</span>
+            <div>
+              <p class="project-meta">Explore, “Your Daily Picks”</p>
+              <h3>A short daily list of requests to help with, so helping feels finishable.</h3>
+            </div>
+          </header>
+          <div class="paira-surface-copy paira-surface-copy-cols">
+            <p>Explore is where a helper finds something to do. Each day it shows a handful of open requests matched to you, with a badge on each that says why it is there. You can save a pick, pull to refresh, and when the day’s picks run out, the screen tells you when the next batch arrives. Tap a pick to read it; “I’m Interested” moves it into your Request Hub.</p>
+            <p>The question we kept testing was how to show requests to a helper. A feed that never ends makes helping feel like a debt. A short list that ends makes it feel like a favor you can finish today, so helpers come back. And a reason on each card is easier to trust than a score. Three iterations got us there.</p>
+            <div class="paira-badges" aria-label="Explore badge system">
+                <span data-tone="strong">Strong Match</span><span data-tone="quick">Quick Win</span><span data-tone="upside">High Upside</span><span data-tone="trend">Trending Now</span><span data-tone="recent">Recently Viewed</span><span data-tone="boost">Boosted</span>
+              </div>
+          </div>
+
+          <div class="paira-explore-process">
+            <div class="paira-ways">
+              <div class="paira-ways-phones paira-ways-tried">
+                <figure class="paira-way"><img src="../assets/img/paira/screens/explore-concept-stream.webp" alt="Explore concept: request cards drifting across the screen like a comment stream" loading="lazy" decoding="async" /><figcaption>Request stream</figcaption></figure>
+                <figure class="paira-way"><img src="../assets/img/paira/screens/explore-concept-cards.webp" alt="Explore concept: one large AI pick above a grid of smaller cards" loading="lazy" decoding="async" /><figcaption>Hero card and grid</figcaption></figure>
+              </div>
+              <div class="paira-way-arrow" aria-hidden="true">→</div>
+              <div class="paira-ways-phones paira-ways-shipped">
+                <figure class="paira-phone paira-phone-video"><video src="../assets/img/paira/screens/explore-browse-save.mp4" poster="../assets/img/paira/screens/explore-daily-picks.webp" muted loop playsinline preload="none" width="786" height="1704" aria-label="Browsing Daily Picks, saving one, and opening a request"></video><figcaption>Browse, save, open</figcaption></figure>
+                <figure class="paira-phone"><img src="../assets/img/paira/screens/explore-request-detail.webp" alt="Request detail with I'm Interested action" width="786" height="1704" loading="lazy" decoding="async" /><figcaption>Request detail</figcaption></figure>
+                <figure class="paira-phone"><img src="../assets/img/paira/screens/explore-saved-requests.webp" alt="Saved requests sheet" width="786" height="1704" loading="lazy" decoding="async" /><figcaption>Saved picks</figcaption></figure>
+              </div>
+              <p class="paira-way-note paira-way-note-tried"><b>Iterations 1 and 2</b>First a stream of requests drifting across the screen, then one large AI pick above a grid of small cards. In usability tests the stream packed in a lot but demanded fast reading and felt like pressure to respond; in the grid the small cards were hard to read, and the big card got attention the others did not. We kept the stream for a later release, and decided that until premium launches, every request gets the same chance to be seen.</p>
+              <div class="paira-way-shipped-col">
+                <p class="paira-way-note paira-way-note-shipped"><b>Iteration 3 · Shipped</b>A short daily list of equal cards, each with a badge that says why it is here, save for later, and a clear “done for today”. We tested it one-on-one with six mentors on the same tasks: a list that ends felt finishable, and a reason on each card was easier to trust than a match score.</p>
+                <p class="paira-surface-note paira-way-changed"><strong>What changed.</strong> From a swipe deck of bounties to a short list you read, save, and come back to, where every card is something you can act on today, and every request gets an equal chance.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>1
+    </div>
+  </section>
+</main>
+<footer class="site-footer home-footer"><div class="container footer-row small muted"><p>Proposal draft, not linked from the site.</p><p><a href="/paira/">Back to the current page</a></p></div></footer>
+<script>
+  document.querySelectorAll('.merlin-reveal, .merlin-report-lede, .paira-chapters, .paira-findings, .paira-surface, .paira-reflect-col').forEach(n => n.classList.add('merlin-reveal','is-visible'));
+  document.querySelectorAll('.paira-phone-scroll-area').forEach(a => { a.style.overflowY = 'auto'; });
+  const clips = document.querySelectorAll('.paira-phone-video video');
+  if (clips.length && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => entries.forEach((e) => { if (e.isIntersecting) e.target.play().catch(() => {}); else e.target.pause(); }), { threshold: 0.4 });
+    clips.forEach((v) => io.observe(v));
+  }
+</script>
+</body>
+</html>

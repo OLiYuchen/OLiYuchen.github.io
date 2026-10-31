@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Apartment Commute</title>
+  <meta name="description" content="Seattle apartment commute checker for Microsoft Building 92 and UW main campus." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="/apartment/styles.css" />
+</head>
+<body>
+  <main class="shell" aria-live="polite">
+    <section class="workspace">
+      <header class="topbar">
+        <div>
+          <p class="label">Seattle Apartment Commute</p>
+          <h1>公寓通勤判断</h1>
+        </div>
+        <div class="time-chip">
+          <span>默认</span>
+          <strong>工作日 8:30 AM</strong>
+        </div>
+      </header>
+
+      <form id="searchForm" class="search-panel" autocomplete="off">
+        <label for="addressInput">公寓地址</label>
+        <div class="search-row">
+          <input
+            id="addressInput"
+            name="address"
+            type="text"
+            placeholder="例如 400 Boren Ave N, Seattle, WA"
+            autocomplete="street-address"
+            required
+          />
+          <button id="submitBtn" type="submit">分析</button>
+        </div>
+        <p class="hint">结果包含到 Microsoft Building 92、UW Main Campus 的公交/步行时间，以及附近 transit station 的步行可达性。</p>
+      </form>
+
+      <section id="status" class="status" hidden></section>
+
+      <section id="results" class="results" hidden>
+        <div class="origin-strip">
+          <div>
+            <span class="mini-label">Resolved address</span>
+            <strong id="originAddress"></strong>
+          </div>
+          <a id="mapsLink" href="#" target="_blank" rel="noreferrer">Google Maps</a>
+        </div>
+
+        <div class="destination-grid">
+          <article class="destination-card">
+            <div class="card-head">
+              <span class="icon-badge">MS</span>
+              <div>
+                <h2>Microsoft B92</h2>
+                <p>Redmond Visitor Center / Company Store</p>
+              </div>
+            </div>
+            <div id="microsoftResult" class="route-stack"></div>
+          </article>
+
+          <article class="destination-card">
+            <div class="card-head">
+              <span class="icon-badge">UW</span>
+              <div>
+                <h2>UW Main Campus</h2>
+                <p>Seattle campus reference point</p>
+              </div>
+            </div>
+            <div id="uwResult" class="route-stack"></div>
+          </article>
+        </div>
+
+        <article class="transit-panel">
+          <div class="section-head">
+            <div>
+              <h2>附近公交 / 轨交站</h2>
+              <p>优先展示 900m 内，前三个会计算真实步行路线。</p>
+            </div>
+          </div>
+          <div id="nearbyList" class="nearby-list"></div>
+        </article>
+
+        <div id="warnings" class="warnings" hidden></div>
+      </section>
+    </section>
+  </main>
+
+  <script src="/apartment/app.js" defer></script>
+</body>
+</html>

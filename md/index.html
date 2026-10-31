@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>文档格式转换</title>
+  <meta name="description" content="在浏览器本地把文档转成 Markdown，或把 Markdown 排版成 Word。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js" defer></script>
+  <script src="vendor/docx-preview-0.3.7.min.js" defer></script>
+  <script src="docx-preview-bridge.js" defer></script>
+  <script src="vendor/docx-9.5.1.umd.js" defer></script>
+  <script src="md-word.js" defer></script>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #eef2f4;
+      --panel: #ffffff;
+      --panel-soft: #f7f9fa;
+      --ink: #171c20;
+      --muted: #65717b;
+      --line: #cfd6dc;
+      --line-strong: #b9c3ca;
+      --accent: #246455;
+      --accent-deep: #173f36;
+      --accent-soft: #e0ece8;
+      --warn: #834a12;
+      --warn-soft: #f6e8d7;
+      --error: #8a1f1f;
+      --error-soft: #f5dddd;
+      --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      --sans: "Instrument Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font: 16px/1.55 var(--sans);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    .wrap {
+      width: min(880px, calc(100vw - 32px));
+      margin: 0 auto;
+      padding: clamp(32px, 6vw, 56px) 0 72px;
+    }
+
+    body.word-preview-active .wrap {
+      width: min(1400px, calc(100vw - 32px));
+    }
+
+    body.word-preview-active #wordDrop {
+      min-height: 132px;
+      padding-block: 24px;
+    }
+
+    body.word-preview-active #wordDrop .drop-title {
+      font-size: 24px;
+    }
+
+    header {
+      margin-bottom: 24px;
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 12px;
+      color: var(--accent-deep);
+      font: 700 11px/1 var(--mono);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #c7502f;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(34px, 6vw, 52px);
+      font-weight: 750;
+      letter-spacing: -0.035em;
+      line-height: 1.02;
+      text-wrap: balance;
+    }
+
+    .lede {
+      max-width: 58ch;
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .lede b {
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .mode-switch {
+      display: inline-grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3px;
+      margin-top: 22px;
+      padding: 3px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: var(--panel-soft);
+    }
+
+    .mode-switch button {
+      min-width: 150px;
+      border: 0;
+      border-radius: 6px;
+      background: transparent;
+      color: var(--muted);
+    }
+
+    .mode-switch button:hover,
+    .mode-switch button:focus-visible {
+      border: 0;
+      color: var(--ink);
+    }
+
+    .mode-switch button.active {
+      background: var(--panel);
+      color: var(--ink);
+      box-shadow: 0 1px 3px rgba(23, 28, 32, 0.12);
+    }
+
+    .mode-panel[hidden] {
+      display: none;
+    }
+
+    .tool {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--panel);
+    }
+
+    .meter {
+      display: none;
+      align-items: baseline;
+      gap: 12px;
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--line);
+      background: var(--panel);
+    }
+
+    .meter.on {
+      display: flex;
+    }
+
+    .meter-num {
+      color: var(--accent);
+      font: 700 30px/1 var(--mono);
+      letter-spacing: -0.02em;
+    }
+
+    .meter-label,
+    .meter-note {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .meter-note {
+      margin-left: auto;
+      font-family: var(--mono);
+      font-size: 11px;
+    }
+
+    .drop {
+      display: grid;
+      place-items: center;
+      min-height: 260px;
+      padding: 40px 24px;
+      border-bottom: 1px solid var(--line);
+      background: var(--panel);
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .drop:hover,
+    .drop:focus-visible,
+    .drop.hot {
+      outline: none;
+      background-color: var(--accent-soft);
+      box-shadow: inset 0 0 0 2px rgba(35, 95, 77, 0.35);
+    }
+
+    .drop-title {
+      margin: 0 0 8px;
+      font-size: clamp(24px, 4vw, 36px);
+      font-weight: 750;
+      letter-spacing: -0.035em;
+      line-height: 1.08;
+    }
+
+    .drop-sub {
+      margin: 0;
+      color: var(--muted);
+      font: 12px/1.45 var(--mono);
+    }
+
+    .opts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+      background: var(--panel);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .opts label {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 34px;
+      padding: 6px 10px;
+      border: 1px solid rgba(23, 28, 32, 0.1);
+      border-radius: 999px;
+      background: var(--panel);
+      cursor: pointer;
+    }
+
+    .opts input {
+      width: 15px;
+      height: 15px;
+      accent-color: var(--accent);
+    }
+
+    .opts select {
+      min-height: 32px;
+      padding: 4px 28px 4px 9px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: var(--panel);
+      color: var(--ink);
+      font: 12px/1.4 var(--sans);
+    }
+
+    .word-details {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+      background: var(--panel-soft);
+      color: var(--muted);
+      font-size: 12.5px;
+    }
+
+    .word-details summary {
+      color: var(--ink);
+      cursor: pointer;
+      font-weight: 650;
+    }
+
+    .word-details p {
+      margin: 9px 0 0;
+      max-width: 74ch;
+    }
+
+    .word-status {
+      display: none;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .word-status.on {
+      display: block;
+    }
+
+    .word-status.error {
+      background: var(--error-soft);
+      color: var(--error);
+    }
+
+    .word-result {
+      display: none;
+      padding: 16px;
+    }
+
+    .word-result.on {
+      display: block;
+    }
+
+    .word-result-inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel-soft);
+    }
+
+    .word-result-copy {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .word-result-copy strong,
+    .word-result-copy span {
+      display: block;
+    }
+
+    .word-result-copy strong {
+      overflow-wrap: anywhere;
+      font-size: 15px;
+    }
+
+    .word-result-copy span {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .compare {
+      display: none;
+      border-top: 1px solid var(--line);
+      background: var(--panel);
+    }
+
+    .compare.on {
+      display: block;
+    }
+
+    .compare-mobile-tabs {
+      display: none;
+    }
+
+    .compare-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      min-height: 720px;
+    }
+
+    .compare-pane {
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    .compare-pane + .compare-pane {
+      border-left: 1px solid var(--line);
+    }
+
+    .compare-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 48px;
+      padding: 0 18px;
+      border-bottom: 1px solid var(--line);
+      background: var(--panel-soft);
+    }
+
+    .compare-head strong {
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .compare-head span {
+      color: var(--muted);
+      font: 11px/1 var(--mono);
+    }
+
+    .preview-scroll {
+      height: 720px;
+      overflow: auto;
+    }
+
+    .markdown-reader {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: clamp(30px, 5vw, 58px) clamp(24px, 5vw, 64px) 72px;
+      color: #303a36;
+      font-size: 15px;
+      line-height: 1.72;
+    }
+
+    .markdown-reader .reader-eyebrow {
+      margin: 0 0 8px;
+      color: var(--accent);
+      font: 700 11px/1.3 var(--mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .markdown-reader .reader-title {
+      margin: 0;
+      color: var(--ink);
+      font-size: 38px;
+      font-weight: 750;
+      letter-spacing: 0;
+      line-height: 1.1;
+    }
+
+    .markdown-reader .reader-subtitle {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.45;
+    }
+
+    .markdown-reader .reader-meta {
+      margin: 18px 0 0;
+      color: var(--muted);
+      font: 12px/1.5 var(--mono);
+    }
+
+    .markdown-reader .reader-rule {
+      margin: 24px 0 30px;
+      border: 0;
+      border-top: 2px solid var(--ink);
+    }
+
+    .markdown-reader h1,
+    .markdown-reader h2,
+    .markdown-reader h3 {
+      color: var(--ink);
+      font-weight: 720;
+      line-height: 1.25;
+    }
+
+    .markdown-reader h1 {
+      margin: 42px 0 14px;
+      padding-bottom: 9px;
+      border-bottom: 1px solid var(--line);
+      font-size: 25px;
+    }
+
+    .markdown-reader h2 {
+      margin: 32px 0 10px;
+      font-size: 20px;
+    }
+
+    .markdown-reader h3 {
+      margin: 25px 0 8px;
+      font-size: 17px;
+    }
+
+    .markdown-reader p {
+      margin: 0 0 14px;
+    }
+
+    .markdown-reader a {
+      color: var(--accent);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 2px;
+    }
+
+    .markdown-reader code {
+      padding: 1px 5px;
+      border-radius: 4px;
+      background: #edf1f0;
+      color: var(--accent-deep);
+      font: 0.88em/1.4 var(--mono);
+    }
+
+    .markdown-reader pre {
+      max-width: 100%;
+      margin: 20px 0;
+      overflow-x: auto;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--panel-soft);
+    }
+
+    .markdown-reader pre code {
+      padding: 0;
+      background: transparent;
+      white-space: pre;
+    }
+
+    .markdown-reader blockquote {
+      margin: 20px 0;
+      padding: 13px 16px;
+      border-left: 3px solid var(--accent);
+      background: var(--accent-soft);
+      color: #30483f;
+    }
+
+    .markdown-reader blockquote p,
+    .markdown-reader li:last-child {
+      margin-bottom: 0;
+    }
+
+    .markdown-reader ul,
+    .markdown-reader ol {
+      margin: 0 0 16px;
+      padding-left: 24px;
+    }
+
+    .markdown-reader li {
+      margin-bottom: 6px;
+    }
+
+    .reader-table-wrap {
+      max-width: 100%;
+      margin: 20px 0 24px;
+      overflow-x: auto;
+    }
+
+    .markdown-reader table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .markdown-reader th,
+    .markdown-reader td {
+      padding: 9px 10px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .markdown-reader th {
+      background: var(--panel-soft);
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .markdown-reader img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      margin: 24px auto 8px;
+    }
+
+    .reader-caption,
+    .reader-missing {
+      color: var(--muted);
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .reader-pagebreak {
+      margin: 32px 0;
+      border: 0;
+      border-top: 1px dashed var(--line-strong);
+    }
+
+    .word-preview {
+      min-height: 100%;
+      background: #e8edef;
+    }
+
+    .word-preview .docx-wrapper {
+      min-height: 100%;
+      padding: 22px !important;
+      background: #e8edef !important;
+    }
+
+    .word-preview .docx-wrapper > section.docx {
+      width: 100% !important;
+      max-width: 794px;
+      margin: 0 auto 18px !important;
+      box-shadow: 0 1px 4px rgba(23, 28, 32, 0.14) !important;
+    }
+
+    .word-preview-loading {
+      padding: 32px;
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+    }
+
+    .rows {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 16px;
+    }
+
+    .row {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+    }
+
+    .row-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 12px;
+    }
+
+    .row-name {
+      color: var(--ink);
+      font-size: 15px;
+      font-weight: 700;
+      overflow-wrap: anywhere;
+    }
+
+    .row-meta {
+      margin-left: auto;
+      color: var(--muted);
+      font: 11.5px/1.4 var(--mono);
+    }
+
+    .bars {
+      margin: 14px 0 4px;
+    }
+
+    .bar {
+      display: grid;
+      grid-template-columns: 74px minmax(0, 1fr) 76px;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .bar-key {
+      color: var(--muted);
+      font: 10.5px/1 var(--mono);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .bar-track {
+      height: 9px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #edf1f3;
+    }
+
+    .bar-fill {
+      display: block;
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+    }
+
+    .bar-fill.a {
+      background: #aeb9c1;
+    }
+
+    .bar-fill.b {
+      background: var(--accent);
+    }
+
+    .bar-val {
+      color: var(--ink);
+      font: 11.5px/1 var(--mono);
+      text-align: right;
+    }
+
+    .acts,
+    .batch {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .batch {
+      display: none;
+      padding: 0 16px 16px;
+      margin-top: 0;
+    }
+
+    .batch.on {
+      display: flex;
+    }
+
+    button {
+      min-height: 34px;
+      padding: 7px 13px;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      background: var(--panel);
+      color: var(--ink);
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 650;
+    }
+
+    button:hover,
+    button:focus-visible {
+      border-color: var(--accent);
+      outline: none;
+    }
+
+    button.primary {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: white;
+    }
+
+    button.primary:hover,
+    button.primary:focus-visible {
+      border-color: var(--accent-deep);
+      background: var(--accent-deep);
+    }
+
+    .preview {
+      display: none;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+    }
+
+    .preview.on {
+      display: block;
+    }
+
+    .preview pre {
+      max-height: 340px;
+      margin: 0;
+      overflow: auto;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #f4f6f7;
+      color: var(--ink);
+      font: 12px/1.6 var(--mono);
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .flag {
+      margin-top: 12px;
+      padding: 9px 12px;
+      border-radius: 7px;
+      background: var(--warn-soft);
+      color: var(--warn);
+      font-size: 12.5px;
+    }
+
+    .flag.err {
+      background: var(--error-soft);
+      color: var(--error);
+    }
+
+    footer {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 12.5px;
+    }
+
+    footer p {
+      margin: 0 0 6px;
+    }
+
+    footer code {
+      padding: 1px 5px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: var(--panel);
+      font-family: var(--mono);
+      font-size: 11.5px;
+    }
+
+    @media (max-width: 620px) {
+      .wrap {
+        width: min(100% - 22px, 880px);
+        padding-top: 24px;
+      }
+
+      .drop {
+        min-height: 220px;
+        padding: 32px 16px;
+      }
+
+      .mode-switch {
+        display: grid;
+        width: 100%;
+      }
+
+      .mode-switch button {
+        min-width: 0;
+        padding-inline: 8px;
+      }
+
+      .word-result-inner {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .word-result-inner button {
+        width: 100%;
+      }
+
+      .bar {
+        grid-template-columns: 1fr;
+        gap: 5px;
+      }
+
+      .bar-val {
+        text-align: left;
+      }
+
+      .row-meta {
+        width: 100%;
+        margin-left: 0;
+      }
+    }
+
+    @media (max-width: 760px) {
+      body.word-preview-active .wrap {
+        width: min(100% - 22px, 880px);
+      }
+
+      .compare-mobile-tabs {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3px;
+        padding: 8px;
+        border-bottom: 1px solid var(--line);
+        background: var(--panel-soft);
+      }
+
+      .compare-mobile-tabs button {
+        border: 0;
+        border-radius: 6px;
+        background: transparent;
+        color: var(--muted);
+      }
+
+      .compare-mobile-tabs button.active {
+        background: var(--panel);
+        color: var(--ink);
+        box-shadow: 0 1px 3px rgba(23, 28, 32, 0.12);
+      }
+
+      .compare-grid {
+        display: block;
+        min-height: 0;
+      }
+
+      .compare-pane + .compare-pane {
+        border-left: 0;
+      }
+
+      .compare-grid.show-markdown .word-pane,
+      .compare-grid.show-word .markdown-pane {
+        display: none;
+      }
+
+      .preview-scroll {
+        height: min(72vh, 760px);
+      }
+
+      .markdown-reader {
+        padding: 30px 20px 56px;
+      }
+
+      .markdown-reader .reader-title {
+        font-size: 32px;
+      }
+
+      .word-preview .docx-wrapper {
+        padding: 10px !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <p class="eyebrow">全程在本机浏览器运行，文件不会上传</p>
+      <h1 id="pageTitle">文档转 Markdown</h1>
+      <p class="lede" id="pageLede">丢进 PDF、PPTX、DOCX、CSV，拿到一份纯文字的 <b>.md</b>。</p>
+      <div class="mode-switch" role="tablist" aria-label="转换方向">
+        <button class="active" id="toMdTab" type="button" role="tab" aria-selected="true" aria-controls="toMdPanel">文档 → Markdown</button>
+        <button id="toWordTab" type="button" role="tab" aria-selected="false" aria-controls="toWordPanel">Markdown → Word</button>
+      </div>
+    </header>
+
+    <main class="tool mode-panel" id="toMdPanel" role="tabpanel" aria-labelledby="toMdTab">
+      <div class="meter" id="meter">
+        <span class="meter-num" id="meterNum">0</span>
+        <span class="meter-label">这一批大约省下的 token</span>
+        <span class="meter-note" id="meterNote"></span>
+      </div>
+
+      <div class="drop" id="drop" tabindex="0" role="button" aria-label="选择文件">
+        <div>
+          <p class="drop-title">拖文件进来，或点击选择</p>
+          <p class="drop-sub">pdf · pptx · docx · csv · txt · md</p>
+        </div>
+      </div>
+      <input type="file" id="picker" multiple hidden accept=".pdf,.pptx,.docx,.csv,.txt,.md" />
+
+      <div class="opts">
+        <label><input type="checkbox" id="optPages" checked /> 保留页码标记</label>
+        <label><input type="checkbox" id="optNotes" checked /> 包含 PPT 备注</label>
+        <label><input type="checkbox" id="optHeads" checked /> 按字号推断标题</label>
+      </div>
+
+      <div class="rows" id="rows"></div>
+
+      <div class="batch" id="batch">
+        <button class="primary" id="dlAll" type="button">打包下载全部 .md</button>
+        <button id="clear" type="button">清空</button>
+      </div>
+    </main>
+
+    <main class="tool mode-panel" id="toWordPanel" role="tabpanel" aria-labelledby="toWordTab" hidden>
+      <div class="drop" id="wordDrop" tabindex="0" role="button" aria-label="选择 Markdown 文件">
+        <div>
+          <p class="drop-title">拖 Markdown 进来，或点击选择</p>
+          <p class="drop-sub">.md · 可一起选择文中引用的 png / jpg</p>
+        </div>
+      </div>
+      <input type="file" id="wordPicker" multiple hidden accept=".md,text/markdown,.png,.jpg,.jpeg,image/png,image/jpeg" />
+
+      <div class="opts">
+        <label>
+          文档风格
+          <select id="wordStyle">
+            <option value="research">研究报告</option>
+            <option value="memo">简洁备忘录</option>
+            <option value="formal">正式交付件</option>
+          </select>
+        </label>
+        <label><input type="checkbox" id="wordToc" /> 生成目录</label>
+        <label><input type="checkbox" id="wordPageBreak" /> 一级标题另起一页</label>
+      </div>
+
+      <details class="word-details">
+        <summary>支持的 Markdown 格式</summary>
+        <p>Front matter 标题信息、一至三级标题、粗体与斜体、代码块、项目符号、有序列表、引述、管道表格、分隔线、分页符和 PNG/JPG 插图。文档自动包含页眉、页码和适合打印的页边距。</p>
+      </details>
+
+      <div class="word-status" id="wordStatus" role="status"></div>
+      <div class="word-result" id="wordResult">
+        <div class="word-result-inner">
+          <div class="word-result-copy">
+            <strong id="wordResultName"></strong>
+            <span id="wordResultMeta"></span>
+          </div>
+          <button class="primary" id="wordDownload" type="button">下载 .docx</button>
+          <button id="wordClear" type="button">清空</button>
+        </div>
+      </div>
+
+      <section class="compare" id="wordCompare" aria-label="Markdown 与 Word 对照预览">
+        <div class="compare-mobile-tabs" role="tablist" aria-label="预览格式">
+          <button class="active" id="markdownPreviewTab" type="button" role="tab" aria-selected="true">Markdown</button>
+          <button id="wordPreviewTab" type="button" role="tab" aria-selected="false">Word</button>
+        </div>
+        <div class="compare-grid show-markdown" id="compareGrid">
+          <section class="compare-pane markdown-pane" aria-labelledby="markdownPreviewTitle">
+            <div class="compare-head">
+              <strong id="markdownPreviewTitle">Markdown</strong>
+              <span>阅读视图</span>
+            </div>
+            <div class="preview-scroll">
+              <article class="markdown-reader" id="markdownPreview"></article>
+            </div>
+          </section>
+          <section class="compare-pane word-pane" aria-labelledby="wordPreviewTitle">
+            <div class="compare-head">
+              <strong id="wordPreviewTitle">Word</strong>
+              <span>实际文档预览</span>
+            </div>
+            <div class="preview-scroll word-preview" id="wordPreview"></div>
+            <div id="wordPreviewStyles" hidden></div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <footer id="mdFooter">
+      <p>token 数是估算，不是精确值。PDF/PPT 的“原文件”一栏按每页图像估算，实际会浮动。</p>
+      <p>扫描件如果没有文字层，需要先做 OCR。</p>
+    </footer>
+    <footer id="wordFooter" hidden>
+      <p>Word 会按专业文档规则重新排版，不会完全复制 Markdown 预览的外观。</p>
+      <p>插图请与 .md 一起选择，并保持文中的相对路径文件名一致。</p>
+    </footer>
+  </div>
+
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      const missing = ["pdfjsLib", "JSZip", "mammoth"].filter((name) => !window[name]);
+      if (missing.length) {
+        document.querySelector(".drop-sub").textContent = "依赖加载失败，请检查网络后刷新页面。";
+        return;
+      }
+
+      pdfjsLib.GlobalWorkerOptions.workerSrc =
+        "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+
+      const $ = (selector, root = document) => root.querySelector(selector);
+      const rowsEl = $("#rows");
+      const meter = $("#meter");
+      const meterNum = $("#meterNum");
+      const meterNote = $("#meterNote");
+      const batch = $("#batch");
+      const results = [];
+
+      const CJK = /[\u3400-\u9FFF\uF900-\uFAFF\u3040-\u30FF\uAC00-\uD7AF]/g;
+      function estTokens(text) {
+        if (!text) return 0;
+        const cjk = (text.match(CJK) || []).length;
+        return Math.round(cjk * 1.05 + (text.length - cjk) / 4);
+      }
+
+      const fmt = (number) => number.toLocaleString("en-US");
+
+      async function pdfToMd(file, opts) {
+        const pdf = await pdfjsLib.getDocument({ data: await file.arrayBuffer() }).promise;
+        const pages = [];
+        const all = [];
+
+        for (let p = 1; p <= pdf.numPages; p += 1) {
+          const page = await pdf.getPage(p);
+          const tc = await page.getTextContent();
+          const rows = [];
+          for (const it of tc.items) {
+            if (!it.str || !it.str.trim()) continue;
+            const y = it.transform[5];
+            const size = Math.abs(it.transform[0]) || it.height || 10;
+            let row = rows.find((r) => Math.abs(r.y - y) <= 2.2);
+            if (!row) {
+              row = { y, items: [] };
+              rows.push(row);
+            }
+            row.items.push({ x: it.transform[4], w: it.width || 0, str: it.str, size });
+          }
+
+          const lines = rows
+            .sort((a, b) => b.y - a.y)
+            .map((r) => {
+              r.items.sort((a, b) => a.x - b.x);
+              let text = "";
+              let end = null;
+              for (const item of r.items) {
+                if (end !== null && item.x - end > 1.2) text += " ";
+                text += item.str;
+                end = item.x + item.w;
+              }
+              return {
+                text: text.replace(/\s+/g, " ").trim(),
+                size: Math.max(...r.items.map((item) => item.size)),
+                page: p
+              };
+            })
+            .filter((line) => line.text);
+
+          lines.forEach((line) => all.push(line));
+          pages.push(lines);
+        }
+
+        if (all.length === 0) {
+          return { md: "", pages: pdf.numPages, warn: "抽不到文字层，这份大概是扫描件，需要先 OCR。" };
+        }
+
+        const freq = {};
+        for (const line of all) freq[line.text] = (freq[line.text] || 0) + 1;
+        const repeated = new Set(
+          Object.keys(freq).filter((text) => freq[text] > pages.length * 0.5 && text.length < 90)
+        );
+
+        const sizes = all.map((line) => line.size).sort((a, b) => a - b);
+        const median = sizes[Math.floor(sizes.length / 2)] || 10;
+        const maxLen = Math.max(...all.map((line) => line.text.length), 1);
+        const out = [];
+        let para = [];
+        const flush = () => {
+          if (para.length) {
+            out.push(para.join(" "));
+            para = [];
+          }
+        };
+
+        pages.forEach((lines, idx) => {
+          flush();
+          if (opts.pages) out.push(`<!-- page ${idx + 1} -->`);
+          for (const line of lines) {
+            if (repeated.has(line.text)) continue;
+            const big = opts.heads && line.size > median * 1.15 && line.text.length < 90;
+            const bullet = /^([•‣▪◦·\-\*]|\d+[.)])\s+/.test(line.text);
+            if (big) {
+              flush();
+              out.push((line.size > median * 1.45 ? "# " : "## ") + line.text);
+            } else if (bullet) {
+              flush();
+              out.push("- " + line.text.replace(/^([•‣▪◦·\-\*]|\d+[.)])\s+/, ""));
+            } else {
+              para.push(line.text);
+              if (line.text.length < maxLen * 0.45 || /[.。!?！？:：]$/.test(line.text)) flush();
+            }
+          }
+        });
+        flush();
+
+        return { md: out.join("\n\n"), pages: pdf.numPages };
+      }
+
+      async function pptxToMd(file, opts) {
+        const zip = await JSZip.loadAsync(await file.arrayBuffer());
+        const names = Object.keys(zip.files)
+          .filter((name) => /^ppt\/slides\/slide\d+\.xml$/.test(name))
+          .sort((a, b) => Number(a.match(/\d+/)[0]) - Number(b.match(/\d+/)[0]));
+
+        const out = [];
+        for (let i = 0; i < names.length; i += 1) {
+          const n = Number(names[i].match(/\d+/)[0]);
+          const xml = await zip.file(names[i]).async("string");
+          const doc = new DOMParser().parseFromString(xml, "application/xml");
+          const paras = [...doc.getElementsByTagName("a:p")]
+            .map((p) => [...p.getElementsByTagName("a:t")].map((t) => t.textContent).join("").trim())
+            .filter(Boolean);
+
+          out.push(`## Slide ${n}${paras.length ? " · " + paras[0] : ""}`);
+          paras.slice(1).forEach((text) => out.push("- " + text));
+
+          if (opts.notes) {
+            const nf = zip.file(`ppt/notesSlides/notesSlide${n}.xml`);
+            if (nf) {
+              const nd = new DOMParser().parseFromString(await nf.async("string"), "application/xml");
+              const nt = [...nd.getElementsByTagName("a:p")]
+                .map((p) => [...p.getElementsByTagName("a:t")].map((t) => t.textContent).join("").trim())
+                .filter(Boolean)
+                .filter((text) => text !== String(n));
+              if (nt.length) out.push("> 备注：" + nt.join(" "));
+            }
+          }
+          out.push("");
+        }
+
+        if (!names.length) return { md: "", pages: 0, warn: "没读到 slide，文件可能损坏或不是标准 pptx。" };
+        return { md: out.join("\n"), pages: names.length };
+      }
+
+      async function docxToMd(file) {
+        const buf = await file.arrayBuffer();
+        try {
+          const result = await mammoth.convertToMarkdown({ arrayBuffer: buf });
+          if (result.value && result.value.trim()) return { md: result.value, pages: 0 };
+        } catch (error) {
+          // Fall back to raw text extraction below.
+        }
+        const raw = await mammoth.extractRawText({ arrayBuffer: buf });
+        return { md: raw.value, pages: 0 };
+      }
+
+      function splitCsv(line) {
+        const out = [];
+        let cur = "";
+        let quoted = false;
+        for (let i = 0; i < line.length; i += 1) {
+          const c = line[i];
+          if (quoted) {
+            if (c === '"' && line[i + 1] === '"') {
+              cur += '"';
+              i += 1;
+            } else if (c === '"') {
+              quoted = false;
+            } else {
+              cur += c;
+            }
+          } else if (c === '"') {
+            quoted = true;
+          } else if (c === ",") {
+            out.push(cur.trim());
+            cur = "";
+          } else {
+            cur += c;
+          }
+        }
+        out.push(cur.trim());
+        return out;
+      }
+
+      function csvToMd(text) {
+        const rows = text.trim().split(/\r?\n/).slice(0, 300).map(splitCsv);
+        if (!rows.length) return { md: "", pages: 0 };
+        const width = Math.max(...rows.map((row) => row.length));
+        const pad = (row) => {
+          const cells = row.slice();
+          while (cells.length < width) cells.push("");
+          return cells;
+        };
+        const line = (row) => "| " + pad(row).map((cell) => cell.replace(/\|/g, "\\|")).join(" | ") + " |";
+        const out = [line(rows[0]), "|" + " --- |".repeat(width)];
+        rows.slice(1).forEach((row) => out.push(line(row)));
+        return { md: out.join("\n"), pages: 0 };
+      }
+
+      async function convert(file, opts) {
+        const ext = (file.name.split(".").pop() || "").toLowerCase();
+        if (ext === "pdf") return { ...(await pdfToMd(file, opts)), perPage: 1600 };
+        if (ext === "pptx") return { ...(await pptxToMd(file, opts)), perPage: 1400 };
+        if (ext === "docx") return { ...(await docxToMd(file)), perPage: 0 };
+        if (ext === "csv") return { ...csvToMd(await file.text()), perPage: 0 };
+        if (ext === "txt" || ext === "md") return { md: await file.text(), pages: 0, perPage: 0 };
+        throw new Error("暂不支持 ." + ext);
+      }
+
+      function download(filename, text) {
+        const url = URL.createObjectURL(new Blob([text], { type: "text/markdown;charset=utf-8" }));
+        const anchor = document.createElement("a");
+        anchor.href = url;
+        anchor.download = filename;
+        anchor.click();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+      }
+
+      function render(entry) {
+        const { name, md, pages, perPage, warn, error } = entry;
+        const row = document.createElement("div");
+        row.className = "row";
+
+        if (error) {
+          row.innerHTML = `
+            <div class="row-top"><span class="row-name"></span></div>
+            <div class="flag err"></div>`;
+          $(".row-name", row).textContent = name;
+          $(".flag", row).textContent = error;
+          rowsEl.appendChild(row);
+          return;
+        }
+
+        const mdTok = estTokens(md);
+        const orig = perPage && pages ? pages * perPage : mdTok;
+        entry.saved = Math.max(0, orig - mdTok);
+
+        const meta = [
+          pages ? pages + " 页" : null,
+          (md.length / 1000).toFixed(1) + "k 字符"
+        ].filter(Boolean).join(" · ");
+
+        row.innerHTML = `
+          <div class="row-top">
+            <span class="row-name"></span>
+            <span class="row-meta">${meta}</span>
+          </div>
+          <div class="bars">
+            <div class="bar">
+              <span class="bar-key">原文件</span>
+              <span class="bar-track"><span class="bar-fill a"></span></span>
+              <span class="bar-val">~${fmt(orig)}</span>
+            </div>
+            <div class="bar">
+              <span class="bar-key">markdown</span>
+              <span class="bar-track"><span class="bar-fill b"></span></span>
+              <span class="bar-val">~${fmt(mdTok)}</span>
+            </div>
+          </div>
+          <div class="acts">
+            <button class="primary" data-a="dl" type="button">下载 .md</button>
+            <button data-a="copy" type="button">复制</button>
+            <button data-a="prev" type="button">预览</button>
+          </div>
+          <div class="preview"><pre></pre></div>`;
+
+        $(".row-name", row).textContent = name;
+        $(".preview pre", row).textContent =
+          md.slice(0, 6000) + (md.length > 6000 ? "\n\n... 预览截断，下载的是完整内容" : "");
+
+        if (warn) {
+          const flag = document.createElement("div");
+          flag.className = "flag";
+          flag.textContent = warn;
+          $(".bars", row).before(flag);
+        }
+
+        rowsEl.appendChild(row);
+        requestAnimationFrame(() => {
+          const max = Math.max(orig, mdTok, 1);
+          $(".bar-fill.a", row).style.width = (orig / max) * 100 + "%";
+          $(".bar-fill.b", row).style.width = (mdTok / max) * 100 + "%";
+        });
+
+        const stem = name.replace(/\.[^.]+$/, "");
+        row.addEventListener("click", (event) => {
+          const action = event.target.dataset && event.target.dataset.a;
+          if (action === "dl") download(stem + ".md", md);
+          if (action === "copy") {
+            navigator.clipboard.writeText(md).then(() => {
+              event.target.textContent = "已复制";
+              setTimeout(() => {
+                event.target.textContent = "复制";
+              }, 1400);
+            }).catch(() => {
+              event.target.textContent = "复制失败";
+              setTimeout(() => {
+                event.target.textContent = "复制";
+              }, 1400);
+            });
+          }
+          if (action === "prev") {
+            const preview = $(".preview", row);
+            preview.classList.toggle("on");
+            event.target.textContent = preview.classList.contains("on") ? "收起" : "预览";
+          }
+        });
+      }
+
+      function updateMeter() {
+        const saved = results.reduce((sum, result) => sum + (result.saved || 0), 0);
+        const count = results.filter((result) => !result.error).length;
+        if (!count) return;
+        meter.classList.add("on");
+        batch.classList.add("on");
+        meterNum.textContent = "~" + fmt(saved);
+        meterNote.textContent = count + " 个文件已转换";
+      }
+
+      async function handle(files) {
+        const opts = {
+          pages: $("#optPages").checked,
+          notes: $("#optNotes").checked,
+          heads: $("#optHeads").checked
+        };
+        for (const file of files) {
+          const entry = { name: file.name };
+          try {
+            const result = await convert(file, opts);
+            Object.assign(entry, result);
+            if (!result.md || !result.md.trim()) entry.warn = entry.warn || "没抽到内容。";
+          } catch (err) {
+            entry.error = err.message || String(err);
+          }
+          results.push(entry);
+          render(entry);
+          updateMeter();
+        }
+      }
+
+      const drop = $("#drop");
+      const picker = $("#picker");
+
+      drop.addEventListener("click", () => picker.click());
+      drop.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          picker.click();
+        }
+      });
+      picker.addEventListener("change", (event) => {
+        handle([...event.target.files]);
+        picker.value = "";
+      });
+
+      ["dragenter", "dragover"].forEach((type) => {
+        drop.addEventListener(type, (event) => {
+          event.preventDefault();
+          drop.classList.add("hot");
+        });
+      });
+
+      ["dragleave", "drop"].forEach((type) => {
+        drop.addEventListener(type, (event) => {
+          event.preventDefault();
+          drop.classList.remove("hot");
+        });
+      });
+
+      drop.addEventListener("drop", (event) => handle([...event.dataTransfer.files]));
+
+      $("#dlAll").addEventListener("click", async () => {
+        const ok = results.filter((result) => result.md && result.md.trim());
+        if (!ok.length) return;
+        if (ok.length === 1) {
+          download(ok[0].name.replace(/\.[^.]+$/, "") + ".md", ok[0].md);
+          return;
+        }
+        const zip = new JSZip();
+        ok.forEach((result) => zip.file(result.name.replace(/\.[^.]+$/, "") + ".md", result.md));
+        const blob = await zip.generateAsync({ type: "blob" });
+        const url = URL.createObjectURL(blob);
+        const anchor = document.createElement("a");
+        anchor.href = url;
+        anchor.download = "markdown.zip";
+        anchor.click();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+      });
+
+      $("#clear").addEventListener("click", () => {
+        results.length = 0;
+        rowsEl.innerHTML = "";
+        meter.classList.remove("on");
+        batch.classList.remove("on");
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/about.html", "destination": "/about", "permanent": true },
+    { "source": "/projects/paira", "destination": "/paira", "permanent": true },
+    { "source": "/projects/merlin", "destination": "/merlin", "permanent": true },
+    { "source": "/projects/ecoscan", "destination": "/ecoscan", "permanent": true },
+    { "source": "/projects/game", "destination": "/game", "permanent": true },
+    { "source": "/signal-ledger", "destination": "/portugal-intel", "permanent": true }
+  ]
+}
