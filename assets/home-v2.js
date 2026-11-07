@@ -18,6 +18,12 @@ const POSE_H = {
   'cat': 0.34,
 };
 
+/* How much wider than tall an orbit may get. Filling the width of a short
+   window outright turns the rings into a flat band, which is not what the
+   sketch is: that is a circle with the page breathing either side of it.
+   Raise it to spread wider, lower it towards 1 for a true circle. */
+const MAX_OVAL = 2.2;
+
 const RING_RATIO = {
   rx: { 1: 0.36, 2: 0.62, 3: 1 },
   ry: { 1: 0.66, 2: 0.78, 3: 1 },
@@ -206,8 +212,11 @@ function apply(base, W, H) {
   // The outer band decides how close to the edge anything can sit. The extra
   // room at the bottom is for the name that hangs under each figure.
   const outer = size(MAX_S);
-  const rx3 = Math.max(18, 50 - ((outer / 2 + 14) / W) * 100);
   const ry3 = Math.max(16, 50 - ((outer / 2 + 26) / H) * 100);
+  let rx3 = Math.max(18, 50 - ((outer / 2 + 14) / W) * 100);
+  // hold the orbit's shape, compared in real pixels rather than in percentages
+  // of two different edges
+  rx3 = Math.min(rx3, ((ry3 / 100) * H * MAX_OVAL / W) * 100);
 
   const R = {
     1: { rx: rx3 * RING_RATIO.rx[1], ry: ry3 * RING_RATIO.ry[1] },
@@ -246,8 +255,13 @@ function apply(base, W, H) {
 }
 
 /* Does any pair of figures sit on top of another by more than a sliver? */
-function collides(limit) {
-  const boxes = NODES.map(n => n.el.querySelector('img').getBoundingClientRect());
+function collides(limit, pad) {
+  const p = pad || 0;
+  const boxes = NODES.map(n => {
+    const r = n.el.querySelector('img').getBoundingClientRect();
+    return { left: r.left - p, right: r.right + p, top: r.top - p, bottom: r.bottom + p,
+             width: r.width + 2 * p, height: r.height + 2 * p };
+  });
   for (let i = 0; i < boxes.length; i++) {
     for (let j = i + 1; j < boxes.length; j++) {
       const a = boxes[i], b = boxes[j];
@@ -268,11 +282,18 @@ function layout() {
   const box = field.getBoundingClientRect();
   const W = box.width, H = box.height;
   if (!W || !H) return;
-  let base = Math.min(W * 1.1, H * 2.2);
-  for (let pass = 0; pass < 16; pass++) {
+  const pad = Math.max(8, Math.min(W, H) * 0.014);
+  let base = Math.min(W * 1.1, H * 2.4);
+  for (let pass = 0; pass < 20; pass++) {
     apply(base, W, H);
-    if (!collides(0.04)) break;
+    if (!collides(0.03, pad)) break;
     base *= 0.94;
+  }
+  for (let pass = 0; pass < 12; pass++) {
+    const bigger = base * 1.04;
+    apply(bigger, W, H);
+    if (collides(0.03, pad)) { apply(base, W, H); break; }
+    base = bigger;
   }
 }
 
