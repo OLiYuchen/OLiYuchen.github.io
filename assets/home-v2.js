@@ -5,15 +5,12 @@
 
 const IMG = '/assets/img/home-v2/';
 
-/* Orbit geometry. rx is a share of the field's width, ry of its height, so the
-   orbits are ellipses that reach the edges of a wide screen instead of a circle
-   parked in the middle. Size tiers are deliberate: the featured work is the
-   largest thing after her, the inner ring sits well below it, the outer ring
-   is small enough to read as texture. */
-const RINGS = {
-  1: { rx: 17,   ry: 31 },
-  2: { rx: 31.5, ry: 40 },
-  3: { rx: 45,   ry: 45.5 },
+/* Orbit shape. These are ratios, not sizes: ring 3 sits as close to the edge
+   as the figures allow, and the inner rings are fractions of it. The real
+   radii are solved at run time from the field's own box. */
+const RING_RATIO = {
+  rx: { 1: 0.38, 2: 0.70, 3: 1 },
+  ry: { 1: 0.60, 2: 0.84, 3: 1 },
 };
 
 const NODES = [
@@ -137,11 +134,20 @@ const NODES = [
 
 /* ---------------------------------------------------------------------- */
 
+/* ---------------------------------------------------------------------- */
 
-/* Angles that divide an ellipse into equal lengths of edge, so a wide orbit
-   does not crowd at the sides and thin out across the top. */
+const field = document.querySelector('[data-field]');
+const card = document.querySelector('[data-card]');
+const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const OUTER = NODES.filter(n => n.ring === 3);
+const MAX_S = Math.max(...NODES.filter(n => n.ring === 3).map(n => n.s));
+
+/* Angles that cut an ellipse into equal lengths of edge. Equal angles crowd
+   the sides of a wide ellipse and thin out across the top, and how wide the
+   ellipse is depends on the screen, so this is solved with everything else. */
 function evenAngles(rx, ry, count, startDeg) {
-  const steps = 2000, acc = [0];
+  const steps = 720;
+  const acc = [0];
   let prev = null;
   for (let i = 0; i <= steps; i++) {
     const th = (i / steps) * Math.PI * 2;
@@ -152,21 +158,12 @@ function evenAngles(rx, ry, count, startDeg) {
   const total = acc[acc.length - 1];
   const out = [];
   for (let k = 0; k < count; k++) {
-    const want = (k / count) * total;
-    let i = acc.findIndex(v => v >= want);
-    if (i < 0) i = acc.length - 1;
+    let i = acc.findIndex(v => v >= (k / count) * total);
+    if (i < 0) i = steps;
     out.push((i / steps) * 360 + startDeg);
   }
   return out;
 }
-
-const OUTER = NODES.filter(n => n.ring === 3);
-evenAngles(RINGS[3].rx, RINGS[3].ry, OUTER.length, 16)
-  .forEach((deg, i) => { OUTER[i].a = deg; });
-
-const field = document.querySelector('[data-field]');
-const card = document.querySelector('[data-card]');
-const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 function build() {
   NODES.forEach((n, i) => {
@@ -176,55 +173,98 @@ function build() {
     el.dataset.id = n.id;
     el.dataset.ring = n.ring;
     if (n.todo) el.dataset.todo = n.todo;
-    const R = RINGS[n.ring];
-    let y = 0;
-    if (R) {
-      const t = n.a * Math.PI / 180;
-      el.style.setProperty('--x', (Math.sin(t) * R.rx * n.rj).toFixed(2));
-      y = -Math.cos(t) * R.ry * n.rj;
-      el.style.setProperty('--y', y.toFixed(2));
-    } else {
-      el.style.setProperty('--x', 0);
-      el.style.setProperty('--y', 0);
-    }
-    el.style.zIndex = String(Math.round(300 + y * 4));
-    el.dataset.s = n.s;
     el.style.setProperty('--dur', (7.5 + (i % 5) * 1.4) + 's');
     el.style.setProperty('--delay', (-(i * 0.73) % 6).toFixed(2) + 's');
     el.setAttribute('aria-label', n.label + '. ' + n.title);
     el.innerHTML =
       '<span class="hv2-node-inner">' +
-        '<img src="' + IMG + n.img + '.webp" alt="" loading="lazy" decoding="async" />' +
+        '<img src="' + IMG + n.img + '.webp" alt="" decoding="async" />' +
         '<span class="hv2-node-label">' + n.label + '</span>' +
       '</span>';
+    n.el = el;
     field.appendChild(el);
   });
 }
 
-/* The figures are sized from the field's real box. The short edge governs,
-   because a wide, shallow window is the case where a tall standing pose runs
-   into its neighbour above and below. */
-function sizeNodes() {
-  const box = field.getBoundingClientRect();
-  if (!box.width || !box.height) return;
-  const base = Math.min(box.width, box.height * 1.9);
-  const minPx = box.width < 560 ? 30 : 44;
-  const maxPx = 240;
-  field.querySelectorAll('.hv2-node').forEach(el => {
-    const px = Math.max(minPx, Math.min(maxPx, (Number(el.dataset.s) / 100) * base));
-    el.style.setProperty('--px', px.toFixed(1) + 'px');
-  });
-}
+/* One pass of the layout at a given figure scale. */
+function apply(base, W, H) {
+  const floor = W < 560 ? 26 : 38;
+  // The ceiling follows the field's height rather than being a flat number,
+  // or on a very large screen the centre and the featured work both hit it
+  // and the hierarchy flattens out.
+  const ceiling = Math.max(190, H * 0.30);
+  const size = s => Math.max(floor, Math.min(ceiling, (s / 100) * base));
 
-function sizeOrbits() {
+  // The outer band decides how close to the edge anything can sit. The extra
+  // room at the bottom is for the name that hangs under each figure.
+  const outer = size(MAX_S);
+  const rx3 = Math.max(18, 50 - ((outer / 2 + 14) / W) * 100);
+  const ry3 = Math.max(16, 50 - ((outer / 2 + 26) / H) * 100);
+
+  const R = {
+    1: { rx: rx3 * RING_RATIO.rx[1], ry: ry3 * RING_RATIO.ry[1] },
+    2: { rx: rx3 * RING_RATIO.rx[2], ry: ry3 * RING_RATIO.ry[2] },
+    3: { rx: rx3, ry: ry3 },
+  };
+
+  evenAngles(R[3].rx * W / 100, R[3].ry * H / 100, OUTER.length, 16)
+    .forEach((deg, i) => { OUTER[i].a = deg; });
+
+  NODES.forEach(n => {
+    const el = n.el;
+    el.style.setProperty('--px', size(n.s).toFixed(1) + 'px');
+    let y = 0;
+    if (n.ring) {
+      const t = n.a * Math.PI / 180;
+      el.style.setProperty('--x', (Math.sin(t) * R[n.ring].rx * n.rj).toFixed(2));
+      y = -Math.cos(t) * R[n.ring].ry * n.rj;
+      el.style.setProperty('--y', y.toFixed(2));
+    } else {
+      el.style.setProperty('--x', '0');
+      el.style.setProperty('--y', '0');
+    }
+    el.style.zIndex = String(Math.round(300 + y * 4));
+  });
+
   [1, 2, 3].forEach(k => {
-    const el = field.querySelector('.hv2-ring-' + k);
-    el.style.width = (RINGS[k].rx * 2) + '%';
-    el.style.height = (RINGS[k].ry * 2) + '%';
+    const ring = field.querySelector('.hv2-ring-' + k);
+    ring.style.width = (R[k].rx * 2) + '%';
+    ring.style.height = (R[k].ry * 2) + '%';
   });
   const disc = field.querySelector('.hv2-disc');
-  disc.style.width = (RINGS[1].rx * 2 + 13) + '%';
-  disc.style.height = (RINGS[1].ry * 2 + 16) + '%';
+  disc.style.width = (R[1].rx * 2 + 13) + '%';
+  disc.style.height = (R[1].ry * 2 + 16) + '%';
+}
+
+/* Does any pair of figures sit on top of another by more than a sliver? */
+function collides(limit) {
+  const boxes = NODES.map(n => n.el.querySelector('img').getBoundingClientRect());
+  for (let i = 0; i < boxes.length; i++) {
+    for (let j = i + 1; j < boxes.length; j++) {
+      const a = boxes[i], b = boxes[j];
+      const ox = Math.min(a.right, b.right) - Math.max(a.left, b.left);
+      const oy = Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top);
+      if (ox > 0 && oy > 0) {
+        const smaller = Math.min(a.width * a.height, b.width * b.height);
+        if (smaller > 0 && (ox * oy) / smaller > limit) return true;
+      }
+    }
+  }
+  return false;
+}
+
+/* Lay out, check, and step the figures down until nothing crowds. This is why
+   the page holds its shape on a screen I have not seen. */
+function layout() {
+  const box = field.getBoundingClientRect();
+  const W = box.width, H = box.height;
+  if (!W || !H) return;
+  let base = Math.min(W, H * 1.9);
+  for (let pass = 0; pass < 16; pass++) {
+    apply(base, W, H);
+    if (!collides(0.04)) break;
+    base *= 0.94;
+  }
 }
 
 function fillCard(n) {
@@ -242,13 +282,11 @@ function fillCard(n) {
 
 function placeCard(el) {
   const r = el.getBoundingClientRect();
-  const w = card.offsetWidth, h = card.offsetHeight;
-  const gap = 16;
+  const w = card.offsetWidth, h = card.offsetHeight, gap = 16;
   let x = r.right + gap;
   if (x + w > window.innerWidth - 12) x = r.left - gap - w;
   if (x < 12) x = Math.min(Math.max(12, r.left + r.width / 2 - w / 2), window.innerWidth - w - 12);
-  let y = r.top + r.height / 2 - h / 2;
-  y = Math.min(Math.max(12, y), window.innerHeight - h - 12);
+  let y = Math.min(Math.max(12, r.top + r.height / 2 - h / 2), window.innerHeight - h - 12);
   card.style.left = Math.round(x) + 'px';
   card.style.top = Math.round(y) + 'px';
 }
@@ -265,27 +303,25 @@ function open(el) {
   field.classList.add('is-reading');
   field.classList.remove('lit-1', 'lit-2', 'lit-3');
   if (n.ring) field.classList.add('lit-' + n.ring);
-  field.querySelectorAll('.hv2-node').forEach(x => x.classList.toggle('is-active', x === el));
+  NODES.forEach(x => x.el.classList.toggle('is-active', x.el === el));
 }
 
 function close() {
   openId = null;
   card.classList.remove('is-open');
   field.classList.remove('is-reading', 'lit-1', 'lit-2', 'lit-3');
-  field.querySelectorAll('.hv2-node').forEach(x => x.classList.remove('is-active'));
+  NODES.forEach(x => x.el.classList.remove('is-active'));
 }
 
 function wire() {
-  field.querySelectorAll('.hv2-node').forEach(el => {
+  NODES.forEach(n => {
+    const el = n.el;
     el.addEventListener('pointerenter', () => open(el));
     el.addEventListener('focus', () => open(el));
     el.addEventListener('pointerleave', close);
     el.addEventListener('blur', close);
-    if (el.classList.contains('hv2-node-centre')) {
-      el.addEventListener('click', (e) => {
-        e.preventDefault();
-        field.classList.toggle('is-about');
-      });
+    if (n.ring === 0) {
+      el.addEventListener('click', (e) => { e.preventDefault(); field.classList.toggle('is-about'); });
     }
   });
   field.addEventListener('pointerleave', close);
@@ -301,10 +337,8 @@ function wire() {
 
 function entrance() {
   if (reduced) return;
-  const order = [...field.querySelectorAll('.hv2-node')]
-    .sort((a, b) => Number(a.dataset.ring) - Number(b.dataset.ring));
-  order.forEach((el, i) => {
-    el.animate(
+  [...NODES].sort((a, b) => a.ring - b.ring).forEach((n, i) => {
+    n.el.animate(
       [{ opacity: 0, scale: .72 }, { opacity: 1, scale: 1 }],
       { duration: 760, delay: 90 + i * 55, easing: 'cubic-bezier(.22,1,.36,1)', fill: 'backwards' }
     );
@@ -312,13 +346,12 @@ function entrance() {
 }
 
 build();
-sizeOrbits();
-sizeNodes();
+layout();
 wire();
+entrance();
 
 let resizeTimer;
-window.addEventListener('resize', () => {
-  window.clearTimeout(resizeTimer);
-  resizeTimer = window.setTimeout(sizeNodes, 120);
-});
-entrance();
+const relayout = () => { window.clearTimeout(resizeTimer); resizeTimer = window.setTimeout(layout, 110); };
+window.addEventListener('resize', relayout);
+window.addEventListener('orientationchange', relayout);
+if ('ResizeObserver' in window) new ResizeObserver(relayout).observe(field);
