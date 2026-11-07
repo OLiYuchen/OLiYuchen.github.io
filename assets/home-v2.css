@@ -120,8 +120,8 @@
 }
 .hv2-node-inner {
   position: relative;
-  display: grid; justify-items: center; gap: .3rem;
-  width: clamp(46px, calc(var(--s) * 1cqw), 230px);
+  display: block;
+  width: var(--px, 90px);
   transform-origin: 50% 85%;
   animation: hv2-float var(--dur, 9s) var(--hv2-ease) var(--delay, 0s) infinite alternate;
   transition: scale .45s var(--hv2-ease), filter .45s var(--hv2-ease);
@@ -134,18 +134,21 @@
   -webkit-user-drag: none; user-select: none;
 }
 .hv2-node-label {
-  font-size: clamp(.58rem, calc(var(--s) * .11cqw), .8rem);
+  position: absolute; top: 100%; left: 50%; translate: -50% 0;
+  margin-top: .3rem;
+  font-size: clamp(.58rem, calc(var(--px, 90px) * .11), .8rem);
   font-weight: 600; letter-spacing: .02em; color: var(--hv2-soft);
-  opacity: 0; translate: 0 -3px;
+  opacity: 0; translate: -50% -3px;
   transition: opacity .4s var(--hv2-ease), translate .4s var(--hv2-ease);
   white-space: nowrap;
 }
+.hv2-node:hover, .hv2-node:focus-visible { z-index: 900 !important; }
 .hv2-node:hover .hv2-node-inner,
 .hv2-node:focus-visible .hv2-node-inner { scale: 1.13; }
 .hv2-node:hover img,
 .hv2-node:focus-visible img { filter: drop-shadow(0 14px 22px rgba(95, 83, 158, .3)); }
 .hv2-node:hover .hv2-node-label,
-.hv2-node:focus-visible .hv2-node-label { opacity: 1; translate: 0 0; }
+.hv2-node:focus-visible .hv2-node-label { opacity: 1; translate: -50% 0; }
 .hv2-node:focus-visible { outline: none; }
 .hv2-node:focus-visible .hv2-node-inner::after {
   content: ""; position: absolute; inset: -12%;
@@ -156,7 +159,7 @@
 .hv2-node-centre { --x: 0; --y: 0; }
 .hv2-node-centre .hv2-node-inner { animation-duration: 13s; }
 .hv2-node-centre .hv2-node-label {
-  opacity: 1; translate: 0 0;
+  opacity: 1; translate: -50% 0;
   font-family: "Cormorant Garamond", serif; font-size: 1.05rem; color: var(--hv2-ink);
 }
 
@@ -231,13 +234,9 @@
 
 /* ---------- narrower screens ---------------------------------------------- */
 
-@media (max-width: 860px) {
-  .hv2-node-inner { width: clamp(40px, calc(var(--s) * 1.3cqw), 150px); }
-}
 @media (max-width: 560px) {
   .hv2-card { width: min(20rem, 88vw); }
   .hv2-node-label { font-size: .56rem; }
-  .hv2-node-inner { width: clamp(34px, calc(var(--s) * 1.7cqw), 120px); }
 }
 
 @media (prefers-reduced-motion: reduce) {

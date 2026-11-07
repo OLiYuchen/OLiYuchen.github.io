@@ -11,9 +11,9 @@ const IMG = '/assets/img/home-v2/';
    largest thing after her, the inner ring sits well below it, the outer ring
    is small enough to read as texture. */
 const RINGS = {
-  1: { rx: 17,   ry: 26 },
-  2: { rx: 31.5, ry: 38 },
-  3: { rx: 45,   ry: 43 },
+  1: { rx: 17,   ry: 31 },
+  2: { rx: 31.5, ry: 40 },
+  3: { rx: 45,   ry: 45.5 },
 };
 
 const NODES = [
@@ -177,15 +177,18 @@ function build() {
     el.dataset.ring = n.ring;
     if (n.todo) el.dataset.todo = n.todo;
     const R = RINGS[n.ring];
+    let y = 0;
     if (R) {
       const t = n.a * Math.PI / 180;
       el.style.setProperty('--x', (Math.sin(t) * R.rx * n.rj).toFixed(2));
-      el.style.setProperty('--y', (-Math.cos(t) * R.ry * n.rj).toFixed(2));
+      y = -Math.cos(t) * R.ry * n.rj;
+      el.style.setProperty('--y', y.toFixed(2));
     } else {
       el.style.setProperty('--x', 0);
       el.style.setProperty('--y', 0);
     }
-    el.style.setProperty('--s', n.s);
+    el.style.zIndex = String(Math.round(300 + y * 4));
+    el.dataset.s = n.s;
     el.style.setProperty('--dur', (7.5 + (i % 5) * 1.4) + 's');
     el.style.setProperty('--delay', (-(i * 0.73) % 6).toFixed(2) + 's');
     el.setAttribute('aria-label', n.label + '. ' + n.title);
@@ -195,6 +198,21 @@ function build() {
         '<span class="hv2-node-label">' + n.label + '</span>' +
       '</span>';
     field.appendChild(el);
+  });
+}
+
+/* The figures are sized from the field's real box. The short edge governs,
+   because a wide, shallow window is the case where a tall standing pose runs
+   into its neighbour above and below. */
+function sizeNodes() {
+  const box = field.getBoundingClientRect();
+  if (!box.width || !box.height) return;
+  const base = Math.min(box.width, box.height * 1.9);
+  const minPx = box.width < 560 ? 30 : 44;
+  const maxPx = 240;
+  field.querySelectorAll('.hv2-node').forEach(el => {
+    const px = Math.max(minPx, Math.min(maxPx, (Number(el.dataset.s) / 100) * base));
+    el.style.setProperty('--px', px.toFixed(1) + 'px');
   });
 }
 
@@ -295,5 +313,12 @@ function entrance() {
 
 build();
 sizeOrbits();
+sizeNodes();
 wire();
+
+let resizeTimer;
+window.addEventListener('resize', () => {
+  window.clearTimeout(resizeTimer);
+  resizeTimer = window.setTimeout(sizeNodes, 120);
+});
 entrance();
