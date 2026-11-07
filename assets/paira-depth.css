@@ -224,3 +224,19 @@
   .pd-check-line { opacity: .75; transition: none; }
   .pd-check-text { opacity: 1; transition: none; }
 }
+
+/* ---------- C, revised: one point, two surfaces, two kinds of proof ------- */
+
+.pd-method { margin-top: var(--sp-stage); }
+.pd-method:first-of-type { margin-top: var(--sp-block); }
+.pd-method-head {
+  margin: 0 0 .3rem; font-size: .68rem; font-weight: 600; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--case-accent-deep);
+}
+.pd-method h3 {
+  margin: 0 0 .5rem; font-family: var(--font-display); font-weight: 600;
+  font-size: clamp(1.3rem, 2vw, 1.72rem); line-height: 1.14; text-wrap: balance;
+}
+.pd-method > p { margin: 0; max-width: 64ch; font-size: .95rem; line-height: 1.6; color: var(--ink-soft); }
+.pd-method .pd-ways { margin-top: var(--sp-tight); }
+.pd-method .pd-evidence { grid-template-columns: repeat(2, minmax(0,1fr)); }

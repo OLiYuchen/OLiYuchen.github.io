@@ -61,11 +61,11 @@
 
           <a class="pd-ledger-item" href="#c">
             <div class="pd-ledger-num">02</div>
-            <h3>The team split on the mentor flow, so I went and got the answer.</h3>
+            <h3>Two surfaces split the team, so I picked a different test for each.</h3>
             <dl class="pd-rows">
-              <div class="pd-row"><dt>Did</dt><dd>Ran the A/B test and the one-on-one sessions myself, then walked the team through what came back.</dd></div>
-              <div class="pd-row"><dt>Changed</dt><dd>The flow that shipped is the one the tests picked, and it is live today.</dd></div>
-              <div class="pd-row"><dt>Took</dt><dd><strong>A taste argument can run all week. A test with real users ends it, and leaves everyone looking at the same picture.</strong></dd></div>
+              <div class="pd-row"><dt>Did</dt><dd>Ran an A/B test on the two Explore concepts and one-on-one sessions on the mentor flow, then walked the team through both.</dd></div>
+              <div class="pd-row"><dt>Changed</dt><dd>Both surfaces shipped the way the tests pointed, and both are live today.</dd></div>
+              <div class="pd-row"><dt>Took</dt><dd><strong>Choosing the test is part of the judgment. An A/B test says which version wins. Sitting with one person says why.</strong></dd></div>
             </dl>
           </a>
 
@@ -97,7 +97,7 @@
             <p class="pd-glance-head">What changed because of a call I made</p>
             <div class="pd-changed">
               <p><b>Proposals that land</b>A reference, a reason, and a small study behind each one. <span class="pd-slot">which proposal landed</span></p>
-              <p><b>The mentor flow</b>Two directions, one A/B test and one round of sessions I ran, one decision.</p>
+              <p><b>Two surfaces, two tests</b>An A/B test on the Explore concepts, one-on-one sessions on the mentor flow, a decision from each.</p>
               <p><b>One source of truth</b>Figma version control, a full screen audit, and an update rule per role. <span class="pd-slot">what it saved</span></p>
             </div>
           </div>
@@ -149,43 +149,76 @@
       <aside class="merlin-report-section-label"><p class="section-label">Growth</p><span>02</span></aside>
       <div class="merlin-report-content">
         <div class="merlin-report-lede">
-          <h2>The team split on the mentor flow, so I went and got the answer.</h2>
-          <p>We had two directions for how a helper should meet what is waiting for them. One showed requests as cards at different sizes, weighted by fit. The other let them drift past in a stream. Both had people behind them, and both were defensible on taste, which is exactly the kind of question that can stay open for a week. I offered to settle it with users instead.</p>
+          <h2>Two surfaces split the team, and each one needed a different kind of proof.</h2>
+          <p>Explore and the mentor flow both reached a point where the room could argue either direction from taste. I took both to users, but not the same way. Explore was a question about which version people would actually move through, so it could be measured. The mentor flow was a question about whether the path made sense at all, so it had to be watched.</p>
         </div>
-        <p class="pd-note"><span class="pd-tag pd-tag-ask">Confirm</span> The two screens below are the ones captioned on the live page as Explore concepts, <em>Request stream</em> and <em>Hero card and grid</em>, and they match how you described the two directions. Tell me which surface this disagreement was about, and I will use the right pair. There is also an unused set in the repo, <code>mentor-ai-input / typed / tags / matches</code>, which looks like an earlier mentor design and may be the real first direction.</p>
+        <p class="pd-note"><span class="pd-tag pd-tag-new">New</span> This is the revised 02. The point is no longer one disagreement, it is that choosing the method is part of the judgment. Each surface below uses the same template: the directions tried, the test, the result, the version that shipped.</p>
 
-        <div class="pd-ways">
-          <div class="pd-ways-set pd-ways-tried">
-            <figure class="pd-way"><img src="../assets/img/paira/screens/explore-concept-cards.webp" alt="Concept: one large pick above a grid of smaller cards" loading="lazy" decoding="async" /><figcaption>Cards at different sizes</figcaption></figure>
-            <figure class="pd-way"><img src="../assets/img/paira/screens/explore-concept-stream.webp" alt="Concept: request cards drifting across the screen like a comment stream" loading="lazy" decoding="async" /><figcaption>A drifting stream</figcaption></figure>
+        <div class="pd-method">
+          <p class="pd-method-head">Explore &middot; A/B test</p>
+          <h3>Cards at different sizes, or a drifting stream.</h3>
+          <p>Two ways to show a helper what is waiting for them. Both were reasonable on paper, and the difference would show up in behaviour rather than in opinion, so I put them head to head.</p>
+
+          <div class="pd-ways">
+            <div class="pd-ways-set pd-ways-tried">
+              <figure class="pd-way"><img src="../assets/img/paira/screens/explore-concept-cards.webp" alt="Concept: one large pick above a grid of smaller cards" loading="lazy" decoding="async" /><figcaption>Cards at different sizes</figcaption></figure>
+              <figure class="pd-way"><img src="../assets/img/paira/screens/explore-concept-stream.webp" alt="Concept: request cards drifting past like a comment stream" loading="lazy" decoding="async" /><figcaption>A drifting stream</figcaption></figure>
+            </div>
+            <div class="pd-ways-arrow" aria-hidden="true">&#8594;</div>
+            <div class="pd-ways-set pd-ways-shipped">
+              <figure class="pd-way"><img src="../assets/img/paira/screens/explore-daily-picks.webp" alt="Shipped: a short daily list of equal cards, each with a reason it is there" loading="lazy" decoding="async" /><figcaption>Shipped: daily picks</figcaption></figure>
+              <figure class="pd-way"><img src="../assets/img/paira/screens/explore-request-detail.webp" alt="Shipped: a single request opened from the daily list" loading="lazy" decoding="async" /><figcaption>Shipped: the request</figcaption></figure>
+            </div>
+            <p class="pd-ways-label pd-ways-label-tried"><b>Two directions, both defensible</b>Neither of us could say from the screens which one a helper would move through faster.</p>
+            <p class="pd-ways-label pd-ways-label-shipped"><b>The version the test chose</b>A short list that ends, with a reason written on every card.</p>
           </div>
-          <div class="pd-ways-arrow" aria-hidden="true">&#8594;</div>
-          <div class="pd-ways-set pd-ways-shipped">
-            <figure class="pd-way"><img src="../assets/img/paira/screens/mentor-final-01-bubbles.webp" alt="Shipped: suggestion bubbles sized by how likely each one is to fit" loading="lazy" decoding="async" /><figcaption>Shipped: sized suggestions</figcaption></figure>
-            <figure class="pd-way"><img src="../assets/img/paira/screens/mentor-final-05-matches.webp" alt="Shipped: the mentees waiting for you" loading="lazy" decoding="async" /><figcaption>Shipped: what is waiting</figcaption></figure>
+
+          <div class="pd-evidence">
+            <div>
+              <h4>What I ran</h4>
+              <p>An A/B test between the two concepts. <span class="pd-slot">what it measured, how long it ran, how many people saw each version</span></p>
+            </div>
+            <div>
+              <h4>What came back</h4>
+              <p><span class="pd-slot">the number that decided it</span></p>
+            </div>
           </div>
-          <p class="pd-ways-label pd-ways-label-tried"><b>Two directions, both reasonable</b>The room could argue either one from taste. Neither of us could say which a helper would actually move through faster.</p>
-          <p class="pd-ways-label pd-ways-label-shipped"><b>One decision, from evidence</b>The version that shipped is the one the tests chose, and it is the flow live on the App Store today.</p>
         </div>
 
-        <div class="pd-evidence">
-          <div>
-            <h4>What I ran</h4>
-            <p>An A/B test on the two entry designs, plus one-on-one sessions on the same tasks. <span class="pd-slot">what the A/B measured</span></p>
+        <div class="pd-method">
+          <p class="pd-method-head">Mentor AI flow &middot; User test</p>
+          <h3>A flow you can measure after it works, and not before.</h3>
+          <p>The mentor side had a different problem. The question was not which of two screens wins, it was whether a helper would understand the path and trust what came back. That is a question you have to sit and watch, so I ran it one-on-one and brought what I saw back to the team.</p>
+
+          <div class="pd-ways">
+            <div class="pd-ways-set pd-ways-tried">
+              <figure class="pd-way"><img src="../assets/img/paira/screens/mentor-ai-input.webp" alt="Earlier mentor design: tag chips and a free text field" loading="lazy" decoding="async" /><figcaption>Tags, then type</figcaption></figure>
+              <figure class="pd-way"><img src="../assets/img/paira/screens/mentor-ai-matches.webp" alt="Earlier mentor design: a plain list of matched mentees" loading="lazy" decoding="async" /><figcaption>A plain match list</figcaption></figure>
+            </div>
+            <div class="pd-ways-arrow" aria-hidden="true">&#8594;</div>
+            <div class="pd-ways-set pd-ways-shipped">
+              <figure class="pd-way"><img src="../assets/img/paira/screens/mentor-final-01-bubbles.webp" alt="Shipped: suggestion bubbles sized by how likely each one is to fit" loading="lazy" decoding="async" /><figcaption>Shipped: sized suggestions</figcaption></figure>
+              <figure class="pd-way"><img src="../assets/img/paira/screens/mentor-final-05-matches.webp" alt="Shipped: the mentees waiting for you" loading="lazy" decoding="async" /><figcaption>Shipped: what is waiting</figcaption></figure>
+            </div>
+            <p class="pd-ways-label pd-ways-label-tried"><b>The path before the sessions</b>Everything asked up front, and a list at the end with no reason attached to it.</p>
+            <p class="pd-ways-label pd-ways-label-shipped"><b>The path after them</b>Most helpers reach matches in two taps, and the AI shows its work for a beat before getting out of the way.</p>
           </div>
-          <div>
-            <h4>Who I ran it with</h4>
-            <p><span class="pd-slot">how many people, and when</span></p>
-          </div>
-          <div>
-            <h4>What came back</h4>
-            <p><span class="pd-slot">the result that decided it</span></p>
+
+          <div class="pd-evidence">
+            <div>
+              <h4>What I ran</h4>
+              <p>One-on-one sessions on the same tasks. <span class="pd-slot">how many people, what you asked them to do, when</span></p>
+            </div>
+            <div>
+              <h4>What came back</h4>
+              <p><span class="pd-slot">the finding that changed the flow</span></p>
+            </div>
           </div>
         </div>
 
         <div class="pd-carry">
           <span>What I carry forward</span>
-          <p>A taste argument can run all week. A test with real users ends it, and it leaves the whole team looking at the same picture instead of at each other.</p>
+          <p>Choosing the test is part of the judgment. An A/B test tells you which version wins. Sitting with one person tells you why, and what to build next. The work is running the one the question needs, not the one that is easiest to run.</p>
         </div>
       </div>
     </div>
@@ -277,10 +310,10 @@
           <p>Nothing here is invented. Each line is a number or an attribution I will not write until you give it to me.</p>
         </div>
         <ul class="pd-confirm">
-          <li><b>Story 2, which surface.</b> You described the split as cards at different sizes against a drifting stream. The live page captions those two screens as Explore concepts. Were they Explore, the mentor flow, or explored across both?</li>
-          <li><b>Story 2, the A/B test.</b> What it compared, what it measured, how long it ran, and roughly how many people saw each version.</li>
-          <li><b>Story 2, the sessions.</b> How many people, what you asked them to do, and the finding that decided it.</li>
-          <li><b>Story 2, the unused set.</b> Are <code>mentor-ai-input / typed / tags / matches</code> an earlier mentor design? If so I would rather show those as the first direction.</li>
+          <li><b>Story 2, the Explore A/B test.</b> What it measured, how long it ran, roughly how many people saw each version, and the result that decided it.</li>
+          <li><b>Story 2, the mentor sessions.</b> How many people, what you asked them to do, when, and the finding that changed the flow.</li>
+          <li><b>Story 2, the unused set.</b> I am now showing <code>mentor-ai-input</code> and <code>mentor-ai-matches</code> as the mentor path before the sessions. Confirm they are the earlier design and not something else.</li>
+          <li><b>Story 2, a line on the live page.</b> Section 4.2 currently says the shipped Explore version was tested one-on-one with six mentors. If Explore was settled by the A/B test, that sentence needs to change too, and the six-mentor detail may belong to the mentor flow instead.</li>
           <li><b>Story 1, the result.</b> One proposal that landed after you changed how you brought them, named plainly enough to say out loud in an interview.</li>
           <li><b>Story 3, the scale.</b> How many screens you audited, and across how many builds.</li>
           <li><b>Story 3, the result.</b> What the team stopped losing. Even a plain sentence works better than nothing.</li>
