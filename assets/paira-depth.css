@@ -361,3 +361,65 @@
   .pd-board-legend { grid-template-columns: 1fr; }
   .pd-board-sections { grid-template-columns: 1fr; }
 }
+
+/* ===========================================================================
+   Breathing pass. Her note: too much text, too little picture, crowded,
+   does not read. Scaffolding goes behind a switch, every signal drops to one
+   line, the shipped screen gets to be big, and the blocks get air.
+   =========================================================================== */
+
+/* Draft scaffolding is off by default, so the page reads as it would ship. */
+.pd-draftonly { display: none; }
+body.show-notes .pd-draftonly { display: block; }
+body.show-notes section.pd-draftonly { display: block; }
+.pd-notes-toggle {
+  border: 1px solid rgba(255,255,255,.4); background: transparent; color: #fff;
+  border-radius: 999px; padding: .22rem .75rem; cursor: pointer; margin-left: auto;
+  font-family: var(--paira-font-body, "Plus Jakarta Sans", sans-serif);
+  font-size: .7rem; font-weight: 600; white-space: nowrap;
+  transition: background .3s ease, color .3s ease;
+}
+.pd-notes-toggle:hover { background: #fff; color: var(--case-accent-deep); }
+
+/* Air between the blocks of one section. */
+.pd-method { margin-top: var(--sp-act); }
+.pd-method:first-of-type { margin-top: var(--sp-stage); }
+.pd-method > p { margin-top: .6rem; }
+
+/* Two tried, one shipped, and the shipped one is visibly the outcome. */
+.pd-ways { grid-template-columns: minmax(0,1fr) 1.9rem minmax(0,.66fr); margin-top: var(--sp-rest); }
+.pd-ways-shipped.is-single { grid-template-columns: minmax(0,1fr); }
+
+/* One line per signal: the claim, nothing propping it up. */
+.pd-signals { margin-top: var(--sp-stage); padding-top: 1.3rem; }
+.pd-signal h4 { margin-bottom: .45rem; }
+.pd-signal p { margin: 0; font-size: .9rem; line-height: 1.55; color: var(--ink-soft); }
+.pd-signal p b { color: var(--ink); font-weight: 600; }
+
+/* The call, as one sentence on a rule rather than a pair of panels. */
+.pd-callline {
+  margin-top: var(--sp-stage); padding-top: 1.1rem; border-top: 1px solid var(--case-line);
+  max-width: 76ch; font-size: .95rem; line-height: 1.6; color: var(--ink-soft);
+}
+.pd-callline b { color: var(--ink); font-weight: 600; }
+
+/* Still open, as a row of pills rather than a numbered list. */
+.pd-pills { display: flex; flex-wrap: wrap; align-items: center; gap: .45rem; margin-top: var(--sp-block); }
+.pd-pills > em {
+  font-style: normal; font-size: .66rem; font-weight: 600; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--case-accent-deep); margin-right: .3rem;
+}
+.pd-pills span {
+  border: 1px solid var(--case-line); border-radius: 999px; padding: .3rem .7rem;
+  font-size: .78rem; color: var(--ink-soft); background: rgba(255,255,255,.5);
+}
+
+.pd-credit { margin-top: var(--sp-block); }
+.pd-carry { margin-top: var(--sp-act); }
+.pd-evidence { margin-top: var(--sp-stage); }
+.pd-board { margin-top: var(--sp-rest); }
+
+@media (max-width: 760px) {
+  .pd-ways { grid-template-columns: 1fr; }
+  .pd-ways-shipped.is-single { grid-template-columns: minmax(0,.6fr); }
+}
