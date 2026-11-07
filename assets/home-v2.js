@@ -8,9 +8,17 @@ const IMG = '/assets/img/home-v2/';
 /* Orbit shape. These are ratios, not sizes: ring 3 sits as close to the edge
    as the figures allow, and the inner rings are fractions of it. The real
    radii are solved at run time from the field's own box. */
+/* How tall each pose stands, against a standing figure at 1. The dolls are
+   all the same doll, so a sitting one has to be shorter, not merely narrower. */
+const POSE_H = {
+  'me-base': 0.54,
+  'me-skills': 0.44,
+  'cat': 0.34,
+};
+
 const RING_RATIO = {
   rx: { 1: 0.38, 2: 0.70, 3: 1 },
-  ry: { 1: 0.60, 2: 0.84, 3: 1 },
+  ry: { 1: 0.68, 2: 0.86, 3: 1 },
 };
 
 const NODES = [
@@ -192,7 +200,7 @@ function apply(base, W, H) {
   // The ceiling follows the field's height rather than being a flat number,
   // or on a very large screen the centre and the featured work both hit it
   // and the hierarchy flattens out.
-  const ceiling = Math.max(190, H * 0.30);
+  const ceiling = Math.max(200, H * 0.42);
   const size = s => Math.max(floor, Math.min(ceiling, (s / 100) * base));
 
   // The outer band decides how close to the edge anything can sit. The extra
@@ -213,6 +221,7 @@ function apply(base, W, H) {
   NODES.forEach(n => {
     const el = n.el;
     el.style.setProperty('--px', size(n.s).toFixed(1) + 'px');
+    el.style.setProperty('--h', String(POSE_H[n.img] || 1));
     let y = 0;
     if (n.ring) {
       const t = n.a * Math.PI / 180;
@@ -259,7 +268,7 @@ function layout() {
   const box = field.getBoundingClientRect();
   const W = box.width, H = box.height;
   if (!W || !H) return;
-  let base = Math.min(W, H * 1.9);
+  let base = Math.min(W * 1.1, H * 2.2);
   for (let pass = 0; pass < 16; pass++) {
     apply(base, W, H);
     if (!collides(0.04)) break;
@@ -355,3 +364,14 @@ const relayout = () => { window.clearTimeout(resizeTimer); resizeTimer = window.
 window.addEventListener('resize', relayout);
 window.addEventListener('orientationchange', relayout);
 if ('ResizeObserver' in window) new ResizeObserver(relayout).observe(field);
+
+/* The first pass runs before the figures have arrived, so it measures boxes
+   that are not their real shape and settles on a smaller scale than the field
+   can take. Nothing changes size afterwards, so nothing would have corrected
+   it. These three run it again once the page is actually itself. */
+Promise.all(
+  [...field.querySelectorAll('img')].map(img =>
+    img.decode ? img.decode().catch(() => {}) : Promise.resolve())
+).then(layout);
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
+window.addEventListener('load', layout);

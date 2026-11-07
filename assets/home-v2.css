@@ -121,14 +121,15 @@
 .hv2-node-inner {
   position: relative;
   display: block;
-  width: var(--px, 90px);
+  width: auto;
   transform-origin: 50% 85%;
   animation: hv2-float var(--dur, 9s) var(--hv2-ease) var(--delay, 0s) infinite alternate;
   transition: scale .45s var(--hv2-ease), filter .45s var(--hv2-ease);
 }
 .hv2-node img {
-  display: block; width: 100%; height: auto;
-  aspect-ratio: 1; object-fit: contain; object-position: bottom center;
+  display: block; width: auto;
+  height: calc(var(--px, 90px) * var(--h, 1));
+  object-fit: contain; object-position: bottom center;
   filter: drop-shadow(0 8px 14px rgba(43, 36, 30, .14));
   transition: filter .45s var(--hv2-ease);
   -webkit-user-drag: none; user-select: none;
