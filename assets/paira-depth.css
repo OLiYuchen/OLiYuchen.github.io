@@ -281,3 +281,10 @@
 
 @media (max-width: 1024px) { .pd-signals { grid-template-columns: 1fr; } }
 @media (max-width: 760px) { .pd-called { grid-template-columns: 1fr; } }
+
+/* A credit line: team research, named plainly, no disclaimer tone. */
+.pd-credit {
+  margin-top: var(--sp-tight); max-width: 70ch;
+  font-size: .82rem; line-height: 1.55; color: var(--merlin-muted);
+}
+.pd-credit b { color: var(--ink-soft); font-weight: 600; }
