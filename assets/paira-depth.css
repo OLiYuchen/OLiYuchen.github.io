@@ -423,3 +423,29 @@ body.show-notes section.pd-draftonly { display: block; }
   .pd-ways { grid-template-columns: 1fr; }
   .pd-ways-shipped.is-single { grid-template-columns: minmax(0,.6fr); }
 }
+
+/* ===========================================================================
+   More air. Her note: 还要再空. This stylesheet is loaded by the draft page
+   only, so the scale here does not reach the live case study.
+   =========================================================================== */
+
+body.paira-case-page {
+  --sp-tight: clamp(1.4rem, 2.4vw, 2rem);
+  --sp-block: clamp(2.8rem, 4.6vw, 3.8rem);
+  --sp-stage: clamp(5.2rem, 8.6vw, 7.6rem);
+  --sp-rest:  clamp(3.2rem, 5.4vw, 4.6rem);
+  --sp-part:  clamp(5.6rem, 10vw, 8.6rem);
+  --sp-act:   clamp(9rem, 15vw, 15rem);
+  --sp-join:  clamp(3.8rem, 6.2vw, 5.4rem);
+}
+
+/* A lede should sit alone for a beat before anything answers it. */
+.pd-ledger { gap: clamp(2rem, 4vw, 3.6rem); margin-top: var(--sp-stage); }
+.pd-signals { gap: clamp(1.8rem, 3.6vw, 3.2rem); }
+.pd-anatomy { gap: clamp(1.2rem, 2.6vw, 2.2rem); margin-top: var(--sp-stage); }
+.pd-attach { gap: 1.25rem; }
+.pd-method > h3 { margin-bottom: .7rem; }
+.pd-ways { margin-top: var(--sp-stage); gap: 1.3rem clamp(.9rem, 1.8vw, 1.4rem); }
+.pd-evidence { gap: clamp(1.6rem, 3.2vw, 2.8rem); }
+.pd-board-sections { gap: .9rem; }
+.pd-board-canvas { padding: clamp(1.1rem, 2.4vw, 1.9rem); }
