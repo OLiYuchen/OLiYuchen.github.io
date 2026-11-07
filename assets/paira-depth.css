@@ -449,3 +449,38 @@ body.paira-case-page {
 .pd-evidence { gap: clamp(1.6rem, 3.2vw, 2.8rem); }
 .pd-board-sections { gap: .9rem; }
 .pd-board-canvas { padding: clamp(1.1rem, 2.4vw, 1.9rem); }
+
+/* ===========================================================================
+   THE SCREEN STANDARD
+   One device, one proportion, one rounding, at every size on every project.
+
+   Proportion: 393 x 852, the ratio 37 of the 39 Paira exports already use.
+   Anything off-ratio is cropped to it rather than squashed.
+
+   Rounding: expressed in cqw, so it scales with the screen's displayed width.
+   A fixed rem radius makes a small screen look rounder than a large one,
+   which is the inconsistency this is here to remove. 6.4cqw matches what the
+   large phones look like today, and now the small ones match them.
+
+   Size is still free: a feature worth a closer look can be shown larger and
+   it will still read as the same device.
+   =========================================================================== */
+
+.screen { container-type: inline-size; display: block; margin: 0; min-width: 0; }
+.screen > img,
+.screen > video {
+  display: block; width: 100%; height: auto;
+  aspect-ratio: 393 / 852;
+  object-fit: cover; object-position: center top;
+  border-radius: 6.4cqw;
+  background: var(--paira-ink, #131313);
+}
+
+/* The draft page's own phones adopt it. */
+.pd-way { container-type: inline-size; }
+.pd-way img {
+  aspect-ratio: 393 / 852;
+  object-fit: cover; object-position: center top;
+  border-radius: 6.4cqw;
+}
+.pd-ways-shipped .pd-way img { border-radius: 6.4cqw; }
