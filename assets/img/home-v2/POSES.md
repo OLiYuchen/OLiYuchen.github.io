@@ -1,7 +1,7 @@
 # Home v2 clay poses
 
 The constellation on `/home-v2.html` has 19 slots. Five are filled with real
-crops from your character sheet. Fourteen are stand-ins and need a pose made.
+crops from your character sheet. Twelve are stand-ins and need a pose made. Paira and EcoScan are done.
 
 Open the draft and press **Show the poses still to make**: every stand-in gets
 a dashed amber box, and its hover card prints the pose it is waiting for.
@@ -28,14 +28,12 @@ one field, so anything that drifts shows up immediately.
 7. **Keep the stand** if the pose is standing, drop it if she is sitting or
    lying, which is what your sheet already does.
 
-## The fourteen
+## The twelve
 
 ### Featured work
 
 | Slot | Pose |
 |---|---|
-| Paira | Holding a phone up, two small figures meeting on the screen. |
-| EcoScan | Holding a phone to a grocery item, a scan line across the screen. |
 | Merlin Bird ID | Binoculars raised, a small bird on her shoulder. |
 | Common Ground | Holding a fan of cards, a few laid out in front of her. |
 
@@ -61,9 +59,16 @@ one field, so anything that drifts shows up immediately.
 
 ## Already filled, from your sheet
 
-`me-hi` the front view, `me-skills` lying with the laptop, `me-base` sitting
-with the cat and a mug, `me-school` the graduation outfit, `cat` the companion.
-Four outfit variations are doing stand-in duty until the list above is made.
+`me-paira` and `me-ecoscan`, the two scenes with their phones. `me-hi` the
+front view, `me-skills` lying with the laptop, `me-base` sitting with the cat
+and a mug, `me-school` the graduation outfit, `cat` the companion. Four outfit
+variations are doing stand-in duty until the list above is made.
+
+The two scenes set a second convention worth keeping: a featured project is a
+scene, the figure plus the screens that show what the thing is. They are given
+more height than a lone figure so the phones stay readable, and they sit at the
+four corners of the featured ring. If Merlin and Common Ground follow the same
+pattern, send them at a similar width so they balance.
 
 ## Dropping a new pose in
 

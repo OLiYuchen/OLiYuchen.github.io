@@ -11,14 +11,16 @@ const IMG = '/assets/img/home-v2/';
 /* How tall each pose stands, against a standing figure at 1. The dolls are
    all the same doll, so a sitting one has to be shorter, not merely narrower. */
 const POSE_H = {
+  'me-paira': 1.15,
+  'me-ecoscan': 0.88,
   'me-base': 0.54,
   'me-skills': 0.44,
   'cat': 0.34,
 };
 
 const RING_RATIO = {
-  rx: { 1: 0.38, 2: 0.70, 3: 1 },
-  ry: { 1: 0.68, 2: 0.86, 3: 1 },
+  rx: { 1: 0.36, 2: 0.62, 3: 1 },
+  ry: { 1: 0.66, 2: 0.78, 3: 1 },
 };
 
 const NODES = [
@@ -51,15 +53,13 @@ const NODES = [
     tags:['Redmond, WA','Shanghai','Two cats'], href:'/about/' },
 
   /* ---- ring 2: the featured work ---------------------------------------- */
-  { id:'paira', ring:2, a:44, rj:1.0, s:11.2, img:'me-commute', label:'Paira',
-    todo:'Olivia holding a phone, two small figures meeting on the screen.',
+  { id:'paira', ring:2, a:44, rj:1.0, s:11.2, img:'me-paira', label:'Paira',
     kicker:'0 to 1 product', title:'Paira',
     text:'A request-first help network where AI writes the ask and finds the person.',
     tags:['0 to 1 product','AI flows','Brand and launch'],
     media:'/assets/img/paira/paira-home-overview.webp', href:'/paira/' },
 
-  { id:'ecoscan', ring:2, a:317, rj:1.02, s:10.6, img:'me-minimal', label:'EcoScan',
-    todo:'Olivia holding a phone up to a grocery item, a scan line on the screen.',
+  { id:'ecoscan', ring:2, a:317, rj:1.02, s:10.6, img:'me-ecoscan', label:'EcoScan',
     kicker:'Rapid prototype', title:'EcoScan',
     text:'Scan-based grocery UX translating food labels into personal priorities.',
     tags:['Team leadership','App flow','Rapid prototype'],
