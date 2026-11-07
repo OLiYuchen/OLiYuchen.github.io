@@ -240,3 +240,44 @@
 .pd-method > p { margin: 0; max-width: 64ch; font-size: .95rem; line-height: 1.6; color: var(--ink-soft); }
 .pd-method .pd-ways { margin-top: var(--sp-tight); }
 .pd-method .pd-evidence { grid-template-columns: repeat(2, minmax(0,1fr)); }
+
+/* ---------- Signals: what came back, grouped under three headings --------- */
+
+.pd-signals {
+  display: grid; grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: clamp(1.2rem, 2.6vw, 2.4rem);
+  margin-top: var(--sp-block); padding-top: 1.2rem; border-top: 1px solid var(--case-line);
+}
+.pd-signal-head { margin: 0 0 .25rem; font-size: .66rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--case-accent-deep); }
+.pd-signal h4 { margin: 0 0 .6rem; font-family: var(--font-display); font-weight: 600; font-size: clamp(1.1rem, 1.6vw, 1.38rem); line-height: 1.18; color: var(--ink); text-wrap: balance; }
+.pd-signal ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .5rem; }
+.pd-signal li { position: relative; padding-left: 1rem; font-size: .89rem; line-height: 1.5; color: var(--ink-soft); }
+.pd-signal li::before { content: ""; position: absolute; left: 0; top: .52rem; width: .38rem; height: .38rem; border-radius: 50%; background: var(--case-accent); }
+.pd-signal li b { color: var(--ink); font-weight: 600; }
+
+/* The call that followed, and the thing we kept for later. */
+.pd-called {
+  margin-top: var(--sp-block); display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr)); gap: clamp(1.2rem, 2.6vw, 2.4rem);
+}
+.pd-called > div { padding-top: 1rem; border-top: 1px solid var(--case-line); }
+.pd-called > div:last-child { border-top-color: rgba(63,60,199,.35); }
+.pd-called h4 { margin: 0 0 .45rem; font-size: .66rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--case-accent-deep); }
+.pd-called p { margin: 0; font-size: .93rem; line-height: 1.58; color: var(--ink-soft); }
+.pd-called strong { color: var(--ink); font-weight: 600; }
+
+/* Still open, written as the next question rather than as a gap. */
+.pd-next { margin-top: var(--sp-block); }
+.pd-next h4 { margin: 0 0 .6rem; font-size: .66rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--case-accent-deep); }
+.pd-next ol { list-style: none; margin: 0; padding: 0; display: grid; gap: .45rem; counter-reset: nx; max-width: 72ch; }
+.pd-next li { position: relative; padding-left: 1.7rem; font-size: .91rem; line-height: 1.52; color: var(--ink-soft); counter-increment: nx; }
+.pd-next li::before {
+  content: counter(nx); position: absolute; left: 0; top: .02rem;
+  width: 1.2rem; height: 1.2rem; border-radius: 50%; border: 1px solid var(--case-line);
+  display: grid; place-items: center;
+  font-family: var(--paira-font-body, "Plus Jakarta Sans", sans-serif);
+  font-size: .64rem; font-weight: 600; color: var(--case-accent-deep); font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 1024px) { .pd-signals { grid-template-columns: 1fr; } }
+@media (max-width: 760px) { .pd-called { grid-template-columns: 1fr; } }
