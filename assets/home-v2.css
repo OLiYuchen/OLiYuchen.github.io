@@ -1,0 +1,247 @@
+/* ===========================================================================
+   Home v2: a constellation of clay figures.
+
+   Three orbits around her. The inner one is who she is, the next is the
+   featured work, the outer one is everything made outside the screen.
+   Placement is polar, so a node only needs an angle, a radius and a scale.
+   Draft only: nothing here is loaded by the live homepage.
+   =========================================================================== */
+
+.hv2 {
+  --hv2-paper: #f7f4ef;
+  --hv2-ink: #2b241e;
+  --hv2-soft: #6d6258;
+  --hv2-line: rgba(43, 36, 30, 0.14);
+  --hv2-violet: #8b7fd4;
+  --hv2-violet-deep: #5f539e;
+  --hv2-violet-soft: rgba(139, 127, 212, 0.14);
+  --hv2-ease: cubic-bezier(.22, 1, .36, 1);
+
+  margin: 0;
+  min-height: 100vh;
+  background: var(--hv2-paper);
+  color: var(--hv2-ink);
+  font-family: "Instrument Sans", system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+/* A very soft warmth behind the whole field, so the centre reads as centre. */
+.hv2::before {
+  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background: radial-gradient(60% 55% at 50% 46%, rgba(139,127,212,.09), transparent 70%);
+}
+
+/* ---------- top bar ------------------------------------------------------- */
+
+.hv2-top {
+  position: relative; z-index: 3;
+  display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+  padding: 1.1rem clamp(1rem, 3.5vw, 2.6rem);
+}
+.hv2-brand {
+  display: flex; align-items: center; gap: .55rem;
+  font-family: "Cormorant Garamond", serif; font-size: 1.35rem; font-weight: 600;
+  color: var(--hv2-ink); text-decoration: none;
+}
+.hv2-brand img { width: 1.7rem; height: 1.7rem; }
+.hv2-nav { margin-left: auto; display: flex; align-items: center; gap: .55rem; }
+.hv2-pill {
+  display: flex; align-items: center; gap: .15rem;
+  border: 1px solid var(--hv2-line); border-radius: 999px; padding: .25rem;
+  background: rgba(255,255,255,.6);
+}
+.hv2-pill a {
+  padding: .35rem .85rem; border-radius: 999px; text-decoration: none;
+  color: var(--hv2-soft); font-size: .85rem; font-weight: 500;
+  transition: background .3s var(--hv2-ease), color .3s var(--hv2-ease);
+}
+.hv2-pill a:hover { background: var(--hv2-violet-soft); color: var(--hv2-violet-deep); }
+.hv2-round {
+  width: 2.3rem; height: 2.3rem; display: grid; place-items: center;
+  border: 1px solid var(--hv2-line); border-radius: 50%;
+  background: rgba(255,255,255,.6); color: var(--hv2-soft);
+  text-decoration: none; font-size: .82rem; font-weight: 600;
+  transition: transform .35s var(--hv2-ease), background .3s var(--hv2-ease), color .3s var(--hv2-ease);
+}
+.hv2-round:hover { transform: translateY(-2px); background: var(--hv2-violet-deep); color: #fff; border-color: transparent; }
+
+/* ---------- the field ----------------------------------------------------- */
+
+.hv2-sky {
+  position: relative; z-index: 1;
+  display: grid; place-items: center;
+  padding: clamp(.5rem, 2vw, 2rem) 1rem 2rem;
+}
+.hv2-field {
+  position: relative;
+  container-type: inline-size;
+  width: min(94vw, 78vh, 1080px);
+  aspect-ratio: 1;
+}
+
+/* The orbits themselves: invisible until something asks for them. */
+.hv2-ring {
+  position: absolute; left: 50%; top: 50%; translate: -50% -50%;
+  border: 1px dashed var(--hv2-violet); border-radius: 50%;
+  opacity: 0; transition: opacity .55s var(--hv2-ease);
+  pointer-events: none;
+}
+.hv2-ring-1 { width: 44%; height: 44%; }
+.hv2-ring-2 { width: 70%; height: 70%; }
+.hv2-ring-3 { width: 90%; height: 90%; }
+.hv2-field.lit-1 .hv2-ring-1,
+.hv2-field.lit-2 .hv2-ring-2,
+.hv2-field.lit-3 .hv2-ring-3 { opacity: .42; }
+
+/* The about-me disc, which the centre toggles. */
+.hv2-disc {
+  position: absolute; left: 50%; top: 50%; translate: -50% -50%;
+  width: 58%; height: 58%; border-radius: 50%;
+  background: radial-gradient(circle, rgba(139,127,212,.16), rgba(139,127,212,.05) 70%, transparent);
+  opacity: 0; scale: .9; pointer-events: none;
+  transition: opacity .6s var(--hv2-ease), scale .6s var(--hv2-ease);
+}
+.hv2-disc span {
+  position: absolute; left: 50%; top: 8%; translate: -50% 0;
+  font-size: .68rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--hv2-violet-deep); white-space: nowrap;
+}
+.hv2-field.is-about .hv2-disc { opacity: 1; scale: 1; }
+
+/* ---------- a node -------------------------------------------------------- */
+
+.hv2-node {
+  position: absolute; left: 50%; top: 50%;
+  margin: 0; padding: 0; border: 0; background: none; cursor: pointer;
+  transform:
+    translate(-50%, -50%)
+    rotate(var(--a))
+    translateY(calc(var(--r) * -1cqw))
+    rotate(calc(var(--a) * -1));
+}
+.hv2-node-inner {
+  position: relative;
+  display: grid; justify-items: center; gap: .3rem;
+  width: calc(var(--s) * 1cqw);
+  transform-origin: 50% 85%;
+  animation: hv2-float var(--dur, 9s) var(--hv2-ease) var(--delay, 0s) infinite alternate;
+  transition: scale .45s var(--hv2-ease), filter .45s var(--hv2-ease);
+}
+.hv2-node img {
+  display: block; width: 100%; height: auto;
+  aspect-ratio: 1; object-fit: contain; object-position: bottom center;
+  filter: drop-shadow(0 8px 14px rgba(43, 36, 30, .14));
+  transition: filter .45s var(--hv2-ease);
+  -webkit-user-drag: none; user-select: none;
+}
+.hv2-node-label {
+  font-size: clamp(.58rem, calc(var(--s) * .11cqw), .8rem);
+  font-weight: 600; letter-spacing: .02em; color: var(--hv2-soft);
+  opacity: 0; translate: 0 -3px;
+  transition: opacity .4s var(--hv2-ease), translate .4s var(--hv2-ease);
+  white-space: nowrap;
+}
+.hv2-node:hover .hv2-node-inner,
+.hv2-node:focus-visible .hv2-node-inner { scale: 1.13; }
+.hv2-node:hover img,
+.hv2-node:focus-visible img { filter: drop-shadow(0 14px 22px rgba(95, 83, 158, .3)); }
+.hv2-node:hover .hv2-node-label,
+.hv2-node:focus-visible .hv2-node-label { opacity: 1; translate: 0 0; }
+.hv2-node:focus-visible { outline: none; }
+.hv2-node:focus-visible .hv2-node-inner::after {
+  content: ""; position: absolute; inset: -12%;
+  border: 2px solid var(--hv2-violet-deep); border-radius: 1rem;
+}
+
+/* The centre sits still, larger, and never floats away from the middle. */
+.hv2-node-centre { --a: 0deg; --r: 0; }
+.hv2-node-centre .hv2-node-inner { animation-duration: 13s; }
+.hv2-node-centre .hv2-node-label {
+  opacity: 1; translate: 0 0;
+  font-family: "Cormorant Garamond", serif; font-size: 1.05rem; color: var(--hv2-ink);
+}
+
+/* Everything dims a little while one node is being read. */
+.hv2-field.is-reading .hv2-node { opacity: .38; transition: opacity .45s var(--hv2-ease); }
+.hv2-field.is-reading .hv2-node.is-active { opacity: 1; }
+
+/* A node whose clay pose is still a stand-in. */
+.hv2-field.show-todo .hv2-node[data-todo] .hv2-node-inner {
+  outline: 1px dashed #c89a3c; outline-offset: 6px; border-radius: .8rem;
+}
+
+@keyframes hv2-float {
+  from { translate: 0 0; rotate: -1.1deg; }
+  to   { translate: 0 -10px; rotate: 1.1deg; }
+}
+
+/* ---------- the hover card ------------------------------------------------ */
+
+.hv2-card {
+  position: fixed; z-index: 6; width: min(22rem, 78vw);
+  background: #fff; border: 1px solid var(--hv2-line); border-radius: 1.1rem;
+  box-shadow: 0 24px 60px rgba(43, 36, 30, .18);
+  overflow: hidden; pointer-events: none;
+  opacity: 0; translate: 0 8px; scale: .98;
+  transition: opacity .3s var(--hv2-ease), translate .3s var(--hv2-ease), scale .3s var(--hv2-ease);
+}
+.hv2-card.is-open { opacity: 1; translate: 0 0; scale: 1; }
+.hv2-card-media { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: #efeae2; }
+.hv2-card-body { padding: .95rem 1.1rem 1.1rem; }
+.hv2-card-kicker {
+  margin: 0 0 .25rem; font-size: .62rem; font-weight: 600; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--hv2-violet-deep);
+}
+.hv2-card-title {
+  margin: 0 0 .4rem; font-family: "Cormorant Garamond", serif;
+  font-size: 1.5rem; font-weight: 600; line-height: 1.1;
+}
+.hv2-card-text { margin: 0; font-size: .92rem; line-height: 1.55; color: var(--hv2-soft); }
+.hv2-card-tags { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .75rem; }
+.hv2-card-tags span {
+  border: 1px solid var(--hv2-line); border-radius: 999px; padding: .22rem .6rem;
+  font-size: .72rem; color: var(--hv2-soft); background: rgba(139,127,212,.06);
+}
+.hv2-card-todo {
+  margin: .7rem 0 0; padding-top: .6rem; border-top: 1px dashed #e0bd7c;
+  font-size: .76rem; line-height: 1.45; color: #7a4a00;
+}
+
+/* ---------- footer and the draft bar -------------------------------------- */
+
+.hv2-foot {
+  position: relative; z-index: 2;
+  display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+  padding: 1rem clamp(1rem, 3.5vw, 2.6rem) 1.6rem;
+  border-top: 1px solid var(--hv2-line);
+  font-size: .78rem; color: var(--hv2-soft);
+}
+.hv2-draftbar {
+  position: sticky; top: 0; z-index: 9;
+  display: flex; align-items: center; gap: .9rem; flex-wrap: wrap;
+  padding: .5rem clamp(1rem, 3.5vw, 2.6rem);
+  background: var(--hv2-violet-deep); color: #fff; font-size: .78rem;
+}
+.hv2-draftbar b { font-size: .64rem; letter-spacing: .12em; text-transform: uppercase; }
+.hv2-draftbar button {
+  margin-left: auto; border: 1px solid rgba(255,255,255,.45); background: transparent;
+  color: #fff; border-radius: 999px; padding: .2rem .7rem; cursor: pointer;
+  font: inherit; font-size: .72rem; font-weight: 600;
+}
+.hv2-draftbar button:hover { background: #fff; color: var(--hv2-violet-deep); }
+
+/* ---------- narrower screens ---------------------------------------------- */
+
+@media (max-width: 860px) {
+  .hv2-field { width: min(96vw, 70vh, 1080px); }
+}
+@media (max-width: 560px) {
+  .hv2-field { width: 96vw; }
+  .hv2-card { width: min(20rem, 88vw); }
+  .hv2-node-label { font-size: .56rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hv2-node-inner { animation: none; }
+  .hv2-card, .hv2-ring, .hv2-disc, .hv2-node-inner { transition: none; }
+}
