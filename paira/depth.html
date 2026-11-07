@@ -314,64 +314,67 @@
       <div class="merlin-report-content">
         <div class="merlin-report-lede">
           <h2>Everyone shipped with AI, so I built the place where we check what is true.</h2>
-          <p>Design, front-end, and back-end were all producing with AI, and the speed was real. It also meant a screen could be current in Figma, a version behind in the build, and different again in the back end, with each person right about their own copy. I took the question on, because the surfaces it hurt were mine.</p>
+          <p>Design, front-end, and back-end were all producing with AI, and the speed was real. It also meant a screen could be current in Figma, a version behind in the build, and different again in the back end, with each person right about their own copy. Nobody was doing anything wrong. There was just no place that said which version was the live one. So I made one, inside the file everybody already had open.</p>
         </div>
-        <p class="pd-note"><span class="pd-tag pd-tag-new">New</span> The diagram is the mechanism, not decoration: three lanes producing in parallel, drifting apart, then pulled back onto three checks. It runs once when it comes into view, and the button replays it.</p>
+        <p class="pd-note"><span class="pd-tag pd-tag-new">New</span> This is your own file, rebuilt in the page's styling rather than pasted in as a screenshot, so it stays readable at any width and carries no faces or real names. The toggle shows the same file without the system. <span class="pd-tag pd-tag-ask">Confirm</span> which module sits in which state, whether anything is in state 2 right now, and whether the date on a module means what I think it means.</p>
 
-        <div class="pd-lanes" data-pd-lanes>
-          <svg viewBox="0 0 920 300" role="img" aria-label="Three production lanes drifting apart, then aligned by three checks: version control in Figma, a screen audit, and one update rule per role">
-            <text class="pd-check-text" x="560" y="16" text-anchor="middle">Version control in Figma</text>
-            <text class="pd-check-text" x="700" y="16" text-anchor="middle">Screen audit</text>
-            <text class="pd-check-text" x="840" y="16" text-anchor="middle">Update rules</text>
-            <line class="pd-check-line" x1="560" y1="28" x2="560" y2="268" />
-            <line class="pd-check-line" x1="700" y1="28" x2="700" y2="268" />
-            <line class="pd-check-line" x1="840" y1="28" x2="840" y2="268" />
-
-            <text class="pd-lane-label" x="0" y="84">Design</text>
-            <line class="pd-lane-line" x1="150" y1="80" x2="900" y2="80" />
-            <circle class="pd-lane-node" cx="200" cy="80" r="6" style="--i:0" />
-            <circle class="pd-lane-node" cx="300" cy="80" r="6" style="--i:1" />
-            <circle class="pd-lane-node" cx="400" cy="80" r="6" style="--i:2" />
-            <circle class="pd-lane-node" cx="560" cy="80" r="6" style="--i:3;--dx:-26px" />
-            <circle class="pd-lane-node" cx="700" cy="80" r="6" style="--i:4;--dx:30px" />
-            <circle class="pd-lane-node" cx="840" cy="80" r="6" style="--i:5;--dx:-18px" />
-
-            <text class="pd-lane-label" x="0" y="164">Front-end</text>
-            <line class="pd-lane-line" x1="150" y1="160" x2="900" y2="160" />
-            <circle class="pd-lane-node" cx="200" cy="160" r="6" style="--i:0" />
-            <circle class="pd-lane-node" cx="300" cy="160" r="6" style="--i:1" />
-            <circle class="pd-lane-node" cx="400" cy="160" r="6" style="--i:2" />
-            <circle class="pd-lane-node" cx="560" cy="160" r="6" style="--i:3;--dx:34px" />
-            <circle class="pd-lane-node" cx="700" cy="160" r="6" style="--i:4;--dx:-28px" />
-            <circle class="pd-lane-node" cx="840" cy="160" r="6" style="--i:5;--dx:26px" />
-
-            <text class="pd-lane-label" x="0" y="244">Back-end</text>
-            <line class="pd-lane-line" x1="150" y1="240" x2="900" y2="240" />
-            <circle class="pd-lane-node" cx="200" cy="240" r="6" style="--i:0" />
-            <circle class="pd-lane-node" cx="300" cy="240" r="6" style="--i:1" />
-            <circle class="pd-lane-node" cx="400" cy="240" r="6" style="--i:2" />
-            <circle class="pd-lane-node" cx="560" cy="240" r="6" style="--i:3;--dx:-38px" />
-            <circle class="pd-lane-node" cx="700" cy="240" r="6" style="--i:4;--dx:22px" />
-            <circle class="pd-lane-node" cx="840" cy="240" r="6" style="--i:5;--dx:40px" />
-          </svg>
-          <div class="pd-lanes-foot">
-            <p>Each dot is a change shipped by one role. The three checks are what I set up.</p>
-            <button type="button" class="pd-replay" data-pd-replay>Replay</button>
+        <div class="pd-board" data-pd-board>
+          <div class="pd-board-bar">
+            <span class="pd-board-title">The Paira design file</span>
+            <div class="pd-board-toggle">
+              <button type="button" data-pd-before>Before</button>
+              <button type="button" data-pd-after class="is-on">With the status system</button>
+            </div>
+          </div>
+          <div class="pd-board-canvas">
+            <div class="pd-board-legend">
+              <span class="pd-state pd-state-1"><b>State 1</b>Design is ready. Not built yet.</span>
+              <span class="pd-state pd-state-2"><b>State 2</b>Built and live. Design review still open.</span>
+              <span class="pd-state pd-state-3"><b>State 3</b>Built and reviewed. This is the current screen.</span>
+            </div>
+            <div class="pd-board-sections">
+              <div class="pd-board-group">
+                <p>Onboarding</p>
+                <div class="pd-tiles">
+                  <div class="pd-tile pd-tile-3">Sign up and sign in</div>
+                  <div class="pd-tile pd-tile-3">App intro</div>
+                </div>
+              </div>
+              <div class="pd-board-group">
+                <p>Home and request hub</p>
+                <div class="pd-tiles">
+                  <div class="pd-tile pd-tile-1">My requests</div>
+                  <div class="pd-tile pd-tile-1">Request status</div>
+                  <div class="pd-tile pd-tile-3">New request module</div>
+                  <div class="pd-tile pd-tile-3">Saved people<span>6 / 23 / 26</span></div>
+                </div>
+              </div>
+              <div class="pd-board-group">
+                <p>AI flow</p>
+                <div class="pd-tiles">
+                  <div class="pd-tile pd-tile-3">AI home</div>
+                  <div class="pd-tile pd-tile-1">AI seeker flow</div>
+                  <div class="pd-tile pd-tile-3">AI helper flow</div>
+                </div>
+              </div>
+            </div>
+            <p class="pd-board-caption pd-board-caption-after">Three states, one colour each, applied to every module in the file. Anyone can open it and see in a second what is waiting on development, what is live but still owed a review, and what is settled.</p>
+            <p class="pd-board-caption pd-board-caption-before">The same file without the system. Every module looks equally current, so the only way to know what is live is to ask the person who built it.</p>
           </div>
         </div>
 
         <div class="pd-evidence">
           <div>
-            <h4>Version control in Figma</h4>
-            <p>Every screen has one current state and a history, so there is no question which file is the live one.</p>
+            <h4>Three states, one colour each</h4>
+            <p>Every module in the file carries one state, and the colour sits on the module itself. The state is readable across the whole product without opening a single frame.</p>
           </div>
           <div>
-            <h4>A full screen audit</h4>
-            <p>I went through every live screen against design, front-end, and back-end, and wrote down where they differed. <span class="pd-slot">how many screens</span></p>
+            <h4>The live screens say so</h4>
+            <p>State 2 marks what is built and running, which is what made the audit possible: I went through the live screens against design, front-end, and back-end and recorded where they differed. <span class="pd-slot">how many screens</span></p>
           </div>
           <div>
             <h4>One rule per role</h4>
-            <p>A short agreement on how an update travels, so a change reaches the build and the back end the same way every time.</p>
+            <p>Sections follow the product's own areas and a settled module carries its date, so the latest screen is something you can point at rather than ask about. A short agreement per role keeps it that way.</p>
           </div>
         </div>
 
@@ -402,6 +405,7 @@
           <li><b>Story 2, the unused set.</b> I am now showing <code>mentor-ai-input</code> and <code>mentor-ai-matches</code> as the mentor path before the sessions. Confirm they are the earlier design and not something else.</li>
           <li><b>Story 2, a line on the live page.</b> Section 4.2 currently says the shipped Explore version was tested one-on-one with six mentors. If Explore was settled by the A/B test, that sentence needs to change too, and the six-mentor detail may belong to the mentor flow instead.</li>
           <li><b>Story 1, the result.</b> One proposal that landed after you changed how you brought them, named plainly enough to say out loud in an interview.</li>
+          <li><b>Story 3, the board.</b> Which module sits in which state, whether anything is in state 2 at the moment, and whether a date like 6 / 23 / 26 on a module means the day it was settled.</li>
           <li><b>Story 3, the scale.</b> How many screens you audited, and across how many builds.</li>
           <li><b>Story 3, the result.</b> What the team stopped losing. Even a plain sentence works better than nothing.</li>
           <li><b>All three, when.</b> Roughly which month each one happened, so the new act can sit in the timeline.</li>
@@ -434,14 +438,17 @@
   }
 
   once('[data-pd-anatomy]', 'is-shown');
-  once('[data-pd-lanes]', 'is-aligned');
 
-  document.querySelectorAll('[data-pd-replay]').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var box = btn.closest('[data-pd-lanes]');
-      box.classList.remove('is-aligned');
-      window.setTimeout(function () { box.classList.add('is-aligned'); }, 450);
-    });
+  document.querySelectorAll('[data-pd-board]').forEach(function (board) {
+    var before = board.querySelector('[data-pd-before]');
+    var after = board.querySelector('[data-pd-after]');
+    function show(isBefore) {
+      board.classList.toggle('is-before', isBefore);
+      before.classList.toggle('is-on', isBefore);
+      after.classList.toggle('is-on', !isBefore);
+    }
+    before.addEventListener('click', function () { show(true); });
+    after.addEventListener('click', function () { show(false); });
   });
 </script>
 </body>
