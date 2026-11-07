@@ -472,7 +472,7 @@ body.paira-case-page {
   display: block; width: 100%; height: auto;
   aspect-ratio: 393 / 852;
   object-fit: cover; object-position: center top;
-  border-radius: 6.4cqw;
+  border-radius: var(--screen-radius);
   background: var(--paira-ink, #131313);
 }
 
@@ -481,6 +481,6 @@ body.paira-case-page {
 .pd-way img {
   aspect-ratio: 393 / 852;
   object-fit: cover; object-position: center top;
-  border-radius: 6.4cqw;
+  border-radius: var(--screen-radius);
 }
-.pd-ways-shipped .pd-way img { border-radius: 6.4cqw; }
+.pd-ways-shipped .pd-way img { border-radius: var(--screen-radius); }

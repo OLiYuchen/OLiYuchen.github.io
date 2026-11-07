@@ -12996,3 +12996,45 @@ article#physical-computing .exploration-detail-copy p:not(.project-meta) {
   .current-work .project-card { grid-template-columns: 1fr; }
   .current-work .project-card .project-card-media { aspect-ratio: 4 / 3; }
 }
+
+/* ===========================================================================
+   SCREEN AND FIGURE STANDARDS                            site-wide, one place
+
+   Every app screen on this site is one device: the same proportion and the
+   same rounding, at any displayed size. Size stays free, so a feature worth
+   a closer look is shown larger and still reads as the same phone.
+
+   The radius is in cqw, a share of the screen's own displayed width, because
+   a fixed radius makes a small screen look rounder than a large one. 11.5cqw
+   is the value the interactive phone frame already uses, so every flat
+   screenshot now matches it.
+
+   Figures that are not device screens (documents, photographs, diagrams,
+   board shots) share one fixed radius instead. They are cards, not devices.
+   =========================================================================== */
+
+:root {
+  --screen-ratio: 393 / 852;
+  --screen-radius: 11.5cqw;
+  --figure-radius: 1.35rem;
+}
+
+.screen { container-type: inline-size; display: block; margin: 0; min-width: 0; }
+.screen > img,
+.screen > video {
+  display: block; width: 100%; height: auto;
+  aspect-ratio: var(--screen-ratio);
+  object-fit: cover; object-position: center top;
+  border-radius: var(--screen-radius);
+  background: #131313;
+}
+
+/* One radius for every figure that is not a device screen. */
+.merlin-artifact-figure,
+.merlin-report-image,
+.merlin-embedded-figure img,
+.merlin-artifact-figure img,
+.ecoscan-artifact-card,
+.ecoscan-phone-card,
+.case-cover-image,
+.game-figure img { border-radius: var(--figure-radius); }

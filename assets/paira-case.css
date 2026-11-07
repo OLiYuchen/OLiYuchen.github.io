@@ -564,6 +564,7 @@
 .paira-phone {
   margin: 0;
   min-width: 0;
+  container-type: inline-size;
 }
 
 .paira-phone img,
@@ -571,7 +572,10 @@
   display: block;
   width: 100%;
   height: auto;
-  border-radius: clamp(0.7rem, 2vw, 1.2rem);
+  aspect-ratio: var(--screen-ratio);
+  object-fit: cover;
+  object-position: center top;
+  border-radius: var(--screen-radius);
   box-shadow: 0 18px 44px rgba(19, 19, 19, 0.16);
   background: var(--paira-ink);
 }
@@ -613,6 +617,7 @@
 .paira-screen-strip figure {
   flex: 1 1 0;
   min-width: 5rem;
+  container-type: inline-size;
   margin: 0;
   scroll-snap-align: start;
 }
@@ -621,7 +626,10 @@
   display: block;
   width: 100%;
   height: auto;
-  border-radius: 0.7rem;
+  aspect-ratio: var(--screen-ratio);
+  object-fit: cover;
+  object-position: center top;
+  border-radius: var(--screen-radius);
   box-shadow: 0 12px 30px rgba(19, 19, 19, 0.14);
   background: var(--paira-ink);
 }
@@ -2095,8 +2103,8 @@
 
 /* onboarding: all frames visible, wrapping into rows; the key frame is emphasised */
 .paira-screen-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.8rem 0.7rem; align-items: end; }
-.paira-screen-grid figure { margin: 0; min-width: 0; }
-.paira-screen-grid img { display: block; width: 100%; height: auto; border-radius: 0.7rem; box-shadow: 0 12px 30px rgba(19, 19, 19, 0.14); background: var(--paira-ink); }
+.paira-screen-grid figure { margin: 0; min-width: 0; container-type: inline-size; }
+.paira-screen-grid img { display: block; width: 100%; height: auto; aspect-ratio: var(--screen-ratio); object-fit: cover; object-position: center top; border-radius: var(--screen-radius); box-shadow: 0 12px 30px rgba(19, 19, 19, 0.14); background: var(--paira-ink); }
 .paira-screen-grid figcaption { margin-top: 0.5rem; color: var(--merlin-muted); font-size: 0.78rem; text-wrap: pretty; }
 .paira-screen-grid figure.is-key img { box-shadow: 0 0 0 3px var(--paira-violet), 0 16px 36px rgba(19, 19, 19, 0.2); }
 .paira-screen-grid figure.is-key figcaption { color: var(--ink); font-weight: 600; }
@@ -2104,8 +2112,8 @@
 .paira-case-page .paira-ds-board { margin-bottom: var(--sp-block); }
 
 /* a long screen shown at phone height: scrolls inside its own frame so the section stays short */
-.paira-phone-scroll-area { aspect-ratio: 786 / 1704; overflow-y: auto; overscroll-behavior: contain; border-radius: clamp(0.7rem, 2vw, 1.2rem); box-shadow: 0 18px 44px rgba(19, 19, 19, 0.16); background: var(--paira-ink); scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.35) transparent; }
-.paira-phone-scroll-area img { border-radius: 0; box-shadow: none; }
+.paira-phone-scroll-area { aspect-ratio: var(--screen-ratio); container-type: inline-size; overflow-y: auto; overscroll-behavior: contain; border-radius: var(--screen-radius); box-shadow: 0 18px 44px rgba(19, 19, 19, 0.16); background: var(--paira-ink); scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.35) transparent; }
+.paira-phone-scroll-area img { aspect-ratio: auto; object-fit: fill; border-radius: 0; box-shadow: none; }
 .paira-phone-scroll-area:focus-visible { outline: 2px solid var(--case-accent); outline-offset: 3px; }
 .paira-phone figcaption small { display: inline; margin-left: 0.4rem; color: var(--merlin-muted); font-size: 0.72rem; letter-spacing: 0; text-transform: none; }
 
@@ -2165,10 +2173,10 @@
   .paira-ways-phones { display: grid; gap: .7rem; align-items: end; }
   .paira-ways-tried { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-column: 1; grid-row: 1; }
   .paira-ways-shipped { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-column: 3; grid-row: 1; }
-  .paira-way { margin: 0; min-width: 0; }
-  .paira-way img { display: block; width: 100%; height: auto; border-radius: .7rem; box-shadow: 0 10px 26px rgba(19,19,19,.12); background: var(--paira-ink); opacity: .8; filter: saturate(.85); }
+  .paira-way { margin: 0; min-width: 0; container-type: inline-size; }
+  .paira-way img { display: block; width: 100%; height: auto; aspect-ratio: var(--screen-ratio); object-fit: cover; object-position: center top; border-radius: var(--screen-radius); box-shadow: 0 10px 26px rgba(19,19,19,.12); background: var(--paira-ink); opacity: .8; filter: saturate(.85); }
   .paira-way figcaption { margin-top: .45rem; font-size: .76rem; text-align: center; color: var(--merlin-muted); }
-  .paira-ways-shipped .paira-phone img, .paira-ways-shipped .paira-phone video { border-radius: .7rem; box-shadow: 0 0 0 2px rgba(96,92,255,.55), 0 10px 26px rgba(19,19,19,.14); }
+  .paira-ways-shipped .paira-phone img, .paira-ways-shipped .paira-phone video { border-radius: var(--screen-radius); box-shadow: 0 0 0 2px rgba(96,92,255,.55), 0 10px 26px rgba(19,19,19,.14); }
   .paira-ways-shipped .paira-phone figcaption { margin-top: .45rem; font-size: .76rem; text-align: center; }
   .paira-way-arrow { align-self: center; grid-row: 1; grid-column: 2; color: var(--case-accent-deep); font-size: 1.3rem; text-align: center; }
   .paira-way-note { grid-row: 2; margin: 0; font-size: .92rem; line-height: 1.5; color: var(--ink-soft); align-self: start; }
