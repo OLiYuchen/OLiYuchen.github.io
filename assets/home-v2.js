@@ -78,18 +78,6 @@ const NODES = [
     text:'Traditional Chinese calligraphy has stayed with me for more than a decade. Along the way I taught myself English calligraphy in Engrosser’s Script.',
     tags:['Chinese','Engrosser’s Script'], href:'/about/', media:'/assets/img/home/header-calligraphy.webp' },
 
-  { id:'market', ring:3, a:56, rj:0.96, s:4.36, img:'me-event', label:'Markets',
-    todo:'Olivia behind a small market table with pieces laid out on it.',
-    kicker:'Making becomes gathering', title:'Art is how I share culture.',
-    text:'I make and sell small pieces at markets and share the traditions behind them. With friends I co-founded Ikigai to work with cafes and run hands-on craft events.',
-    tags:['Ikigai','Craft events'], href:'/about/' },
-
-  { id:'magazine', ring:3, a:92, rj:1.03, s:4.5, img:'me-casual', label:'Magazine',
-    todo:'Olivia holding an open magazine, posters stacked beside her.',
-    kicker:'WEGET Magazine', title:'Vice president, design.',
-    text:'Leading design coordination, weekly reviews and creative production across posters, editorial assets and event merchandise.',
-    tags:['Editorial','Posters','Merch'], href:'/about/' },
-
   { id:'physical', ring:3, a:128, rj:0.98, s:4.4, img:'me-commute', label:'Physical computing',
     todo:'Olivia at a bench with a breadboard and a few wires.',
     kicker:'Explorations', title:'Sensor and touch logic.',
@@ -111,12 +99,6 @@ const NODES = [
     kicker:'Curious by default', title:'Tennis and badminton.',
     text:'Two more that are better with people than alone.',
     tags:['Tennis','Badminton'], href:'/about/' },
-
-  { id:'boardgames', ring:3, a:272, rj:0.99, s:4.5, img:'me-event', label:'Board games',
-    todo:'Olivia at a table with a board and pieces, two friends across from her.',
-    kicker:'Curious by default', title:'Board game nights.',
-    text:'The hobby that turned into a capstone. Common Ground started here.',
-    tags:['Board games'], href:'/about/' },
 
   { id:'cats', ring:3, a:308, rj:1.03, s:4.4, img:'me-cats', label:'Two cats',
     kicker:'Companion', title:'Usually made with two cats nearby.',
@@ -160,12 +142,14 @@ function lattice(W, H, n) {
   return { pts: pts, cw: cw, ch: ch };
 }
 
-/* Take k points from the pool, nearest the middle first, but placed around it
-   rather than bunched to one side. */
-function pick(pool, k, cx, cy) {
+/* Take k points from the pool, placed around the middle rather than bunched to
+   one side. The near ranks take the middle; the outer band takes the far
+   points, which fills the edges of the field instead of leaving the spare
+   lattice points stranded in the corners. */
+function pick(pool, k, cx, cy, far) {
   const ang = p => Math.atan2(p.y - cy, p.x - cx);
-  const near = pool.slice().sort((a, b) =>
-    Math.hypot(a.x - cx, a.y - cy) - Math.hypot(b.x - cx, b.y - cy))
+  const d = p => Math.hypot(p.x - cx, p.y - cy);
+  const near = pool.slice().sort((a, b) => far ? d(b) - d(a) : d(a) - d(b))
     .slice(0, Math.min(pool.length, Math.max(k, k * 3)));
   const taken = [];
   while (taken.length < k && near.length) {
@@ -235,7 +219,7 @@ function apply(base, W, H) {
   // each other, so the four featured scenes hold the four quarters.
   [0, 1, 2, 3].forEach(r => {
     const group = NODES.filter(n => n.ring === r);
-    pick(pool, group.length, cx, cy).forEach((pt, i) => { group[i].pt = pt; });
+    pick(pool, group.length, cx, cy, r === 3).forEach((pt, i) => { group[i].pt = pt; });
   });
 
   NODES.forEach((n, i) => {
