@@ -8,20 +8,16 @@ const IMG = '/assets/img/home-v2/';
 /* Orbit shape. These are ratios, not sizes: ring 3 sits as close to the edge
    as the figures allow, and the inner rings are fractions of it. The real
    radii are solved at run time from the field's own box. */
-/* How tall each pose stands, against a standing figure at 1. The dolls are
-   all the same doll, so a sitting one has to be shorter, not merely narrower. */
-const POSE_H = {
-  'me-portrait': 0.92,
-  'me-merlin': 1.16,
-  'me-game': 0.74,
-  'me-tennis': 0.95,
-  'me-climb': 1.02,
-  'me-cats': 0.64,
-  'me-paira': 1.15,
-  'me-ecoscan': 0.88,
-  'me-base': 0.54,
-  'me-skills': 0.44,
-  'cat': 0.34,
+/* Figures of one rank take the same area, so a wide scene and a standing
+   doll carry the same visual weight. A pose only needs an entry here to take
+   more or less room than its rank, and 1 is the rank's own share. */
+const POSE_AREA = {
+  'me-portrait': 1.0,
+  'me-paira': 1.0,
+  'me-ecoscan': 1.0,
+  'me-merlin': 1.0,
+  'me-game': 1.0,
+  'me-cats': 0.9,
 };
 
 /* How much wider than tall an orbit may get. Filling the width of a short
@@ -44,17 +40,17 @@ const NODES = [
     tags:['0 to 1 product','UX research','Brand and motion'] },
 
   /* ---- ring 1: who she is ----------------------------------------------- */
-  { id:'work', ring:1, a:2, rj:1.0, s:6.7, img:'me-work', label:'Work',
+  { id:'work', ring:1, a:2, rj:1.0, s:6.5, img:'me-work', label:'Work',
     kicker:'Where I have worked', title:'Five places, one habit.',
     text:'Product designer at Paira through its App Store launch. Strategy and PMO intern at Fosun International in Shanghai. Research assistant at UW HCDE. Vice president at WEGET Magazine. UX researcher and designer at the Cornell Lab of Ornithology.',
     tags:['Paira','Fosun','UW HCDE','Cornell Lab','WEGET'], href:'/about/' },
 
-  { id:'skills', ring:1, a:92, rj:1.03, s:6.2, img:'me-skills', label:'Skills',
+  { id:'skills', ring:1, a:92, rj:1.03, s:6.36, img:'me-skills', label:'Skills',
     kicker:'What I bring', title:'Research rigor, visual sensitivity, calm systems.',
     text:'Product strategy and UX research through to interaction design, design systems and AI experience design. Plus the making side: prototyping, design engineering, CAD and physical computing.',
     tags:['Product strategy','UX research','AI experience design','Design engineering'], href:'/about/' },
 
-  { id:'school', ring:1, a:180, rj:0.98, s:6.5, img:'me-school', label:'School',
+  { id:'school', ring:1, a:180, rj:0.98, s:6.46, img:'me-school', label:'School',
     kicker:'University of Washington', title:'Design, engineering, and a little neuroscience.',
     text:'B.S. in Human-Centered Design and Engineering with a minor in Neural Computation and Engineering, 2026. Now an M.S. in Technology Innovation at UW GIX with a CS and HCI focus, expected 2028.',
     tags:['UW HCDE','Neural Computation','UW GIX'], href:'/about/' },
@@ -65,83 +61,83 @@ const NODES = [
     tags:['Redmond, WA','Shanghai','Two cats'], href:'/about/' },
 
   /* ---- ring 2: the featured work ---------------------------------------- */
-  { id:'paira', ring:2, a:44, rj:1.0, s:11.2, img:'me-paira', label:'Paira',
+  { id:'paira', ring:2, a:44, rj:1.0, s:11.0, img:'me-paira', label:'Paira',
     kicker:'0 to 1 product', title:'Paira',
     text:'A request-first help network where AI writes the ask and finds the person.',
     tags:['0 to 1 product','AI flows','Brand and launch'],
     media:'/assets/img/paira/paira-home-overview.webp', href:'/paira/' },
 
-  { id:'ecoscan', ring:2, a:317, rj:1.02, s:10.6, img:'me-ecoscan', label:'EcoScan',
+  { id:'ecoscan', ring:2, a:317, rj:1.02, s:10.86, img:'me-ecoscan', label:'EcoScan',
     kicker:'Rapid prototype', title:'EcoScan',
     text:'Scan-based grocery UX translating food labels into personal priorities.',
     tags:['Team leadership','App flow','Rapid prototype'],
     media:'/assets/img/home/ecoscan.webp', href:'/ecoscan/' },
 
-  { id:'merlin', ring:2, a:226, rj:0.97, s:11.5, img:'me-merlin', label:'Merlin Bird ID',
+  { id:'merlin', ring:2, a:226, rj:0.97, s:11.1, img:'me-merlin', label:'Merlin Bird ID',
     kicker:'Research-led strategy', title:'Merlin Bird ID',
     text:'Research-led product strategy helping novice birders stay engaged.',
     tags:['UX research','Synthesis','Opportunity framing'],
     media:'/assets/img/home/merlin-bird-id.webp', href:'/merlin/' },
 
-  { id:'game', ring:2, a:135, rj:1.01, s:10.9, img:'me-game', label:'Common Ground',
+  { id:'game', ring:2, a:135, rj:1.01, s:10.95, img:'me-game', label:'Common Ground',
     kicker:'Game design', title:'Common Ground',
     text:'A cooperative card game where teamwork becomes the winning mechanic.',
     tags:['Mechanics','Rule system','Playtesting'],
     media:'/assets/img/home/game-overview.webp', href:'/game/' },
 
   /* ---- ring 3: made outside the screen ----------------------------------- */
-  { id:'calligraphy', ring:3, a:20, rj:1.0, s:4.8, img:'me-minimal', label:'Calligraphy',
+  { id:'calligraphy', ring:3, a:20, rj:1.0, s:4.56, img:'me-minimal', label:'Calligraphy',
     todo:'Olivia kneeling at a low desk with a brush, a sheet of paper under it.',
     kicker:'10+ years of practice', title:'Two scripts, one long practice.',
     text:'Traditional Chinese calligraphy has stayed with me for more than a decade. Along the way I taught myself English calligraphy in Engrosser’s Script.',
-    tags:['Chinese','Engrosser’s Script'], media:'/assets/img/home/header-calligraphy.webp' },
+    tags:['Chinese','Engrosser’s Script'], href:'/about/', media:'/assets/img/home/header-calligraphy.webp' },
 
-  { id:'market', ring:3, a:56, rj:0.96, s:4.0, img:'me-event', label:'Markets',
+  { id:'market', ring:3, a:56, rj:0.96, s:4.36, img:'me-event', label:'Markets',
     todo:'Olivia behind a small market table with pieces laid out on it.',
     kicker:'Making becomes gathering', title:'Art is how I share culture.',
     text:'I make and sell small pieces at markets and share the traditions behind them. With friends I co-founded Ikigai to work with cafes and run hands-on craft events.',
-    tags:['Ikigai','Craft events'] },
+    tags:['Ikigai','Craft events'], href:'/about/' },
 
   { id:'magazine', ring:3, a:92, rj:1.03, s:4.5, img:'me-casual', label:'Magazine',
     todo:'Olivia holding an open magazine, posters stacked beside her.',
     kicker:'WEGET Magazine', title:'Vice president, design.',
     text:'Leading design coordination, weekly reviews and creative production across posters, editorial assets and event merchandise.',
-    tags:['Editorial','Posters','Merch'] },
+    tags:['Editorial','Posters','Merch'], href:'/about/' },
 
-  { id:'physical', ring:3, a:128, rj:0.98, s:4.2, img:'me-commute', label:'Physical computing',
+  { id:'physical', ring:3, a:128, rj:0.98, s:4.4, img:'me-commute', label:'Physical computing',
     todo:'Olivia at a bench with a breadboard and a few wires.',
     kicker:'Explorations', title:'Sensor and touch logic.',
     text:'Circuits, sensors and interactions that live off the screen.',
     tags:['Arduino','Sensors'], media:'/assets/img/home/physical-computing.webp', href:'/explorations/#physical-computing' },
 
-  { id:'fabrication', ring:3, a:164, rj:1.02, s:4.7, img:'me-minimal', label:'Fabrication',
+  { id:'fabrication', ring:3, a:164, rj:1.02, s:4.52, img:'me-minimal', label:'Fabrication',
     todo:'Olivia holding a flat-pack part, a laser-cut sheet beside her.',
     kicker:'Explorations', title:'Laser-cut structure.',
     text:'Flat-pack builds, soft goods and the drawings behind them.',
     tags:['CAD','Laser cutting','Soft goods'], media:'/assets/img/explorations/assets-assignment-3-process-10-assemble.webp', href:'/explorations/#flat-pack-laptop-stand' },
 
-  { id:'bouldering', ring:3, a:200, rj:0.97, s:4.1, img:'me-climb', label:'Bouldering',
+  { id:'bouldering', ring:3, a:200, rj:0.97, s:4.38, img:'me-climb', label:'Bouldering',
     kicker:'Curious by default', title:'Better with friends.',
     text:'An ENFJ who keeps picking up social hobbies. Bouldering is the one that stuck.',
-    tags:['Bouldering'] },
+    tags:['Bouldering'], href:'/about/' },
 
-  { id:'tennis', ring:3, a:236, rj:1.01, s:4.4, img:'me-tennis', label:'Tennis',
+  { id:'tennis', ring:3, a:236, rj:1.01, s:4.46, img:'me-tennis', label:'Tennis',
     kicker:'Curious by default', title:'Tennis and badminton.',
     text:'Two more that are better with people than alone.',
-    tags:['Tennis','Badminton'] },
+    tags:['Tennis','Badminton'], href:'/about/' },
 
-  { id:'boardgames', ring:3, a:272, rj:0.99, s:4.6, img:'me-event', label:'Board games',
+  { id:'boardgames', ring:3, a:272, rj:0.99, s:4.5, img:'me-event', label:'Board games',
     todo:'Olivia at a table with a board and pieces, two friends across from her.',
     kicker:'Curious by default', title:'Board game nights.',
     text:'The hobby that turned into a capstone. Common Ground started here.',
-    tags:['Board games'] },
+    tags:['Board games'], href:'/about/' },
 
-  { id:'cats', ring:3, a:308, rj:1.03, s:4.2, img:'me-cats', label:'Two cats',
+  { id:'cats', ring:3, a:308, rj:1.03, s:4.4, img:'me-cats', label:'Two cats',
     kicker:'Companion', title:'Usually made with two cats nearby.',
     text:'They supervise everything on this site.',
-    tags:['Two cats'], media:'/assets/img/about-hobbies-collage.jpg' },
+    tags:['Two cats'], href:'/about/', media:'/assets/img/about-hobbies-collage.jpg' },
 
-  { id:'archive', ring:3, a:344, rj:0.98, s:4.5, img:'me-casual', label:'Skill archive',
+  { id:'archive', ring:3, a:344, rj:0.98, s:4.48, img:'me-casual', label:'Skill archive',
     todo:'Olivia holding a small stack of finished objects.',
     kicker:'Explorations', title:'The full skill archive.',
     text:'Side projects that stretch prototyping, fabrication and technical craft.',
@@ -194,6 +190,7 @@ function build() {
     el.setAttribute('aria-label', n.label + '. ' + n.title);
     el.innerHTML =
       '<span class="hv2-node-inner">' +
+        '<span class="hv2-node-plate" aria-hidden="true"></span>' +
         '<img src="' + IMG + n.img + '.webp" alt="" decoding="async" />' +
         '<span class="hv2-node-label">' + n.label + '</span>' +
       '</span>';
@@ -231,8 +228,14 @@ function apply(base, W, H) {
 
   NODES.forEach(n => {
     const el = n.el;
-    el.style.setProperty('--px', size(n.s).toFixed(1) + 'px');
-    el.style.setProperty('--h', String(POSE_H[n.img] || 1));
+    // A rank's weight is the side of a notional square; the pose keeps its own
+    // proportions and is scaled to fill that much area.
+    const side = size(n.s);
+    const area = side * side * (POSE_AREA[n.img] || 1);
+    const img = el.querySelector('img');
+    const ratio = (img.naturalWidth && img.naturalHeight)
+      ? img.naturalWidth / img.naturalHeight : 0.6;
+    el.style.setProperty('--figh', Math.sqrt(area / ratio).toFixed(1) + 'px');
     let y = 0;
     if (n.ring) {
       const t = n.a * Math.PI / 180;
@@ -314,6 +317,13 @@ function layout() {
   }
 }
 
+/* Say where a click goes, in the card, before it is clicked. */
+function openLabel(href) {
+  if (href.startsWith('/about')) return 'Open the About page';
+  if (href.startsWith('/explorations')) return 'Open the skill archive';
+  return 'Open the case study';
+}
+
 function fillCard(n) {
   card.innerHTML =
     (n.media ? '<img class="hv2-card-media" src="' + n.media + '" alt="" />' : '') +
@@ -322,6 +332,9 @@ function fillCard(n) {
       '<h2 class="hv2-card-title">' + n.title + '</h2>' +
       '<p class="hv2-card-text">' + n.text + '</p>' +
       '<div class="hv2-card-tags">' + n.tags.map(t => '<span>' + t + '</span>').join('') + '</div>' +
+      (n.href
+        ? '<p class="hv2-card-open">' + openLabel(n.href) + ' <span aria-hidden="true">&#8594;</span></p>'
+        : '<p class="hv2-card-hint">Click to light the inner ring</p>') +
       (n.todo && document.body.classList.contains('show-todo-notes')
         ? '<p class="hv2-card-todo">Clay pose still to make: ' + n.todo + '</p>' : '') +
     '</div>';

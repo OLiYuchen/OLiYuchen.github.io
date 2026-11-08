@@ -128,7 +128,7 @@
 }
 .hv2-node img {
   display: block; width: auto;
-  height: calc(var(--px, 90px) * var(--h, 1));
+  height: var(--figh, 90px);
   object-fit: contain; object-position: bottom center;
   filter: drop-shadow(0 8px 14px rgba(43, 36, 30, .14));
   transition: filter .45s var(--hv2-ease);
@@ -137,7 +137,7 @@
 .hv2-node-label {
   position: absolute; top: 100%; left: 50%; translate: -50% 0;
   margin-top: .3rem;
-  font-size: clamp(.58rem, calc(var(--px, 90px) * .11), .8rem);
+  font-size: clamp(.58rem, calc(var(--figh, 90px) * .1), .8rem);
   font-weight: 600; letter-spacing: .02em; color: var(--hv2-soft);
   opacity: 0; translate: -50% -3px;
   transition: opacity .4s var(--hv2-ease), translate .4s var(--hv2-ease);
@@ -243,4 +243,37 @@
 @media (prefers-reduced-motion: reduce) {
   .hv2-node-inner { animation: none; }
   .hv2-card, .hv2-ring, .hv2-disc, .hv2-node-inner { transition: none; }
+}
+
+/* ===========================================================================
+   What a click will do, said before it is clicked.
+
+   Eighteen of the nineteen figures open a page. The centre is the one that
+   does not: it lights the inner ring instead. A figure that opens something
+   lifts onto a soft plate on hover and its card ends with where it goes;
+   the centre has neither, and its card says what it does instead.
+   =========================================================================== */
+
+.hv2-node-plate {
+  position: absolute; left: 50%; bottom: -7%; translate: -50% 0;
+  width: 88%; aspect-ratio: 3 / 1; border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(139,127,212,.3), rgba(139,127,212,.05) 55%, transparent 72%);
+  opacity: 0; scale: .7;
+  transition: opacity .4s var(--hv2-ease), scale .4s var(--hv2-ease);
+  pointer-events: none;
+}
+.hv2-node[href]:hover .hv2-node-plate,
+.hv2-node[href]:focus-visible .hv2-node-plate { opacity: 1; scale: 1; }
+
+a.hv2-node { cursor: pointer; }
+button.hv2-node { cursor: default; }
+
+.hv2-card-open {
+  display: flex; align-items: center; gap: .35rem;
+  margin: .85rem 0 0; padding-top: .7rem; border-top: 1px solid var(--hv2-line);
+  font-size: .82rem; font-weight: 600; color: var(--hv2-violet-deep);
+}
+.hv2-card-hint {
+  margin: .85rem 0 0; padding-top: .7rem; border-top: 1px solid var(--hv2-line);
+  font-size: .78rem; color: var(--merlin-muted, #8b8178); font-style: italic;
 }
