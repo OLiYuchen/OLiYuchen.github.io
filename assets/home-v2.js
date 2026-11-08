@@ -375,6 +375,15 @@ function entrance() {
   });
 }
 
+/* Print which build this is, so a stale copy is obvious instead of being
+   mistaken for a layout that went wrong. */
+(function stamp() {
+  const me = document.querySelector('script[src*="home-v2.js"]');
+  const v = me && new URL(me.src, location.href).searchParams.get('v');
+  const bar = document.querySelector('.hv2-draftbar span');
+  if (bar && v) bar.textContent += '  ·  build ' + v;
+})();
+
 build();
 layout();
 wire();
