@@ -280,7 +280,22 @@ function collides(limit, pad) {
 
 /* Lay out, check, and step the figures down until nothing crowds. This is why
    the page holds its shape on a screen I have not seen. */
+/* Give the field exactly the height the window has left over, measured rather
+   than inherited. Leaving it to the grid's free space worked here and
+   collapsed on her machine, where the row fell to nothing and the field was
+   held up only by its minimum. Measuring cannot drift that way. */
+function fitField() {
+  const used = ['.hv2-draftbar', '.hv2-top', '.hv2-foot'].reduce((sum, sel) => {
+    const el = document.querySelector(sel);
+    return sum + (el ? el.getBoundingClientRect().height : 0);
+  }, 0);
+  const h = Math.max(300, Math.round(window.innerHeight - used));
+  field.style.height = h + 'px';
+  return h;
+}
+
 function layout() {
+  fitField();
   const box = field.getBoundingClientRect();
   const W = box.width, H = box.height;
   if (!W || !H) return;
@@ -394,6 +409,8 @@ function stamp() {
     '  ·  build ' + v +
     '  ·  window ' + window.innerWidth + 'x' + window.innerHeight +
     ' dpr' + (window.devicePixelRatio || 1) +
+    '  ·  rows ' + ['.hv2-draftbar', '.hv2-top', '.hv2-foot']
+        .map(sel => Math.round(document.querySelector(sel).getBoundingClientRect().height)).join('/') +
     '  ·  field ' + Math.round(f.width) + 'x' + Math.round(f.height) +
     '  ·  me ' + Math.round(c.height) +
     '  ·  fills ' + Math.round(100 * (r - l) / f.width) + '%x' + Math.round(100 * (bo - t) / f.height) + '%';
