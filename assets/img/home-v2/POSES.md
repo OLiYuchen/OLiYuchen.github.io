@@ -1,7 +1,7 @@
 # Home v2 clay poses
 
 The constellation on `/home-v2.html` has 19 slots. Five are filled with real
-crops from your character sheet. Twelve are stand-ins and need a pose made. Paira and EcoScan are done.
+crops from your character sheet. Seven are stand-ins and need a pose made. All four featured scenes are done, along with the centre, school, tennis, bouldering and the cats.
 
 Open the draft and press **Show the poses still to make**: every stand-in gets
 a dashed amber box, and its hover card prints the pose it is waiting for.
@@ -28,14 +28,12 @@ one field, so anything that drifts shows up immediately.
 7. **Keep the stand** if the pose is standing, drop it if she is sitting or
    lying, which is what your sheet already does.
 
-## The twelve
+## The seven
 
 ### Featured work
 
 | Slot | Pose |
 |---|---|
-| Merlin Bird ID | Binoculars raised, a small bird on her shoulder. |
-| Common Ground | Holding a fan of cards, a few laid out in front of her. |
 
 ### Made outside the screen
 
@@ -46,8 +44,6 @@ one field, so anything that drifts shows up immediately.
 | Magazine | Holding an open magazine, posters stacked beside her. |
 | Physical computing | At a bench with a breadboard and a few wires. |
 | Fabrication | Holding a flat-pack part, a laser-cut sheet beside her. |
-| Bouldering | Reaching up for a climbing hold, chalk bag at her waist. |
-| Tennis | Mid-swing with a racket. |
 | Board games | At a table with a board and pieces, two friends across from her. |
 | Skill archive | Holding a small stack of finished objects. |
 
@@ -55,7 +51,7 @@ one field, so anything that drifts shows up immediately.
 
 | Slot | Pose |
 |---|---|
-| Olivia | Waving hello. The sheet's front view is standing in for now, and a wave would make the centre read as a greeting. |
+| Olivia | Done, as a close-up portrait. Swap back to a full figure by pointing the centre node at `me-hi` if the framing feels off next to the others. |
 
 ## Already filled, from your sheet
 
@@ -75,3 +71,10 @@ pattern, send them at a similar width so they balance.
 Save it as `assets/img/home-v2/<slot>.webp` with transparency, then change that
 node's `img` in `assets/home-v2.js` and delete its `todo` line. Nothing else
 needs touching.
+
+## Resolution
+
+The newest poses came in around 240 by 300, which the page doubles before
+display. That is enough up to about a 1440 screen and starts to soften on a
+large display, where the centre runs to 275 tall. Anything you export at
+roughly 800 tall or more will stay sharp everywhere.

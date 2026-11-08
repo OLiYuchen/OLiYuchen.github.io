@@ -11,6 +11,12 @@ const IMG = '/assets/img/home-v2/';
 /* How tall each pose stands, against a standing figure at 1. The dolls are
    all the same doll, so a sitting one has to be shorter, not merely narrower. */
 const POSE_H = {
+  'me-portrait': 0.92,
+  'me-merlin': 1.16,
+  'me-game': 0.74,
+  'me-tennis': 0.95,
+  'me-climb': 1.02,
+  'me-cats': 0.64,
   'me-paira': 1.15,
   'me-ecoscan': 0.88,
   'me-base': 0.54,
@@ -31,7 +37,7 @@ const RING_RATIO = {
 
 const NODES = [
   /* ---- the centre ------------------------------------------------------- */
-  { id:'me', ring:0, a:0, rj:1, s:13, img:'me-hi', label:'Olivia Feng',
+  { id:'me', ring:0, a:0, rj:1, s:13, img:'me-portrait', label:'Olivia Feng',
     kicker:'Product designer and manager',
     title:'Hi, I am Olivia.',
     text:'I turn ambiguous questions into flows, stories, prototypes and artifacts people can respond to. Click me to see what the inner ring is about.',
@@ -71,15 +77,13 @@ const NODES = [
     tags:['Team leadership','App flow','Rapid prototype'],
     media:'/assets/img/home/ecoscan.webp', href:'/ecoscan/' },
 
-  { id:'merlin', ring:2, a:226, rj:0.97, s:11.5, img:'me-casual', label:'Merlin Bird ID',
-    todo:'Olivia with binoculars raised, a small bird on her shoulder.',
+  { id:'merlin', ring:2, a:226, rj:0.97, s:11.5, img:'me-merlin', label:'Merlin Bird ID',
     kicker:'Research-led strategy', title:'Merlin Bird ID',
     text:'Research-led product strategy helping novice birders stay engaged.',
     tags:['UX research','Synthesis','Opportunity framing'],
     media:'/assets/img/home/merlin-bird-id.webp', href:'/merlin/' },
 
-  { id:'game', ring:2, a:135, rj:1.01, s:10.9, img:'me-event', label:'Common Ground',
-    todo:'Olivia holding a fan of cards, a few cards laid out in front of her.',
+  { id:'game', ring:2, a:135, rj:1.01, s:10.9, img:'me-game', label:'Common Ground',
     kicker:'Game design', title:'Common Ground',
     text:'A cooperative card game where teamwork becomes the winning mechanic.',
     tags:['Mechanics','Rule system','Playtesting'],
@@ -116,14 +120,12 @@ const NODES = [
     text:'Flat-pack builds, soft goods and the drawings behind them.',
     tags:['CAD','Laser cutting','Soft goods'], media:'/assets/img/explorations/assets-assignment-3-process-10-assemble.webp', href:'/explorations/#flat-pack-laptop-stand' },
 
-  { id:'bouldering', ring:3, a:200, rj:0.97, s:4.1, img:'me-casual', label:'Bouldering',
-    todo:'Olivia reaching up for a climbing hold, chalk bag at her waist.',
+  { id:'bouldering', ring:3, a:200, rj:0.97, s:4.1, img:'me-climb', label:'Bouldering',
     kicker:'Curious by default', title:'Better with friends.',
     text:'An ENFJ who keeps picking up social hobbies. Bouldering is the one that stuck.',
     tags:['Bouldering'] },
 
-  { id:'tennis', ring:3, a:236, rj:1.01, s:4.4, img:'me-commute', label:'Tennis',
-    todo:'Olivia mid-swing with a racket.',
+  { id:'tennis', ring:3, a:236, rj:1.01, s:4.4, img:'me-tennis', label:'Tennis',
     kicker:'Curious by default', title:'Tennis and badminton.',
     text:'Two more that are better with people than alone.',
     tags:['Tennis','Badminton'] },
@@ -134,7 +136,7 @@ const NODES = [
     text:'The hobby that turned into a capstone. Common Ground started here.',
     tags:['Board games'] },
 
-  { id:'cats', ring:3, a:308, rj:1.03, s:4.2, img:'cat', label:'Two cats',
+  { id:'cats', ring:3, a:308, rj:1.03, s:4.2, img:'me-cats', label:'Two cats',
     kicker:'Companion', title:'Usually made with two cats nearby.',
     text:'They supervise everything on this site.',
     tags:['Two cats'], media:'/assets/img/about-hobbies-collage.jpg' },
@@ -377,15 +379,29 @@ function entrance() {
 
 /* Print which build this is, so a stale copy is obvious instead of being
    mistaken for a layout that went wrong. */
-(function stamp() {
+function stamp() {
   const me = document.querySelector('script[src*="home-v2.js"]');
   const v = me && new URL(me.src, location.href).searchParams.get('v');
   const bar = document.querySelector('.hv2-draftbar span');
-  if (bar && v) bar.textContent += '  ·  build ' + v;
-})();
+  if (!bar) return;
+  const f = field.getBoundingClientRect();
+  const c = NODES[0].el.querySelector('img').getBoundingClientRect();
+  const boxes = NODES.map(n => n.el.querySelector('img').getBoundingClientRect());
+  const l = Math.min(...boxes.map(b => b.left)), r = Math.max(...boxes.map(b => b.right));
+  const t = Math.min(...boxes.map(b => b.top)), bo = Math.max(...boxes.map(b => b.bottom));
+  bar.dataset.base = bar.dataset.base || bar.textContent;
+  bar.textContent = bar.dataset.base +
+    '  ·  build ' + v +
+    '  ·  window ' + window.innerWidth + 'x' + window.innerHeight +
+    ' dpr' + (window.devicePixelRatio || 1) +
+    '  ·  field ' + Math.round(f.width) + 'x' + Math.round(f.height) +
+    '  ·  me ' + Math.round(c.height) +
+    '  ·  fills ' + Math.round(100 * (r - l) / f.width) + '%x' + Math.round(100 * (bo - t) / f.height) + '%';
+}
 
 build();
 layout();
+stamp();
 wire();
 entrance();
 
@@ -404,4 +420,5 @@ Promise.all(
     img.decode ? img.decode().catch(() => {}) : Promise.resolve())
 ).then(layout);
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
-window.addEventListener('load', layout);
+window.addEventListener('load', () => { layout(); stamp(); });
+window.setTimeout(stamp, 1500);
