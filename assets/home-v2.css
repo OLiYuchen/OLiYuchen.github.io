@@ -262,3 +262,22 @@ button.hv2-node { cursor: default; }
 
 /* Held still while the layout is being solved. */
 .hv2-field.is-measuring .hv2-node-inner { animation: none; }
+
+/* ===========================================================================
+   Hierarchy, said three ways rather than one.
+
+   Size is the first. The outer band also sits back a little, so it reads as
+   texture around the work rather than as its equal. And the featured scenes
+   keep their names on, which the rest only show when read.
+   =========================================================================== */
+
+.hv2-node[data-ring="3"] .hv2-node-inner { opacity: .78; }
+.hv2-node[data-ring="3"] img { filter: drop-shadow(0 5px 9px rgba(43, 36, 30, .1)); }
+.hv2-node[data-ring="3"]:hover .hv2-node-inner,
+.hv2-node[data-ring="3"]:focus-visible .hv2-node-inner,
+.hv2-node[data-ring="3"].is-kin .hv2-node-inner { opacity: 1; }
+
+.hv2-node[data-ring="2"] .hv2-node-label {
+  opacity: 1; translate: -50% 0;
+  font-weight: 600; color: var(--hv2-ink);
+}

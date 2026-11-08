@@ -220,7 +220,10 @@ function apply(base, W, H) {
   // Size is a share of the cell, not a free number, so the figures and the
   // spacing stay in proportion whatever the screen does. base is the one dial
   // the solver turns.
-  const RANK = { 0: 0.95, 1: 0.56, 2: 0.86, 3: 0.42 };
+  // Even steps, so each rank is unmistakably a rank: about one and a half
+  // times the next in size, which is roughly twice the area. The old steps
+  // ran 1.10, 1.54, 1.33, and the first was too small to read as a step.
+  const RANK = { 0: 1.18, 1: 0.52, 2: 0.80, 3: 0.34 };
   const floor = W < 560 ? 22 : 32;
   const size = n => Math.max(floor, cell * RANK[n.ring] * (base / 1000) * (n.s / RANK_S[n.ring]));
 
@@ -300,10 +303,12 @@ function layout() {
   const box = field.getBoundingClientRect();
   const W = box.width, H = box.height;
   if (!W || !H) return;
-  // Hold the float still while solving. Measuring a figure that is drifting
-  // means every pass reads a different instant, and the solver settles on a
-  // size that was only clean for a moment.
+  // Hold everything still while solving. A drifting figure means every pass
+  // reads a different instant, and a figure still growing in from the
+  // entrance reads smaller than it will be, which is how the solver came to
+  // believe a centre half again too big would fit.
   field.classList.add('is-measuring');
+  NODES.forEach(n => n.el.getAnimations().forEach(a => { try { a.finish(); } catch (e) {} }));
   const pad = Math.max(7, Math.min(W, H) * 0.012);
   let base = 1000;
   for (let pass = 0; pass < 20; pass++) {
@@ -459,4 +464,4 @@ Promise.all(
 ).then(layout);
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
 window.addEventListener('load', () => { layout(); stamp(); });
-window.setTimeout(stamp, 1500);
+window.setTimeout(() => { layout(); stamp(); }, 2200);
