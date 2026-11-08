@@ -5,9 +5,6 @@
 
 const IMG = '/assets/img/home-v2/';
 
-/* Orbit shape. These are ratios, not sizes: ring 3 sits as close to the edge
-   as the figures allow, and the inner rings are fractions of it. The real
-   radii are solved at run time from the field's own box. */
 /* Figures of one rank take the same area, so a wide scene and a standing
    doll carry the same visual weight. A pose only needs an entry here to take
    more or less room than its rank, and 1 is the rank's own share. */
@@ -18,17 +15,6 @@ const POSE_AREA = {
   'me-merlin': 1.0,
   'me-game': 1.0,
   'me-cats': 0.9,
-};
-
-/* How much wider than tall an orbit may get. Filling the width of a short
-   window outright turns the rings into a flat band, which is not what the
-   sketch is: that is a circle with the page breathing either side of it.
-   Raise it to spread wider, lower it towards 1 for a true circle. */
-const MAX_OVAL = 2.2;
-
-const RING_RATIO = {
-  rx: { 1: 0.36, 2: 0.62, 3: 1 },
-  ry: { 1: 0.66, 2: 0.78, 3: 1 },
 };
 
 const NODES = [
@@ -146,35 +132,61 @@ const NODES = [
 
 /* ---------------------------------------------------------------------- */
 
-/* ---------------------------------------------------------------------- */
-
 const field = document.querySelector('[data-field]');
 const card = document.querySelector('[data-card]');
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const OUTER = NODES.filter(n => n.ring === 3);
 const MAX_S = Math.max(...NODES.filter(n => n.ring === 3).map(n => n.s));
 
-/* Angles that cut an ellipse into equal lengths of edge. Equal angles crowd
-   the sides of a wide ellipse and thin out across the top, and how wide the
-   ellipse is depends on the screen, so this is solved with everything else. */
-function evenAngles(rx, ry, count, startDeg) {
-  const steps = 720;
-  const acc = [0];
-  let prev = null;
-  for (let i = 0; i <= steps; i++) {
-    const th = (i / steps) * Math.PI * 2;
-    const pt = [Math.sin(th) * rx, -Math.cos(th) * ry];
-    if (prev) acc.push(acc[acc.length - 1] + Math.hypot(pt[0] - prev[0], pt[1] - prev[1]));
-    prev = pt;
+/* The field is a staggered lattice, not a set of orbits: regular spacing that
+   covers the whole screen, rank carried by size and by how near the middle a
+   figure sits. Rows are offset by about a fifth of a cell, so the grid reads
+   as a pattern rather than as a spreadsheet. */
+
+function lattice(W, H, n) {
+  const cols = Math.max(3, Math.round(Math.sqrt(n * (W / H))));
+  const rows = Math.max(2, Math.ceil(n / cols));
+  // a margin, so the tallest figure in the top and bottom rows stays inside
+  const mx = W * 0.03, my = H * 0.05;
+  const cw = (W - 2 * mx) / cols, ch = (H - 2 * my) / rows;
+  const pts = [];
+  for (let r = 0; r < rows; r++) {
+    const shift = (r % 2) ? 0.22 : -0.22;
+    for (let c = 0; c < cols; c++) {
+      const x = mx + Math.min((cols - 0.34) * cw, Math.max(cw * 0.34, (c + 0.5 + shift) * cw));
+      pts.push({ x: x, y: my + (r + 0.5) * ch });
+    }
   }
-  const total = acc[acc.length - 1];
-  const out = [];
-  for (let k = 0; k < count; k++) {
-    let i = acc.findIndex(v => v >= (k / count) * total);
-    if (i < 0) i = steps;
-    out.push((i / steps) * 360 + startDeg);
+  return { pts: pts, cw: cw, ch: ch };
+}
+
+/* Take k points from the pool, nearest the middle first, but placed around it
+   rather than bunched to one side. */
+function pick(pool, k, cx, cy) {
+  const ang = p => Math.atan2(p.y - cy, p.x - cx);
+  const near = pool.slice().sort((a, b) =>
+    Math.hypot(a.x - cx, a.y - cy) - Math.hypot(b.x - cx, b.y - cy))
+    .slice(0, Math.min(pool.length, Math.max(k, k * 3)));
+  const taken = [];
+  while (taken.length < k && near.length) {
+    let best = 0;
+    if (taken.length) {
+      let bestGap = -1;
+      near.forEach((p, i) => {
+        let gap = Math.PI;
+        taken.forEach(t => {
+          const d = Math.abs(((ang(p) - ang(t) + 3 * Math.PI) % (2 * Math.PI)) - Math.PI);
+          if (d < gap) gap = d;
+        });
+        if (gap > bestGap) { bestGap = gap; best = i; }
+      });
+    }
+    const chosen = near.splice(best, 1)[0];
+    taken.push(chosen);
+    const j = pool.indexOf(chosen);
+    if (j >= 0) pool.splice(j, 1);
   }
-  return out;
+  return taken;
 }
 
 function build() {
@@ -200,63 +212,49 @@ function build() {
 }
 
 /* One pass of the layout at a given figure scale. */
+const RANK_S = { 0: 13, 1: 6.43, 2: 10.98, 3: 4.46 };
+
 function apply(base, W, H) {
-  const floor = W < 560 ? 26 : 38;
-  // The ceiling follows the field's height rather than being a flat number,
-  // or on a very large screen the centre and the featured work both hit it
-  // and the hierarchy flattens out.
-  const ceiling = Math.max(200, H * 0.42);
-  const size = s => Math.max(floor, Math.min(ceiling, (s / 100) * base));
+  const grid = lattice(W, H, NODES.length);
+  const cell = Math.min(grid.cw, grid.ch);
+  // Size is a share of the cell, not a free number, so the figures and the
+  // spacing stay in proportion whatever the screen does. base is the one dial
+  // the solver turns.
+  const RANK = { 0: 0.95, 1: 0.56, 2: 0.86, 3: 0.42 };
+  const floor = W < 560 ? 22 : 32;
+  const size = n => Math.max(floor, cell * RANK[n.ring] * (base / 1000) * (n.s / RANK_S[n.ring]));
 
-  // The outer band decides how close to the edge anything can sit. The extra
-  // room at the bottom is for the name that hangs under each figure.
-  const outer = size(MAX_S);
-  const ry3 = Math.max(16, 50 - ((outer / 2 + 26) / H) * 100);
-  let rx3 = Math.max(18, 50 - ((outer / 2 + 14) / W) * 100);
-  // hold the orbit's shape, compared in real pixels rather than in percentages
-  // of two different edges
-  rx3 = Math.min(rx3, ((ry3 / 100) * H * MAX_OVAL / W) * 100);
+  const pool = grid.pts.slice();
+  const cx = W / 2, cy = H / 2;
 
-  const R = {
-    1: { rx: rx3 * RING_RATIO.rx[1], ry: ry3 * RING_RATIO.ry[1] },
-    2: { rx: rx3 * RING_RATIO.rx[2], ry: ry3 * RING_RATIO.ry[2] },
-    3: { rx: rx3, ry: ry3 },
-  };
+  // Rank decides the size and how near the middle a figure lands. Inside a
+  // rank the points are chosen to sit around the middle rather than beside
+  // each other, so the four featured scenes hold the four quarters.
+  [0, 1, 2, 3].forEach(r => {
+    const group = NODES.filter(n => n.ring === r);
+    pick(pool, group.length, cx, cy).forEach((pt, i) => { group[i].pt = pt; });
+  });
 
-  evenAngles(R[3].rx * W / 100, R[3].ry * H / 100, OUTER.length, 16)
-    .forEach((deg, i) => { OUTER[i].a = deg; });
-
-  NODES.forEach(n => {
+  NODES.forEach((n, i) => {
     const el = n.el;
     // A rank's weight is the side of a notional square; the pose keeps its own
     // proportions and is scaled to fill that much area.
-    const side = size(n.s);
+    const side = size(n);
     const area = side * side * (POSE_AREA[n.img] || 1);
     const img = el.querySelector('img');
     const ratio = (img.naturalWidth && img.naturalHeight)
       ? img.naturalWidth / img.naturalHeight : 0.6;
     el.style.setProperty('--figh', Math.sqrt(area / ratio).toFixed(1) + 'px');
-    let y = 0;
-    if (n.ring) {
-      const t = n.a * Math.PI / 180;
-      el.style.setProperty('--x', (Math.sin(t) * R[n.ring].rx * n.rj).toFixed(2));
-      y = -Math.cos(t) * R[n.ring].ry * n.rj;
-      el.style.setProperty('--y', y.toFixed(2));
-    } else {
-      el.style.setProperty('--x', '0');
-      el.style.setProperty('--y', '0');
-    }
-    el.style.zIndex = String(Math.round(300 + y * 4));
-  });
 
-  [1, 2, 3].forEach(k => {
-    const ring = field.querySelector('.hv2-ring-' + k);
-    ring.style.width = (R[k].rx * 2) + '%';
-    ring.style.height = (R[k].ry * 2) + '%';
+    // a hair of jitter, so a regular grid does not read as a spreadsheet
+    const jx = (((i * 37) % 11) - 5) / 5 * grid.cw * 0.05;
+    const jy = (((i * 23) % 9) - 4) / 4 * grid.ch * 0.05;
+    const x = (n.pt ? n.pt.x : cx) + jx;
+    const y = (n.pt ? n.pt.y : cy) + jy;
+    el.style.setProperty('--x', ((x - cx) / W * 100).toFixed(2));
+    el.style.setProperty('--y', ((y - cy) / H * 100).toFixed(2));
+    el.style.zIndex = String(Math.round(300 + (y - cy) / H * 400));
   });
-  const disc = field.querySelector('.hv2-disc');
-  disc.style.width = (R[1].rx * 2 + 13) + '%';
-  disc.style.height = (R[1].ry * 2 + 16) + '%';
 }
 
 /* Does any pair of figures sit on top of another by more than a sliver? */
@@ -302,8 +300,12 @@ function layout() {
   const box = field.getBoundingClientRect();
   const W = box.width, H = box.height;
   if (!W || !H) return;
-  const pad = Math.max(8, Math.min(W, H) * 0.014);
-  let base = Math.min(W * 1.1, H * 2.4);
+  // Hold the float still while solving. Measuring a figure that is drifting
+  // means every pass reads a different instant, and the solver settles on a
+  // size that was only clean for a moment.
+  field.classList.add('is-measuring');
+  const pad = Math.max(7, Math.min(W, H) * 0.012);
+  let base = 1000;
   for (let pass = 0; pass < 20; pass++) {
     apply(base, W, H);
     if (!collides(0.03, pad)) break;
@@ -315,6 +317,7 @@ function layout() {
     if (collides(0.03, pad)) { apply(base, W, H); break; }
     base = bigger;
   }
+  field.classList.remove('is-measuring');
 }
 
 /* Say where a click goes, in the card, before it is clicked. */
@@ -361,16 +364,17 @@ function open(el) {
   card.classList.add('is-open');
   requestAnimationFrame(() => placeCard(el));
   field.classList.add('is-reading');
-  field.classList.remove('lit-1', 'lit-2', 'lit-3');
-  if (n.ring) field.classList.add('lit-' + n.ring);
-  NODES.forEach(x => x.el.classList.toggle('is-active', x.el === el));
+  NODES.forEach(x => {
+    x.el.classList.toggle('is-active', x.el === el);
+    x.el.classList.toggle('is-kin', x !== n && x.ring === n.ring);
+  });
 }
 
 function close() {
   openId = null;
   card.classList.remove('is-open');
-  field.classList.remove('is-reading', 'lit-1', 'lit-2', 'lit-3');
-  NODES.forEach(x => x.el.classList.remove('is-active'));
+  field.classList.remove('is-reading');
+  NODES.forEach(x => x.el.classList.remove('is-active', 'is-kin'));
 }
 
 function wire() {
@@ -381,7 +385,11 @@ function wire() {
     el.addEventListener('pointerleave', close);
     el.addEventListener('blur', close);
     if (n.ring === 0) {
-      el.addEventListener('click', (e) => { e.preventDefault(); field.classList.toggle('is-about'); });
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        const on = field.classList.toggle('is-about');
+        NODES.forEach(x => x.el.classList.toggle('is-kin', on && x.ring === 1));
+      });
     }
   });
   field.addEventListener('pointerleave', close);
@@ -439,7 +447,7 @@ let resizeTimer;
 const relayout = () => { window.clearTimeout(resizeTimer); resizeTimer = window.setTimeout(layout, 110); };
 window.addEventListener('resize', relayout);
 window.addEventListener('orientationchange', relayout);
-if ('ResizeObserver' in window) new ResizeObserver(relayout).observe(field);
+if ('ResizeObserver' in window) new ResizeObserver(relayout).observe(document.body);
 
 /* The first pass runs before the figures have arrived, so it measures boxes
    that are not their real shape and settles on a smaller scale than the field

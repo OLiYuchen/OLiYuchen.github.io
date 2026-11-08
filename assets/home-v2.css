@@ -83,31 +83,6 @@
   min-height: 300px;
 }
 
-/* The orbits themselves: invisible until something asks for them. */
-.hv2-ring {
-  position: absolute; left: 50%; top: 50%; translate: -50% -50%;
-  border: 1px dashed var(--hv2-violet); border-radius: 50%;
-  opacity: 0; transition: opacity .55s var(--hv2-ease);
-  pointer-events: none;
-}
-.hv2-field.lit-1 .hv2-ring-1,
-.hv2-field.lit-2 .hv2-ring-2,
-.hv2-field.lit-3 .hv2-ring-3 { opacity: .42; }
-
-/* The about-me disc, which the centre toggles. */
-.hv2-disc {
-  position: absolute; left: 50%; top: 50%; translate: -50% -50%;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(139,127,212,.16), rgba(139,127,212,.05) 70%, transparent);
-  opacity: 0; scale: .9; pointer-events: none;
-  transition: opacity .6s var(--hv2-ease), scale .6s var(--hv2-ease);
-}
-.hv2-disc span {
-  position: absolute; left: 50%; top: 8%; translate: -50% 0;
-  font-size: .68rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase;
-  color: var(--hv2-violet-deep); white-space: nowrap;
-}
-.hv2-field.is-about .hv2-disc { opacity: 1; scale: 1; }
 
 /* ---------- a node -------------------------------------------------------- */
 
@@ -165,8 +140,15 @@
 }
 
 /* Everything dims a little while one node is being read. */
-.hv2-field.is-reading .hv2-node { opacity: .38; transition: opacity .45s var(--hv2-ease); }
-.hv2-field.is-reading .hv2-node.is-active { opacity: 1; }
+/* Reading one figure: it stays lit, the rest of its rank stays legible so the
+   group is visible without drawing a ring around it, everything else recedes. */
+.hv2-field.is-reading .hv2-node,
+.hv2-field.is-about .hv2-node { opacity: .3; transition: opacity .45s var(--hv2-ease); }
+.hv2-field.is-reading .hv2-node.is-kin,
+.hv2-field.is-about .hv2-node.is-kin { opacity: .92; }
+.hv2-field.is-reading .hv2-node.is-active,
+.hv2-field.is-about .hv2-node-centre { opacity: 1; }
+.hv2-node.is-kin .hv2-node-label { opacity: 1; translate: -50% 0; }
 
 /* A node whose clay pose is still a stand-in. */
 .hv2-field.show-todo .hv2-node[data-todo] .hv2-node-inner {
@@ -174,8 +156,8 @@
 }
 
 @keyframes hv2-float {
-  from { translate: 0 0; rotate: -1.1deg; }
-  to   { translate: 0 -10px; rotate: 1.1deg; }
+  from { translate: 0 0; rotate: -0.7deg; }
+  to   { translate: 0 -6px; rotate: 0.7deg; }
 }
 
 /* ---------- the hover card ------------------------------------------------ */
@@ -277,3 +259,6 @@ button.hv2-node { cursor: default; }
   margin: .85rem 0 0; padding-top: .7rem; border-top: 1px solid var(--hv2-line);
   font-size: .78rem; color: var(--merlin-muted, #8b8178); font-style: italic;
 }
+
+/* Held still while the layout is being solved. */
+.hv2-field.is-measuring .hv2-node-inner { animation: none; }
