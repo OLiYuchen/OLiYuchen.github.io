@@ -120,57 +120,55 @@ const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const OUTER = NODES.filter(n => n.ring === 3);
 const MAX_S = Math.max(...NODES.filter(n => n.ring === 3).map(n => n.s));
 
-/* The field is a staggered lattice, not a set of orbits: regular spacing that
-   covers the whole screen, rank carried by size and by how near the middle a
-   figure sits. Rows are offset by about a fifth of a cell, so the grid reads
-   as a pattern rather than as a spreadsheet. */
+/* A plain grid: columns line up with columns, rows with rows, no offset and
+   no jitter. Both counts are odd, so there is a cell exactly in the middle
+   for her to stand in. Each point is where a figure stands, not where its
+   middle sits, so everything in a row shares one ground line. */
 
 function lattice(W, H, n) {
-  const cols = Math.max(3, Math.round(Math.sqrt(n * (W / H))));
-  const rows = Math.max(2, Math.ceil(n / cols));
-  // a margin, so the tallest figure in the top and bottom rows stays inside
-  const mx = W * 0.03, my = H * 0.05;
+  let cols = 5, rows = 3, best = Infinity;
+  for (let c = 3; c <= 11; c += 2) {
+    for (let r = 3; r <= 7; r += 2) {
+      if (c * r < n + 1) continue;
+      const waste = c * r - n;
+      const cellAR = (W / c) / (H / r);
+      const score = waste * 0.5 + Math.abs(Math.log(cellAR)) * 3;
+      if (score < best) { best = score; cols = c; rows = r; }
+    }
+  }
+  const mx = W * 0.03, my = H * 0.03;
   const cw = (W - 2 * mx) / cols, ch = (H - 2 * my) / rows;
   const pts = [];
   for (let r = 0; r < rows; r++) {
-    const shift = (r % 2) ? 0.22 : -0.22;
-    for (let c = 0; c < cols; c++) {
-      const x = mx + Math.min((cols - 0.34) * cw, Math.max(cw * 0.34, (c + 0.5 + shift) * cw));
-      pts.push({ x: x, y: my + (r + 0.5) * ch });
-    }
+    const base = my + (r + 1) * ch - ch * 0.14;   // the row's ground line
+    for (let c = 0; c < cols; c++) pts.push({ x: mx + (c + 0.5) * cw, y: base, c: c, r: r });
   }
-  return { pts: pts, cw: cw, ch: ch };
+  return { pts: pts, cw: cw, ch: ch, cols: cols, rows: rows };
 }
 
-/* Take k points from the pool, placed around the middle rather than bunched to
-   one side. The near ranks take the middle; the outer band takes the far
-   points, which fills the edges of the field instead of leaving the spare
-   lattice points stranded in the corners. */
-function pick(pool, k, cx, cy, far) {
-  const ang = p => Math.atan2(p.y - cy, p.x - cx);
-  const d = p => Math.hypot(p.x - cx, p.y - cy);
-  const near = pool.slice().sort((a, b) => far ? d(b) - d(a) : d(a) - d(b))
-    .slice(0, Math.min(pool.length, Math.max(k, k * 3)));
-  const taken = [];
-  while (taken.length < k && near.length) {
-    let best = 0;
-    if (taken.length) {
-      let bestGap = -1;
-      near.forEach((p, i) => {
-        let gap = Math.PI;
-        taken.forEach(t => {
-          const d = Math.abs(((ang(p) - ang(t) + 3 * Math.PI) % (2 * Math.PI)) - Math.PI);
-          if (d < gap) gap = d;
-        });
-        if (gap > bestGap) { bestGap = gap; best = i; }
-      });
-    }
-    const chosen = near.splice(best, 1)[0];
-    taken.push(chosen);
-    const j = pool.indexOf(chosen);
-    if (j >= 0) pool.splice(j, 1);
-  }
-  return taken;
+/* The middle cell is hers. The four featured scenes take the corners of the
+   block around her and the four About figures take its sides, so the middle
+   of the page is one composed group. Everything else goes outside it, as far
+   out as the grid allows. */
+function assign(grid, cx, cy) {
+  const byKey = {};
+  grid.pts.forEach(p => { byKey[p.c + ',' + p.r] = p; });
+  const cc = (grid.cols - 1) / 2, cr = (grid.rows - 1) / 2;
+  const used = {};
+  const take = (c, r) => {
+    const k = c + ',' + r;
+    if (!byKey[k] || used[k]) return null;
+    used[k] = true;
+    return byKey[k];
+  };
+  const centre = [take(cc, cr)].filter(Boolean);
+  const corners = [[cc - 1, cr - 1], [cc + 1, cr - 1], [cc + 1, cr + 1], [cc - 1, cr + 1]]
+    .map(p => take(p[0], p[1])).filter(Boolean);
+  const sides = [[cc, cr - 1], [cc + 1, cr], [cc, cr + 1], [cc - 1, cr]]
+    .map(p => take(p[0], p[1])).filter(Boolean);
+  const rest = grid.pts.filter(p => !used[p.c + ',' + p.r])
+    .sort((a, b) => Math.hypot(b.x - cx, b.y - cy) - Math.hypot(a.x - cx, a.y - cy));
+  return { 0: centre, 1: sides, 2: corners, 3: rest };
 }
 
 function build() {
@@ -211,15 +209,14 @@ function apply(base, W, H) {
   const floor = W < 560 ? 22 : 32;
   const size = n => Math.max(floor, cell * RANK[n.ring] * (base / 1000) * (n.s / RANK_S[n.ring]));
 
-  const pool = grid.pts.slice();
+  const slots = assign(grid, W / 2, H / 2);
   const cx = W / 2, cy = H / 2;
 
-  // Rank decides the size and how near the middle a figure lands. Inside a
-  // rank the points are chosen to sit around the middle rather than beside
-  // each other, so the four featured scenes hold the four quarters.
+  // Rank decides the size and the slot: she is the middle cell, the work is
+  // the block around her, everything else sits outside it.
   [0, 1, 2, 3].forEach(r => {
     const group = NODES.filter(n => n.ring === r);
-    pick(pool, group.length, cx, cy, r === 3).forEach((pt, i) => { group[i].pt = pt; });
+    group.forEach((n, i) => { n.pt = slots[r][i] || null; });
   });
 
   NODES.forEach((n, i) => {
@@ -233,11 +230,8 @@ function apply(base, W, H) {
       ? img.naturalWidth / img.naturalHeight : 0.6;
     el.style.setProperty('--figh', Math.sqrt(area / ratio).toFixed(1) + 'px');
 
-    // a hair of jitter, so a regular grid does not read as a spreadsheet
-    const jx = (((i * 37) % 11) - 5) / 5 * grid.cw * 0.05;
-    const jy = (((i * 23) % 9) - 4) / 4 * grid.ch * 0.05;
-    const x = (n.pt ? n.pt.x : cx) + jx;
-    const y = (n.pt ? n.pt.y : cy) + jy;
+    const x = n.pt ? n.pt.x : cx;
+    const y = n.pt ? n.pt.y : cy;
     el.style.setProperty('--x', ((x - cx) / W * 100).toFixed(2));
     el.style.setProperty('--y', ((y - cy) / H * 100).toFixed(2));
     el.style.zIndex = String(Math.round(300 + (y - cy) / H * 400));
