@@ -210,7 +210,9 @@
   gap: .9rem clamp(.8rem, 1.6vw, 1.2rem); align-items: end;
   margin-top: var(--sp-block);
 }
-.pd-ways-set { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: .8rem; align-items: end; }
+/* Both groups stand on one ground line, so the shorter one does not leave a
+   hole above its caption; the slack goes to the top where nothing reads it. */
+.pd-ways-set { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: .8rem; align-items: end; align-self: end; }
 .pd-ways-arrow { align-self: center; text-align: center; color: var(--case-accent-deep); font-size: 1.3rem; }
 .pd-way { margin: 0; min-width: 0; }
 .pd-way img { display: block; width: 100%; height: auto; border-radius: .7rem; background: var(--paira-ink); box-shadow: 0 10px 26px rgba(19,19,19,.12); opacity: .8; filter: saturate(.85); }
@@ -572,35 +574,65 @@ body.paira-case-page {
    together. The air here is theirs alone, so nothing else on the page moves.
    =========================================================================== */
 
+/* ===========================================================================
+   THE GROWTH SECTIONS' RHYTHM
+   Six distances and nothing in between, so a reader can feel without reading
+   whether the next thing answers the line above it or starts something new.
+
+     join   two sentences about the same thing          ~24px
+     note   a component, and the sentence explaining it ~48px
+     lede   a heading, and the first thing under it     ~61px
+     open   the section's own opening, and its answer   ~95px
+     block  one component, and the next                 ~128px
+     study  one decision, and the next                  ~230px
+   =========================================================================== */
+
 .pd-growth {
-  --sp-tight: clamp(1.5rem, 2.6vw, 2.1rem);
-  --sp-block: clamp(3rem, 5vw, 4.2rem);
-  --sp-stage: clamp(5.4rem, 9vw, 8rem);
-  --sp-rest:  clamp(3.4rem, 5.8vw, 5rem);
-  --sp-act:   clamp(7rem, 12vw, 12rem);
+  --pdg-join:  clamp(1.1rem, 1.8vw, 1.5rem);
+  --pdg-note:  clamp(2.2rem, 3.6vw, 3rem);
+  --pdg-lede:  clamp(2.8rem, 4.4vw, 3.8rem);
+  --pdg-open:  clamp(4rem, 6.6vw, 6rem);
+  --pdg-block: clamp(5.5rem, 9vw, 8rem);
+  --pdg-close: clamp(7.5rem, 12vw, 11rem);
+  --pdg-study: clamp(10rem, 16vw, 15rem);
 }
 
 .pd-growth .merlin-report-lede p { margin-top: 1rem; }
 
-/* each study is a part of its own */
-.pd-growth .pd-method { margin-top: var(--sp-act); }
-.pd-growth .pd-method:first-of-type { margin-top: var(--sp-stage); }
-.pd-growth .pd-method > h3 { margin-bottom: .9rem; }
-.pd-growth .pd-method > p { margin-top: .8rem; max-width: 64ch; }
+/* one component, and the next: the default distance */
+.pd-growth .pd-ways,
+.pd-growth .paira-findings,
+.pd-growth .pd-anatomy,
+.pd-growth .pd-board,
+.pd-growth .pd-evidence { margin-top: var(--pdg-block); }
 
-/* the screens, and the findings that explain them */
-.pd-growth .pd-ways { margin-top: var(--sp-stage); }
-.pd-growth .paira-findings { margin-top: var(--sp-stage); }
+/* The section's own opening, and the first thing that answers it. The second
+   selector steps over a hidden draft note, which the preview build strips but
+   the draft page still carries as a sibling. */
+.pd-growth .merlin-report-lede + :is(.pd-method, .pd-ways, .paira-findings, .pd-anatomy, .pd-board),
+.pd-growth .merlin-report-lede + .pd-draftonly + :is(.pd-method, .pd-ways, .paira-findings, .pd-anatomy, .pd-board) { margin-top: var(--pdg-open); }
+
+/* each study is a part of its own */
+.pd-growth .pd-method { margin-top: var(--pdg-study); }
+.pd-growth .pd-method > h3 { margin: .45rem 0 .9rem; }
+.pd-growth .pd-method > p { margin-top: .75rem; max-width: 64ch; }
+
+/* a study's heading, and the first thing under it, read as one unit */
+.pd-growth .pd-method > p + .pd-ways,
+.pd-growth .pd-method > p + .paira-findings,
+.pd-growth .pd-method > p + .pd-anatomy,
+.pd-growth .pd-method > p + .pd-board,
+.pd-growth .pd-method > p + .pd-evidence { margin-top: var(--pdg-lede); }
+
+.pd-growth .pd-evidence { gap: clamp(1.8rem, 3.4vw, 3.2rem); }
 .pd-growth .paira-signals3 { gap: 0 clamp(1.8rem, 3.4vw, 3.2rem); margin-top: 1.5rem; }
 .pd-growth .paira-signals3 article { padding-top: 1.3rem; }
 .pd-growth .paira-signals3-evidence ul { gap: .8rem; margin-top: .7rem; }
-.pd-growth .paira-findings-note { margin-top: var(--sp-block); }
 
-/* the sentences that close a study */
-.pd-growth .pd-method > .paira-surface-note { margin-top: var(--sp-block); }
-.pd-growth .pd-method > .paira-surface-note + .paira-surface-note { margin-top: var(--sp-tight); }
+/* a component, and the sentence that says what it means */
+.pd-growth .paira-findings-note,
+.pd-growth .pd-method > .paira-surface-note { margin-top: var(--pdg-note); }
+.pd-growth .pd-method > .paira-surface-note + .paira-surface-note { margin-top: var(--pdg-join); }
 
-.pd-growth .pd-anatomy { margin-top: var(--sp-stage); }
-.pd-growth .pd-board { margin-top: var(--sp-stage); }
-.pd-growth .pd-evidence { margin-top: var(--sp-stage); gap: clamp(1.8rem, 3.4vw, 3.2rem); }
-.pd-growth .pd-carry { margin-top: var(--sp-act); }
+/* what I carry forward closes the part */
+.pd-growth .pd-carry { margin-top: var(--pdg-close); }
