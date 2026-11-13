@@ -41,38 +41,116 @@
 /* ---------- A. The opening block: three calls, read in fifteen seconds ----- */
 
 .pd-ledger {
-  display: grid; grid-template-columns: repeat(3, minmax(0,1fr));
-  gap: clamp(1.5rem, 3vw, 2.8rem);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
   margin-top: var(--sp-block);
+  padding: clamp(.4rem, 1vw, .8rem) 0 clamp(.6rem, 1.4vw, 1.1rem);
+  border-radius: 1.6rem;
+  background:
+    radial-gradient(100% 68% at 50% -16%, rgba(96, 92, 255, .20), rgba(96, 92, 255, 0) 62%),
+    var(--paira-ink);
+  box-shadow: inset 0 1px 0 rgba(150, 147, 255, .5);
+  color: #fff;
 }
+
+/* a faint lattice, fading out downward: the app's own instrument surface */
+.pd-ledger::before {
+  content: "";
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, .05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, .05) 1px, transparent 1px);
+  background-size: 2.25rem 2.25rem;
+  -webkit-mask-image: radial-gradient(130% 105% at 50% 0%, #000 30%, transparent 80%);
+  mask-image: radial-gradient(130% 105% at 50% 0%, #000 30%, transparent 80%);
+}
+
 .pd-ledger-item {
-  display: block; text-decoration: none; color: inherit;
-  padding-top: .95rem; border-top: 1px solid var(--case-line);
-  transition: border-color .4s ease;
+  position: relative; z-index: 1;
+  display: grid; grid-template-rows: auto auto minmax(0, 1fr);
+  padding: clamp(1.5rem, 2.8vw, 2.3rem) clamp(1.4rem, 2.6vw, 2.1rem) clamp(1.6rem, 3vw, 2.4rem);
+  color: #fff;
+  text-decoration: none;
+  transition: background .45s cubic-bezier(.22, .61, .36, 1);
 }
-.pd-ledger-item:hover { border-top-color: var(--case-accent); }
+
+.pd-ledger-item + .pd-ledger-item { box-shadow: inset 1px 0 0 rgba(255, 255, 255, .11); }
+.pd-ledger-item:hover { background: rgba(255, 255, 255, .045); }
+
+/* the violet rail draws itself across the top of the column you are reading */
+.pd-ledger-item::after {
+  content: "";
+  position: absolute; inset: 0 0 auto; height: 2px;
+  background: linear-gradient(90deg, var(--paira-violet), #b8b6ff);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .6s cubic-bezier(.19, 1, .22, 1);
+}
+.pd-ledger-item:hover::after,
+.pd-ledger-item:focus-visible::after { transform: scaleX(1); }
+
+/* 01 · a dot, a tabular number, a hairline running to the edge */
 .pd-ledger-num {
-  width: 1.75rem; height: 1.75rem; display: grid; place-items: center;
-  border: 1px solid var(--case-line); border-radius: 50%;
+  display: grid; grid-template-columns: auto auto 1fr;
+  align-items: center; gap: .65rem;
+  width: auto; height: auto;
+  border: 0; border-radius: 0; background: none;
   font-family: var(--paira-font-body, "Plus Jakarta Sans", sans-serif);
-  font-size: .78rem; font-weight: 600; letter-spacing: -.02em;
-  font-variant-numeric: tabular-nums; color: var(--case-accent-deep);
-  transition: background .4s ease, color .4s ease, border-color .4s ease;
+  font-size: .72rem; font-weight: 600; letter-spacing: .16em;
+  font-variant-numeric: tabular-nums;
+  color: var(--paira-lilac, #e5e5ff);
 }
-.pd-ledger-item:hover .pd-ledger-num { background: var(--case-accent-deep); border-color: transparent; color: #fff; }
+.pd-ledger-num::before {
+  content: "";
+  width: .4rem; height: .4rem; border-radius: 50%;
+  background: var(--paira-violet);
+  box-shadow: 0 0 0 3px rgba(96, 92, 255, .22);
+  transition: box-shadow .45s ease;
+}
+.pd-ledger-num::after { content: ""; height: 1px; background: rgba(255, 255, 255, .15); }
+.pd-ledger-item:hover .pd-ledger-num::before { box-shadow: 0 0 0 6px rgba(96, 92, 255, .3); }
+
 .pd-ledger-item h3 {
-  margin: .75rem 0 .95rem;
-  font-family: var(--font-display); font-weight: 600;
-  font-size: clamp(1.3rem, 2vw, 1.72rem); line-height: 1.12; text-wrap: balance;
+  margin: 1.1rem 0 1.4rem;
+  font-family: var(--paira-font-display, "Playfair Display", serif);
+  font-weight: 500;
+  font-size: clamp(1.2rem, 1.7vw, 1.56rem);
+  line-height: 1.2; letter-spacing: -.012em;
+  text-wrap: balance;
+  color: #fff;
 }
-.pd-rows { display: grid; gap: 1.5rem; }
-.pd-row { display: grid; gap: .45rem; }
+
+.pd-rows { display: flex; flex-direction: column; gap: 1.15rem; margin: 0; }
+.pd-row { display: grid; gap: .38rem; }
 .pd-row dt {
-  font-size: .64rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
-  color: var(--case-accent-deep);
+  font-family: var(--paira-font-body, "Plus Jakarta Sans", sans-serif);
+  font-size: .6rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase;
+  color: rgba(229, 229, 255, .52);
 }
-.pd-row dd { margin: 0; font-size: .9rem; line-height: 1.52; color: var(--ink-soft); }
-.pd-row dd strong { color: var(--ink); font-weight: 600; }
+.pd-row dd {
+  margin: 0;
+  font-family: var(--paira-font-body, "Plus Jakarta Sans", sans-serif);
+  font-size: .86rem; line-height: 1.58;
+  color: rgba(255, 255, 255, .7);
+}
+.pd-row dd strong { color: #fff; font-weight: 600; }
+
+/* what I took away is the line that matters: pinned to the foot of every
+   column so the three read on one baseline, and given the violet margin */
+.pd-row:last-child {
+  margin-top: auto; padding-left: .9rem;
+  border-left: 1px solid rgba(96, 92, 255, .6);
+}
+.pd-row:last-child dt { color: #b8b6ff; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pd-ledger-item,
+  .pd-ledger-item::after,
+  .pd-ledger-num::before { transition: none; }
+}
 
 /* ---------- A2. The alternative opening: one band, owned and changed ------- */
 
@@ -205,7 +283,8 @@
 /* ---------- Narrow screens ------------------------------------------------- */
 
 @media (max-width: 1024px) {
-  .pd-ledger { grid-template-columns: 1fr; gap: 1.6rem; }
+  .pd-ledger { grid-template-columns: 1fr; gap: 0; }
+  .pd-ledger-item + .pd-ledger-item { box-shadow: inset 0 1px 0 rgba(255, 255, 255, .11); }
   .pd-glance { grid-template-columns: 1fr; }
 }
 @media (max-width: 760px) {
@@ -440,7 +519,7 @@ body.paira-case-page {
 }
 
 /* A lede should sit alone for a beat before anything answers it. */
-.pd-ledger { gap: clamp(2rem, 4vw, 3.6rem); margin-top: var(--sp-stage); }
+.pd-ledger { margin-top: var(--sp-stage); }
 .pd-signals { gap: clamp(1.8rem, 3.6vw, 3.2rem); }
 .pd-anatomy { gap: clamp(1.2rem, 2.6vw, 2.2rem); margin-top: var(--sp-stage); }
 .pd-attach { gap: 1.25rem; }
@@ -484,3 +563,44 @@ body.paira-case-page {
   border-radius: var(--screen-radius);
 }
 .pd-ways-shipped .pd-way img { border-radius: var(--screen-radius); }
+
+/* ===========================================================================
+   Room inside the growth sections.
+
+   These carry more per section than the rest of the page: a lede, a row of
+   screens, a findings block and two notes. At the page's own rhythm they run
+   together. The air here is theirs alone, so nothing else on the page moves.
+   =========================================================================== */
+
+.pd-growth {
+  --sp-tight: clamp(1.5rem, 2.6vw, 2.1rem);
+  --sp-block: clamp(3rem, 5vw, 4.2rem);
+  --sp-stage: clamp(5.4rem, 9vw, 8rem);
+  --sp-rest:  clamp(3.4rem, 5.8vw, 5rem);
+  --sp-act:   clamp(7rem, 12vw, 12rem);
+}
+
+.pd-growth .merlin-report-lede p { margin-top: 1rem; }
+
+/* each study is a part of its own */
+.pd-growth .pd-method { margin-top: var(--sp-act); }
+.pd-growth .pd-method:first-of-type { margin-top: var(--sp-stage); }
+.pd-growth .pd-method > h3 { margin-bottom: .9rem; }
+.pd-growth .pd-method > p { margin-top: .8rem; max-width: 64ch; }
+
+/* the screens, and the findings that explain them */
+.pd-growth .pd-ways { margin-top: var(--sp-stage); }
+.pd-growth .paira-findings { margin-top: var(--sp-stage); }
+.pd-growth .paira-signals3 { gap: 0 clamp(1.8rem, 3.4vw, 3.2rem); margin-top: 1.5rem; }
+.pd-growth .paira-signals3 article { padding-top: 1.3rem; }
+.pd-growth .paira-signals3-evidence ul { gap: .8rem; margin-top: .7rem; }
+.pd-growth .paira-findings-note { margin-top: var(--sp-block); }
+
+/* the sentences that close a study */
+.pd-growth .pd-method > .paira-surface-note { margin-top: var(--sp-block); }
+.pd-growth .pd-method > .paira-surface-note + .paira-surface-note { margin-top: var(--sp-tight); }
+
+.pd-growth .pd-anatomy { margin-top: var(--sp-stage); }
+.pd-growth .pd-board { margin-top: var(--sp-stage); }
+.pd-growth .pd-evidence { margin-top: var(--sp-stage); gap: clamp(1.8rem, 3.4vw, 3.2rem); }
+.pd-growth .pd-carry { margin-top: var(--sp-act); }
