@@ -65,8 +65,8 @@
   font-family: var(--font-display); font-weight: 600;
   font-size: clamp(1.3rem, 2vw, 1.72rem); line-height: 1.12; text-wrap: balance;
 }
-.pd-rows { display: grid; gap: .6rem; }
-.pd-row { display: grid; gap: .2rem; }
+.pd-rows { display: grid; gap: 1.5rem; }
+.pd-row { display: grid; gap: .45rem; }
 .pd-row dt {
   font-size: .64rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
   color: var(--case-accent-deep);
