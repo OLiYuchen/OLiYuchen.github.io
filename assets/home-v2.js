@@ -1,13 +1,24 @@
 /* Home v2: the constellation.
-   One array describes every node. Angle is degrees clockwise from the top,
-   radius is a share of the field width, scale is the node's width in the
-   same unit. Everything else is content. */
+
+   Placement is a fixed composition, not a formula. Every figure carries a
+   normalised position: nx and ny run -1 to 1 across the field's own ellipse,
+   so the whole arrangement stretches with the window and keeps its shape.
+   The solver turns one dial — figure size — until nothing crowds anything.
+
+   Reading order, outward from the middle:
+     ring 0  she is the centre, with her name under her
+     ring 1  who she is          small, named
+     ring 2  the featured work   large, named
+     ring 3  made off the screen small, named only when read
+*/
 
 const IMG = '/assets/img/home-v2/';
 
-/* Figures of one rank take the same area, so a wide scene and a standing
-   doll carry the same visual weight. A pose only needs an entry here to take
-   more or less room than its rank, and 1 is the rank's own share. */
+const ROSE = '#c08ba0';
+const VIOLET = '#8b7fd4';
+
+/* Figures of one rank take the same area, so a wide scene and a standing doll
+   carry the same visual weight. 1 is the rank's own share. */
 const POSE_AREA = {
   'me-portrait': 1.0,
   'me-paira': 1.0,
@@ -19,93 +30,93 @@ const POSE_AREA = {
 
 const NODES = [
   /* ---- the centre ------------------------------------------------------- */
-  { id:'me', ring:0, a:0, rj:1, s:13, img:'me-portrait', label:'Olivia Feng',
+  { id:'me', ring:0, nx:0, ny:0, img:'me-portrait', label:'Olivia Feng', accent:ROSE,
     kicker:'Product designer and manager',
     title:'Hi, I am Olivia.',
     text:'I turn ambiguous questions into flows, stories, prototypes and artifacts people can respond to. Click me to see what the inner ring is about.',
     tags:['0 to 1 product','UX research','Brand and motion'] },
 
   /* ---- ring 1: who she is ----------------------------------------------- */
-  { id:'work', ring:1, a:2, rj:1.0, s:6.5, img:'me-work', label:'Work',
-    kicker:'Where I have worked', title:'Five places, one habit.',
-    text:'Product designer at Paira through its App Store launch. Strategy and PMO intern at Fosun International in Shanghai. Research assistant at UW HCDE. Vice president at WEGET Magazine. UX researcher and designer at the Cornell Lab of Ornithology.',
-    tags:['Paira','Fosun','UW HCDE','Cornell Lab','WEGET'], href:'/about/' },
-
-  { id:'skills', ring:1, a:92, rj:1.03, s:6.36, img:'me-skills', label:'Skills',
+  { id:'skills', ring:1, nx:0.00, ny:-0.70, img:'me-skills', label:'Skills', accent:ROSE,
     kicker:'What I bring', title:'Research rigor, visual sensitivity, calm systems.',
     text:'Product strategy and UX research through to interaction design, design systems and AI experience design. Plus the making side: prototyping, design engineering, CAD and physical computing.',
     tags:['Product strategy','UX research','AI experience design','Design engineering'], href:'/about/' },
 
-  { id:'school', ring:1, a:180, rj:0.98, s:6.46, img:'me-school', label:'School',
+  { id:'work', ring:1, nx:-0.40, ny:0.13, img:'me-work', label:'Work', accent:ROSE,
+    kicker:'Where I have worked', title:'Five places, one habit.',
+    text:'Product designer at Paira through its App Store launch. Strategy and PMO intern at Fosun International in Shanghai. Research assistant at UW HCDE. Vice president at WEGET Magazine. UX researcher and designer at the Cornell Lab of Ornithology.',
+    tags:['Paira','Fosun','UW HCDE','Cornell Lab','WEGET'], href:'/about/' },
+
+  { id:'school', ring:1, nx:0.42, ny:0.13, img:'me-school', label:'Education', accent:VIOLET,
     kicker:'University of Washington', title:'Design, engineering, and a little neuroscience.',
     text:'B.S. in Human-Centered Design and Engineering with a minor in Neural Computation and Engineering, 2026. Now an M.S. in Technology Innovation at UW GIX with a CS and HCI focus, expected 2028.',
     tags:['UW HCDE','Neural Computation','UW GIX'], href:'/about/' },
 
-  { id:'base', ring:1, a:270, rj:1.01, s:6.4, img:'me-base', label:'Based in Redmond',
+  { id:'base', ring:1, nx:0.00, ny:0.99, img:'me-base', label:'Redmond, WA', accent:VIOLET,
     kicker:'Shanghai to Redmond', title:'Born and raised in Shanghai, now in Redmond, WA.',
     text:'A life of ink, movement, friendship and making outside the screen. Usually with two cats nearby.',
     tags:['Redmond, WA','Shanghai','Two cats'], href:'/about/' },
 
   /* ---- ring 2: the featured work ---------------------------------------- */
-  { id:'paira', ring:2, a:44, rj:1.0, s:11.0, img:'me-paira', label:'Paira',
+  { id:'paira', ring:2, nx:-0.47, ny:-0.37, img:'me-paira', label:'Paira', accent:'#605cff',
     kicker:'0 to 1 product', title:'Paira',
     text:'A request-first help network where AI writes the ask and finds the person.',
     tags:['0 to 1 product','AI flows','Brand and launch'],
     media:'/assets/img/paira/paira-home-overview.webp', href:'/paira/' },
 
-  { id:'ecoscan', ring:2, a:317, rj:1.02, s:10.86, img:'me-ecoscan', label:'EcoScan',
+  { id:'ecoscan', ring:2, nx:0.48, ny:-0.36, img:'me-ecoscan', label:'EcoScan', accent:'#70a9a1',
     kicker:'Rapid prototype', title:'EcoScan',
     text:'Scan-based grocery UX translating food labels into personal priorities.',
     tags:['Team leadership','App flow','Rapid prototype'],
     media:'/assets/img/home/ecoscan.webp', href:'/ecoscan/' },
 
-  { id:'merlin', ring:2, a:226, rj:0.97, s:11.1, img:'me-merlin', label:'Merlin Bird ID',
-    kicker:'Research-led strategy', title:'Merlin Bird ID',
-    text:'Research-led product strategy helping novice birders stay engaged.',
-    tags:['UX research','Synthesis','Opportunity framing'],
-    media:'/assets/img/home/merlin-bird-id.webp', href:'/merlin/' },
-
-  { id:'game', ring:2, a:135, rj:1.01, s:10.95, img:'me-game', label:'Common Ground',
+  { id:'game', ring:2, nx:-0.56, ny:0.60, img:'me-game', label:'Common Ground', accent:'#c98a56',
     kicker:'Game design', title:'Common Ground',
     text:'A cooperative card game where teamwork becomes the winning mechanic.',
     tags:['Mechanics','Rule system','Playtesting'],
     media:'/assets/img/home/game-overview.webp', href:'/game/' },
 
+  { id:'merlin', ring:2, nx:0.56, ny:0.60, img:'me-merlin', label:'Merlin Bird ID', accent:'#d98589',
+    kicker:'Research-led strategy', title:'Merlin Bird ID',
+    text:'Research-led product strategy helping novice birders stay engaged.',
+    tags:['UX research','Synthesis','Opportunity framing'],
+    media:'/assets/img/home/merlin-bird-id.webp', href:'/merlin/' },
+
   /* ---- ring 3: made outside the screen ----------------------------------- */
-  { id:'calligraphy', ring:3, a:20, rj:1.0, s:4.56, img:'me-minimal', label:'Calligraphy',
+  { id:'cats', ring:3, nx:-0.76, ny:-0.66, img:'me-cats', label:'Two cats', accent:VIOLET,
+    kicker:'Companion', title:'Usually made with two cats nearby.',
+    text:'They supervise everything on this site.',
+    tags:['Two cats'], href:'/about/', media:'/assets/img/about-hobbies-collage.jpg' },
+
+  { id:'calligraphy', ring:3, nx:0.76, ny:-0.66, img:'me-minimal', label:'Calligraphy', accent:VIOLET,
     todo:'Olivia kneeling at a low desk with a brush, a sheet of paper under it.',
     kicker:'10+ years of practice', title:'Two scripts, one long practice.',
     text:'Traditional Chinese calligraphy has stayed with me for more than a decade. Along the way I taught myself English calligraphy in Engrosser’s Script.',
     tags:['Chinese','Engrosser’s Script'], href:'/about/', media:'/assets/img/home/header-calligraphy.webp' },
 
-  { id:'physical', ring:3, a:128, rj:0.98, s:4.4, img:'me-commute', label:'Physical computing',
+  { id:'tennis', ring:3, nx:-0.95, ny:-0.06, img:'me-tennis', label:'Tennis', accent:VIOLET,
+    kicker:'Curious by default', title:'Tennis and badminton.',
+    text:'Two more that are better with people than alone.',
+    tags:['Tennis','Badminton'], href:'/about/' },
+
+  { id:'bouldering', ring:3, nx:0.97, ny:-0.02, img:'me-climb', label:'Bouldering', accent:VIOLET,
+    kicker:'Curious by default', title:'Better with friends.',
+    text:'An ENFJ who keeps picking up social hobbies. Bouldering is the one that stuck.',
+    tags:['Bouldering'], href:'/about/' },
+
+  { id:'physical', ring:3, nx:-0.92, ny:0.74, img:'me-commute', label:'Physical computing', accent:VIOLET,
     todo:'Olivia at a bench with a breadboard and a few wires.',
     kicker:'Explorations', title:'Sensor and touch logic.',
     text:'Circuits, sensors and interactions that live off the screen.',
     tags:['Arduino','Sensors'], media:'/assets/img/home/physical-computing.webp', href:'/explorations/#physical-computing' },
 
-  { id:'fabrication', ring:3, a:164, rj:1.02, s:4.52, img:'me-minimal', label:'Fabrication',
+  { id:'fabrication', ring:3, nx:0.92, ny:0.75, img:'me-minimal', label:'Fabrication', accent:VIOLET,
     todo:'Olivia holding a flat-pack part, a laser-cut sheet beside her.',
     kicker:'Explorations', title:'Laser-cut structure.',
     text:'Flat-pack builds, soft goods and the drawings behind them.',
     tags:['CAD','Laser cutting','Soft goods'], media:'/assets/img/explorations/assets-assignment-3-process-10-assemble.webp', href:'/explorations/#flat-pack-laptop-stand' },
 
-  { id:'bouldering', ring:3, a:200, rj:0.97, s:4.38, img:'me-climb', label:'Bouldering',
-    kicker:'Curious by default', title:'Better with friends.',
-    text:'An ENFJ who keeps picking up social hobbies. Bouldering is the one that stuck.',
-    tags:['Bouldering'], href:'/about/' },
-
-  { id:'tennis', ring:3, a:236, rj:1.01, s:4.46, img:'me-tennis', label:'Tennis',
-    kicker:'Curious by default', title:'Tennis and badminton.',
-    text:'Two more that are better with people than alone.',
-    tags:['Tennis','Badminton'], href:'/about/' },
-
-  { id:'cats', ring:3, a:308, rj:1.03, s:4.4, img:'me-cats', label:'Two cats',
-    kicker:'Companion', title:'Usually made with two cats nearby.',
-    text:'They supervise everything on this site.',
-    tags:['Two cats'], href:'/about/', media:'/assets/img/about-hobbies-collage.jpg' },
-
-  { id:'archive', ring:3, a:344, rj:0.98, s:4.48, img:'me-casual', label:'Skill archive',
+  { id:'archive', ring:3, nx:-0.45, ny:0.97, img:'me-casual', label:'Skill archive', accent:VIOLET,
     todo:'Olivia holding a small stack of finished objects.',
     kicker:'Explorations', title:'The full skill archive.',
     text:'Side projects that stretch prototyping, fabrication and technical craft.',
@@ -115,69 +126,58 @@ const NODES = [
 /* ---------------------------------------------------------------------- */
 
 const field = document.querySelector('[data-field]');
+let orbitSvg = null, orbitEls = [];
 const card = document.querySelector('[data-card]');
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const OUTER = NODES.filter(n => n.ring === 3);
-const MAX_S = Math.max(...NODES.filter(n => n.ring === 3).map(n => n.s));
 
-/* A plain grid: columns line up with columns, rows with rows, no offset and
-   no jitter. Both counts are odd, so there is a cell exactly in the middle
-   for her to stand in. Each point is where a figure stands, not where its
-   middle sits, so everything in a row shares one ground line. */
-
-function lattice(W, H, n) {
-  let cols = 5, rows = 3, best = Infinity;
-  for (let c = 3; c <= 11; c += 2) {
-    for (let r = 3; r <= 7; r += 2) {
-      if (c * r < n + 1) continue;
-      const waste = c * r - n;
-      const cellAR = (W / c) / (H / r);
-      const score = waste * 0.5 + Math.abs(Math.log(cellAR)) * 3;
-      if (score < best) { best = score; cols = c; rows = r; }
-    }
-  }
-  const mx = W * 0.03, my = H * 0.03;
-  const cw = (W - 2 * mx) / cols, ch = (H - 2 * my) / rows;
-  const pts = [];
-  for (let r = 0; r < rows; r++) {
-    const base = my + (r + 1) * ch - ch * 0.14;   // the row's ground line
-    for (let c = 0; c < cols; c++) pts.push({ x: mx + (c + 0.5) * cw, y: base, c: c, r: r });
-  }
-  return { pts: pts, cw: cw, ch: ch, cols: cols, rows: rows };
+/* How much of the field's half-width and half-height nx = 1 and ny = 1 reach.
+   A narrow window pulls the edge figures in, because a figure there has the
+   same minimum size whatever the screen and would otherwise hang off it. */
+function spread(W) {
+  if (W < 620) return [0.37, 0.45];
+  if (W < 900) return [0.42, 0.45];
+  return [0.47, 0.44];
 }
 
-/* The middle cell is hers. The four featured scenes take the corners of the
-   block around her and the four About figures take its sides, so the middle
-   of the page is one composed group. Everything else goes outside it, as far
-   out as the grid allows. */
-function assign(grid, cx, cy) {
-  const byKey = {};
-  grid.pts.forEach(p => { byKey[p.c + ',' + p.r] = p; });
-  const cc = (grid.cols - 1) / 2, cr = (grid.rows - 1) / 2;
-  const used = {};
-  const take = (c, r) => {
-    const k = c + ',' + r;
-    if (!byKey[k] || used[k]) return null;
-    used[k] = true;
-    return byKey[k];
-  };
-  const centre = [take(cc, cr)].filter(Boolean);
+/* The two drawn orbits, as a share of that same ellipse. */
+const ORBITS = [[0.59, 0.58], [0.99, 0.93]];
 
-  // The four cells straight up, down, left and right of her stay empty. With
-  // something in each of them the middle read as a rectangle; a cross of air
-  // lets her sit on her own and turns the group into a diamond.
-  [[cc, cr - 1], [cc, cr + 1], [cc - 1, cr], [cc + 1, cr]].forEach(p => take(p[0], p[1]));
+/* A rank's weight is the side of a notional square. Area, not height, is what
+   makes a wide scene and a standing doll read as the same rank. */
+const WEIGHT = { 0: 1.0, 1: 0.42, 2: 0.72, 3: 0.315 };
 
-  const about = [[cc - 1, cr - 1], [cc + 1, cr - 1], [cc - 1, cr + 1], [cc + 1, cr + 1]]
-    .map(p => take(p[0], p[1])).filter(Boolean);
-  const featured = [[cc - 2, cr - 1], [cc + 2, cr - 1], [cc + 2, cr + 1], [cc - 2, cr + 1]]
-    .map(p => take(p[0], p[1])).filter(Boolean);
-  const rest = grid.pts.filter(p => !used[p.c + ',' + p.r])
-    .sort((a, b) => Math.hypot(b.x - cx, b.y - cy) - Math.hypot(a.x - cx, a.y - cy));
-  return { 0: centre, 1: about, 2: featured, 3: rest };
+/* How far each rank drifts under the pointer. The loose figures at the edge
+   move most, she moves least, and the field gains depth without anything
+   actually moving on the page. */
+const DEPTH = { 0: 2, 1: 7, 2: 11, 3: 18 };
+
+const SQUIGGLES = [
+  'M3 6.4C14 1.9 26 1.9 37 5.5s23 3.5 38-1.3',
+  'M3 5.4c10 3.4 21 3.4 31 .2s23-3.4 40 1.6',
+  'M2 6.2c12-4.1 24-4.1 36 0s26 3.1 40-1.7',
+];
+
+function svgSquiggle(i) {
+  return '<svg class="hv2-squiggle" viewBox="0 0 80 9" preserveAspectRatio="none" aria-hidden="true">' +
+         '<path d="' + SQUIGGLES[i % SQUIGGLES.length] + '" /></svg>';
 }
 
 function build() {
+  const sky = document.createElement('div');
+  sky.className = 'hv2-orbits';
+  sky.innerHTML =
+    '<svg aria-hidden="true">' +
+    ORBITS.map((o, i) => '<ellipse class="hv2-orbit hv2-orbit-' + i + '" />').join('') +
+    '</svg>';
+  field.appendChild(sky);
+  orbitSvg = sky.querySelector('svg');
+  orbitEls = [...sky.querySelectorAll('ellipse')];
+
+  const halo = document.createElement('div');
+  halo.className = 'hv2-halo';
+  halo.setAttribute('aria-hidden', 'true');
+  field.appendChild(halo);
+
   NODES.forEach((n, i) => {
     const el = document.createElement(n.href ? 'a' : 'button');
     el.className = 'hv2-node' + (n.ring === 0 ? ' hv2-node-centre' : '');
@@ -185,73 +185,75 @@ function build() {
     el.dataset.id = n.id;
     el.dataset.ring = n.ring;
     if (n.todo) el.dataset.todo = n.todo;
-    el.style.setProperty('--dur', (7.5 + (i % 5) * 1.4) + 's');
-    el.style.setProperty('--delay', (-(i * 0.73) % 6).toFixed(2) + 's');
+    el.style.setProperty('--accent', n.accent);
+    el.style.setProperty('--dur', (5.2 + (i % 7) * 0.95).toFixed(2) + 's');
+    el.style.setProperty('--delay', (-(i * 0.83) % 7).toFixed(2) + 's');
+    el.style.setProperty('--amp', (5 + (i % 4) * 2.2).toFixed(1) + 'px');
+    el.style.setProperty('--rot', ((i % 2 ? 1 : -1) * (0.5 + (i % 3) * 0.28)).toFixed(2) + 'deg');
     el.setAttribute('aria-label', n.label + '. ' + n.title);
     el.innerHTML =
       '<span class="hv2-node-inner">' +
         '<span class="hv2-node-plate" aria-hidden="true"></span>' +
         '<img src="' + IMG + n.img + '.webp" alt="" decoding="async" />' +
-        '<span class="hv2-node-label">' + n.label + '</span>' +
+        '<span class="hv2-node-label">' +
+          '<span class="hv2-node-name">' + n.label + '</span>' + svgSquiggle(i) +
+        '</span>' +
       '</span>';
     n.el = el;
+    n.img_el = el.querySelector('img');
+    n.label_el = el.querySelector('.hv2-node-label');
     field.appendChild(el);
   });
 }
 
-/* One pass of the layout at a given figure scale. */
-const RANK_S = { 0: 13, 1: 6.43, 2: 10.98, 3: 4.46 };
-
+/* One pass of the composition at a given figure size. */
 function apply(base, W, H) {
-  const grid = lattice(W, H, NODES.length);
-  const cell = Math.min(grid.cw, grid.ch);
-  // Size is a share of the cell, not a free number, so the figures and the
-  // spacing stay in proportion whatever the screen does. base is the one dial
-  // the solver turns.
-  // Even steps, so each rank is unmistakably a rank: about one and a half
-  // times the next in size, which is roughly twice the area. The old steps
-  // ran 1.10, 1.54, 1.33, and the first was too small to read as a step.
-  const RANK = { 0: 1.18, 1: 0.52, 2: 0.80, 3: 0.34 };
-  const floor = W < 560 ? 22 : 32;
-  const size = n => Math.max(floor, cell * RANK[n.ring] * (base / 1000) * (n.s / RANK_S[n.ring]));
-
-  const slots = assign(grid, W / 2, H / 2);
   const cx = W / 2, cy = H / 2;
+  const sp = spread(W), SX = sp[0], SY = sp[1];
+  const ax = W * SX, ay = H * SY;
 
-  // Rank decides the size and the slot: she is the middle cell, the work is
-  // the block around her, everything else sits outside it.
-  [0, 1, 2, 3].forEach(r => {
-    const group = NODES.filter(n => n.ring === r);
-    group.forEach((n, i) => { n.pt = slots[r][i] || null; });
-  });
+  if (orbitSvg) {
+    orbitSvg.setAttribute('viewBox', '0 0 ' + W.toFixed(0) + ' ' + H.toFixed(0));
+    orbitEls.forEach((el, i) => {
+      el.setAttribute('cx', cx.toFixed(1));
+      el.setAttribute('cy', cy.toFixed(1));
+      el.setAttribute('rx', (ORBITS[i][0] * ax).toFixed(1));
+      el.setAttribute('ry', (ORBITS[i][1] * ay).toFixed(1));
+    });
+  }
+  const floor = W < 560 ? 20 : 30;
 
-  NODES.forEach((n, i) => {
-    const el = n.el;
-    // A rank's weight is the side of a notional square; the pose keeps its own
-    // proportions and is scaled to fill that much area.
-    const side = size(n);
+  NODES.forEach(n => {
+    const side = Math.max(floor, base * WEIGHT[n.ring]);
     const area = side * side * (POSE_AREA[n.img] || 1);
-    const img = el.querySelector('img');
-    const ratio = (img.naturalWidth && img.naturalHeight)
-      ? img.naturalWidth / img.naturalHeight : 0.6;
-    el.style.setProperty('--figh', Math.sqrt(area / ratio).toFixed(1) + 'px');
+    const ratio = (n.img_el.naturalWidth && n.img_el.naturalHeight)
+      ? n.img_el.naturalWidth / n.img_el.naturalHeight : 0.6;
+    n.el.style.setProperty('--figh', Math.sqrt(area / ratio).toFixed(1) + 'px');
 
-    const x = n.pt ? n.pt.x : cx;
-    const y = n.pt ? n.pt.y : cy;
-    el.style.setProperty('--x', ((x - cx) / W * 100).toFixed(2));
-    el.style.setProperty('--y', ((y - cy) / H * 100).toFixed(2));
-    el.style.zIndex = String(Math.round(300 + (y - cy) / H * 400));
+    const y = cy + n.ny * ay;
+    n.el.style.setProperty('--x', (n.nx * SX * 100).toFixed(2));
+    n.el.style.setProperty('--y', (n.ny * SY * 100).toFixed(2));
+    n.el.style.zIndex = String(Math.round(300 + (y - cy) / H * 400));
   });
 }
 
-/* Does any pair of figures sit on top of another by more than a sliver? */
+/* The rectangle a figure really occupies: the clay plus the name under it. */
+function boxOf(n, pad) {
+  const a = n.img_el.getBoundingClientRect();
+  let left = a.left, right = a.right, top = a.top, bottom = a.bottom;
+  if (n.label_el && getComputedStyle(n.label_el).opacity !== '0') {
+    const b = n.label_el.getBoundingClientRect();
+    if (b.width) {
+      left = Math.min(left, b.left); right = Math.max(right, b.right);
+      top = Math.min(top, b.top); bottom = Math.max(bottom, b.bottom);
+    }
+  }
+  return { left: left - pad, right: right + pad, top: top - pad, bottom: bottom + pad,
+           width: (right - left) + 2 * pad, height: (bottom - top) + 2 * pad };
+}
+
 function collides(limit, pad) {
-  const p = pad || 0;
-  const boxes = NODES.map(n => {
-    const r = n.el.querySelector('img').getBoundingClientRect();
-    return { left: r.left - p, right: r.right + p, top: r.top - p, bottom: r.bottom + p,
-             width: r.width + 2 * p, height: r.height + 2 * p };
-  });
+  const boxes = NODES.map(n => boxOf(n, pad || 0));
   for (let i = 0; i < boxes.length; i++) {
     for (let j = i + 1; j < boxes.length; j++) {
       const a = boxes[i], b = boxes[j];
@@ -266,8 +268,15 @@ function collides(limit, pad) {
   return false;
 }
 
-/* Lay out, check, and step the figures down until nothing crowds. This is why
-   the page holds its shape on a screen I have not seen. */
+/* Nothing may hang off the top or the bottom of the field either. */
+function overflows(pad) {
+  const f = field.getBoundingClientRect();
+  return NODES.some(n => {
+    const b = boxOf(n, 0);
+    return b.top < f.top - pad || b.bottom > f.bottom + pad;
+  });
+}
+
 /* Give the field exactly the height the window has left over, measured rather
    than inherited. Leaving it to the grid's free space worked here and
    collapsed on her machine, where the row fell to nothing and the field was
@@ -289,27 +298,51 @@ function layout() {
   if (!W || !H) return;
   // Hold everything still while solving. A drifting figure means every pass
   // reads a different instant, and a figure still growing in from the
-  // entrance reads smaller than it will be, which is how the solver came to
-  // believe a centre half again too big would fit.
+  // entrance reads smaller than it will be.
   field.classList.add('is-measuring');
   NODES.forEach(n => n.el.getAnimations().forEach(a => { try { a.finish(); } catch (e) {} }));
-  const pad = Math.max(7, Math.min(W, H) * 0.012);
-  let base = 1000;
-  for (let pass = 0; pass < 20; pass++) {
+  const pad = Math.max(5, Math.min(W, H) * 0.009);
+  let base = H * 0.215;
+  for (let pass = 0; pass < 26; pass++) {
     apply(base, W, H);
-    if (!collides(0.03, pad)) break;
-    base *= 0.94;
+    if (!collides(0.03, pad) && !overflows(2)) break;
+    base *= 0.95;
   }
   for (let pass = 0; pass < 12; pass++) {
-    const bigger = base * 1.04;
+    const bigger = base * 1.035;
     apply(bigger, W, H);
-    if (collides(0.03, pad)) { apply(base, W, H); break; }
+    if (collides(0.03, pad) || overflows(2)) { apply(base, W, H); break; }
     base = bigger;
   }
   field.classList.remove('is-measuring');
 }
 
-/* Say where a click goes, in the card, before it is clicked. */
+/* ---------- the pointer parallax ------------------------------------------ */
+
+let aimX = 0, aimY = 0, curX = 0, curY = 0, drifting = false;
+
+function drift() {
+  curX += (aimX - curX) * 0.07;
+  curY += (aimY - curY) * 0.07;
+  NODES.forEach(n => {
+    const d = DEPTH[n.ring];
+    n.el.style.setProperty('--ox', (curX * d).toFixed(2) + 'px');
+    n.el.style.setProperty('--oy', (curY * d * 0.6).toFixed(2) + 'px');
+  });
+  field.style.setProperty('--drift-x', (curX * 10).toFixed(2) + 'px');
+  field.style.setProperty('--drift-y', (curY * 6).toFixed(2) + 'px');
+  if (Math.abs(aimX - curX) > 0.001 || Math.abs(aimY - curY) > 0.001) {
+    requestAnimationFrame(drift);
+  } else { drifting = false; }
+}
+
+function nudge(x, y) {
+  aimX = x; aimY = y;
+  if (!drifting) { drifting = true; requestAnimationFrame(drift); }
+}
+
+/* ---------- the card ------------------------------------------------------ */
+
 function openLabel(href) {
   if (href.startsWith('/about')) return 'Open the About page';
   if (href.startsWith('/explorations')) return 'Open the skill archive';
@@ -317,6 +350,7 @@ function openLabel(href) {
 }
 
 function fillCard(n) {
+  card.style.setProperty('--accent', n.accent);
   card.innerHTML =
     (n.media ? '<img class="hv2-card-media" src="' + n.media + '" alt="" />' : '') +
     '<div class="hv2-card-body">' +
@@ -381,8 +415,15 @@ function wire() {
       });
     }
   });
-  field.addEventListener('pointerleave', close);
+  field.addEventListener('pointerleave', () => { close(); nudge(0, 0); });
   window.addEventListener('scroll', () => { if (openId) close(); }, { passive: true });
+
+  if (!reduced && window.matchMedia('(pointer: fine)').matches) {
+    field.addEventListener('pointermove', (e) => {
+      const r = field.getBoundingClientRect();
+      nudge((e.clientX - r.left) / r.width * 2 - 1, (e.clientY - r.top) / r.height * 2 - 1);
+    }, { passive: true });
+  }
 
   const todoBtn = document.querySelector('[data-todo-toggle]');
   todoBtn.addEventListener('click', () => {
@@ -392,12 +433,13 @@ function wire() {
   });
 }
 
+/* The figures arrive from the middle outward, so the eye lands on her first. */
 function entrance() {
   if (reduced) return;
   [...NODES].sort((a, b) => a.ring - b.ring).forEach((n, i) => {
     n.el.animate(
-      [{ opacity: 0, scale: .72 }, { opacity: 1, scale: 1 }],
-      { duration: 760, delay: 90 + i * 55, easing: 'cubic-bezier(.22,1,.36,1)', fill: 'backwards' }
+      [{ opacity: 0, scale: .74 }, { opacity: 1, scale: 1 }],
+      { duration: 820, delay: 110 + i * 52, easing: 'cubic-bezier(.22,1,.36,1)', fill: 'backwards' }
     );
   });
 }
@@ -410,8 +452,8 @@ function stamp() {
   const bar = document.querySelector('.hv2-draftbar span');
   if (!bar) return;
   const f = field.getBoundingClientRect();
-  const c = NODES[0].el.querySelector('img').getBoundingClientRect();
-  const boxes = NODES.map(n => n.el.querySelector('img').getBoundingClientRect());
+  const c = NODES[0].img_el.getBoundingClientRect();
+  const boxes = NODES.map(n => boxOf(n, 0));
   const l = Math.min(...boxes.map(b => b.left)), r = Math.max(...boxes.map(b => b.right));
   const t = Math.min(...boxes.map(b => b.top)), bo = Math.max(...boxes.map(b => b.bottom));
   bar.dataset.base = bar.dataset.base || bar.textContent;
@@ -419,8 +461,6 @@ function stamp() {
     '  ·  build ' + v +
     '  ·  window ' + window.innerWidth + 'x' + window.innerHeight +
     ' dpr' + (window.devicePixelRatio || 1) +
-    '  ·  rows ' + ['.hv2-draftbar', '.hv2-top', '.hv2-foot']
-        .map(sel => Math.round(document.querySelector(sel).getBoundingClientRect().height)).join('/') +
     '  ·  field ' + Math.round(f.width) + 'x' + Math.round(f.height) +
     '  ·  me ' + Math.round(c.height) +
     '  ·  fills ' + Math.round(100 * (r - l) / f.width) + '%x' + Math.round(100 * (bo - t) / f.height) + '%';
@@ -440,8 +480,7 @@ if ('ResizeObserver' in window) new ResizeObserver(relayout).observe(document.bo
 
 /* The first pass runs before the figures have arrived, so it measures boxes
    that are not their real shape and settles on a smaller scale than the field
-   can take. Nothing changes size afterwards, so nothing would have corrected
-   it. These three run it again once the page is actually itself. */
+   can take. These three run it again once the page is actually itself. */
 Promise.all(
   [...field.querySelectorAll('img')].map(img =>
     img.decode ? img.decode().catch(() => {}) : Promise.resolve())
