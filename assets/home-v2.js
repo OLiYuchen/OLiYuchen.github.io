@@ -162,13 +162,19 @@ function assign(grid, cx, cy) {
     return byKey[k];
   };
   const centre = [take(cc, cr)].filter(Boolean);
-  const corners = [[cc - 1, cr - 1], [cc + 1, cr - 1], [cc + 1, cr + 1], [cc - 1, cr + 1]]
+
+  // The four cells straight up, down, left and right of her stay empty. With
+  // something in each of them the middle read as a rectangle; a cross of air
+  // lets her sit on her own and turns the group into a diamond.
+  [[cc, cr - 1], [cc, cr + 1], [cc - 1, cr], [cc + 1, cr]].forEach(p => take(p[0], p[1]));
+
+  const about = [[cc - 1, cr - 1], [cc + 1, cr - 1], [cc - 1, cr + 1], [cc + 1, cr + 1]]
     .map(p => take(p[0], p[1])).filter(Boolean);
-  const sides = [[cc, cr - 1], [cc + 1, cr], [cc, cr + 1], [cc - 1, cr]]
+  const featured = [[cc - 2, cr - 1], [cc + 2, cr - 1], [cc + 2, cr + 1], [cc - 2, cr + 1]]
     .map(p => take(p[0], p[1])).filter(Boolean);
   const rest = grid.pts.filter(p => !used[p.c + ',' + p.r])
     .sort((a, b) => Math.hypot(b.x - cx, b.y - cy) - Math.hypot(a.x - cx, a.y - cy));
-  return { 0: centre, 1: sides, 2: corners, 3: rest };
+  return { 0: centre, 1: about, 2: featured, 3: rest };
 }
 
 function build() {

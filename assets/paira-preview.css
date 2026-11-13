@@ -1,0 +1,72 @@
+/* ===========================================================================
+   Paira preview: the live case study, copied, with the new sections merged in
+   and marked. paira/index.html is not touched by any of this.
+   =========================================================================== */
+
+/* The draft stylesheet scales every spacing token up for a page of its own.
+   Here the new sections are joining an existing page, so the page's own
+   rhythm wins. */
+html body.paira-case-page {
+  --sp-tight: clamp(1.2rem, 2vw, 1.7rem);
+  --sp-block: clamp(2rem, 3.4vw, 2.8rem);
+  --sp-stage: clamp(3.6rem, 6.4vw, 5.6rem);
+  --sp-rest:  clamp(2.2rem, 4vw, 3.2rem);
+  --sp-part:  clamp(4rem, 7.5vw, 6.5rem);
+  --sp-act:   clamp(6rem, 10vw, 10rem);
+  --sp-join:  clamp(2.6rem, 4.5vw, 3.8rem);
+}
+
+/* ---------- the bar ------------------------------------------------------- */
+
+.pv-bar {
+  position: sticky; top: 0; z-index: 60;
+  background: #2f7d5b; color: #fff;
+  font-family: "Instrument Sans", system-ui, sans-serif; font-size: .8rem; line-height: 1.5;
+}
+.pv-bar .container { display: flex; gap: .9rem; align-items: baseline; flex-wrap: wrap; padding-top: .55rem; padding-bottom: .55rem; }
+.pv-bar b { font-size: .64rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.pv-bar span { opacity: .85; }
+.pv-bar button {
+  margin-left: auto; border: 1px solid rgba(255,255,255,.45); background: transparent; color: #fff;
+  border-radius: 999px; padding: .22rem .75rem; cursor: pointer;
+  font: inherit; font-size: .72rem; font-weight: 600; white-space: nowrap;
+}
+.pv-bar button:hover { background: #fff; color: #2f7d5b; }
+
+/* ---------- what changed -------------------------------------------------- */
+
+.pv-new { position: relative; }
+body.show-changes .pv-new {
+  background:
+    linear-gradient(90deg, rgba(47,125,91,.055), rgba(47,125,91,0) 38%);
+  box-shadow: inset 3px 0 0 0 #2f7d5b;
+}
+body.show-changes .pv-new::before {
+  content: attr(data-pv-note);
+  position: absolute; top: .9rem; left: 0;
+  transform: translateX(calc(-100% - .9rem));
+  max-width: 11rem;
+  padding: .3rem .6rem; border-radius: .4rem;
+  background: #2f7d5b; color: #fff;
+  font-family: "Instrument Sans", system-ui, sans-serif;
+  font-size: .66rem; font-weight: 600; line-height: 1.35; letter-spacing: .02em;
+  white-space: normal;
+}
+@media (max-width: 1500px) {
+  body.show-changes .pv-new::before {
+    transform: none; position: static; display: inline-block; margin: .9rem 0 0 1.1rem;
+  }
+}
+
+/* ---------- the opening block, inside the hero ---------------------------- */
+
+.pv-opening { margin: var(--sp-stage) 0 var(--sp-rest); padding-left: 1.1rem; }
+.pv-opening-head {
+  margin: 0; font-family: var(--font-display); font-weight: 600;
+  font-size: clamp(1.7rem, 2.6vw, 2.4rem); line-height: 1.1; text-wrap: balance;
+}
+.pv-opening .pd-ledger { margin-top: var(--sp-block); }
+.pv-new > .pira-dummy { display: none; }
+
+/* the three new sections carry their own left rule inside the act wrapper */
+body.show-changes .pv-new > .merlin-report-section { box-shadow: none; }
