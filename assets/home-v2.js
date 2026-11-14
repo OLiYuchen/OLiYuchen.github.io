@@ -70,13 +70,13 @@ const NODES = [
     tags:['Team leadership','App flow','Rapid prototype'],
     media:'/assets/img/home/ecoscan.webp', href:'/ecoscan/' },
 
-  { id:'game', ring:2, nx:-0.56, ny:0.60, img:'me-game', label:'Common Ground', accent:'#c98a56',
+  { id:'game', ring:2, nx:-0.59, ny:0.70, img:'me-game', label:'Common Ground', accent:'#c98a56',
     kicker:'Game design', title:'Common Ground',
     text:'A cooperative card game where teamwork becomes the winning mechanic.',
     tags:['Mechanics','Rule system','Playtesting'],
     media:'/assets/img/home/game-overview.webp', href:'/game/' },
 
-  { id:'merlin', ring:2, nx:0.56, ny:0.60, img:'me-merlin', label:'Merlin Bird ID', accent:'#d98589',
+  { id:'merlin', ring:2, nx:0.59, ny:0.70, img:'me-merlin', label:'Merlin Bird ID', accent:'#d98589',
     kicker:'Research-led strategy', title:'Merlin Bird ID',
     text:'Research-led product strategy helping novice birders stay engaged.',
     tags:['UX research','Synthesis','Opportunity framing'],
@@ -116,7 +116,7 @@ const NODES = [
     text:'Flat-pack builds, soft goods and the drawings behind them.',
     tags:['CAD','Laser cutting','Soft goods'], media:'/assets/img/explorations/assets-assignment-3-process-10-assemble.webp', href:'/explorations/#flat-pack-laptop-stand' },
 
-  { id:'archive', ring:3, nx:-0.45, ny:0.97, img:'me-casual', label:'Skill archive', accent:VIOLET,
+  { id:'archive', ring:3, nx:-0.33, ny:0.98, img:'me-casual', label:'Skill archive', accent:VIOLET,
     todo:'Olivia holding a small stack of finished objects.',
     kicker:'Explorations', title:'The full skill archive.',
     text:'Side projects that stretch prototyping, fabrication and technical craft.',

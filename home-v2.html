@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <link rel="icon" type="image/png" href="/assets/img/personal-logo.png" />
 <link rel="stylesheet" href="/assets/style.css" />
-<link rel="stylesheet" href="/assets/home-v2.css?v=2026111406" />
+<link rel="stylesheet" href="/assets/home-v2.css?v=2026111407" />
 </head>
 <body class="hv2">
 
@@ -44,11 +44,14 @@
 
 <div class="hv2-card" data-card role="status" aria-live="polite"></div>
 
-<footer class="hv2-foot">
-  <p>Olivia design. Right reserved.</p>
-  <p>Designed with lots of &#129504;&#128049;&#10084;&#65039;</p>
+<footer class="site-footer home-footer hv2-foot">
+  <div class="container footer-row">
+    <p>&#169; <span id="year"></span> Olivia Yuchen Feng</p>
+    <p>Designed with lots of &#129504;&#128049;&#10084;&#65039;</p>
+  </div>
 </footer>
+<script>document.getElementById("year").textContent = new Date().getFullYear();</script>
 
-<script src="/assets/home-v2.js?v=2026111406" defer></script>
+<script src="/assets/home-v2.js?v=2026111407" defer></script>
 </body>
 </html>
