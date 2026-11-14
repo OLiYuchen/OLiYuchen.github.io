@@ -158,11 +158,11 @@ function build() {
     el.style.setProperty('--accent', n.accent);
     el.style.setProperty('--dur', (6.1 + (i % 7) * 1.07).toFixed(2) + 's');
     el.style.setProperty('--delay', (-(i * 1.37) % 9).toFixed(2) + 's');
-    el.style.setProperty('--amp', (5 + (i % 4) * 2.4).toFixed(1) + 'px');
+    el.style.setProperty('--amp0', (5 + (i % 4) * 2.4).toFixed(1) + 'px');
     el.style.setProperty('--dur2', (8.9 + (i % 5) * 1.63).toFixed(2) + 's');
     el.style.setProperty('--delay2', (-(i * 2.11) % 11).toFixed(2) + 's');
-    el.style.setProperty('--swy', (2.4 + (i % 3) * 1.3).toFixed(1) + 'px');
-    el.style.setProperty('--rot', ((i % 2 ? 1 : -1) * (0.45 + (i % 3) * 0.22)).toFixed(2) + 'deg');
+    el.style.setProperty('--swy0', (2.4 + (i % 3) * 1.3).toFixed(1) + 'px');
+    el.style.setProperty('--rot0', ((i % 2 ? 1 : -1) * (0.45 + (i % 3) * 0.22)).toFixed(2) + 'deg');
     el.setAttribute('aria-label', n.label + '. ' + n.title);
     el.innerHTML =
       '<span class="hv2-node-inner">' +

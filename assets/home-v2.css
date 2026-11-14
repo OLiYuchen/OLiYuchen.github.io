@@ -50,11 +50,24 @@ html:has(> .hv2) { overflow-x: clip; }
 
 /* ---------- a node -------------------------------------------------------- */
 
+/* Registering these makes them real lengths and angles rather than text, which
+   is what lets a figure's amplitude be eased rather than switched. */
+@property --amp { syntax: "<length>"; inherits: true; initial-value: 6px; }
+@property --swy { syntax: "<length>"; inherits: true; initial-value: 3px; }
+@property --rot { syntax: "<angle>";  inherits: true; initial-value: 0.7deg; }
+
 .hv2-node {
   position: absolute;
   left: calc(50% + var(--x) * 1% + var(--ox, 0px));
   top: calc(50% + var(--y) * 1% + var(--oy, 0px));
-  transition: left .5s var(--hv2-ease), top .5s var(--hv2-ease);
+  /* The figure's own amplitudes, which hover eases down to nothing. */
+  --amp: var(--amp0, 6px);
+  --swy: var(--swy0, 3px);
+  --rot: var(--rot0, .7deg);
+  transition: left .5s var(--hv2-ease), top .5s var(--hv2-ease),
+              --amp .85s cubic-bezier(.33, 1, .68, 1),
+              --swy .85s cubic-bezier(.33, 1, .68, 1),
+              --rot .85s cubic-bezier(.33, 1, .68, 1);
   margin: 0; padding: 0; border: 0; background: none; cursor: pointer;
   transform: translate(-50%, -100%);
 }
@@ -88,13 +101,14 @@ html:has(> .hv2) { overflow-x: clip; }
 .hv2-node:hover .hv2-node-inner,
 .hv2-node:focus-visible .hv2-node-inner { scale: 1.13; }
 
-/* A figure you are reading holds still. It was floating and growing at the
-   same time, which read as it floating harder; stopping it is what says
-   "this one, now". It stops where it is rather than snapping home. */
-.hv2-node:hover .hv2-node-inner,
-.hv2-node:focus-visible .hv2-node-inner,
-.hv2-node:hover img,
-.hv2-node:focus-visible img { animation-play-state: paused; }
+/* A figure you are reading comes to rest. Pausing it froze it mid-air on the
+   frame the pointer arrived, which is why it read as stiff. Instead the two
+   motions keep their clocks and lose their amplitude: it goes on swinging
+   while the swing shrinks to nothing, and settles in the middle of its own
+   path. Leaving grows the amplitude back, so it eases into floating again
+   rather than jumping to wherever the clock has got to. */
+.hv2-node:hover,
+.hv2-node:focus-visible { --amp: 0px; --swy: 0px; --rot: 0deg; }
 .hv2-node:hover img,
 .hv2-node:focus-visible img { filter: drop-shadow(0 14px 22px rgba(95, 83, 158, .3)); }
 .hv2-node:hover .hv2-node-label,
