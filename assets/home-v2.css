@@ -87,6 +87,14 @@ html:has(> .hv2) { overflow-x: clip; }
 .hv2-node:hover, .hv2-node:focus-visible { z-index: 900 !important; }
 .hv2-node:hover .hv2-node-inner,
 .hv2-node:focus-visible .hv2-node-inner { scale: 1.13; }
+
+/* A figure you are reading holds still. It was floating and growing at the
+   same time, which read as it floating harder; stopping it is what says
+   "this one, now". It stops where it is rather than snapping home. */
+.hv2-node:hover .hv2-node-inner,
+.hv2-node:focus-visible .hv2-node-inner,
+.hv2-node:hover img,
+.hv2-node:focus-visible img { animation-play-state: paused; }
 .hv2-node:hover img,
 .hv2-node:focus-visible img { filter: drop-shadow(0 14px 22px rgba(95, 83, 158, .3)); }
 .hv2-node:hover .hv2-node-label,
