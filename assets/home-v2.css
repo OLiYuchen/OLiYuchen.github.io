@@ -21,52 +21,15 @@
   min-height: 100dvh;
   display: grid;
   grid-template-rows: auto auto 1fr auto;
-  background: var(--hv2-paper);
+  /* The site's own paper, flat, as a floor under style.css's gradient. The
+     gradient is painted by a fixed pseudo-element, which can come up short at
+     the very edge; this makes sure nothing white ever shows there. */
+  background: var(--paper, #fdf9f3);
   color: var(--hv2-ink);
   font-family: "Instrument Sans", system-ui, sans-serif;
   overflow-x: clip;
 }
 html:has(> .hv2) { overflow-x: clip; }
-
-/* A very soft warmth behind the whole field, so the centre reads as centre. */
-.hv2::before {
-  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
-  background: radial-gradient(60% 55% at 50% 46%, rgba(139,127,212,.09), transparent 70%);
-}
-
-/* ---------- top bar ------------------------------------------------------- */
-
-.hv2-top {
-  position: relative; z-index: 3;
-  display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
-  padding: .8rem clamp(1rem, 3.5vw, 2.6rem);
-}
-.hv2-brand {
-  display: flex; align-items: center; gap: .55rem;
-  font-family: "Cormorant Garamond", serif; font-size: 1.35rem; font-weight: 600;
-  color: var(--hv2-ink); text-decoration: none;
-}
-.hv2-brand img { width: 1.7rem; height: 1.7rem; }
-.hv2-nav { margin-left: auto; display: flex; align-items: center; gap: .55rem; }
-.hv2-pill {
-  display: flex; align-items: center; gap: .15rem;
-  border: 1px solid var(--hv2-line); border-radius: 999px; padding: .25rem;
-  background: rgba(255,255,255,.6);
-}
-.hv2-pill a {
-  padding: .35rem .85rem; border-radius: 999px; text-decoration: none;
-  color: var(--hv2-soft); font-size: .85rem; font-weight: 500;
-  transition: background .3s var(--hv2-ease), color .3s var(--hv2-ease);
-}
-.hv2-pill a:hover { background: var(--hv2-violet-soft); color: var(--hv2-violet-deep); }
-.hv2-round {
-  width: 2.3rem; height: 2.3rem; display: grid; place-items: center;
-  border: 1px solid var(--hv2-line); border-radius: 50%;
-  background: rgba(255,255,255,.6); color: var(--hv2-soft);
-  text-decoration: none; font-size: .82rem; font-weight: 600;
-  transition: transform .35s var(--hv2-ease), background .3s var(--hv2-ease), color .3s var(--hv2-ease);
-}
-.hv2-round:hover { transform: translateY(-2px); background: var(--hv2-violet-deep); color: #fff; border-color: transparent; }
 
 /* ---------- the field ----------------------------------------------------- */
 
@@ -100,7 +63,7 @@ html:has(> .hv2) { overflow-x: clip; }
   display: block;
   width: auto;
   transform-origin: 50% 85%;
-  animation: hv2-float var(--dur, 9s) var(--hv2-ease) var(--delay, 0s) infinite alternate;
+  animation: hv2-bob var(--dur, 7s) cubic-bezier(.45, .05, .55, .95) var(--delay, 0s) infinite alternate;
   transition: scale .45s var(--hv2-ease), filter .45s var(--hv2-ease);
 }
 .hv2-node img {
@@ -109,6 +72,7 @@ html:has(> .hv2) { overflow-x: clip; }
   object-fit: contain; object-position: bottom center;
   filter: drop-shadow(0 8px 14px rgba(43, 36, 30, .14));
   transition: filter .45s var(--hv2-ease);
+  animation: hv2-sway var(--dur2, 11s) cubic-bezier(.37, 0, .63, 1) var(--delay2, 0s) infinite alternate;
   -webkit-user-drag: none; user-select: none;
 }
 .hv2-node-label {
@@ -119,7 +83,6 @@ html:has(> .hv2) { overflow-x: clip; }
   opacity: 0; translate: -50% -3px;
   transition: opacity .4s var(--hv2-ease), translate .4s var(--hv2-ease);
   white-space: nowrap;
-  display: grid; justify-items: center;
 }
 .hv2-node:hover, .hv2-node:focus-visible { z-index: 900 !important; }
 .hv2-node:hover .hv2-node-inner,
@@ -158,9 +121,18 @@ html:has(> .hv2) { overflow-x: clip; }
   outline: 1px dashed #c89a3c; outline-offset: 6px; border-radius: .8rem;
 }
 
-@keyframes hv2-float {
-  from { translate: 0 0; rotate: calc(var(--rot, .7deg) * -1); }
-  to   { translate: 0 calc(var(--amp, 6px) * -1); rotate: var(--rot, .7deg); }
+/* A figure rises and falls on one clock and leans and drifts sideways on
+   another, and the two periods do not divide into each other. Nothing in the
+   field ever repeats the same path twice, which is the difference between
+   floating and ticking. The easing is a sine, not an out-curve: the old one
+   arrived and waited, which is what read as stiff. */
+@keyframes hv2-bob {
+  from { translate: 0 calc(var(--amp, 6px) * .5); }
+  to   { translate: 0 calc(var(--amp, 6px) * -.5); }
+}
+@keyframes hv2-sway {
+  from { translate: calc(var(--swy, 3px) * -1) 0; rotate: calc(var(--rot, .7deg) * -1); }
+  to   { translate: var(--swy, 3px) 0; rotate: var(--rot, .7deg); }
 }
 
 /* ---------- the hover card ------------------------------------------------ */
@@ -227,7 +199,8 @@ html:has(> .hv2) { overflow-x: clip; }
 
 @media (prefers-reduced-motion: reduce) {
   .hv2-node-inner { animation: none; }
-  .hv2-card, .hv2-ring, .hv2-disc, .hv2-node-inner { transition: none; }
+  .hv2-node img { animation: none; }
+  .hv2-card, .hv2-node-inner { transition: none; }
 }
 
 /* ===========================================================================
@@ -264,7 +237,8 @@ button.hv2-node { cursor: default; }
 }
 
 /* Held still while the layout is being solved. */
-.hv2-field.is-measuring .hv2-node-inner { animation: none; }
+.hv2-field.is-measuring .hv2-node-inner,
+.hv2-field.is-measuring .hv2-node img { animation: none; }
 
 /* ===========================================================================
    Hierarchy, said three ways rather than one.
@@ -289,63 +263,13 @@ button.hv2-node { cursor: default; }
 /* ===========================================================================
    The composition, after the reference layout.
 
-   Two drawn orbits, a halo she stands in, and a name under every figure that
-   belongs to the work. The outer band keeps its names for hover, so the page
-   reads as a few things with names and a lot of life around them.
+   A name under every figure that belongs to the work, and nothing drawn
+   behind them. The outer band keeps its names for hover, so the page reads
+   as a few things with names and a lot of life around them.
    =========================================================================== */
 
-/* ---------- the orbits ---------------------------------------------------- */
+/* ---------- the names ----------------------------------------------------- */
 
-.hv2-orbits {
-  position: absolute; inset: 0; z-index: 0; pointer-events: none;
-  translate: var(--drift-x, 0) var(--drift-y, 0);
-  transition: translate .9s var(--hv2-ease);
-}
-.hv2-orbits svg { width: 100%; height: 100%; display: block; overflow: visible; }
-.hv2-orbit {
-  fill: none;
-  stroke: rgba(109, 98, 88, .40);
-  stroke-width: 1.3;
-  stroke-dasharray: 2 9;
-  stroke-linecap: round;
-}
-.hv2-orbit-0 { animation: hv2-orbit-drift 52s linear infinite; }
-.hv2-orbit-1 { stroke: rgba(109, 98, 88, .30); animation: hv2-orbit-drift 88s linear infinite reverse; }
-
-@keyframes hv2-orbit-drift { to { stroke-dashoffset: -220; } }
-
-/* ---------- the halo she stands in ---------------------------------------- */
-
-.hv2-halo {
-  position: absolute; left: 50%; top: 50%; z-index: 0;
-  width: 34%; aspect-ratio: 1 / 1;
-  translate: calc(-50% + var(--drift-x, 0px) * .3) calc(-50% + var(--drift-y, 0px) * .3);
-  border-radius: 50%;
-  background: radial-gradient(circle at 50% 46%, rgba(255,255,255,.95), rgba(255,255,255,.55) 52%, rgba(255,255,255,0) 72%);
-  pointer-events: none;
-  animation: hv2-breathe 11s ease-in-out infinite alternate;
-  transition: translate .9s var(--hv2-ease);
-}
-@keyframes hv2-breathe { from { scale: .97; opacity: .85; } to { scale: 1.03; opacity: 1; } }
-
-/* ---------- names, and the stroke under them ------------------------------ */
-
-.hv2-node-name { display: block; }
-
-.hv2-squiggle {
-  display: block;
-  width: 100%; min-width: 2.6rem;
-  height: calc(var(--figh, 90px) * .055 + 3px);
-  margin-top: .16rem;
-  overflow: visible;
-}
-.hv2-squiggle path {
-  fill: none;
-  stroke: var(--accent, var(--hv2-violet));
-  stroke-width: 2.1; stroke-linecap: round;
-  opacity: .85;
-  vector-effect: non-scaling-stroke;
-}
 
 /* Rings 0, 1 and 2 wear their names. The outer band does not, so the edge of
    the screen stays texture instead of becoming a second list. */
@@ -370,11 +294,6 @@ button.hv2-node { cursor: default; }
   color: var(--hv2-ink);
   margin-top: .5rem;
 }
-.hv2-node-centre .hv2-squiggle {
-  width: 62%; margin-inline: auto;
-  height: calc(var(--figh, 90px) * .045 + 4px);
-}
-.hv2-node-centre .hv2-squiggle path { stroke-width: 2.6; }
 
 /* The outer band's name arrives on hover, where it is wanted. */
 .hv2-node[data-ring="3"] .hv2-node-label {
@@ -386,14 +305,10 @@ button.hv2-node { cursor: default; }
 
 /* ---------- reading one figure -------------------------------------------- */
 
-.hv2-field.is-reading .hv2-orbits,
-.hv2-field.is-about .hv2-orbits { opacity: .4; transition: opacity .45s var(--hv2-ease); }
-
 .hv2-card { border-top: 3px solid var(--accent, var(--hv2-violet)); }
 .hv2-card-kicker { color: var(--accent, var(--hv2-violet-deep)); }
 .hv2-card-open { color: var(--accent, var(--hv2-violet-deep)); }
 
 @media (prefers-reduced-motion: reduce) {
-  .hv2-orbit, .hv2-halo { animation: none; }
-  .hv2-node, .hv2-orbits, .hv2-halo { transition: none; }
+  .hv2-node, .hv2-node img { animation: none; transition: none; }
 }

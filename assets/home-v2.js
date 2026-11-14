@@ -126,7 +126,6 @@ const NODES = [
 /* ---------------------------------------------------------------------- */
 
 const field = document.querySelector('[data-field]');
-let orbitSvg = null, orbitEls = [];
 const card = document.querySelector('[data-card]');
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -139,9 +138,6 @@ function spread(W) {
   return [0.47, 0.44];
 }
 
-/* The two drawn orbits, as a share of that same ellipse. */
-const ORBITS = [[0.59, 0.58], [0.99, 0.93]];
-
 /* A rank's weight is the side of a notional square. Area, not height, is what
    makes a wide scene and a standing doll read as the same rank. */
 const WEIGHT = { 0: 1.0, 1: 0.42, 2: 0.72, 3: 0.315 };
@@ -151,33 +147,7 @@ const WEIGHT = { 0: 1.0, 1: 0.42, 2: 0.72, 3: 0.315 };
    actually moving on the page. */
 const DEPTH = { 0: 2, 1: 7, 2: 11, 3: 18 };
 
-const SQUIGGLES = [
-  'M3 6.4C14 1.9 26 1.9 37 5.5s23 3.5 38-1.3',
-  'M3 5.4c10 3.4 21 3.4 31 .2s23-3.4 40 1.6',
-  'M2 6.2c12-4.1 24-4.1 36 0s26 3.1 40-1.7',
-];
-
-function svgSquiggle(i) {
-  return '<svg class="hv2-squiggle" viewBox="0 0 80 9" preserveAspectRatio="none" aria-hidden="true">' +
-         '<path d="' + SQUIGGLES[i % SQUIGGLES.length] + '" /></svg>';
-}
-
 function build() {
-  const sky = document.createElement('div');
-  sky.className = 'hv2-orbits';
-  sky.innerHTML =
-    '<svg aria-hidden="true">' +
-    ORBITS.map((o, i) => '<ellipse class="hv2-orbit hv2-orbit-' + i + '" />').join('') +
-    '</svg>';
-  field.appendChild(sky);
-  orbitSvg = sky.querySelector('svg');
-  orbitEls = [...sky.querySelectorAll('ellipse')];
-
-  const halo = document.createElement('div');
-  halo.className = 'hv2-halo';
-  halo.setAttribute('aria-hidden', 'true');
-  field.appendChild(halo);
-
   NODES.forEach((n, i) => {
     const el = document.createElement(n.href ? 'a' : 'button');
     el.className = 'hv2-node' + (n.ring === 0 ? ' hv2-node-centre' : '');
@@ -186,17 +156,20 @@ function build() {
     el.dataset.ring = n.ring;
     if (n.todo) el.dataset.todo = n.todo;
     el.style.setProperty('--accent', n.accent);
-    el.style.setProperty('--dur', (5.2 + (i % 7) * 0.95).toFixed(2) + 's');
-    el.style.setProperty('--delay', (-(i * 0.83) % 7).toFixed(2) + 's');
-    el.style.setProperty('--amp', (5 + (i % 4) * 2.2).toFixed(1) + 'px');
-    el.style.setProperty('--rot', ((i % 2 ? 1 : -1) * (0.5 + (i % 3) * 0.28)).toFixed(2) + 'deg');
+    el.style.setProperty('--dur', (6.1 + (i % 7) * 1.07).toFixed(2) + 's');
+    el.style.setProperty('--delay', (-(i * 1.37) % 9).toFixed(2) + 's');
+    el.style.setProperty('--amp', (5 + (i % 4) * 2.4).toFixed(1) + 'px');
+    el.style.setProperty('--dur2', (8.9 + (i % 5) * 1.63).toFixed(2) + 's');
+    el.style.setProperty('--delay2', (-(i * 2.11) % 11).toFixed(2) + 's');
+    el.style.setProperty('--swy', (2.4 + (i % 3) * 1.3).toFixed(1) + 'px');
+    el.style.setProperty('--rot', ((i % 2 ? 1 : -1) * (0.45 + (i % 3) * 0.22)).toFixed(2) + 'deg');
     el.setAttribute('aria-label', n.label + '. ' + n.title);
     el.innerHTML =
       '<span class="hv2-node-inner">' +
         '<span class="hv2-node-plate" aria-hidden="true"></span>' +
         '<img src="' + IMG + n.img + '.webp" alt="" decoding="async" />' +
         '<span class="hv2-node-label">' +
-          '<span class="hv2-node-name">' + n.label + '</span>' + svgSquiggle(i) +
+          n.label +
         '</span>' +
       '</span>';
     n.el = el;
@@ -211,16 +184,6 @@ function apply(base, W, H) {
   const cx = W / 2, cy = H / 2;
   const sp = spread(W), SX = sp[0], SY = sp[1];
   const ax = W * SX, ay = H * SY;
-
-  if (orbitSvg) {
-    orbitSvg.setAttribute('viewBox', '0 0 ' + W.toFixed(0) + ' ' + H.toFixed(0));
-    orbitEls.forEach((el, i) => {
-      el.setAttribute('cx', cx.toFixed(1));
-      el.setAttribute('cy', cy.toFixed(1));
-      el.setAttribute('rx', (ORBITS[i][0] * ax).toFixed(1));
-      el.setAttribute('ry', (ORBITS[i][1] * ay).toFixed(1));
-    });
-  }
   const floor = W < 560 ? 20 : 30;
 
   NODES.forEach(n => {
@@ -282,7 +245,7 @@ function overflows(pad) {
    collapsed on her machine, where the row fell to nothing and the field was
    held up only by its minimum. Measuring cannot drift that way. */
 function fitField() {
-  const used = ['.hv2-draftbar', '.hv2-top', '.hv2-foot'].reduce((sum, sel) => {
+  const used = ['.hv2-draftbar', '.site-header', '.hv2-foot'].reduce((sum, sel) => {
     const el = document.querySelector(sel);
     return sum + (el ? el.getBoundingClientRect().height : 0);
   }, 0);
@@ -300,8 +263,9 @@ function layout() {
   // reads a different instant, and a figure still growing in from the
   // entrance reads smaller than it will be.
   field.classList.add('is-measuring');
-  NODES.forEach(n => n.el.getAnimations().forEach(a => { try { a.finish(); } catch (e) {} }));
-  const pad = Math.max(5, Math.min(W, H) * 0.009);
+  NODES.forEach(n => n.el.getAnimations({ subtree: true })
+    .forEach(a => { try { a.finish(); } catch (e) {} }));
+  const pad = Math.max(5, Math.min(W, H) * 0.009) + 7;
   let base = H * 0.215;
   for (let pass = 0; pass < 26; pass++) {
     apply(base, W, H);
