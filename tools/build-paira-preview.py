@@ -10,7 +10,7 @@ import re
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-VERSION = "2026111403"
+VERSION = "2026111404"
 
 
 def balanced_div(text, start):
