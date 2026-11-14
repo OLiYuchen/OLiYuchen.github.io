@@ -50,24 +50,11 @@ html:has(> .hv2) { overflow-x: clip; }
 
 /* ---------- a node -------------------------------------------------------- */
 
-/* Registering these makes them real lengths and angles rather than text, which
-   is what lets a figure's amplitude be eased rather than switched. */
-@property --amp { syntax: "<length>"; inherits: true; initial-value: 6px; }
-@property --swy { syntax: "<length>"; inherits: true; initial-value: 3px; }
-@property --rot { syntax: "<angle>";  inherits: true; initial-value: 0.7deg; }
 
 .hv2-node {
   position: absolute;
-  left: calc(50% + var(--x) * 1% + var(--ox, 0px));
-  top: calc(50% + var(--y) * 1% + var(--oy, 0px));
-  /* The figure's own amplitudes, which hover eases down to nothing. */
-  --amp: var(--amp0, 6px);
-  --swy: var(--swy0, 3px);
-  --rot: var(--rot0, .7deg);
-  transition: left .5s var(--hv2-ease), top .5s var(--hv2-ease),
-              --amp .85s cubic-bezier(.33, 1, .68, 1),
-              --swy .85s cubic-bezier(.33, 1, .68, 1),
-              --rot .85s cubic-bezier(.33, 1, .68, 1);
+  left: calc(50% + var(--x) * 1%);
+  top: calc(50% + var(--y) * 1%);
   margin: 0; padding: 0; border: 0; background: none; cursor: pointer;
   transform: translate(-50%, -100%);
 }
@@ -76,7 +63,6 @@ html:has(> .hv2) { overflow-x: clip; }
   display: block;
   width: auto;
   transform-origin: 50% 85%;
-  animation: hv2-bob var(--dur, 7s) cubic-bezier(.45, .05, .55, .95) var(--delay, 0s) infinite alternate;
   transition: scale .45s var(--hv2-ease), filter .45s var(--hv2-ease);
 }
 .hv2-node img {
@@ -85,7 +71,6 @@ html:has(> .hv2) { overflow-x: clip; }
   object-fit: contain; object-position: bottom center;
   filter: drop-shadow(0 8px 14px rgba(43, 36, 30, .14));
   transition: filter .45s var(--hv2-ease);
-  animation: hv2-sway var(--dur2, 11s) cubic-bezier(.37, 0, .63, 1) var(--delay2, 0s) infinite alternate;
   -webkit-user-drag: none; user-select: none;
 }
 .hv2-node-label {
@@ -101,14 +86,6 @@ html:has(> .hv2) { overflow-x: clip; }
 .hv2-node:hover .hv2-node-inner,
 .hv2-node:focus-visible .hv2-node-inner { scale: 1.13; }
 
-/* A figure you are reading comes to rest. Pausing it froze it mid-air on the
-   frame the pointer arrived, which is why it read as stiff. Instead the two
-   motions keep their clocks and lose their amplitude: it goes on swinging
-   while the swing shrinks to nothing, and settles in the middle of its own
-   path. Leaving grows the amplitude back, so it eases into floating again
-   rather than jumping to wherever the clock has got to. */
-.hv2-node:hover,
-.hv2-node:focus-visible { --amp: 0px; --swy: 0px; --rot: 0deg; }
 .hv2-node:hover img,
 .hv2-node:focus-visible img { filter: drop-shadow(0 14px 22px rgba(95, 83, 158, .3)); }
 .hv2-node:hover .hv2-node-label,
@@ -143,17 +120,6 @@ html:has(> .hv2) { overflow-x: clip; }
   outline: 1px dashed #c89a3c; outline-offset: 6px; border-radius: .8rem;
 }
 
-/* A figure rises and falls on one clock and leans and drifts sideways on
-   another, and the two periods do not divide into each other. Nothing in the
-   field ever repeats the same path twice, which is the difference between
-   floating and ticking. The easing is a sine, not an out-curve: the old one
-   arrived and waited, which is what read as stiff. */
-@keyframes hv2-bob {
-  from { translate: 0 calc(var(--amp, 6px) * .5); }
-  to   { translate: 0 calc(var(--amp, 6px) * -.5); }
-}
-@keyframes hv2-sway {
-  from { translate: calc(var(--swy, 3px) * -1) 0; rotate: calc(var(--rot, .7deg) * -1); }
   to   { translate: var(--swy, 3px) 0; rotate: var(--rot, .7deg); }
 }
 
@@ -221,7 +187,6 @@ html:has(> .hv2) { overflow-x: clip; }
 
 @media (prefers-reduced-motion: reduce) {
   .hv2-node-inner { animation: none; }
-  .hv2-node img { animation: none; }
   .hv2-card, .hv2-node-inner { transition: none; }
 }
 
@@ -259,6 +224,8 @@ button.hv2-node { cursor: default; }
 }
 
 /* Held still while the layout is being solved. */
+/* Nothing moves on its own here any more; the class is kept because the
+   solver still wants the entrance animation finished before it measures. */
 .hv2-field.is-measuring .hv2-node-inner,
 .hv2-field.is-measuring .hv2-node img { animation: none; }
 
@@ -332,5 +299,5 @@ button.hv2-node { cursor: default; }
 .hv2-card-open { color: var(--accent, var(--hv2-violet-deep)); }
 
 @media (prefers-reduced-motion: reduce) {
-  .hv2-node, .hv2-node img { animation: none; transition: none; }
+  .hv2-node, .hv2-node img, .hv2-node-inner { transition: none; }
 }

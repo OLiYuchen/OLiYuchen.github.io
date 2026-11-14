@@ -142,11 +142,6 @@ function spread(W) {
    makes a wide scene and a standing doll read as the same rank. */
 const WEIGHT = { 0: 1.0, 1: 0.42, 2: 0.72, 3: 0.315 };
 
-/* How far each rank drifts under the pointer. The loose figures at the edge
-   move most, she moves least, and the field gains depth without anything
-   actually moving on the page. */
-const DEPTH = { 0: 2, 1: 7, 2: 11, 3: 18 };
-
 function build() {
   NODES.forEach((n, i) => {
     const el = document.createElement(n.href ? 'a' : 'button');
@@ -156,13 +151,6 @@ function build() {
     el.dataset.ring = n.ring;
     if (n.todo) el.dataset.todo = n.todo;
     el.style.setProperty('--accent', n.accent);
-    el.style.setProperty('--dur', (6.1 + (i % 7) * 1.07).toFixed(2) + 's');
-    el.style.setProperty('--delay', (-(i * 1.37) % 9).toFixed(2) + 's');
-    el.style.setProperty('--amp0', (5 + (i % 4) * 2.4).toFixed(1) + 'px');
-    el.style.setProperty('--dur2', (8.9 + (i % 5) * 1.63).toFixed(2) + 's');
-    el.style.setProperty('--delay2', (-(i * 2.11) % 11).toFixed(2) + 's');
-    el.style.setProperty('--swy0', (2.4 + (i % 3) * 1.3).toFixed(1) + 'px');
-    el.style.setProperty('--rot0', ((i % 2 ? 1 : -1) * (0.45 + (i % 3) * 0.22)).toFixed(2) + 'deg');
     el.setAttribute('aria-label', n.label + '. ' + n.title);
     el.innerHTML =
       '<span class="hv2-node-inner">' +
@@ -265,7 +253,7 @@ function layout() {
   field.classList.add('is-measuring');
   NODES.forEach(n => n.el.getAnimations({ subtree: true })
     .forEach(a => { try { a.finish(); } catch (e) {} }));
-  const pad = Math.max(5, Math.min(W, H) * 0.009) + 7;
+  const pad = Math.max(6, Math.min(W, H) * 0.011);
   let base = H * 0.215;
   for (let pass = 0; pass < 26; pass++) {
     apply(base, W, H);
@@ -279,30 +267,6 @@ function layout() {
     base = bigger;
   }
   field.classList.remove('is-measuring');
-}
-
-/* ---------- the pointer parallax ------------------------------------------ */
-
-let aimX = 0, aimY = 0, curX = 0, curY = 0, drifting = false;
-
-function drift() {
-  curX += (aimX - curX) * 0.07;
-  curY += (aimY - curY) * 0.07;
-  NODES.forEach(n => {
-    const d = DEPTH[n.ring];
-    n.el.style.setProperty('--ox', (curX * d).toFixed(2) + 'px');
-    n.el.style.setProperty('--oy', (curY * d * 0.6).toFixed(2) + 'px');
-  });
-  field.style.setProperty('--drift-x', (curX * 10).toFixed(2) + 'px');
-  field.style.setProperty('--drift-y', (curY * 6).toFixed(2) + 'px');
-  if (Math.abs(aimX - curX) > 0.001 || Math.abs(aimY - curY) > 0.001) {
-    requestAnimationFrame(drift);
-  } else { drifting = false; }
-}
-
-function nudge(x, y) {
-  aimX = x; aimY = y;
-  if (!drifting) { drifting = true; requestAnimationFrame(drift); }
 }
 
 /* ---------- the card ------------------------------------------------------ */
@@ -379,15 +343,9 @@ function wire() {
       });
     }
   });
-  field.addEventListener('pointerleave', () => { close(); nudge(0, 0); });
+  field.addEventListener('pointerleave', close);
   window.addEventListener('scroll', () => { if (openId) close(); }, { passive: true });
 
-  if (!reduced && window.matchMedia('(pointer: fine)').matches) {
-    field.addEventListener('pointermove', (e) => {
-      const r = field.getBoundingClientRect();
-      nudge((e.clientX - r.left) / r.width * 2 - 1, (e.clientY - r.top) / r.height * 2 - 1);
-    }, { passive: true });
-  }
 
   const todoBtn = document.querySelector('[data-todo-toggle]');
   todoBtn.addEventListener('click', () => {
@@ -397,14 +355,12 @@ function wire() {
   });
 }
 
-/* The figures arrive from the middle outward, so the eye lands on her first. */
+/* The page fades in once, from the middle outward, and then holds still. */
 function entrance() {
   if (reduced) return;
   [...NODES].sort((a, b) => a.ring - b.ring).forEach((n, i) => {
-    n.el.animate(
-      [{ opacity: 0, scale: .74 }, { opacity: 1, scale: 1 }],
-      { duration: 820, delay: 110 + i * 52, easing: 'cubic-bezier(.22,1,.36,1)', fill: 'backwards' }
-    );
+    n.el.animate([{ opacity: 0 }, { opacity: 1 }],
+      { duration: 620, delay: 90 + i * 38, easing: 'ease-out', fill: 'backwards' });
   });
 }
 

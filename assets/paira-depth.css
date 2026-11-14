@@ -576,26 +576,18 @@ body.paira-case-page {
 
 /* ===========================================================================
    THE GROWTH SECTIONS' RHYTHM
-   Six distances and nothing in between, so a reader can feel without reading
-   whether the next thing answers the line above it or starts something new.
 
-     join   two sentences about the same thing          ~24px
-     note   a component, and the sentence explaining it ~48px
-     lede   a heading, and the first thing under it     ~61px
-     open   the section's own opening, and its answer   ~95px
-     block  one component, and the next                 ~128px
-     study  one decision, and the next                  ~230px
+   The page already has a scale, and these sections now speak it rather than
+   one of their own. Nothing here invents a distance:
+
+     --sp-tight  27px   a heading and the first thing under it
+     --sp-block  45px   one component and the next
+     --sp-stage  90px   the sentence that closes a part
+     --sp-part  104px   one decision and the next
+
+   An earlier pass built a second scale beside the page's, which is why these
+   three sections opened up to roughly twice everything around them.
    =========================================================================== */
-
-.pd-growth {
-  --pdg-join:  clamp(1.1rem, 1.8vw, 1.5rem);
-  --pdg-note:  clamp(2.2rem, 3.6vw, 3rem);
-  --pdg-lede:  clamp(2.8rem, 4.4vw, 3.8rem);
-  --pdg-open:  clamp(4rem, 6.6vw, 6rem);
-  --pdg-block: clamp(5.5rem, 9vw, 8rem);
-  --pdg-close: clamp(7.5rem, 12vw, 11rem);
-  --pdg-study: clamp(10rem, 16vw, 15rem);
-}
 
 .pd-growth .merlin-report-lede p { margin-top: 1rem; }
 
@@ -604,16 +596,17 @@ body.paira-case-page {
 .pd-growth .paira-findings,
 .pd-growth .pd-anatomy,
 .pd-growth .pd-board,
-.pd-growth .pd-evidence { margin-top: var(--pdg-block); }
+.pd-growth .pd-evidence { margin-top: var(--sp-block); }
 
-/* The section's own opening, and the first thing that answers it. The second
-   selector steps over a hidden draft note, which the preview build strips but
-   the draft page still carries as a sibling. */
+/* The section's own opening, and the first thing that answers it, at the same
+   distance every other section on the page uses. The second selector steps
+   over a hidden draft note, which the preview build strips but the draft page
+   still carries as a sibling. */
 .pd-growth .merlin-report-lede + :is(.pd-method, .pd-ways, .paira-findings, .pd-anatomy, .pd-board),
-.pd-growth .merlin-report-lede + .pd-draftonly + :is(.pd-method, .pd-ways, .paira-findings, .pd-anatomy, .pd-board) { margin-top: var(--pdg-open); }
+.pd-growth .merlin-report-lede + .pd-draftonly + :is(.pd-method, .pd-ways, .paira-findings, .pd-anatomy, .pd-board) { margin-top: var(--sp-tight); }
 
 /* each study is a part of its own */
-.pd-growth .pd-method { margin-top: var(--pdg-study); }
+.pd-growth .pd-method { margin-top: var(--sp-part); }
 .pd-growth .pd-method > h3 { margin: .45rem 0 .9rem; }
 .pd-growth .pd-method > p { margin-top: .75rem; max-width: 64ch; }
 
@@ -622,7 +615,7 @@ body.paira-case-page {
 .pd-growth .pd-method > p + .paira-findings,
 .pd-growth .pd-method > p + .pd-anatomy,
 .pd-growth .pd-method > p + .pd-board,
-.pd-growth .pd-method > p + .pd-evidence { margin-top: var(--pdg-lede); }
+.pd-growth .pd-method > p + .pd-evidence { margin-top: var(--sp-tight); }
 
 .pd-growth .pd-evidence { gap: clamp(1.8rem, 3.4vw, 3.2rem); }
 .pd-growth .paira-signals3 { gap: 0 clamp(1.8rem, 3.4vw, 3.2rem); margin-top: 1.5rem; }
@@ -631,8 +624,8 @@ body.paira-case-page {
 
 /* a component, and the sentence that says what it means */
 .pd-growth .paira-findings-note,
-.pd-growth .pd-method > .paira-surface-note { margin-top: var(--pdg-note); }
-.pd-growth .pd-method > .paira-surface-note + .paira-surface-note { margin-top: var(--pdg-join); }
+.pd-growth .pd-method > .paira-surface-note { margin-top: var(--sp-tight); }
+.pd-growth .pd-method > .paira-surface-note + .paira-surface-note { margin-top: 1rem; }
 
 /* what I carry forward closes the part */
-.pd-growth .pd-carry { margin-top: var(--pdg-close); }
+.pd-growth .pd-carry { margin-top: var(--sp-stage); }
