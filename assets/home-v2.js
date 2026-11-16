@@ -25,102 +25,78 @@ const POSE_AREA = {
   'me-ecoscan': 1.0,
   'me-merlin': 1.0,
   'me-game': 1.0,
-  'me-cats': 0.9,
   'me-tennis': 1.25,
   'me-climb': 1.15,
-  'me-base': 0.85,
   'me-casual': 0.8,
 };
 
 const NODES = [
   /* ---- the centre ------------------------------------------------------- */
-  { id:'me', ring:0, nx:0, ny:0, img:'me-portrait', label:'Olivia Feng', accent:ROSE,
+  { id:'me', ring:0, nx:0.00, ny:0.00, img:'me-portrait', label:'Olivia Feng', accent:ROSE,
     kicker:'Product designer and manager',
     title:'Hi, I am Olivia.',
     text:'I turn ambiguous questions into flows, stories, prototypes and artifacts people can respond to.',
     tags:['0 to 1 product','UX research','Brand and motion'], href:'/about/' },
 
   /* ---- ring 1: who she is ----------------------------------------------- */
-  { id:'skills', ring:1, nx:0.17, ny:-0.82, img:'me-skills', label:'Skills', accent:ROSE,
+  { id:'skills', ring:1, nx:0.17, ny:-0.84, img:'me-skills', label:'Skills', accent:ROSE,
     kicker:'What I bring', title:'Research rigor, visual sensitivity, calm systems.',
     text:'Product strategy and UX research through to interaction design, design systems and AI experience design. Plus the making side: prototyping, design engineering, CAD and physical computing.',
     tags:['Product strategy','UX research','AI experience design','Design engineering'], href:'/about/#about-skills-title' },
 
-  { id:'work', ring:1, nx:-0.41, ny:0.15, img:'me-work', label:'Work', accent:ROSE,
+  { id:'work', ring:1, nx:-0.45, ny:0.20, img:'me-work', label:'Work', accent:ROSE,
     kicker:'Where I have worked', title:'Five places, one habit.',
     text:'Product designer at Paira through its App Store launch. Strategy and PMO intern at Fosun International in Shanghai. Research assistant at UW HCDE. Vice president at WEGET Magazine. UX researcher and designer at the Cornell Lab of Ornithology.',
     tags:['Paira','Fosun','UW HCDE','Cornell Lab','WEGET'], href:'/about/#about-experience-title' },
 
-  { id:'school', ring:1, nx:0.43, ny:0.16, img:'me-school', label:'Education', accent:VIOLET,
+  { id:'school', ring:1, nx:0.45, ny:0.14, img:'me-school', label:'Education', accent:VIOLET,
     kicker:'University of Washington', title:'Design, engineering, and a little neuroscience.',
     text:'B.S. in Human-Centered Design and Engineering with a minor in Neural Computation and Engineering, 2026. Now an M.S. in Technology Innovation at UW GIX with a CS and HCI focus, expected 2028.',
     tags:['UW HCDE','Neural Computation','UW GIX'], href:'/about/#about-education-title' },
 
-  { id:'base', ring:3, nx:0.33, ny:0.98, img:'me-base', label:'Redmond, WA', accent:VIOLET,
-    kicker:'Shanghai to Redmond', title:'Born and raised in Shanghai, now in Redmond, WA.',
-    text:'A life of ink, movement, friendship and making outside the screen. Usually with two cats nearby.',
-    tags:['Redmond, WA','Shanghai','Two cats'] },
-
   /* ---- ring 2: the featured work ---------------------------------------- */
-  { id:'paira', ring:2, nx:-0.44, ny:-0.44, img:'me-paira', label:'Paira', accent:'#605cff',
+  { id:'paira', ring:2, nx:-0.50, ny:-0.48, img:'me-paira', label:'Paira', accent:'#605cff',
     kicker:'0 to 1 product', title:'Paira',
     text:'A request-first help network where AI writes the ask and finds the person.',
     tags:['0 to 1 product','AI flows','Brand and launch'],
     media:'/assets/img/paira/paira-home-overview.webp', href:'/paira/' },
 
-  { id:'ecoscan', ring:2, nx:0.53, ny:-0.39, img:'me-ecoscan', label:'EcoScan', accent:'#70a9a1',
+  { id:'ecoscan', ring:2, nx:0.57, ny:-0.44, img:'me-ecoscan', label:'EcoScan', accent:'#70a9a1',
     kicker:'Rapid prototype', title:'EcoScan',
     text:'Scan-based grocery UX translating food labels into personal priorities.',
     tags:['Team leadership','App flow','Rapid prototype'],
     media:'/assets/img/home/ecoscan.webp', href:'/ecoscan/' },
 
-  { id:'game', ring:2, nx:-0.57, ny:0.73, img:'me-game', label:'Common Ground', accent:'#c98a56',
+  { id:'game', ring:2, nx:-0.60, ny:0.74, img:'me-game', label:'Common Ground', accent:'#c98a56',
     kicker:'Game design', title:'Common Ground',
     text:'A cooperative card game where teamwork becomes the winning mechanic.',
     tags:['Mechanics','Rule system','Playtesting'],
     media:'/assets/img/home/game-overview.webp', href:'/game/' },
 
-  { id:'merlin', ring:2, nx:0.60, ny:0.66, img:'me-merlin', label:'Merlin Bird ID', accent:'#d98589',
+  { id:'merlin', ring:2, nx:0.58, ny:0.70, img:'me-merlin', label:'Merlin Bird ID', accent:'#d98589',
     kicker:'Research-led strategy', title:'Merlin Bird ID',
     text:'Research-led product strategy helping novice birders stay engaged.',
     tags:['UX research','Synthesis','Opportunity framing'],
     media:'/assets/img/home/merlin-bird-id.webp', href:'/merlin/' },
 
   /* ---- ring 3: made outside the screen ----------------------------------- */
-  { id:'cats', ring:3, nx:-0.79, ny:-0.72, img:'me-cats', label:'Two cats', accent:VIOLET,
-    kicker:'Companion', title:'Usually made with two cats nearby.',
-    text:'They supervise everything on this site.',
-    tags:['Two cats'], media:'/assets/img/about-hobbies-collage.jpg' },
-
-  { id:'calligraphy', ring:3, nx:0.76, ny:-0.66, img:'me-minimal', label:'Calligraphy', accent:VIOLET,
+  { id:'calligraphy', ring:3, nx:0.88, ny:-0.72, img:'me-minimal', label:'Calligraphy', accent:VIOLET,
     todo:'Olivia kneeling at a low desk with a brush, a sheet of paper under it.',
     kicker:'10+ years of practice', title:'Two scripts, one long practice.',
     text:'Traditional Chinese calligraphy has stayed with me for more than a decade. Along the way I taught myself English calligraphy in Engrosser’s Script.',
     tags:['Chinese','Engrosser’s Script'], media:'/assets/img/home/header-calligraphy.webp' },
 
-  { id:'tennis', ring:3, nx:-0.99, ny:-0.10, img:'me-tennis', label:'Tennis', accent:VIOLET,
+  { id:'tennis', ring:3, nx:-0.90, ny:-0.28, img:'me-tennis', label:'Tennis', accent:VIOLET,
     kicker:'Curious by default', title:'Tennis and badminton.',
     text:'Two more that are better with people than alone.',
     tags:['Tennis','Badminton'] },
 
-  { id:'bouldering', ring:3, nx:1.05, ny:-0.01, img:'me-climb', label:'Bouldering', accent:VIOLET,
+  { id:'bouldering', ring:3, nx:0.92, ny:0.34, img:'me-climb', label:'Bouldering', accent:VIOLET,
     kicker:'Curious by default', title:'Better with friends.',
     text:'An ENFJ who keeps picking up social hobbies. Bouldering is the one that stuck.',
     tags:['Bouldering'] },
 
-  { id:'physical', ring:3, nx:-0.92, ny:0.74, img:'me-commute', label:'Physical computing', accent:VIOLET,
-    todo:'Olivia at a bench with a breadboard and a few wires.',
-    kicker:'Explorations', title:'Sensor and touch logic.',
-    text:'Circuits, sensors and interactions that live off the screen.',
-    tags:['Arduino','Sensors'], media:'/assets/img/home/physical-computing.webp', href:'/explorations/#physical-computing' },
-
-  { id:'fabrication', ring:3, nx:0.92, ny:0.75, img:'me-minimal', label:'Fabrication', accent:VIOLET,
-    todo:'Olivia holding a flat-pack part, a laser-cut sheet beside her.',
-    kicker:'Explorations', title:'Laser-cut structure.',
-    text:'Flat-pack builds, soft goods and the drawings behind them.',
-    tags:['CAD','Laser cutting','Soft goods'], media:'/assets/img/explorations/assets-assignment-3-process-10-assemble.webp', href:'/explorations/#flat-pack-laptop-stand' },
-
-  { id:'archive', ring:3, nx:-0.34, ny:0.98, img:'me-casual', label:'Skill archive', accent:VIOLET,
+  { id:'archive', ring:3, nx:-0.42, ny:0.92, img:'me-casual', label:'Explorations', accent:VIOLET,
     todo:'Olivia holding a small stack of finished objects.',
     kicker:'Explorations', title:'The full skill archive.',
     text:'Side projects that stretch prototyping, fabrication and technical craft.',
@@ -305,11 +281,9 @@ function relax(W, H, target) {
       if (n.ring === 0) return;                       // she does not move
       n.x += push[i].x + (n.homeX - n.x) * 0.018;     // a weak spring home
       n.y += push[i].y + (n.homeY - n.y) * 0.018;
-      // Stay on the table. A figure whose home is hard against the side may
-      // keep a third of itself off the edge, which is what the reference does
-      // with the shirt and the jumper.
-      const bleed = Math.abs(n.nx) > 0.9 ? (n.o.r - n.o.l) * 0.34 : 0;
-      n.x = Math.min(Math.max(n.x, M - n.o.l - bleed), W - M - n.o.r + bleed);
+      // Stay on the table. Twelve figures is few enough that cropping one at
+      // the edge costs a whole item, so nothing runs off any more.
+      n.x = Math.min(Math.max(n.x, M - n.o.l), W - M - n.o.r);
       n.y = Math.min(Math.max(n.y, M - n.o.t), H - M - n.o.b);
     });
   }
@@ -408,6 +382,10 @@ function layout() {
     return s.min >= want(b) * 0.62 && !overflows(2);
   };
 
+  const settle = (b, t) => { place(b, W, H); readOffsets(); relax(W, H, t); };
+  const clean = (t) => spacing().min >= t * 0.62 && !overflows(2);
+
+  // How big the figures can be.
   let base = H * 0.26;
   for (let pass = 0; pass < 26; pass++) {
     if (tryBase(base)) break;
@@ -417,6 +395,18 @@ function layout() {
     const bigger = base * 1.035;
     if (!tryBase(bigger)) { tryBase(base); break; }
     base = bigger;
+  }
+
+  // How far apart they stand. Evening the gaps out pulls the whole
+  // arrangement inward, because an even gap is a small gap unless something
+  // asks for more, so this opens it back up until the figures are against the
+  // edges of the table and the page is used rather than huddled in the middle.
+  let target = want(base);
+  for (let pass = 0; pass < 16; pass++) {
+    const wider = target * 1.07;
+    settle(base, wider);
+    if (!clean(wider)) { settle(base, target); break; }
+    target = wider;
   }
   field.classList.remove('is-measuring');
 }

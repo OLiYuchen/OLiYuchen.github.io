@@ -1,8 +1,8 @@
 # Home v2 clay poses
 
-Sixteen figures: you in the middle, four things about you, four featured
-projects, and seven made outside the screen. Twelve are real poses. Four are
-stand-ins and still need making.
+Twelve figures: you in the middle, three things about you, four featured
+projects, three made outside the screen, and the explorations archive. Ten are
+real poses. Two are stand-ins and still need making.
 
 Open the draft and press **Show the poses still to make**: every stand-in gets
 a dashed amber box, and its hover card prints the pose it is waiting for.
@@ -25,23 +25,22 @@ A featured project is a scene: the figure plus the screens that say what the
 thing is. They are given more room than a lone figure so the phones stay
 readable.
 
-## The four still to make
+## The two still to make
 
 | Slot | Pose |
 |---|---|
 | Calligraphy | Kneeling at a low desk with a brush, a sheet of paper under it. |
-| Physical computing | At a bench with a breadboard and a few wires. |
-| Fabrication | Holding a flat-pack part, a laser-cut sheet beside her. |
-| Skill archive | Holding a small stack of finished objects. |
+| Explorations | Holding a small stack of finished objects. |
 
 ## Already made
 
-**Centre** the close-up portrait. **About** work, skills, school, and sitting
-with the cat and a mug. **Featured** Paira, EcoScan, Merlin with the raven,
-and Common Ground at the table. **Outside the screen** tennis, bouldering,
-and resting with the cat.
+**Centre** the close-up portrait. **About** work, skills and school.
+**Featured** Paira, EcoScan, Merlin with the raven, and Common Ground at the
+table. **Outside the screen** tennis and bouldering.
 
-Four outfit variations stand in for the four above until they are made.
+Two outfit variations stand in for the two above until they are made. The cat,
+Redmond, physical computing and fabrication poses are no longer placed on the
+page; the files stay in this folder in case they come back.
 
 ## Dropping a new pose in
 
