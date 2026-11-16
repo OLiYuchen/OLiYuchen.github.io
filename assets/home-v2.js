@@ -186,7 +186,9 @@ function place(base, W, H) {
   const sp = spread(W), SX = sp[0], SY = sp[1];
   const floor = W < 560 ? 20 : 30;
   NODES.forEach(n => {
-    const side = Math.max(floor, base * WEIGHT[n.ring]);
+    // k is a per-figure size, set by hand or written back from Figma. 1 means
+    // whatever its rank gives it.
+    const side = Math.max(floor, base * WEIGHT[n.ring] * (n.k || 1));
     const area = side * side * (POSE_AREA[n.img] || 1);
     const ratio = (n.img_el.naturalWidth && n.img_el.naturalHeight)
       ? n.img_el.naturalWidth / n.img_el.naturalHeight : 0.6;
