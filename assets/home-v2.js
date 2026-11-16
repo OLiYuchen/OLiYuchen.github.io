@@ -26,6 +26,10 @@ const POSE_AREA = {
   'me-merlin': 1.0,
   'me-game': 1.0,
   'me-cats': 0.9,
+  'me-tennis': 1.25,
+  'me-climb': 1.15,
+  'me-base': 0.85,
+  'me-casual': 0.8,
 };
 
 const NODES = [
@@ -37,53 +41,53 @@ const NODES = [
     tags:['0 to 1 product','UX research','Brand and motion'] },
 
   /* ---- ring 1: who she is ----------------------------------------------- */
-  { id:'skills', ring:1, nx:0.00, ny:-0.70, img:'me-skills', label:'Skills', accent:ROSE,
+  { id:'skills', ring:1, nx:0.17, ny:-0.82, img:'me-skills', label:'Skills', accent:ROSE,
     kicker:'What I bring', title:'Research rigor, visual sensitivity, calm systems.',
     text:'Product strategy and UX research through to interaction design, design systems and AI experience design. Plus the making side: prototyping, design engineering, CAD and physical computing.',
     tags:['Product strategy','UX research','AI experience design','Design engineering'], href:'/about/' },
 
-  { id:'work', ring:1, nx:-0.40, ny:0.13, img:'me-work', label:'Work', accent:ROSE,
+  { id:'work', ring:1, nx:-0.41, ny:0.15, img:'me-work', label:'Work', accent:ROSE,
     kicker:'Where I have worked', title:'Five places, one habit.',
     text:'Product designer at Paira through its App Store launch. Strategy and PMO intern at Fosun International in Shanghai. Research assistant at UW HCDE. Vice president at WEGET Magazine. UX researcher and designer at the Cornell Lab of Ornithology.',
     tags:['Paira','Fosun','UW HCDE','Cornell Lab','WEGET'], href:'/about/' },
 
-  { id:'school', ring:1, nx:0.42, ny:0.13, img:'me-school', label:'Education', accent:VIOLET,
+  { id:'school', ring:1, nx:0.43, ny:0.16, img:'me-school', label:'Education', accent:VIOLET,
     kicker:'University of Washington', title:'Design, engineering, and a little neuroscience.',
     text:'B.S. in Human-Centered Design and Engineering with a minor in Neural Computation and Engineering, 2026. Now an M.S. in Technology Innovation at UW GIX with a CS and HCI focus, expected 2028.',
     tags:['UW HCDE','Neural Computation','UW GIX'], href:'/about/' },
 
-  { id:'base', ring:1, nx:0.00, ny:0.99, img:'me-base', label:'Redmond, WA', accent:VIOLET,
+  { id:'base', ring:3, nx:0.33, ny:0.98, img:'me-base', label:'Redmond, WA', accent:VIOLET,
     kicker:'Shanghai to Redmond', title:'Born and raised in Shanghai, now in Redmond, WA.',
     text:'A life of ink, movement, friendship and making outside the screen. Usually with two cats nearby.',
     tags:['Redmond, WA','Shanghai','Two cats'], href:'/about/' },
 
   /* ---- ring 2: the featured work ---------------------------------------- */
-  { id:'paira', ring:2, nx:-0.47, ny:-0.37, img:'me-paira', label:'Paira', accent:'#605cff',
+  { id:'paira', ring:2, nx:-0.44, ny:-0.44, img:'me-paira', label:'Paira', accent:'#605cff',
     kicker:'0 to 1 product', title:'Paira',
     text:'A request-first help network where AI writes the ask and finds the person.',
     tags:['0 to 1 product','AI flows','Brand and launch'],
     media:'/assets/img/paira/paira-home-overview.webp', href:'/paira/' },
 
-  { id:'ecoscan', ring:2, nx:0.48, ny:-0.36, img:'me-ecoscan', label:'EcoScan', accent:'#70a9a1',
+  { id:'ecoscan', ring:2, nx:0.53, ny:-0.39, img:'me-ecoscan', label:'EcoScan', accent:'#70a9a1',
     kicker:'Rapid prototype', title:'EcoScan',
     text:'Scan-based grocery UX translating food labels into personal priorities.',
     tags:['Team leadership','App flow','Rapid prototype'],
     media:'/assets/img/home/ecoscan.webp', href:'/ecoscan/' },
 
-  { id:'game', ring:2, nx:-0.59, ny:0.70, img:'me-game', label:'Common Ground', accent:'#c98a56',
+  { id:'game', ring:2, nx:-0.57, ny:0.73, img:'me-game', label:'Common Ground', accent:'#c98a56',
     kicker:'Game design', title:'Common Ground',
     text:'A cooperative card game where teamwork becomes the winning mechanic.',
     tags:['Mechanics','Rule system','Playtesting'],
     media:'/assets/img/home/game-overview.webp', href:'/game/' },
 
-  { id:'merlin', ring:2, nx:0.59, ny:0.70, img:'me-merlin', label:'Merlin Bird ID', accent:'#d98589',
+  { id:'merlin', ring:2, nx:0.60, ny:0.66, img:'me-merlin', label:'Merlin Bird ID', accent:'#d98589',
     kicker:'Research-led strategy', title:'Merlin Bird ID',
     text:'Research-led product strategy helping novice birders stay engaged.',
     tags:['UX research','Synthesis','Opportunity framing'],
     media:'/assets/img/home/merlin-bird-id.webp', href:'/merlin/' },
 
   /* ---- ring 3: made outside the screen ----------------------------------- */
-  { id:'cats', ring:3, nx:-0.76, ny:-0.66, img:'me-cats', label:'Two cats', accent:VIOLET,
+  { id:'cats', ring:3, nx:-0.79, ny:-0.72, img:'me-cats', label:'Two cats', accent:VIOLET,
     kicker:'Companion', title:'Usually made with two cats nearby.',
     text:'They supervise everything on this site.',
     tags:['Two cats'], href:'/about/', media:'/assets/img/about-hobbies-collage.jpg' },
@@ -94,12 +98,12 @@ const NODES = [
     text:'Traditional Chinese calligraphy has stayed with me for more than a decade. Along the way I taught myself English calligraphy in Engrosser’s Script.',
     tags:['Chinese','Engrosser’s Script'], href:'/about/', media:'/assets/img/home/header-calligraphy.webp' },
 
-  { id:'tennis', ring:3, nx:-0.95, ny:-0.06, img:'me-tennis', label:'Tennis', accent:VIOLET,
+  { id:'tennis', ring:3, nx:-0.99, ny:-0.10, img:'me-tennis', label:'Tennis', accent:VIOLET,
     kicker:'Curious by default', title:'Tennis and badminton.',
     text:'Two more that are better with people than alone.',
     tags:['Tennis','Badminton'], href:'/about/' },
 
-  { id:'bouldering', ring:3, nx:0.97, ny:-0.02, img:'me-climb', label:'Bouldering', accent:VIOLET,
+  { id:'bouldering', ring:3, nx:1.05, ny:-0.01, img:'me-climb', label:'Bouldering', accent:VIOLET,
     kicker:'Curious by default', title:'Better with friends.',
     text:'An ENFJ who keeps picking up social hobbies. Bouldering is the one that stuck.',
     tags:['Bouldering'], href:'/about/' },
@@ -116,7 +120,7 @@ const NODES = [
     text:'Flat-pack builds, soft goods and the drawings behind them.',
     tags:['CAD','Laser cutting','Soft goods'], media:'/assets/img/explorations/assets-assignment-3-process-10-assemble.webp', href:'/explorations/#flat-pack-laptop-stand' },
 
-  { id:'archive', ring:3, nx:-0.33, ny:0.98, img:'me-casual', label:'Skill archive', accent:VIOLET,
+  { id:'archive', ring:3, nx:-0.34, ny:0.98, img:'me-casual', label:'Skill archive', accent:VIOLET,
     todo:'Olivia holding a small stack of finished objects.',
     kicker:'Explorations', title:'The full skill archive.',
     text:'Side projects that stretch prototyping, fabrication and technical craft.',
@@ -156,8 +160,8 @@ function build() {
       '<span class="hv2-node-inner">' +
         '<span class="hv2-node-plate" aria-hidden="true"></span>' +
         '<img src="' + IMG + n.img + '.webp" alt="" decoding="async" />' +
-        '<span class="hv2-node-label">' +
-          n.label +
+        '<span class="hv2-node-label">' + n.label +
+          (n.ring === 0 ? '<span class="hv2-node-badge" aria-hidden="true">+</span>' : '') +
         '</span>' +
       '</span>';
     n.el = el;
