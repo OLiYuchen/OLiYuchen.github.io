@@ -21,15 +21,19 @@ const VIOLET = '#8b7fd4';
    carry the same visual weight. 1 is the rank's own share. */
 const POSE_AREA = {
   'me-portrait': 1.0,
-  'me-paira': 1.0,
-  'me-ecoscan': 1.0,
-  'me-merlin': 1.0,
-  'me-game': 1.0,
-  'me-tennis': 1.25,
-  'me-climb': 1.15,
-  'me-casual': 0.8,
+  /* The four project scenes carry phones, so they get a little more room than
+     a lone figure to keep the screens readable. Everything else is equal. */
+  'me-paira': 1.18,
+  'me-ecoscan': 1.18,
+  'me-merlin': 1.18,
+  'me-game': 1.18,
 };
 
+/* The arrangement is the reference's own, measured off it and normalised to
+   this field's ellipse: the laptop's place, the espresso maker's place, the
+   car's, the clogs', the jumper's, the shirt's, the coffee's, the scent's,
+   the shoes', the book's, the blender's. The solver evens the gaps from
+   there; this is where it starts. */
 const NODES = [
   /* ---- the centre ------------------------------------------------------- */
   { id:'me', ring:0, nx:0.00, ny:0.00, img:'me-portrait', label:'Olivia Feng', accent:ROSE,
@@ -39,64 +43,64 @@ const NODES = [
     tags:['0 to 1 product','UX research','Brand and motion'], href:'/about/' },
 
   /* ---- ring 1: who she is ----------------------------------------------- */
-  { id:'skills', ring:1, nx:0.17, ny:-0.84, img:'me-skills', label:'Skills', accent:ROSE,
+  { id:'skills', ring:1, nx:-0.32, ny:-0.70, img:'me-skills', label:'Skills', accent:ROSE,
     kicker:'What I bring', title:'Research rigor, visual sensitivity, calm systems.',
     text:'Product strategy and UX research through to interaction design, design systems and AI experience design. Plus the making side: prototyping, design engineering, CAD and physical computing.',
     tags:['Product strategy','UX research','AI experience design','Design engineering'], href:'/about/#about-skills-title' },
 
-  { id:'work', ring:1, nx:-0.45, ny:0.20, img:'me-work', label:'Work', accent:ROSE,
+  { id:'work', ring:1, nx:-0.51, ny:0.20, img:'me-work', label:'Work', accent:ROSE,
     kicker:'Where I have worked', title:'Five places, one habit.',
     text:'Product designer at Paira through its App Store launch. Strategy and PMO intern at Fosun International in Shanghai. Research assistant at UW HCDE. Vice president at WEGET Magazine. UX researcher and designer at the Cornell Lab of Ornithology.',
     tags:['Paira','Fosun','UW HCDE','Cornell Lab','WEGET'], href:'/about/#about-experience-title' },
 
-  { id:'school', ring:1, nx:0.45, ny:0.14, img:'me-school', label:'Education', accent:VIOLET,
+  { id:'school', ring:1, nx:0.43, ny:0.24, img:'me-school', label:'Education', accent:VIOLET,
     kicker:'University of Washington', title:'Design, engineering, and a little neuroscience.',
     text:'B.S. in Human-Centered Design and Engineering with a minor in Neural Computation and Engineering, 2026. Now an M.S. in Technology Innovation at UW GIX with a CS and HCI focus, expected 2028.',
     tags:['UW HCDE','Neural Computation','UW GIX'], href:'/about/#about-education-title' },
 
   /* ---- ring 2: the featured work ---------------------------------------- */
-  { id:'paira', ring:2, nx:-0.50, ny:-0.48, img:'me-paira', label:'Paira', accent:'#605cff',
+  { id:'paira', ring:2, nx:-0.75, ny:-0.42, img:'me-paira', label:'Paira', accent:'#605cff',
     kicker:'0 to 1 product', title:'Paira',
     text:'A request-first help network where AI writes the ask and finds the person.',
     tags:['0 to 1 product','AI flows','Brand and launch'],
     media:'/assets/img/paira/paira-home-overview.webp', href:'/paira/' },
 
-  { id:'ecoscan', ring:2, nx:0.57, ny:-0.44, img:'me-ecoscan', label:'EcoScan', accent:'#70a9a1',
+  { id:'ecoscan', ring:2, nx:0.34, ny:-0.55, img:'me-ecoscan', label:'EcoScan', accent:'#70a9a1',
     kicker:'Rapid prototype', title:'EcoScan',
     text:'Scan-based grocery UX translating food labels into personal priorities.',
     tags:['Team leadership','App flow','Rapid prototype'],
     media:'/assets/img/home/ecoscan.webp', href:'/ecoscan/' },
 
-  { id:'game', ring:2, nx:-0.60, ny:0.74, img:'me-game', label:'Common Ground', accent:'#c98a56',
+  { id:'game', ring:2, nx:-0.78, ny:0.77, img:'me-game', label:'Common Ground', accent:'#c98a56',
     kicker:'Game design', title:'Common Ground',
     text:'A cooperative card game where teamwork becomes the winning mechanic.',
     tags:['Mechanics','Rule system','Playtesting'],
     media:'/assets/img/home/game-overview.webp', href:'/game/' },
 
-  { id:'merlin', ring:2, nx:0.58, ny:0.70, img:'me-merlin', label:'Merlin Bird ID', accent:'#d98589',
+  { id:'merlin', ring:2, nx:0.77, ny:0.70, img:'me-merlin', label:'Merlin Bird ID', accent:'#d98589',
     kicker:'Research-led strategy', title:'Merlin Bird ID',
     text:'Research-led product strategy helping novice birders stay engaged.',
     tags:['UX research','Synthesis','Opportunity framing'],
     media:'/assets/img/home/merlin-bird-id.webp', href:'/merlin/' },
 
   /* ---- ring 3: made outside the screen ----------------------------------- */
-  { id:'calligraphy', ring:3, nx:0.88, ny:-0.72, img:'me-minimal', label:'Calligraphy', accent:VIOLET,
+  { id:'calligraphy', ring:3, nx:0.71, ny:-0.93, img:'me-minimal', label:'Calligraphy', accent:VIOLET,
     todo:'Olivia kneeling at a low desk with a brush, a sheet of paper under it.',
     kicker:'10+ years of practice', title:'Two scripts, one long practice.',
     text:'Traditional Chinese calligraphy has stayed with me for more than a decade. Along the way I taught myself English calligraphy in Engrosser’s Script.',
     tags:['Chinese','Engrosser’s Script'], media:'/assets/img/home/header-calligraphy.webp' },
 
-  { id:'tennis', ring:3, nx:-0.90, ny:-0.28, img:'me-tennis', label:'Tennis', accent:VIOLET,
+  { id:'tennis', ring:3, nx:-0.93, ny:0.17, img:'me-tennis', label:'Tennis', accent:VIOLET,
     kicker:'Curious by default', title:'Tennis and badminton.',
     text:'Two more that are better with people than alone.',
     tags:['Tennis','Badminton'] },
 
-  { id:'bouldering', ring:3, nx:0.92, ny:0.34, img:'me-climb', label:'Bouldering', accent:VIOLET,
+  { id:'bouldering', ring:3, nx:0.94, ny:-0.27, img:'me-climb', label:'Bouldering', accent:VIOLET,
     kicker:'Curious by default', title:'Better with friends.',
     text:'An ENFJ who keeps picking up social hobbies. Bouldering is the one that stuck.',
     tags:['Bouldering'] },
 
-  { id:'archive', ring:3, nx:-0.42, ny:0.92, img:'me-casual', label:'Explorations', accent:VIOLET,
+  { id:'archive', ring:3, nx:-0.23, ny:0.70, img:'me-casual', label:'Explorations', accent:VIOLET,
     todo:'Olivia holding a small stack of finished objects.',
     kicker:'Explorations', title:'The full skill archive.',
     text:'Side projects that stretch prototyping, fabrication and technical craft.',
@@ -119,8 +123,14 @@ function spread(W) {
 }
 
 /* A rank's weight is the side of a notional square. Area, not height, is what
-   makes a wide scene and a standing doll read as the same rank. */
-const WEIGHT = { 0: 1.0, 1: 0.42, 2: 0.72, 3: 0.315 };
+   makes a wide scene and a standing doll read as the same size.
+
+   The reference has two sizes and no more: the person, and everything else.
+   A laptop, a jumper, a bottle of scent and a pair of shoes are all about as
+   large as each other, and the person is about twice their area. Four ranks
+   of size made this page read as a chart of importance rather than as a set
+   of objects, so the ranks now differ by almost nothing. */
+const WEIGHT = { 0: 1.0, 1: 0.62, 2: 0.64, 3: 0.60 };
 
 function build() {
   NODES.forEach((n, i) => {
@@ -143,6 +153,15 @@ function build() {
     n.el = el;
     n.img_el = el.querySelector('img');
     n.label_el = el.querySelector('.hv2-node-label');
+    // A figure whose image does not arrive renders nothing at all: the height
+    // is set and the width follows the picture, so a broken one is zero wide
+    // and the figure is simply absent. Ask again once, then lay out again.
+    n.img_el.addEventListener('error', () => {
+      if (n.retried) return;
+      n.retried = true;
+      n.img_el.src = IMG + n.img + '.webp?again=' + Date.now();
+    });
+    n.img_el.addEventListener('load', () => { if (n.retried) layout(); });
     field.appendChild(el);
   });
 }
@@ -171,7 +190,11 @@ function place(base, W, H) {
     const area = side * side * (POSE_AREA[n.img] || 1);
     const ratio = (n.img_el.naturalWidth && n.img_el.naturalHeight)
       ? n.img_el.naturalWidth / n.img_el.naturalHeight : 0.6;
-    n.el.style.setProperty('--figh', Math.sqrt(area / ratio).toFixed(1) + 'px');
+    const h = Math.sqrt(area / ratio);
+    n.el.style.setProperty('--figh', h.toFixed(1) + 'px');
+    // Hold the space a missing picture would have taken, so the arrangement
+    // does not close over a gap that is about to be filled.
+    n.img_el.style.minWidth = n.img_el.naturalWidth ? '' : (h * ratio).toFixed(1) + 'px';
     n.homeX = W / 2 + n.nx * W * SX;
     n.homeY = H / 2 + n.ny * H * SY;
     n.x = n.homeX; n.y = n.homeY;
@@ -258,10 +281,14 @@ function relax(W, H, target) {
     for (let i = 0; i < N; i++) {
       for (let j = i + 1; j < N; j++) {
         const gap = gaps[i][j];
-        if (gap < target) {
-          nudge(i, j, (target - gap) * 0.22, rects);
-        } else if (gap < target * 3 && (near[i].has(j) || near[j].has(i))) {
-          nudge(i, j, -(gap - target) * 0.045, rects);   // a pull, not a push
+        // She gets a little more air than the objects give each other, but
+        // only a little: measured off the reference, the person sits at much
+        // the same remove as everything else.
+        const want = (NODES[i].ring === 0 || NODES[j].ring === 0) ? target * 1.15 : target;
+        if (gap < want) {
+          nudge(i, j, (want - gap) * 0.22, rects);
+        } else if (gap < want * 3 && (near[i].has(j) || near[j].has(i))) {
+          nudge(i, j, -(gap - want) * 0.045, rects);   // a pull, not a push
         }
       }
       if (obstacle) {
@@ -279,8 +306,11 @@ function relax(W, H, target) {
 
     NODES.forEach((n, i) => {
       if (n.ring === 0) return;                       // she does not move
-      n.x += push[i].x + (n.homeX - n.x) * 0.018;     // a weak spring home
-      n.y += push[i].y + (n.homeY - n.y) * 0.018;
+      // The spring home is what keeps the reference's arrangement. Too weak
+      // and the gaps even out into a shape of their own; too strong and they
+      // never even out at all.
+      n.x += push[i].x + (n.homeX - n.x) * 0.05;
+      n.y += push[i].y + (n.homeY - n.y) * 0.05;
       // Stay on the table. Twelve figures is few enough that cropping one at
       // the edge costs a whole item, so nothing runs off any more.
       n.x = Math.min(Math.max(n.x, M - n.o.l), W - M - n.o.r);
@@ -295,11 +325,12 @@ function relax(W, H, target) {
 function spacing() {
   const rects = NODES.map(rectOf);
   let min = Infinity;
-  const nearest = rects.map((r, i) => {
+  const nearest = [];
+  rects.forEach((r, i) => {
     let best = Infinity;
     rects.forEach((o, j) => { if (i !== j) best = Math.min(best, rectGap(r, o)); });
     min = Math.min(min, best);
-    return best;
+    if (NODES[i].ring !== 0) nearest.push(best);   // she is meant to be apart
   });
   const mean = nearest.reduce((a, b) => a + b, 0) / nearest.length;
   const sd = Math.sqrt(nearest.reduce((a, b) => a + (b - mean) * (b - mean), 0) / nearest.length);
@@ -545,4 +576,18 @@ Promise.all(
 ).then(layout);
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
 window.addEventListener('load', () => { layout(); stamp(); });
+
+/* Coming back to this page with the back button restores it from the cache
+   with the entrance animations frozen before their delay, which holds those
+   figures at nothing. Finish them, then lay out again. */
+window.addEventListener('pageshow', () => {
+  NODES.forEach(n => n.el.getAnimations({ subtree: true })
+    .forEach(a => { try { a.finish(); } catch (e) {} }));
+  layout();
+});
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState !== 'visible') return;
+  NODES.forEach(n => n.el.getAnimations({ subtree: true })
+    .forEach(a => { try { a.finish(); } catch (e) {} }));
+});
 window.setTimeout(() => { layout(); stamp(); }, 2200);

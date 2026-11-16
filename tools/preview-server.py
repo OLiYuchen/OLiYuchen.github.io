@@ -22,9 +22,20 @@ class NoCache(http.server.SimpleHTTPRequestHandler):
             sys.stderr.write("404  %s\n" % (fmt % args))
 
 
+class Server(socketserver.ThreadingMixIn, http.server.HTTPServer):
+    """One thread per request.
+
+    The single-threaded server this used to be served one file at a time, so a
+    page asking for a dozen images at once would have some of those requests
+    time out and the figures would simply not appear. With no-store in force
+    every reload refetches all of them, which made it worse, not better.
+    """
+    daemon_threads = True
+    allow_reuse_address = True
+
+
 if __name__ == "__main__":
     port = int(sys.argv[1]) if len(sys.argv) > 1 else 8766
-    socketserver.TCPServer.allow_reuse_address = True
-    with socketserver.TCPServer(("127.0.0.1", port), NoCache) as httpd:
-        print("preview (no-store) on http://127.0.0.1:%d" % port, flush=True)
+    with Server(("127.0.0.1", port), NoCache) as httpd:
+        print("preview (no-store, threaded) on http://127.0.0.1:%d" % port, flush=True)
         httpd.serve_forever()
