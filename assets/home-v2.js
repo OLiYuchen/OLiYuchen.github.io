@@ -37,29 +37,29 @@ const NODES = [
   { id:'me', ring:0, nx:0, ny:0, img:'me-portrait', label:'Olivia Feng', accent:ROSE,
     kicker:'Product designer and manager',
     title:'Hi, I am Olivia.',
-    text:'I turn ambiguous questions into flows, stories, prototypes and artifacts people can respond to. Click me to see what the inner ring is about.',
-    tags:['0 to 1 product','UX research','Brand and motion'] },
+    text:'I turn ambiguous questions into flows, stories, prototypes and artifacts people can respond to.',
+    tags:['0 to 1 product','UX research','Brand and motion'], href:'/about/' },
 
   /* ---- ring 1: who she is ----------------------------------------------- */
   { id:'skills', ring:1, nx:0.17, ny:-0.82, img:'me-skills', label:'Skills', accent:ROSE,
     kicker:'What I bring', title:'Research rigor, visual sensitivity, calm systems.',
     text:'Product strategy and UX research through to interaction design, design systems and AI experience design. Plus the making side: prototyping, design engineering, CAD and physical computing.',
-    tags:['Product strategy','UX research','AI experience design','Design engineering'], href:'/about/' },
+    tags:['Product strategy','UX research','AI experience design','Design engineering'], href:'/about/#about-skills-title' },
 
   { id:'work', ring:1, nx:-0.41, ny:0.15, img:'me-work', label:'Work', accent:ROSE,
     kicker:'Where I have worked', title:'Five places, one habit.',
     text:'Product designer at Paira through its App Store launch. Strategy and PMO intern at Fosun International in Shanghai. Research assistant at UW HCDE. Vice president at WEGET Magazine. UX researcher and designer at the Cornell Lab of Ornithology.',
-    tags:['Paira','Fosun','UW HCDE','Cornell Lab','WEGET'], href:'/about/' },
+    tags:['Paira','Fosun','UW HCDE','Cornell Lab','WEGET'], href:'/about/#about-experience-title' },
 
   { id:'school', ring:1, nx:0.43, ny:0.16, img:'me-school', label:'Education', accent:VIOLET,
     kicker:'University of Washington', title:'Design, engineering, and a little neuroscience.',
     text:'B.S. in Human-Centered Design and Engineering with a minor in Neural Computation and Engineering, 2026. Now an M.S. in Technology Innovation at UW GIX with a CS and HCI focus, expected 2028.',
-    tags:['UW HCDE','Neural Computation','UW GIX'], href:'/about/' },
+    tags:['UW HCDE','Neural Computation','UW GIX'], href:'/about/#about-education-title' },
 
   { id:'base', ring:3, nx:0.33, ny:0.98, img:'me-base', label:'Redmond, WA', accent:VIOLET,
     kicker:'Shanghai to Redmond', title:'Born and raised in Shanghai, now in Redmond, WA.',
     text:'A life of ink, movement, friendship and making outside the screen. Usually with two cats nearby.',
-    tags:['Redmond, WA','Shanghai','Two cats'], href:'/about/' },
+    tags:['Redmond, WA','Shanghai','Two cats'] },
 
   /* ---- ring 2: the featured work ---------------------------------------- */
   { id:'paira', ring:2, nx:-0.44, ny:-0.44, img:'me-paira', label:'Paira', accent:'#605cff',
@@ -90,23 +90,23 @@ const NODES = [
   { id:'cats', ring:3, nx:-0.79, ny:-0.72, img:'me-cats', label:'Two cats', accent:VIOLET,
     kicker:'Companion', title:'Usually made with two cats nearby.',
     text:'They supervise everything on this site.',
-    tags:['Two cats'], href:'/about/', media:'/assets/img/about-hobbies-collage.jpg' },
+    tags:['Two cats'], media:'/assets/img/about-hobbies-collage.jpg' },
 
   { id:'calligraphy', ring:3, nx:0.76, ny:-0.66, img:'me-minimal', label:'Calligraphy', accent:VIOLET,
     todo:'Olivia kneeling at a low desk with a brush, a sheet of paper under it.',
     kicker:'10+ years of practice', title:'Two scripts, one long practice.',
     text:'Traditional Chinese calligraphy has stayed with me for more than a decade. Along the way I taught myself English calligraphy in Engrosser’s Script.',
-    tags:['Chinese','Engrosser’s Script'], href:'/about/', media:'/assets/img/home/header-calligraphy.webp' },
+    tags:['Chinese','Engrosser’s Script'], media:'/assets/img/home/header-calligraphy.webp' },
 
   { id:'tennis', ring:3, nx:-0.99, ny:-0.10, img:'me-tennis', label:'Tennis', accent:VIOLET,
     kicker:'Curious by default', title:'Tennis and badminton.',
     text:'Two more that are better with people than alone.',
-    tags:['Tennis','Badminton'], href:'/about/' },
+    tags:['Tennis','Badminton'] },
 
   { id:'bouldering', ring:3, nx:1.05, ny:-0.01, img:'me-climb', label:'Bouldering', accent:VIOLET,
     kicker:'Curious by default', title:'Better with friends.',
     text:'An ENFJ who keeps picking up social hobbies. Bouldering is the one that stuck.',
-    tags:['Bouldering'], href:'/about/' },
+    tags:['Bouldering'] },
 
   { id:'physical', ring:3, nx:-0.92, ny:0.74, img:'me-commute', label:'Physical computing', accent:VIOLET,
     todo:'Olivia at a bench with a breadboard and a few wires.',
@@ -171,25 +171,165 @@ function build() {
   });
 }
 
-/* One pass of the composition at a given figure size. */
-function apply(base, W, H) {
-  const cx = W / 2, cy = H / 2;
-  const sp = spread(W), SX = sp[0], SY = sp[1];
-  const ax = W * SX, ay = H * SY;
-  const floor = W < 560 ? 20 : 30;
+/* ---------------------------------------------------------------------------
+   Placing them
 
+   The reference's whole trick is that the gaps between objects are even. Hand
+   positions never are: tune one figure and the two beside it go wrong. So the
+   positions in NODES are a starting arrangement, not the final one. Each pass
+   drops the figures there, measures the box each one really occupies, and
+   then lets them push each other apart until every gap is about the same.
+
+   Three things hold the arrangement together while that happens: she is
+   pinned to the exact middle, every figure is on a weak spring back to where
+   it started, and nothing may leave the field. What comes out keeps the shape
+   of the composition and loses its unevenness.
+   --------------------------------------------------------------------------- */
+
+/* Give every figure its size, and put it where NODES says. */
+function place(base, W, H) {
+  const sp = spread(W), SX = sp[0], SY = sp[1];
+  const floor = W < 560 ? 20 : 30;
   NODES.forEach(n => {
     const side = Math.max(floor, base * WEIGHT[n.ring]);
     const area = side * side * (POSE_AREA[n.img] || 1);
     const ratio = (n.img_el.naturalWidth && n.img_el.naturalHeight)
       ? n.img_el.naturalWidth / n.img_el.naturalHeight : 0.6;
     n.el.style.setProperty('--figh', Math.sqrt(area / ratio).toFixed(1) + 'px');
-
-    const y = cy + n.ny * ay;
-    n.el.style.setProperty('--x', (n.nx * SX * 100).toFixed(2));
-    n.el.style.setProperty('--y', (n.ny * SY * 100).toFixed(2));
-    n.el.style.zIndex = String(Math.round(300 + (y - cy) / H * 400));
+    n.homeX = W / 2 + n.nx * W * SX;
+    n.homeY = H / 2 + n.ny * H * SY;
+    n.x = n.homeX; n.y = n.homeY;
+    write(n, W, H);
   });
+}
+
+function write(n, W, H) {
+  n.el.style.setProperty('--x', ((n.x - W / 2) / W * 100).toFixed(3));
+  n.el.style.setProperty('--y', ((n.y - H / 2) / H * 100).toFixed(3));
+  n.el.style.zIndex = String(Math.round(300 + (n.y - H / 2) / H * 400));
+}
+
+/* How far each figure's box reaches from the point it stands on. Measured
+   once per size, because it only changes when the figure does. */
+function readOffsets() {
+  const f = field.getBoundingClientRect();
+  NODES.forEach(n => {
+    const b = boxOf(n, 0);
+    const ax = f.left + n.x, ay = f.top + n.y;
+    n.o = { l: b.left - ax, r: b.right - ax, t: b.top - ay, b: b.bottom - ay };
+  });
+  const cta = document.querySelector('.hv2-cta');
+  obstacle = cta ? (() => {
+    const r = cta.getBoundingClientRect();
+    return { left: r.left - f.left, right: r.right - f.left, top: r.top - f.top, bottom: r.bottom - f.top };
+  })() : null;
+}
+
+let obstacle = null;
+
+function rectOf(n) {
+  return { left: n.x + n.o.l, right: n.x + n.o.r, top: n.y + n.o.t, bottom: n.y + n.o.b };
+}
+
+/* Zero when two rectangles touch or overlap, otherwise the shortest distance
+   between them. This, not centre to centre, is what the eye reads as a gap. */
+function rectGap(a, b) {
+  const dx = Math.max(0, Math.max(a.left - b.right, b.left - a.right));
+  const dy = Math.max(0, Math.max(a.top - b.bottom, b.top - a.bottom));
+  return Math.hypot(dx, dy);
+}
+
+/* Push everything apart, and pull the stragglers back in, until the gaps even
+   out. Repulsion alone only guarantees a floor: it leaves some pairs at the
+   target and others twice as far, which is exactly the unevenness that reads
+   as hand-placed. So a pair that is among each other's four nearest also gets
+   a weak pull when it drifts too far, and the two forces together settle
+   every close pair at about the same distance. */
+function relax(W, H, target) {
+  const M = Math.max(8, Math.min(W, H) * 0.012);   // the margin of the table
+  const N = NODES.length;
+  const NEAR = 4;
+
+  for (let pass = 0; pass < 320; pass++) {
+    const rects = NODES.map(rectOf);
+    const push = NODES.map(() => ({ x: 0, y: 0 }));
+    const gaps = [];
+    for (let i = 0; i < N; i++) gaps.push(new Array(N).fill(Infinity));
+
+    for (let i = 0; i < N; i++)
+      for (let j = i + 1; j < N; j++)
+        gaps[i][j] = gaps[j][i] = rectGap(rects[i], rects[j]);
+
+    // who each figure is actually standing next to
+    const near = [];
+    for (let i = 0; i < N; i++) {
+      const order = [];
+      for (let j = 0; j < N; j++) if (j !== i) order.push([gaps[i][j], j]);
+      order.sort((a, b) => a[0] - b[0]);
+      near.push(new Set(order.slice(0, NEAR).map(o => o[1])));
+    }
+
+    const nudge = (i, j, f, rects) => {
+      const acx = (rects[i].left + rects[i].right) / 2, acy = (rects[i].top + rects[i].bottom) / 2;
+      const bcx = (rects[j].left + rects[j].right) / 2, bcy = (rects[j].top + rects[j].bottom) / 2;
+      let vx = acx - bcx, vy = acy - bcy;
+      const len = Math.hypot(vx, vy) || 1;
+      vx /= len; vy /= len;
+      push[i].x += vx * f; push[i].y += vy * f;
+      push[j].x -= vx * f; push[j].y -= vy * f;
+    };
+
+    for (let i = 0; i < N; i++) {
+      for (let j = i + 1; j < N; j++) {
+        const gap = gaps[i][j];
+        if (gap < target) {
+          nudge(i, j, (target - gap) * 0.22, rects);
+        } else if (gap < target * 3 && (near[i].has(j) || near[j].has(i))) {
+          nudge(i, j, -(gap - target) * 0.045, rects);   // a pull, not a push
+        }
+      }
+      if (obstacle) {
+        const gap = rectGap(rects[i], obstacle);
+        if (gap < target) {
+          const acx = (rects[i].left + rects[i].right) / 2, acy = (rects[i].top + rects[i].bottom) / 2;
+          const ocx = (obstacle.left + obstacle.right) / 2, ocy = (obstacle.top + obstacle.bottom) / 2;
+          let vx = acx - ocx, vy = acy - ocy;
+          const len = Math.hypot(vx, vy) || 1;
+          const f = (target - gap) * 0.3;
+          push[i].x += vx / len * f; push[i].y += vy / len * f;
+        }
+      }
+    }
+
+    NODES.forEach((n, i) => {
+      if (n.ring === 0) return;                       // she does not move
+      n.x += push[i].x + (n.homeX - n.x) * 0.018;     // a weak spring home
+      n.y += push[i].y + (n.homeY - n.y) * 0.018;
+      // Stay on the table. A figure whose home is hard against the side may
+      // keep a third of itself off the edge, which is what the reference does
+      // with the shirt and the jumper.
+      const bleed = Math.abs(n.nx) > 0.9 ? (n.o.r - n.o.l) * 0.34 : 0;
+      n.x = Math.min(Math.max(n.x, M - n.o.l - bleed), W - M - n.o.r + bleed);
+      n.y = Math.min(Math.max(n.y, M - n.o.t), H - M - n.o.b);
+    });
+  }
+
+  NODES.forEach(n => { if (n.ring !== 0) write(n, W, H); });
+}
+
+/* The smallest gap on the page, and how uneven the gaps are. */
+function spacing() {
+  const rects = NODES.map(rectOf);
+  let min = Infinity;
+  const nearest = rects.map((r, i) => {
+    let best = Infinity;
+    rects.forEach((o, j) => { if (i !== j) best = Math.min(best, rectGap(r, o)); });
+    min = Math.min(min, best);
+    return best;
+  });
+  const mean = nearest.reduce((a, b) => a + b, 0) / nearest.length;
+  const sd = Math.sqrt(nearest.reduce((a, b) => a + (b - mean) * (b - mean), 0) / nearest.length);
+  return { min: min, mean: mean, cv: mean ? sd / mean : 0 };
 }
 
 /* The rectangle a figure really occupies: the clay plus the name under it. */
@@ -251,23 +391,31 @@ function layout() {
   const box = field.getBoundingClientRect();
   const W = box.width, H = box.height;
   if (!W || !H) return;
-  // Hold everything still while solving. A drifting figure means every pass
-  // reads a different instant, and a figure still growing in from the
-  // entrance reads smaller than it will be.
+  // Hold everything still while solving, so the entrance fade cannot be
+  // measured halfway through.
   field.classList.add('is-measuring');
   NODES.forEach(n => n.el.getAnimations({ subtree: true })
     .forEach(a => { try { a.finish(); } catch (e) {} }));
-  const pad = Math.max(6, Math.min(W, H) * 0.011);
-  let base = H * 0.215;
+
+  // One try at a given size: drop them, measure, even the gaps out, and say
+  // whether the result is clean.
+  const want = b => Math.max(10, b * 0.26);
+  const tryBase = (b) => {
+    place(b, W, H);
+    readOffsets();
+    relax(W, H, want(b));
+    const s = spacing();
+    return s.min >= want(b) * 0.62 && !overflows(2);
+  };
+
+  let base = H * 0.26;
   for (let pass = 0; pass < 26; pass++) {
-    apply(base, W, H);
-    if (!collides(0.03, pad) && !overflows(2)) break;
+    if (tryBase(base)) break;
     base *= 0.95;
   }
-  for (let pass = 0; pass < 12; pass++) {
+  for (let pass = 0; pass < 10; pass++) {
     const bigger = base * 1.035;
-    apply(bigger, W, H);
-    if (collides(0.03, pad) || overflows(2)) { apply(base, W, H); break; }
+    if (!tryBase(bigger)) { tryBase(base); break; }
     base = bigger;
   }
   field.classList.remove('is-measuring');
@@ -292,7 +440,7 @@ function fillCard(n) {
       '<div class="hv2-card-tags">' + n.tags.map(t => '<span>' + t + '</span>').join('') + '</div>' +
       (n.href
         ? '<p class="hv2-card-open">' + openLabel(n.href) + ' <span aria-hidden="true">&#8594;</span></p>'
-        : '<p class="hv2-card-hint">Click to light the inner ring</p>') +
+        : '') +
       (n.todo && document.body.classList.contains('show-todo-notes')
         ? '<p class="hv2-card-todo">Clay pose still to make: ' + n.todo + '</p>' : '') +
     '</div>';
@@ -339,13 +487,6 @@ function wire() {
     el.addEventListener('focus', () => open(el));
     el.addEventListener('pointerleave', close);
     el.addEventListener('blur', close);
-    if (n.ring === 0) {
-      el.addEventListener('click', (e) => {
-        e.preventDefault();
-        const on = field.classList.toggle('is-about');
-        NODES.forEach(x => x.el.classList.toggle('is-kin', on && x.ring === 1));
-      });
-    }
   });
   field.addEventListener('pointerleave', close);
   window.addEventListener('scroll', () => { if (openId) close(); }, { passive: true });
@@ -377,6 +518,7 @@ function stamp() {
   if (!bar) return;
   const f = field.getBoundingClientRect();
   const c = NODES[0].img_el.getBoundingClientRect();
+  const sp = spacing();
   const boxes = NODES.map(n => boxOf(n, 0));
   const l = Math.min(...boxes.map(b => b.left)), r = Math.max(...boxes.map(b => b.right));
   const t = Math.min(...boxes.map(b => b.top)), bo = Math.max(...boxes.map(b => b.bottom));
@@ -387,7 +529,9 @@ function stamp() {
     ' dpr' + (window.devicePixelRatio || 1) +
     '  ·  field ' + Math.round(f.width) + 'x' + Math.round(f.height) +
     '  ·  me ' + Math.round(c.height) +
-    '  ·  fills ' + Math.round(100 * (r - l) / f.width) + '%x' + Math.round(100 * (bo - t) / f.height) + '%';
+    '  ·  fills ' + Math.round(100 * (r - l) / f.width) + '%x' + Math.round(100 * (bo - t) / f.height) + '%' +
+    '  ·  gaps min ' + Math.round(sp.min) + ' mean ' + Math.round(sp.mean) +
+    ' cv ' + sp.cv.toFixed(2);
 }
 
 build();
