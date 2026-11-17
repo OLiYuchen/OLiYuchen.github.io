@@ -749,3 +749,17 @@ body.paira-case-page {
   letter-spacing: -.01em;
   line-height: 1.12;
 }
+
+/* ---------- a few screens, shown rather than compared ---------------------- */
+
+/* The mentor round has no before to show: the version it replaced only ever
+   existed in Figma. So it shows what shipped, in the page's own screen grid,
+   three up instead of five. */
+.pd-growth .pd-screens {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(.9rem, 2vw, 1.6rem);
+  margin-top: var(--sp-tight);
+}
+@media (max-width: 760px) {
+  .pd-growth .pd-screens { grid-template-columns: 1fr; }
+}
