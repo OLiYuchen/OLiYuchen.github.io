@@ -194,9 +194,19 @@ body.hv2 { isolation: auto; }
 
 /* ---------- narrower screens ---------------------------------------------- */
 
-@media (max-width: 560px) {
+/* ---------- a phone ------------------------------------------------------- */
+
+@media (max-width: 760px) {
+  /* The draft bar is three lines of diagnostics on a phone, and every line of
+     it is height the figures do not get. */
+  .hv2-draftbar { font-size: .62rem; padding: .35rem .8rem; gap: .5rem; }
+  .hv2-draftbar button { font-size: .6rem; padding: .15rem .55rem; }
+  .hv2 .site-header { padding-block: .35rem; }
+  .hv2-foot { font-size: .7rem; padding-block: .5rem; }
   .hv2-card { width: min(20rem, 88vw); }
-  .hv2-node-label { font-size: .56rem; }
+  /* Touch has no hover, so the card never opens; the tag is the only label a
+     phone gets and it should be legible. */
+  .hv2-node-label { letter-spacing: .01em; }
 }
 
 @media (prefers-reduced-motion: reduce) {

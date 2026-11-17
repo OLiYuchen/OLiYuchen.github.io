@@ -43,7 +43,7 @@ const ART = {
 
 const NODES = [
   /* ---- the centre ------------------------------------------------------- */
-  { id:'me', ring:0, cx:0.5000, cy:0.3196, bw:202.8, bh:258.3, img:'me-portrait', label:'Olivia Feng', accent:ROSE,
+  { id:'me', ring:0, cx:0.5000, cy:0.3196, bw:202.8, bh:258.3, mob:{cx:0.500,cy:0.145,bw:116,bh:148}, img:'me-portrait', label:'Olivia Feng', accent:ROSE,
     kicker:'Product designer and manager',
     title:'Hi, I am Olivia.',
     text:'I turn ambiguous questions into flows, stories, prototypes and artifacts people can respond to.',
@@ -66,25 +66,25 @@ const NODES = [
     tags:['Popo'], media:'/assets/img/about-hobbies-collage.jpg' },
 
   /* ---- ring 2: the featured work ---------------------------------------- */
-  { id:'paira', ring:2, cx:0.3204, cy:0.1399, bw:255.0, bh:168.4, img:'me-paira', label:'Paira', accent:'#605cff',
+  { id:'paira', ring:2, cx:0.3204, cy:0.1399, bw:255.0, bh:168.4, mob:{cx:0.275,cy:0.455,bw:138,bh:91}, img:'me-paira', label:'Paira', accent:'#605cff',
     kicker:'0 to 1 product', title:'Paira',
     text:'A request-first help network where AI writes the ask and finds the person.',
     tags:['0 to 1 product','AI flows','Brand and launch'],
     media:'/assets/img/paira/paira-home-overview.webp', href:'/paira/' },
 
-  { id:'ecoscan', ring:2, cx:0.2911, cy:0.5115, bw:222.2, bh:128.4, img:'me-ecoscan', label:'EcoScan', accent:'#70a9a1',
+  { id:'ecoscan', ring:2, cx:0.2911, cy:0.5115, bw:222.2, bh:128.4, mob:{cx:0.275,cy:0.720,bw:136,bh:79}, img:'me-ecoscan', label:'EcoScan', accent:'#70a9a1',
     kicker:'Rapid prototype', title:'EcoScan',
     text:'Scan-based grocery UX translating food labels into personal priorities.',
     tags:['Team leadership','App flow','Rapid prototype'],
     media:'/assets/img/home/ecoscan.webp', href:'/ecoscan/' },
 
-  { id:'game', ring:2, cx:0.6812, cy:0.5945, bw:188.0, bh:163.3, img:'me-game', label:'Common Ground', accent:'#c98a56',
+  { id:'game', ring:2, cx:0.6812, cy:0.5945, bw:188.0, bh:163.3, mob:{cx:0.730,cy:0.700,bw:110,bh:90}, img:'me-game', label:'Common Ground', accent:'#c98a56',
     kicker:'Game design', title:'Common Ground',
     text:'A cooperative card game where teamwork becomes the winning mechanic.',
     tags:['Mechanics','Rule system','Playtesting'],
     media:'/assets/img/home/game-overview.webp', href:'/game/' },
 
-  { id:'merlin', ring:2, cx:0.6928, cy:0.1705, bw:263.0, bh:148.2, img:'me-merlin-2', label:'Merlin Bird ID', accent:'#d98589',
+  { id:'merlin', ring:2, cx:0.6928, cy:0.1705, bw:263.0, bh:148.2, mob:{cx:0.730,cy:0.455,bw:138,bh:78}, img:'me-merlin-2', label:'Merlin Bird ID', accent:'#d98589',
     kicker:'Research-led strategy', title:'Merlin Bird ID',
     text:'Research-led product strategy helping novice birders stay engaged.',
     tags:['UX research','Synthesis','Opportunity framing'],
@@ -171,9 +171,24 @@ const REF_W = 1512, REF_H = 716;
 
 /* The call to action, in her frame: x, y, width, height inside the field. */
 const CTA = { x: 612, y: 639, w: 287, h: 59 };
+
+/* A phone is not a small desktop. Her arrangement needs width it does not
+   have, and twelve things on a phone is a list, not a picture. So a narrow
+   window gets its own frame, its own call to action, and only five figures:
+   her, and the four projects. The other seven are not scaled down, they are
+   not there. */
+const MOB = { w: 390, h: 560, cta: { x: 75, y: 494, w: 240, h: 44 } };
+const MOBILE_UNDER = 760;
+
+function frame(W) {
+  return W < MOBILE_UNDER
+    ? { w: MOB.w, h: MOB.h, cta: MOB.cta, mobile: true }
+    : { w: REF_W, h: REF_H, cta: CTA, mobile: false };
+}
 const cta = document.querySelector('.hv2-cta');
 
 function place(scale, W, H) {
+  const F = frame(W);
   // Every tag is the same size. Sizing each off its own figure made twelve
   // slightly different tags, which read as twelve different kinds of label
   // rather than one set; only hers is different, and deliberately.
@@ -181,15 +196,20 @@ function place(scale, W, H) {
   if (cta) {
     // Placed and sized like a figure, so the gap she left above it survives
     // every window. Its middle keeps to the middle of the page.
-    const w = CTA.w * scale, h = CTA.h * scale;
+    const C = F.cta;
+    const w = C.w * scale, h = C.h * scale;
     cta.style.setProperty('--cta-w', w.toFixed(1) + 'px');
     cta.style.setProperty('--cta-h', h.toFixed(1) + 'px');
-    cta.style.setProperty('--cta-x', ((CTA.x + CTA.w / 2) / REF_W * W - w / 2).toFixed(1) + 'px');
-    cta.style.setProperty('--cta-y', ((CTA.y + CTA.h / 2) / REF_H * H - h / 2).toFixed(1) + 'px');
-    cta.style.setProperty('--cta-fs', Math.max(11, Math.min(15, 13.8 * scale)).toFixed(2) + 'px');
+    cta.style.setProperty('--cta-x', ((C.x + C.w / 2) / F.w * W - w / 2).toFixed(1) + 'px');
+    cta.style.setProperty('--cta-y', ((C.y + C.h / 2) / F.h * H - h / 2).toFixed(1) + 'px');
+    cta.style.setProperty('--cta-fs', Math.max(11.5, Math.min(15, 13.8 * scale)).toFixed(2) + 'px');
   }
   NODES.forEach(n => {
-    const w = n.bw * scale, h = n.bh * scale;
+    const g = F.mobile ? n.mob : n;
+    n.off = !g;
+    n.el.hidden = !g;
+    if (!g) return;
+    const w = g.bw * scale, h = g.bh * scale;
     const art = ART[n.img] || { cx: 0.5, foot: 1 };
     n.el.style.setProperty('--figw', w.toFixed(1) + 'px');
     n.el.style.setProperty('--figh', h.toFixed(1) + 'px');
@@ -197,7 +217,7 @@ function place(scale, W, H) {
     // picture's edge.
     n.el.style.setProperty('--footpad', ((1 - art.foot) * h).toFixed(1) + 'px');
     n.el.style.setProperty('--artmid', ((art.cx - 0.5) * w).toFixed(1) + 'px');
-    const cx = n.cx * W, cy = n.cy * H;
+    const cx = g.cx * W, cy = g.cy * H;
     // The node is anchored where it stands, so --y is the foot of the box.
     n.el.style.setProperty('--x', ((cx - W / 2) / W * 100).toFixed(3));
     n.el.style.setProperty('--y', ((cy + h / 2 - H / 2) / H * 100).toFixed(3));
@@ -221,11 +241,12 @@ function boxOf(n, pad) {
 }
 
 function collides(limit, pad) {
-  const boxes = NODES.map(n => boxOf(n, pad || 0));
+  const boxes = NODES.filter(n => !n.off).map(n => boxOf(n, pad || 0));
   if (cta) {
     const r = cta.getBoundingClientRect();
-    boxes.push({ left: r.left, right: r.right, top: r.top, bottom: r.bottom,
-                 width: r.width, height: r.height });
+    const q = pad || 0;
+    boxes.push({ left: r.left - q, right: r.right + q, top: r.top - q, bottom: r.bottom + q,
+                 width: r.width + 2 * q, height: r.height + 2 * q });
   }
   for (let i = 0; i < boxes.length; i++) {
     for (let j = i + 1; j < boxes.length; j++) {
@@ -244,7 +265,7 @@ function collides(limit, pad) {
 /* Nothing may hang off the top or the bottom of the field either. */
 function overflows(pad) {
   const f = field.getBoundingClientRect();
-  return NODES.some(n => {
+  return NODES.filter(n => !n.off).some(n => {
     const b = boxOf(n, 0);
     return b.top < f.top - pad || b.bottom > f.bottom + pad;
   });
@@ -253,7 +274,7 @@ function overflows(pad) {
 /* The smallest gap on the page, and how uneven the gaps are. Reported in the
    draft bar; nothing acts on it any more. */
 function spacing() {
-  const rects = NODES.map(n => boxOf(n, 0));
+  const rects = NODES.filter(n => !n.off).map(n => boxOf(n, 0));
   const gap = (a, b) => Math.hypot(
     Math.max(0, Math.max(a.left - b.right, b.left - a.right)),
     Math.max(0, Math.max(a.top - b.bottom, b.top - a.bottom)));
@@ -290,7 +311,8 @@ function layout() {
   NODES.forEach(n => n.el.getAnimations({ subtree: true })
     .forEach(a => { try { a.finish(); } catch (e) {} }));
 
-  let scale = Math.min(W / REF_W, H / REF_H);
+  const F = frame(W);
+  let scale = Math.min(W / F.w, H / F.h);
   place(scale, W, H);
   // Not merely "they do not overlap" but "they are apart": each box is grown
   // by 5px before the test, so two things must leave 10px between them. Her
@@ -423,7 +445,7 @@ function stamp() {
   const f = field.getBoundingClientRect();
   const c = NODES[0].img_el.getBoundingClientRect();
   const sp = spacing();
-  const boxes = NODES.map(n => boxOf(n, 0));
+  const boxes = NODES.filter(n => !n.off).map(n => boxOf(n, 0));
   const l = Math.min(...boxes.map(b => b.left)), r = Math.max(...boxes.map(b => b.right));
   const t = Math.min(...boxes.map(b => b.top)), bo = Math.max(...boxes.map(b => b.bottom));
   bar.dataset.base = bar.dataset.base || bar.textContent;

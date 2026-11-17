@@ -2975,7 +2975,8 @@ article#physical-computing .exploration-detail-copy p:not(.project-meta) {
 }
 
 .merlin-case-page .merlin-research-path article,
-.merlin-case-page .merlin-direction-path article {
+.merlin-case-page .merlin-direction-path article,
+.merlin-case-page .merlin-evidence-chain article {
   padding-block: clamp(1.25rem, 2.2vw, 1.8rem);
 }
 
@@ -4829,7 +4830,8 @@ article#physical-computing .exploration-detail-copy p:not(.project-meta) {
 .merlin-phase-grid article .project-meta,
 .merlin-direction-grid article .project-meta,
 .merlin-findings-grid article .project-meta,
-.merlin-method-steps article .project-meta {
+.merlin-method-steps article .project-meta,
+.merlin-evidence-chain article .project-meta {
   margin: 0 0 clamp(0.58rem, 1vw, 0.8rem);
 }
 
@@ -4849,7 +4851,8 @@ article#physical-computing .exploration-detail-copy p:not(.project-meta) {
 .merlin-phase-grid p:last-child,
 .merlin-direction-grid p,
 .merlin-findings-grid p,
-.merlin-method-steps p:last-child {
+.merlin-method-steps p:last-child,
+.merlin-evidence-chain p:last-child {
   margin-top: clamp(0.78rem, 1.2vw, 1rem);
   color: var(--merlin-muted);
   line-height: 1.62;
