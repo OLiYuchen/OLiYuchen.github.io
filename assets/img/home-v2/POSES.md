@@ -1,8 +1,8 @@
 # Home v2 clay poses
 
 Twelve figures: you in the middle, three things about you, four featured
-projects, three made outside the screen, and the explorations archive. Ten are
-real poses. Two are stand-ins and still need making.
+projects, three made outside the screen, and the explorations archive. All
+twelve are real pieces now; nothing is standing in.
 
 Open the draft and press **Show the poses still to make**: every stand-in gets
 a dashed amber box, and its hover card prints the pose it is waiting for.
@@ -25,22 +25,21 @@ A featured project is a scene: the figure plus the screens that say what the
 thing is. They are given more room than a lone figure so the phones stay
 readable.
 
-## The two still to make
+## What is on the page
 
-| Slot | Pose |
-|---|---|
-| Calligraphy | Kneeling at a low desk with a brush, a sheet of paper under it. |
-| Explorations | Holding a small stack of finished objects. |
+**Centre** `me-portrait`. **About** `me-work-2`, `me-skills-2`,
+`me-education`. **Featured** `me-paira`, `me-ecoscan`, `me-merlin-2`,
+`me-game`. **Outside the screen** `me-tennis`, `me-climb`,
+`me-calligraphy`, `me-explorations`.
 
-## Already made
+The six with a `-2` or a name of their own came from Olivia's Figma file and
+replaced earlier versions. The pieces they replaced, and the cat, Redmond,
+physical computing and fabrication poses, stay in this folder unused.
 
-**Centre** the close-up portrait. **About** work, skills and school.
-**Featured** Paira, EcoScan, Merlin with the raven, and Common Ground at the
-table. **Outside the screen** tennis and bouldering.
-
-Two outfit variations stand in for the two above until they are made. The cat,
-Redmond, physical computing and fabrication poses are no longer placed on the
-page; the files stay in this folder in case they come back.
+Several of the new pieces carry a wide transparent margin. The page measures
+each one's alpha channel at build time (`ART` in `home-v2.js`) so a tag hangs
+under the art's feet rather than under the picture's edge; if you drop in a
+replacement, re-run that measurement.
 
 ## Dropping a new pose in
 

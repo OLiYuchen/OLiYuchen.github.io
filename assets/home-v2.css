@@ -71,7 +71,10 @@ body.hv2 { isolation: auto; }
   transition: scale .45s var(--hv2-ease), filter .45s var(--hv2-ease);
 }
 .hv2-node img {
-  display: block; width: auto;
+  /* Her box, exactly: both sides come from the Figma frame and the art is
+     fitted inside without being stretched to it. */
+  display: block;
+  width: var(--figw, auto);
   height: var(--figh, 90px);
   object-fit: contain; object-position: bottom center;
   /* Two shadows, not one. A tight near shadow gives the figure its weight and
@@ -208,8 +211,9 @@ body.hv2 { isolation: auto; }
    sheared away from the light and run off to the lower right, blurred soft.
    It is what makes a cut-out sit on a surface instead of float above it. */
 .hv2-node-plate {
-  position: absolute; left: 50%; bottom: 0;
+  position: absolute; left: 50%; bottom: var(--footpad, 0px);
   width: 92%; aspect-ratio: 4.6 / 1;
+  margin-left: var(--artmid, 0px);
   transform-origin: left center;
   transform: translate(-26%, 46%) skewX(-34deg);
   border-radius: 50%;
@@ -280,9 +284,8 @@ button.hv2-node { cursor: default; }
    figure wears one, including the loose ones at the edge, so the page reads
    as a set of named things rather than a few names and some scenery. */
 .hv2-node-label {
-  --tag: clamp(.56rem, calc(var(--figh, 90px) * .082), .72rem);
   font-family: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: var(--tag);
+  font-size: var(--tag, 11px);
   font-weight: 500;
   letter-spacing: .005em;
   line-height: 1;
@@ -291,21 +294,23 @@ button.hv2-node { cursor: default; }
   border: 1px solid rgba(var(--hv2-shade), .42);
   border-radius: 999px;
   padding: .42em .78em .46em;
-  margin-top: .75rem;
-  opacity: 1; translate: -50% 0;
+  /* up past the picture's empty margin, and across onto the art's own middle */
+  margin-top: max(5px, calc(.68rem - var(--footpad, 0px)));
+  opacity: 1;
+  translate: calc(-50% + var(--artmid, 0px)) 0;
 }
 
 /* Hers is the one filled tag, and the plus on it is the page's one control:
    it lights the three figures that say who she is. */
 .hv2-node-centre .hv2-node-label {
   display: inline-flex; align-items: center; gap: .55em;
-  font-size: clamp(.7rem, calc(var(--figh, 90px) * .085), .92rem);
+  font-size: calc(var(--tag, 11px) * 1.28);
   font-weight: 500; letter-spacing: .01em;
   color: #faf7f1;
   background: #241f1a;
   border-color: transparent;
   padding: .5em .5em .5em 1em;
-  margin-top: .95rem;
+  margin-top: max(8px, calc(.86rem - var(--footpad, 0px)));
   box-shadow: 0 6px 18px rgba(var(--hv2-shade), .22);
 }
 .hv2-node-badge {
@@ -320,10 +325,7 @@ button.hv2-node { cursor: default; }
 
 .hv2-node:hover .hv2-node-label,
 .hv2-node:focus-visible .hv2-node-label,
-.hv2-node.is-kin .hv2-node-label {
-  border-color: rgba(var(--hv2-shade), .9);
-  translate: -50% 0;
-}
+.hv2-node.is-kin .hv2-node-label { border-color: rgba(var(--hv2-shade), .9); }
 
 /* ---------- the one action ------------------------------------------------ */
 
