@@ -7629,6 +7629,22 @@ article#physical-computing .exploration-detail-copy p:not(.project-meta) {
   background: rgba(255, 252, 247, 0.92);
 }
 
+.about-logo-fresh img {
+  width: 72%;
+  height: 72%;
+}
+
+/* A wordmark twice as wide as it is tall, in a square well: give it the width
+   and let the height follow, or it sits there as a thin line. */
+.about-logo-fosun {
+  background: rgba(255, 252, 247, 0.92);
+}
+
+.about-logo-fosun img {
+  width: 76%;
+  height: 76%;
+}
+
 .about-logo-hcde img {
   width: 76%;
   height: 76%;

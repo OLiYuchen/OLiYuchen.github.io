@@ -132,9 +132,7 @@ function build() {
       '<span class="hv2-node-inner">' +
         '<span class="hv2-node-plate" aria-hidden="true"></span>' +
         '<img src="' + IMG + n.img + '.webp" alt="" decoding="async" />' +
-        '<span class="hv2-node-label">' + n.label +
-          (n.ring === 0 ? '<span class="hv2-node-badge" aria-hidden="true">+</span>' : '') +
-        '</span>' +
+        '<span class="hv2-node-label">' + n.label + '</span>' +
       '</span>';
     n.el = el;
     n.img_el = el.querySelector('img');
@@ -176,6 +174,10 @@ const CTA = { x: 612, y: 639, w: 287, h: 59 };
 const cta = document.querySelector('.hv2-cta');
 
 function place(scale, W, H) {
+  // Every tag is the same size. Sizing each off its own figure made twelve
+  // slightly different tags, which read as twelve different kinds of label
+  // rather than one set; only hers is different, and deliberately.
+  field.style.setProperty('--tag', Math.max(10.5, Math.min(13, 12.4 * scale)).toFixed(2) + 'px');
   if (cta) {
     // Placed and sized like a figure, so the gap she left above it survives
     // every window. Its middle keeps to the middle of the page.
@@ -192,12 +194,9 @@ function place(scale, W, H) {
     n.el.style.setProperty('--figw', w.toFixed(1) + 'px');
     n.el.style.setProperty('--figh', h.toFixed(1) + 'px');
     // The tag hangs under the art's feet and on the art's own middle, not the
-    // picture's, and it is sized off the whole figure rather than its height,
-    // so a wide flat piece does not get a tag meant for a tall thin one.
+    // picture's edge.
     n.el.style.setProperty('--footpad', ((1 - art.foot) * h).toFixed(1) + 'px');
     n.el.style.setProperty('--artmid', ((art.cx - 0.5) * w).toFixed(1) + 'px');
-    const t = Math.max(w, h);
-    n.el.style.setProperty('--tag', Math.max(10.5, Math.min(13.5, t * 0.066)).toFixed(2) + 'px');
     const cx = n.cx * W, cy = n.cy * H;
     // The node is anchored where it stands, so --y is the foot of the box.
     n.el.style.setProperty('--x', ((cx - W / 2) / W * 100).toFixed(3));

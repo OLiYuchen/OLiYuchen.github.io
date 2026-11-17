@@ -308,33 +308,17 @@ button.hv2-node { cursor: default; }
   translate: calc(-50% + var(--artmid, 0px)) 0;
 }
 
-/* Hers is the one filled tag, and the plus on it is the page's one control:
-   it lights the three figures that say who she is. */
+/* Hers is the one filled tag, and the only one at a different size. */
 .hv2-node-centre .hv2-node-label {
-  display: inline-flex; align-items: center; gap: .55em;
-  font-size: calc(var(--tag, 11px) * 1.28);
+  font-size: calc(var(--tag, 11px) * 1.3);
   font-weight: 500; letter-spacing: .01em;
   color: #faf7f1;
   background: #241f1a;
   border-color: transparent;
-  padding: .5em .5em .5em 1em;
+  padding: .52em 1.05em .56em;
   margin-top: max(8px, calc(.86rem - var(--footpad, 0px)));
   box-shadow: 0 6px 18px rgba(var(--hv2-shade), .22);
 }
-.hv2-node-badge {
-  display: grid; place-items: center;
-  width: 1.65em; height: 1.65em; border-radius: 50%;
-  background: rgba(250, 247, 241, .17);
-  font-size: .92em; line-height: 1;
-  transition: background .35s var(--hv2-ease), rotate .35s var(--hv2-ease);
-}
-.hv2-node-centre:hover .hv2-node-badge { background: rgba(250, 247, 241, .32); }
-.hv2-field.is-about .hv2-node-badge { background: rgba(250, 247, 241, .4); rotate: 45deg; }
-
-.hv2-node:hover .hv2-node-label,
-.hv2-node:focus-visible .hv2-node-label,
-.hv2-node.is-kin .hv2-node-label { border-color: rgba(var(--hv2-shade), .9); }
-
 /* ---------- the one action ------------------------------------------------ */
 
 /* Her frame put this at a particular size in a particular place, and it used
