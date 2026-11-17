@@ -30,7 +30,7 @@ const ART = {
   'me-calligraphy': { cx: 0.510, foot: 0.984 },
   'me-climb': { cx: 0.500, foot: 0.992 },
   'me-ecoscan': { cx: 0.490, foot: 0.985 },
-  'me-cats-2': { cx: 0.524, foot: 0.895 },
+  'me-cats-2': { cx: 0.500, foot: 1.000 },
   'me-explorations': { cx: 0.515, foot: 0.963 },
   'me-game': { cx: 0.497, foot: 1.000 },
   'me-merlin-2': { cx: 0.547, foot: 0.963 },
@@ -38,7 +38,7 @@ const ART = {
   'me-portrait': { cx: 0.531, foot: 1.000 },
   'me-skills-2': { cx: 0.545, foot: 0.910 },
   'me-tennis': { cx: 0.505, foot: 1.000 },
-  'me-work-2': { cx: 0.499, foot: 0.904 },
+  'me-work-2': { cx: 0.500, foot: 1.000 },
 };
 
 const NODES = [
@@ -55,10 +55,10 @@ const NODES = [
     text:'Product strategy and UX research through to interaction design, design systems and AI experience design. Plus the making side: prototyping, design engineering, CAD and physical computing.',
     tags:['Product strategy','UX research','AI experience design','Design engineering'], href:'/about/#about-skills-title' },
 
-  { id:'work', ring:1, cx:0.2966, cy:0.8331, bw:119.0, bh:97.0, img:'me-work-2', label:'Work', accent:ROSE,
-    kicker:'Where I have worked', title:'Five places, one habit.',
-    text:'Product designer at Paira through its App Store launch. Strategy and PMO intern at Fosun International in Shanghai. Research assistant at UW HCDE. Vice president at WEGET Magazine. UX researcher and designer at the Cornell Lab of Ornithology.',
-    tags:['Paira','Fosun','UW HCDE','Cornell Lab','WEGET'], href:'/about/#about-experience-title' },
+  { id:'work', ring:1, cx:0.2966, cy:0.8331, bw:119.0, bh:97.0, img:'me-work-2', label:'Work & study', accent:ROSE,
+    kicker:'Where I have worked and studied', title:'Five places, and a degree in two halves.',
+    text:'Product designer at Paira through its App Store launch. Strategy and PMO intern at Fosun International in Shanghai. Research assistant at UW HCDE. UX researcher and designer at the Cornell Lab of Ornithology. Vice president at WEGET Magazine. A B.S. in Human-Centered Design and Engineering with a minor in Neural Computation, and now an M.S. in Technology Innovation at UW GIX.',
+    tags:['Paira','Fosun','Cornell Lab','UW HCDE','UW GIX'], href:'/about/#about-experience-title' },
 
   { id:'cats', ring:1, cx:0.8519, cy:0.5000, bw:122.0, bh:90.0, img:'me-cats-2', label:'Two cats', accent:VIOLET,
     kicker:'Companion', title:'Usually made with two cats nearby.',
