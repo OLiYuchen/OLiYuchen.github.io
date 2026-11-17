@@ -629,3 +629,14 @@ body.paira-case-page {
 
 /* what I carry forward closes the part */
 .pd-growth .pd-carry { margin-top: var(--sp-stage); }
+
+/* A round of research announces itself — who, how many, when — and the
+   evidence follows directly under it. */
+/* A paragraph rule already claims `.pd-method > p`, and this is a p. */
+.pd-growth .pd-method > .pd-round {
+  margin-top: var(--sp-stage);
+  color: var(--case-accent-deep);
+}
+.pd-growth .pd-round + .pd-ways,
+.pd-growth .pd-round + .paira-findings { margin-top: var(--sp-tight); }
+.pd-growth .pd-ways + .paira-findings { margin-top: var(--sp-block); }

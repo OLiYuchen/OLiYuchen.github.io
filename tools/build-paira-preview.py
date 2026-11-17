@@ -10,7 +10,7 @@ import re
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-VERSION = "2026111406"
+VERSION = "2026111703"
 
 
 def balanced_div(text, start):
@@ -32,23 +32,17 @@ def main():
     heading = heading.group(1) if heading else "Three decisions I made, and what I learned from them."
     ledger = balanced_div(dep, dep.index('<div class="pd-ledger">'))
 
+    # One act, not three. The three decisions are three parts inside it.
     marks = [m.start() for m in re.finditer(r"<!-- =+ [A-E]\.", dep)]
-    stories = [dep[marks[i]:marks[i + 1]] for i in (1, 2, 3)]
+    story = dep[marks[1]:marks[2]]
 
     drop = re.compile(r"\n\s*<p class=\"pd-note pd-draftonly\">.*?</p>", re.S)
-    stories = [drop.sub("", s) for s in stories]
-    for i, num in enumerate(("06", "07", "08")):
-        stories[i] = re.sub(r'(<p class="section-label">Growth</p><span>)\d+(</span>)',
-                            r"\g<1>" + num + r"\g<2>", stories[i], count=1)
-    for old, new in (('id="b"', 'id="growth-ideas"'),
-                     ('id="c"', 'id="growth-research"'),
-                     ('id="d"', 'id="growth-truth"')):
-        stories = [s.replace(old, new) for s in stories]
+    story = drop.sub("", story).replace('id="b"', 'id="growth"')
 
     act = "\n".join([
-        "  <!-- ============================================================ NEW: 06-08 GROWTH -->",
+        "  <!-- ============================================================ NEW: 06 GROWTH -->",
         '  <div class="pv-new" data-pv-note="New act: three decisions, after 05 Decisions">',
-        *[s.rstrip() for s in stories],
+        story.rstrip(),
         "  </div>\n"])
 
     opening = (
@@ -83,7 +77,7 @@ def main():
 
     head, tail = out.split(anchor, 1)
     tail = re.sub(r'(<p class="section-label">[^<]*</p><span>)(\d+)(</span>)',
-                  lambda m: m.group(1) + str(int(m.group(2)) + 3).zfill(2) + m.group(3),
+                  lambda m: m.group(1) + str(int(m.group(2)) + 1).zfill(2) + m.group(3),
                   anchor + tail)
     out = head + tail
 
