@@ -23,6 +23,7 @@ from collections import defaultdict
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 OUT = ROOT / "drafts" / "TEXT-AUDIT.md"
+KEEP = "<!-- written by hand below this line; the script keeps it -->"
 
 # The pages a reader actually walks through. Drafts, experiments and the
 # utility pages are not part of the portfolio's reading experience.
@@ -80,7 +81,12 @@ def sections(src):
         label = re.search(r'class="section-label">([^<]*)<', block)
         head = re.search(r"<h2[^>]*>(.*?)</h2>", block, re.S)
         body = CHROME.sub(" ", STRIP.sub(" ", block))
-        shows = bool(re.search(r"<(img|video|figure|picture)\b", body)) or "svg" in block
+        # A component that mounts its pictures from script is still something
+        # to look at. Counting only literal <img> called The Pivot wordy and
+        # blind when it has eleven visuals.
+        shows = (bool(re.search(r"<(img|video|figure|picture|canvas)\b", body))
+                 or "svg" in block
+                 or bool(re.search(r"data-p[mv]-[a-z-]+", block)))
         out.append({
             "id": sid.group(1) if sid else "",
             "label": clean(label.group(1)) if label else "",
@@ -215,8 +221,17 @@ def main():
     L.append("- %d paragraphs run past %d words" % (len(longs), LONG_WORDS))
     L.append("")
 
+    # Anything written by hand under the marker survives a re-run. The first
+    # version of this script overwrote the recommendations it was supposed to
+    # support, which is a poor way to treat the only part a person wrote.
+    kept = ""
+    if OUT.exists():
+        old = OUT.read_text()
+        if KEEP in old:
+            kept = "\n" + KEEP + old.split(KEEP, 1)[1]
+
     OUT.parent.mkdir(exist_ok=True)
-    OUT.write_text("\n".join(L))
+    OUT.write_text("\n".join(L) + kept)
     print("%s: %d repeated, %d unpaired, %d long"
           % (OUT.relative_to(ROOT), len(repeats), total_unpaired, len(longs)))
 
