@@ -307,39 +307,8 @@
 
 <footer class="site-footer home-footer"><div class="container footer-row small muted"><p>Draft page. Not linked, not indexed.</p></div></footer>
 
+<script src="../assets/paira-depth.js?v=2026111708" defer></script>
 <script>
-  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  function once(selector, cls) {
-    var nodes = document.querySelectorAll(selector);
-    if (reduced || !('IntersectionObserver' in window)) {
-      nodes.forEach(function (n) { n.classList.add(cls); });
-      return;
-    }
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (!e.isIntersecting) return;
-        e.target.classList.add(cls);
-        io.unobserve(e.target);
-      });
-    }, { threshold: 0.3 });
-    nodes.forEach(function (n) { io.observe(n); });
-  }
-
-  once('[data-pd-anatomy]', 'is-shown');
-
-  document.querySelectorAll('[data-pd-board]').forEach(function (board) {
-    var before = board.querySelector('[data-pd-before]');
-    var after = board.querySelector('[data-pd-after]');
-    function show(isBefore) {
-      board.classList.toggle('is-before', isBefore);
-      before.classList.toggle('is-on', isBefore);
-      after.classList.toggle('is-on', !isBefore);
-    }
-    before.addEventListener('click', function () { show(true); });
-    after.addEventListener('click', function () { show(false); });
-  });
-
   var notesBtn = document.querySelector('[data-pd-notes]');
   notesBtn.addEventListener('click', function () {
     var on = document.body.classList.toggle('show-notes');

@@ -20,30 +20,10 @@ Nothing. No sentence of six words or more appears in two places.
 Ranked by how alike they are. The page and section are given so
 you can see which of the two is carrying its weight.
 
-**82% alike**
+**63% alike**
 
-- *Merlin Bird ID / Key Findings* — The findings showed that novice birders need different kinds of support.
-- *Merlin Bird ID / Concept Testing* — User testing showed that different novice birders wanted different kinds of support.
-
-**79% alike**
-
-- *Paira / Role* — I own the surfaces that bring people in and let them help: onboarding, Explore, profile, premium, and the mentor-side AI flow.
-- *Paira / Core Experience* — Five surfaces, in the order a person meets them: onboarding, Explore, profile, premium, and the mentor-side AI flow.
-
-**74% alike**
-
-- *Mooncake / making* — A marked fill line on the sheet would make the pour repeatable and keep the rim clean.
-- *Mooncake / What I took from it* — Add a moulded fill line to the sheet so the pour is repeatable and the flange stays clean.
-
-**65% alike**
-
-- *Merlin Bird ID / Research Approach* — Interviews and shadowing showed that someone can be novice through knowledge, tools, confidence, identity, or community access.
-- *Merlin Bird ID / Reflection* — Interviews and shadowing then showed why the score alone was not enough: confidence, identity, tool access, and community access did not move in one neat line.
-
-**62% alike**
-
-- *Common Ground / Designing the System* — Principles combine those resources into observable team behaviors.
-- *Common Ground / How the Game Works* — Origin: individual capacities 5 Principles What we build together Resources combine into an observable team behavior.
+- *Paira / Role* — I own the surfaces where people arrive and where they help.
+- *Paira / Core Experience* — I own the surfaces where people enter Paira, find something to help with, and decide to give more.
 
 
 ## 2. Sections with nothing to look at
@@ -56,7 +36,7 @@ Word count is the whole section, headings included.
 | Paira | Overview | 255 | I joined before there was a product, and helped decide what Paira shou… |
 | Paira | Reflection | 282 | A year at Paira taught me two things at once: how to grow inside a tea… |
 | Merlin Bird ID | Project Overview | 258 | I first reframed “beginner birder” as a research problem, not a fixed … |
-| Merlin Bird ID | Reflection | 135 | A metric can create clarity, but it should stay open to being revised.… |
+| Merlin Bird ID | Reflection | 132 | A metric can create clarity, but it should stay open to being revised.… |
 | EcoScan | Outcome & Reflection | 106 | The final prototype communicates a direction for food transparency, no… |
 | Common Ground | Visual System | 126 | A visual grammar players could read at table speed.… |
 | Focus House | ? | 185 | What I took from it… |
@@ -68,17 +48,13 @@ Word count is the whole section, headings included.
 | Page | Section | Words | Paragraph |
 |---|---|---|---|
 | Paira | The Pivot | 97 | The early Paira borrowed its shape from dating apps: a People tab you swiped through, a Request tab with small bounty po… |
-| Mooncake | air | 91 | Enlarging the holes to Ø1 made them print open, and six of them on a bolt circle covered most of the recessed field. Bef… |
-| Focus House | tests | 78 | I cut the whole thing by hand in cardboard before committing to accurate CAD, because at that stage the relationships be… |
 | Paira | Market Research | 76 | The big professional and campus networks are broad but transactional: you browse a marketplace of people and send reques… |
-| Mooncake | air | 75 | I printed three bucks at once: blank, raised orchid and engraved orchid. The outline and the scallops came through on al… |
 | Paira | Growth & Next | 69 | A launch is a moment; a product is a habit, and habits are built one cohort at a time. This fall's back-to-school push i… |
 | Paira | Market Research | 68 | Before the product had a shape, we had to make the case for it. The early research I contributed to named three problems… |
-| Focus House | tests | 64 | I cut the board outline straight from the sketch, and ran an engraving test in the same session to see how engraving cou… |
+| Mooncake | air | 64 | Enlarging the holes to Ø1 made them print open, and six on a bolt circle covered most of the recessed field. Before comm… |
 | Paira | Overview | 62 | In a startup this small, one of two designers does many jobs. Mine were to make the idea concrete, to own the surfaces w… |
 | Paira | Brand in the World | 61 | From the waitlist in late 2025 to the App Store launch in June 2026, the summer speaker series, and this fall's back-to-… |
-| Paira | ? | 58 | I joined Paira as one of its two product designers, before the product had found its shape. I own the surfaces that brin… |
-| Mooncake | air | 57 | With the vents opened up, release became the remaining variable. At 2° the buck had to be worked out of the sheet. Takin… |
+| Mooncake | air | 61 | I printed three bucks at once: blank, raised orchid, engraved orchid. The outline and the scallops came through on all t… |
 | Paira | Core Experience | 56 | Paira's premium layer runs on points: earned by inviting friends who complete a profile, spent on boosting a request for… |
 
 
@@ -88,21 +64,21 @@ Word count is the whole section, headings included.
 |---|---|---|---|
 | Home | 243 | 4 | 0 |
 | About | 534 | 5 | 1 |
-| Paira | 3290 | 10 | 2 |
-| Merlin Bird ID | 1205 | 7 | 2 |
+| Paira | 3885 | 11 | 2 |
+| Merlin Bird ID | 1201 | 7 | 2 |
 | EcoScan | 760 | 6 | 1 |
-| Common Ground | 1383 | 7 | 1 |
+| Common Ground | 1384 | 7 | 1 |
 | Explorations | 533 | 2 | 0 |
-| Focus House | 1782 | 8 | 1 |
-| Mooncake | 1890 | 9 | 1 |
+| Focus House | 1744 | 8 | 1 |
+| Mooncake | 1821 | 9 | 1 |
 
 
 ## Totals
 
 - 0 sentences appear word for word in more than one place
-- 5 pairs say much the same thing
+- 1 pairs say much the same thing
 - 9 sections carry 60 words or more and show nothing
-- 13 paragraphs run past 55 words
+- 9 paragraphs run past 55 words
 
 <!-- written by hand below this line; the script keeps it -->
 ---
@@ -145,24 +121,45 @@ right on the 55-word line.
   beside a screen that already shows what it describes. Cut each to the one
   sentence the screen cannot say. Estimated −400 words. *Actual: −346.*
 
-## B. Five places where the same thought is written twice
+## B. Five places where the same thought is written twice — DONE, 17 Nov
 
-- [ ] **B1 — Merlin, Key Findings vs Concept Testing (82% alike).** "The
+- [x] **B1 — Merlin, Key Findings vs Concept Testing (82% alike).** "The
   findings showed that novice birders need different kinds of support" and
   "User testing showed that different novice birders wanted different kinds
   of support." The second is the same claim with a different verb. Cut it and
   let that section say what the testing changed instead.
-- [ ] **B2 — Paira, Role vs Core Experience (79% alike).** The five surfaces
+- [x] **B2 — Paira, Role vs Core Experience (79% alike).** The five surfaces
   are listed in the same order in both. Keep the list where the reader can
   act on it, in Core Experience, and let Role say what owning them meant.
-- [ ] **B3 — Mooncake, making vs What I took from it (74% alike).** The fill
+- [x] **B3 — Mooncake, making vs What I took from it (74% alike).** The fill
   line is proposed in the build notes and proposed again in the takeaway.
   Keep the takeaway.
-- [ ] **B4 — Merlin, Research Approach vs Reflection (65% alike).** Both open
+- [x] **B4 — Merlin, Research Approach vs Reflection (65% alike).** Both open
   with "interviews and shadowing showed". Give the Reflection its own opening.
-- [ ] **B5 — Common Ground, Designing the System vs How the Game Works
+- [x] **B5 — Common Ground, Designing the System vs How the Game Works
   (62% alike).** Resources combining into a team behaviour is explained
   twice. Keep it where the diagram is.
+
+## B and D, what was actually done
+
+B1 Merlin act 05 restated act 03's finding as its own heading; it now says
+what the testing settled, which is what the line under it was already
+claiming. B2 the five Paira surfaces were listed twice in the same order;
+the list stays in Core Experience, where a reader can act on it. B3 the
+Mooncake fill line was proposed in the build notes and again in the
+takeaway; the takeaway keeps it. B4 two Merlin sections opened with the same
+five words. B5 Common Ground explained the same mechanic twice; the diagram
+keeps it.
+
+D1 five process paragraphs on Focus House and Mooncake, all beside
+photographs of the process. Cut to what a photograph cannot carry: the
+reasoning and the measurements. Every number stays — Ø0.4, Ø1, 66.5 mm²,
+900.3 mm², 2 mm, 2°, 4°, 20 mm.
+
+Site totals since the audit was written: over-long paragraphs 23 → 9,
+near-duplicate pairs 5 → 1. Paira reads 3,885 words rather than 3,290
+because act 06 was merged into it in the same sitting; without it the page
+is 2,900.
 
 ## C. Nine sections that ask to be read and show nothing
 
@@ -182,9 +179,9 @@ shorter but still show nothing. The rest:
 C4 is the one I would do first: a section named Visual System with nothing
 to look at is the clearest version of the problem on the whole site.
 
-## D. Not a cut, but the same instinct
+## D. Not a cut, but the same instinct — DONE, 17 Nov
 
-- [ ] **D1 — Focus House, `tests`, and Mooncake, `air`.** Five long
+- [x] **D1 — Focus House, `tests`, and Mooncake, `air`.** Five long
   paragraphs between them, all of them process notes beside photographs that
   already show the process. Same treatment as A1.
 

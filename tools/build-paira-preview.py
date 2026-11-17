@@ -26,6 +26,11 @@ def balanced_div(text, start):
 
 def main():
     idx = (ROOT / "paira/index.html").read_text()
+    # The act is on the live page now, so building a preview of it would show
+    # it twice. The preview existed to look at a change before it was made.
+    if "pd-growth" in idx:
+        sys.exit("The growth act is already in paira/index.html. "
+                 "Edit that directly; there is nothing left to preview.")
     dep = (ROOT / "paira/depth.html").read_text()
 
     # One act, not three. The three decisions are three parts inside it.
