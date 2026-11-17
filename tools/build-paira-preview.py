@@ -10,7 +10,7 @@ import re
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-VERSION = "2026111704"
+VERSION = "2026111706"
 
 
 def balanced_div(text, start):
@@ -28,10 +28,6 @@ def main():
     idx = (ROOT / "paira/index.html").read_text()
     dep = (ROOT / "paira/depth.html").read_text()
 
-    heading = re.search(r"<h2>([^<]*decisions I made[^<]*)</h2>", dep)
-    heading = heading.group(1) if heading else "Three decisions I made, and what I learned from them."
-    ledger = balanced_div(dep, dep.index('<div class="pd-ledger">'))
-
     # One act, not three. The three decisions are three parts inside it.
     marks = [m.start() for m in re.finditer(r"<!-- =+ [A-E]\.", dep)]
     story = dep[marks[1]:marks[2]]
@@ -44,15 +40,6 @@ def main():
         '  <div class="pv-new" data-pv-note="New act: three decisions, after 05 Decisions">',
         story.rstrip(),
         "  </div>\n"])
-
-    opening = (
-        "\n      <!-- ============================================================ NEW: opening block -->\n"
-        '      <div class="pv-new" data-pv-note="New: three decisions, under the cover image">\n'
-        '        <div class="pv-opening">\n'
-        '          <h2 class="pv-opening-head">' + heading + "</h2>\n"
-        + ledger.rstrip() + "\n"
-        "        </div>\n"
-        "      </div>\n")
 
     out = idx
     out = out.replace("</head>",
@@ -68,9 +55,8 @@ def main():
                       '    <button type="button" data-pv-toggle>Hide what changed</button>\n'
                       "  </div>\n</div>", 1)
 
-    cover = out.index('<figure class="case-cover-image')
-    cover_end = out.index("</figure>", cover) + len("</figure>")
-    out = out[:cover_end] + opening + out[cover_end:]
+    # The opening ledger under the cover image is not merged for now. It still
+    # lives in depth.html, section A, so the draft page keeps it.
 
     anchor = '  <section class="merlin-report-section paira-act-opener" id="brand-system">'
     out = out.replace(anchor, act + anchor, 1)

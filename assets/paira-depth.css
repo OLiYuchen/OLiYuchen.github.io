@@ -632,10 +632,19 @@ body.paira-case-page {
 
 /* A round of research announces itself — who, how many, when — and the
    evidence follows directly under it. */
-/* A paragraph rule already claims `.pd-method > p`, and this is a p. */
+/* Who, how many, when — a sentence, not a label. Fourteen uppercase
+   letterspaced labels in one act is a page shouting at the reader; this act
+   now has one, and it is the line that closes it. */
 .pd-growth .pd-method > .pd-round {
   margin-top: var(--sp-stage);
+  display: flex; align-items: center; gap: .7rem;
+  font-family: var(--paira-font-body, "Instrument Sans", sans-serif);
+  font-size: .92rem; font-weight: 600; letter-spacing: 0; text-transform: none;
   color: var(--case-accent-deep);
+}
+.pd-growth .pd-method > .pd-round::after {
+  content: ""; flex: 1; height: 1px;
+  background: color-mix(in srgb, var(--case-accent) 28%, transparent);
 }
 .pd-growth .pd-round + .pd-ways,
 .pd-growth .pd-round + .paira-findings { margin-top: var(--sp-tight); }
@@ -670,4 +679,66 @@ body.paira-case-page {
 
 @media (max-width: 760px) {
   .pd-metrics-row { grid-template-columns: 1fr; gap: 1.3rem; }
+}
+
+
+/* ---------- a finding, and what it changed -------------------------------- */
+
+/* The label said FINDING seven times. The heading is the finding, and the
+   arrow says the rest. */
+.pd-growth .paira-signals3-evidence h3 { margin: 0; }
+.pd-change {
+  display: flex; gap: .45em;
+  margin: .55rem 0 0;
+  font-size: .93rem; line-height: 1.5;
+  color: var(--case-accent-deep);
+}
+.pd-change span { opacity: .75; }
+
+/* The decision's number, as a numeral rather than a shout. */
+.pd-growth .pd-method-head {
+  font-family: var(--font-display);
+  font-size: 1.5rem; font-weight: 600; letter-spacing: -.01em;
+  text-transform: none; color: var(--case-accent-deep);
+  line-height: 1;
+}
+
+/* ---------- the figures get a bar ---------------------------------------- */
+
+/* Three numbers on their own are a readout. The bars are to one scale, each
+   from zero, so the three can be compared by eye before they are read. */
+.pd-metrics-row article > i {
+  display: block;
+  height: .42rem;
+  margin: .85rem 0 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg,
+    var(--case-accent) 0 calc(var(--v, 50) * 1%),
+    color-mix(in srgb, var(--case-accent) 13%, transparent) calc(var(--v, 50) * 1%) 100%);
+}
+.pd-metrics-row article > i + p { margin-top: .6rem; }
+
+/* ---------- the rest of the shouting ------------------------------------- */
+
+/* Three uppercase labels remain in this act: the rail, the three states on the
+   board, and the line that closes it. Everything else that was set in caps is
+   a sentence, and a sentence in caps is slower to read than the same sentence
+   in sentence case. */
+.pd-growth .pd-anatomy figcaption,
+.pd-growth .pd-board-title,
+.pd-growth .pd-evidence h4 {
+  text-transform: none;
+  letter-spacing: 0;
+}
+.pd-growth .pd-anatomy figcaption,
+.pd-growth .pd-board-title {
+  font-size: .9rem;
+  font-weight: 600;
+}
+.pd-growth .pd-evidence h4 {
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+  font-weight: 600;
+  letter-spacing: -.01em;
+  line-height: 1.12;
 }
