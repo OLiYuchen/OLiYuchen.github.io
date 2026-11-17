@@ -376,7 +376,7 @@ function wire() {
 
 
   // Four grounds, to be looked at rather than argued about.
-  const PAPERS = ['white', 'paper', 'light', 'cream'];
+  const PAPERS = ['paper', 'light', 'cream', 'white'];
   // Not [data-paper]: the body carries that attribute once a paper is set,
   // and the body comes first in document order.
   const paperBtn = document.querySelector('[data-paper-toggle]');
@@ -384,11 +384,12 @@ function wire() {
     const setPaper = (name) => {
       document.body.dataset.paper = name;
       paperBtn.textContent = 'Paper: ' + name;
-      try { localStorage.setItem('hv2-paper', name); } catch (e) {}
+      try { localStorage.setItem('hv2-paper-2', name); } catch (e) {}
     };
     let saved = null;
-    try { saved = localStorage.getItem('hv2-paper'); } catch (e) {}
-    setPaper(PAPERS.indexOf(saved) >= 0 ? saved : 'white');
+    // A new key, so a ground picked while we were looking at it does not come back.
+    try { saved = localStorage.getItem('hv2-paper-2'); } catch (e) {}
+    setPaper(PAPERS.indexOf(saved) >= 0 ? saved : 'paper');
     paperBtn.addEventListener('click', () => {
       const i = PAPERS.indexOf(document.body.dataset.paper);
       setPaper(PAPERS[(i + 1) % PAPERS.length]);

@@ -2979,10 +2979,21 @@ article#physical-computing .exploration-detail-copy p:not(.project-meta) {
   padding-block: clamp(1.25rem, 2.2vw, 1.8rem);
 }
 
+/* These three only ever set a size, so they took the body's face, the
+   browser's bold and the body's leading with it: a 27px heading in a heavy
+   sans, set on 45px, with its lines reading as blank rows between them. The
+   evidence chain was the only heading on the page not in the display face.
+   This is what every other heading here already uses. */
 .merlin-case-page .merlin-research-path h3,
 .merlin-case-page .merlin-direction-path h3,
 .merlin-case-page .merlin-evidence-chain h3 {
+  color: var(--merlin-ink);
+  font-family: var(--font-display);
   font-size: clamp(1.3rem, 1.9vw, 1.7rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+  text-wrap: balance;
 }
 
 .merlin-case-page .merlin-evidence-chain p:last-child,

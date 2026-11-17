@@ -12,8 +12,8 @@
   /* Four grounds to look at. The shadows are the reason this matters: a
      surface lighter than the clay has nothing for them to fall on, so each
      paper carries its own shadow strength and its own capsule fill. */
-  --hv2-cream: #ffffff;
-  --hv2-cta-bg: 249, 246, 240;
+  --hv2-cream: #fdfaf5;
+  --hv2-cta-bg: 255, 255, 255;
   --hv2-shade: 62, 50, 38;
   --hv2-ink: #2b241e;
   --hv2-soft: #6d6258;
