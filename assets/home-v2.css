@@ -9,7 +9,11 @@
 
 .hv2 {
   --hv2-paper: #f7f4ef;
-  --hv2-cream: #f3eee4;
+  /* Four grounds to look at. The shadows are the reason this matters: a
+     surface lighter than the clay has nothing for them to fall on, so each
+     paper carries its own shadow strength and its own capsule fill. */
+  --hv2-cream: #ffffff;
+  --hv2-cta-bg: 249, 246, 240;
   --hv2-shade: 62, 50, 38;
   --hv2-ink: #2b241e;
   --hv2-soft: #6d6258;
@@ -31,7 +35,12 @@
   font-family: "Instrument Sans", system-ui, sans-serif;
   overflow-x: clip;
 }
-html:has(> .hv2) { overflow-x: clip; background: var(--hv2-cream, #f3eee4); }
+html:has(> .hv2) { overflow-x: clip; background: var(--hv2-cream, #fff); }
+
+.hv2[data-paper="white"]  { --hv2-cream: #ffffff; --hv2-cta-bg: 249, 246, 240; }
+.hv2[data-paper="paper"]  { --hv2-cream: #fdfaf5; --hv2-cta-bg: 255, 255, 255; }
+.hv2[data-paper="light"]  { --hv2-cream: #f8f4ec; --hv2-cta-bg: 255, 253, 249; }
+.hv2[data-paper="cream"]  { --hv2-cream: #f3eee4; --hv2-cta-bg: 255, 253, 249; }
 /* style.css paints the site's paper over everything; this page has its own. */
 .hv2::before { content: none; }
 body.hv2 { isolation: auto; }
@@ -114,12 +123,9 @@ body.hv2 { isolation: auto; }
 }
 
 /* The centre sits still, larger, and never floats away from the middle. */
+/* Left over from the version with orbits: it put her chip in a serif and
+   pinned its offset, which fought the tag system and the art-centring. */
 .hv2-node-centre { --x: 0; --y: 0; }
-.hv2-node-centre .hv2-node-inner { animation-duration: 13s; }
-.hv2-node-centre .hv2-node-label {
-  opacity: 1; translate: -50% 0;
-  font-family: "Cormorant Garamond", serif; font-size: 1.05rem; color: var(--hv2-ink);
-}
 
 /* Everything dims a little while one node is being read. */
 /* Reading one figure: it stays lit, the rest of its rank stays legible so the
@@ -280,14 +286,16 @@ button.hv2-node { cursor: default; }
 
 /* ---------- the tag under every object ------------------------------------ */
 
-/* A hairline capsule in a monospace, the way a specimen is labelled. Every
-   figure wears one, including the loose ones at the edge, so the page reads
-   as a set of named things rather than a few names and some scenery. */
+/* A hairline capsule, the way a specimen is labelled. Every figure wears one,
+   including the loose ones at the edge, so the page reads as a set of named
+   things rather than a few names and some scenery. The face is the site's own
+   body face; a monospace read well against the reference and belonged to
+   someone else's page. */
 .hv2-node-label {
-  font-family: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+  font-family: var(--font-body, "Instrument Sans", sans-serif);
   font-size: var(--tag, 11px);
   font-weight: 500;
-  letter-spacing: .005em;
+  letter-spacing: .015em;
   line-height: 1;
   color: rgba(var(--hv2-shade), .92);
   background: transparent;
@@ -329,16 +337,22 @@ button.hv2-node { cursor: default; }
 
 /* ---------- the one action ------------------------------------------------ */
 
+/* Her frame put this at a particular size in a particular place, and it used
+   to be the one thing on the page in fixed pixels: every figure shrank with
+   the window and it did not, so on a short window it walked into Skills.
+   It is laid out with the figures now and scales with them. */
 .hv2-cta {
-  position: absolute; left: 50%; bottom: 2.5%; z-index: 500;
-  translate: -50% 0;
-  padding: 1.15rem 3.4rem;
+  position: absolute; z-index: 500;
+  left: var(--cta-x, 50%); top: var(--cta-y, 90%);
+  width: var(--cta-w, 18rem); height: var(--cta-h, 3.6rem);
+  display: grid; place-items: center;
+  font-size: var(--cta-fs, .86rem);
   border-radius: 999px;
-  background: rgba(255, 253, 249, .72);
+  background: rgba(var(--hv2-cta-bg, 255 253 249), .85);
   backdrop-filter: blur(8px);
   box-shadow: 0 2px 4px rgba(var(--hv2-shade), .04), 0 14px 34px rgba(var(--hv2-shade), .09);
-  font-family: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: .86rem; letter-spacing: .015em;
+  font-family: var(--font-body, "Instrument Sans", sans-serif);
+  letter-spacing: .015em;
   color: rgba(var(--hv2-shade), .82);
   text-decoration: none; white-space: nowrap;
   transition: background .4s var(--hv2-ease), box-shadow .4s var(--hv2-ease), color .4s var(--hv2-ease);

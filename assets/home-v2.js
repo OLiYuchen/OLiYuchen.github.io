@@ -30,7 +30,7 @@ const ART = {
   'me-calligraphy': { cx: 0.510, foot: 0.984 },
   'me-climb': { cx: 0.500, foot: 0.992 },
   'me-ecoscan': { cx: 0.490, foot: 0.985 },
-  'me-cats-2': { cx: 0.500, foot: 1.000 },
+  'me-popo': { cx: 0.500, foot: 1.000 },
   'me-explorations': { cx: 0.515, foot: 0.963 },
   'me-game': { cx: 0.497, foot: 1.000 },
   'me-merlin-2': { cx: 0.547, foot: 0.963 },
@@ -55,15 +55,15 @@ const NODES = [
     text:'Product strategy and UX research through to interaction design, design systems and AI experience design. Plus the making side: prototyping, design engineering, CAD and physical computing.',
     tags:['Product strategy','UX research','AI experience design','Design engineering'], href:'/about/#about-skills-title' },
 
-  { id:'work', ring:1, cx:0.2966, cy:0.8331, bw:119.0, bh:97.0, img:'me-work-2', label:'Work & study', accent:ROSE,
+  { id:'work', ring:1, cx:0.2966, cy:0.8331, bw:119.0, bh:97.0, img:'me-work-2', label:'Experience', accent:ROSE,
     kicker:'Where I have worked and studied', title:'Five places, and a degree in two halves.',
     text:'Product designer at Paira through its App Store launch. Strategy and PMO intern at Fosun International in Shanghai. Research assistant at UW HCDE. UX researcher and designer at the Cornell Lab of Ornithology. Vice president at WEGET Magazine. A B.S. in Human-Centered Design and Engineering with a minor in Neural Computation, and now an M.S. in Technology Innovation at UW GIX.',
     tags:['Paira','Fosun','Cornell Lab','UW HCDE','UW GIX'], href:'/about/#about-experience-title' },
 
-  { id:'cats', ring:1, cx:0.8519, cy:0.5000, bw:122.0, bh:90.0, img:'me-cats-2', label:'Two cats', accent:VIOLET,
-    kicker:'Companion', title:'Usually made with two cats nearby.',
-    text:'They supervise everything on this site, and most of what goes into it.',
-    tags:['Two cats'], media:'/assets/img/about-hobbies-collage.jpg' },
+  { id:'popo', ring:1, cx:0.8519, cy:0.5000, bw:122.0, bh:90.0, img:'me-popo', label:'Popo', accent:VIOLET,
+    kicker:'Studio supervisor', title:'Popo.',
+    text:'She sleeps through most of the work and wakes up for the parts that matter.',
+    tags:['Popo'], media:'/assets/img/about-hobbies-collage.jpg' },
 
   /* ---- ring 2: the featured work ---------------------------------------- */
   { id:'paira', ring:2, cx:0.3204, cy:0.1399, bw:255.0, bh:168.4, img:'me-paira', label:'Paira', accent:'#605cff',
@@ -171,7 +171,21 @@ function build() {
 
 const REF_W = 1512, REF_H = 716;
 
+/* The call to action, in her frame: x, y, width, height inside the field. */
+const CTA = { x: 612, y: 639, w: 287, h: 59 };
+const cta = document.querySelector('.hv2-cta');
+
 function place(scale, W, H) {
+  if (cta) {
+    // Placed and sized like a figure, so the gap she left above it survives
+    // every window. Its middle keeps to the middle of the page.
+    const w = CTA.w * scale, h = CTA.h * scale;
+    cta.style.setProperty('--cta-w', w.toFixed(1) + 'px');
+    cta.style.setProperty('--cta-h', h.toFixed(1) + 'px');
+    cta.style.setProperty('--cta-x', ((CTA.x + CTA.w / 2) / REF_W * W - w / 2).toFixed(1) + 'px');
+    cta.style.setProperty('--cta-y', ((CTA.y + CTA.h / 2) / REF_H * H - h / 2).toFixed(1) + 'px');
+    cta.style.setProperty('--cta-fs', Math.max(11, Math.min(15, 13.8 * scale)).toFixed(2) + 'px');
+  }
   NODES.forEach(n => {
     const w = n.bw * scale, h = n.bh * scale;
     const art = ART[n.img] || { cx: 0.5, foot: 1 };
@@ -209,6 +223,11 @@ function boxOf(n, pad) {
 
 function collides(limit, pad) {
   const boxes = NODES.map(n => boxOf(n, pad || 0));
+  if (cta) {
+    const r = cta.getBoundingClientRect();
+    boxes.push({ left: r.left, right: r.right, top: r.top, bottom: r.bottom,
+                 width: r.width, height: r.height });
+  }
   for (let i = 0; i < boxes.length; i++) {
     for (let j = i + 1; j < boxes.length; j++) {
       const a = boxes[i], b = boxes[j];
@@ -274,8 +293,12 @@ function layout() {
 
   let scale = Math.min(W / REF_W, H / REF_H);
   place(scale, W, H);
-  for (let pass = 0; pass < 16; pass++) {
-    if (!collides(0.04, 2) && !overflows(2)) break;
+  // Not merely "they do not overlap" but "they are apart": each box is grown
+  // by 5px before the test, so two things must leave 10px between them. Her
+  // own frame has 43px at its tightest, so on any window near that shape this
+  // never runs.
+  for (let pass = 0; pass < 20; pass++) {
+    if (!collides(0.001, 5) && !overflows(2)) break;
     scale *= 0.97;
     place(scale, W, H);
   }
@@ -352,6 +375,26 @@ function wire() {
   field.addEventListener('pointerleave', close);
   window.addEventListener('scroll', () => { if (openId) close(); }, { passive: true });
 
+
+  // Four grounds, to be looked at rather than argued about.
+  const PAPERS = ['white', 'paper', 'light', 'cream'];
+  // Not [data-paper]: the body carries that attribute once a paper is set,
+  // and the body comes first in document order.
+  const paperBtn = document.querySelector('[data-paper-toggle]');
+  if (paperBtn) {
+    const setPaper = (name) => {
+      document.body.dataset.paper = name;
+      paperBtn.textContent = 'Paper: ' + name;
+      try { localStorage.setItem('hv2-paper', name); } catch (e) {}
+    };
+    let saved = null;
+    try { saved = localStorage.getItem('hv2-paper'); } catch (e) {}
+    setPaper(PAPERS.indexOf(saved) >= 0 ? saved : 'white');
+    paperBtn.addEventListener('click', () => {
+      const i = PAPERS.indexOf(document.body.dataset.paper);
+      setPaper(PAPERS[(i + 1) % PAPERS.length]);
+    });
+  }
 
   const todoBtn = document.querySelector('[data-todo-toggle]');
   todoBtn.addEventListener('click', () => {

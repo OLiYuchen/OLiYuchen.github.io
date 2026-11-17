@@ -2,7 +2,7 @@
 
 Twelve figures: you in the middle, Skills and Work & study, the four featured
 projects, Explorations, and four from outside the screen: calligraphy, tennis,
-bouldering and the cats. All twelve are real pieces; nothing is standing in.
+bouldering and Popo the cat. All twelve are real pieces; nothing is standing in.
 Education has no figure of its own; the briefcase and the graduation cap are
 one piece, so Work & study covers both.
 
@@ -32,7 +32,7 @@ readable.
 **Centre** `me-portrait`. **About** `me-skills-2`, `me-work-2`.
 **Featured** `me-paira`, `me-ecoscan`, `me-merlin-2`, `me-game`.
 **Outside the screen** `me-tennis`, `me-climb`, `me-calligraphy`,
-`me-cats-2`, and `me-explorations`. `me-work-2` and `me-cats-2` are single
+`me-popo`, and `me-explorations`. `me-work-2` and `me-popo` are single
 icons cut out of the larger sheets Olivia sent.
 
 The six with a `-2` or a name of their own came from Olivia's Figma file and
