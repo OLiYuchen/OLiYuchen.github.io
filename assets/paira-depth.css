@@ -469,7 +469,14 @@ body.show-notes section.pd-draftonly { display: block; }
 
 /* Two tried, one shipped, and the shipped one is visibly the outcome. */
 .pd-ways { grid-template-columns: minmax(0,1fr) 1.9rem minmax(0,.66fr); margin-top: var(--sp-rest); }
-.pd-ways-shipped.is-single { grid-template-columns: minmax(0,1fr); }
+.pd-ways-shipped.is-single,
+.pd-ways-tried.is-single { grid-template-columns: minmax(0,1fr); }
+
+/* One screen against one screen: give them the same width, or the comparison
+   reads as a change in size rather than a change in the screen. */
+.pd-ways:has(.pd-ways-tried.is-single) {
+  grid-template-columns: minmax(0, 1fr) 1.9rem minmax(0, 1fr);
+}
 
 /* One line per signal: the claim, nothing propping it up. */
 .pd-signals { margin-top: var(--sp-stage); padding-top: 1.3rem; }
