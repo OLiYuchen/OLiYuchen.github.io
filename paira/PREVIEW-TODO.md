@@ -17,6 +17,7 @@ research opens with who and when, then goes straight to what it changed.
 | 06, the June round | How many of the nine sessions you ran, and with whom. | The page says the design team ran it and these findings are yours. A number makes your share exact instead of modest. |
 | 06, the June round | Which of the report's next steps actually shipped: the AI moving to request strategist, the phrasing pass. | Right now it says where the report landed. If any of it shipped, this becomes "my finding changed the product", which is a different class of claim. |
 | 06, the mentor round | How many people, what you asked them to do, and when. | The other two rounds say "5 people, April" and "9 people, June". This one says "one-on-one sessions" because that is all I have, and it is the only line on the page without a number. |
+| 06, after launch | What the PostHog figures are measured against, and over what window. | The row reads "+25.3 pts, posted a first request". A point gain is a gain over something: which period, compared to which. One line under the row would make all three checkable instead of impressive. |
 | 06, decision 03 | How many screens you audited, across how many builds, and what the team stopped losing. | The system is described but its effect is not. One plain sentence would do: "we stopped re-checking versions in every meeting." |
 
 ## Already settled, no action
@@ -24,6 +25,8 @@ research opens with who and when, then goes straight to what it changed.
 - Explore: two rounds, April 21 and 23, five people. Signals written from your notes.
 - June: builds 122 to 127, nine people, five days. Findings written from the ones attributed to you.
 - The status system: three states, the sections, the dated modules.
+- After launch: the three PostHog figures and their labels, exactly as you
+  sent them. Nothing added, nothing rounded.
 
 ## One inconsistency to resolve
 
