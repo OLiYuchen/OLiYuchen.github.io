@@ -30,7 +30,7 @@ const ART = {
   'me-calligraphy': { cx: 0.510, foot: 0.984 },
   'me-climb': { cx: 0.500, foot: 0.992 },
   'me-ecoscan': { cx: 0.490, foot: 0.985 },
-  'me-education': { cx: 0.524, foot: 0.895 },
+  'me-cats-2': { cx: 0.524, foot: 0.895 },
   'me-explorations': { cx: 0.515, foot: 0.963 },
   'me-game': { cx: 0.497, foot: 1.000 },
   'me-merlin-2': { cx: 0.547, foot: 0.963 },
@@ -60,10 +60,10 @@ const NODES = [
     text:'Product designer at Paira through its App Store launch. Strategy and PMO intern at Fosun International in Shanghai. Research assistant at UW HCDE. Vice president at WEGET Magazine. UX researcher and designer at the Cornell Lab of Ornithology.',
     tags:['Paira','Fosun','UW HCDE','Cornell Lab','WEGET'], href:'/about/#about-experience-title' },
 
-  { id:'school', ring:1, cx:0.8519, cy:0.5000, bw:122.0, bh:90.0, img:'me-education', label:'Education', accent:VIOLET,
-    kicker:'University of Washington', title:'Design, engineering, and a little neuroscience.',
-    text:'B.S. in Human-Centered Design and Engineering with a minor in Neural Computation and Engineering, 2026. Now an M.S. in Technology Innovation at UW GIX with a CS and HCI focus, expected 2028.',
-    tags:['UW HCDE','Neural Computation','UW GIX'], href:'/about/#about-education-title' },
+  { id:'cats', ring:1, cx:0.8519, cy:0.5000, bw:122.0, bh:90.0, img:'me-cats-2', label:'Two cats', accent:VIOLET,
+    kicker:'Companion', title:'Usually made with two cats nearby.',
+    text:'They supervise everything on this site, and most of what goes into it.',
+    tags:['Two cats'], media:'/assets/img/about-hobbies-collage.jpg' },
 
   /* ---- ring 2: the featured work ---------------------------------------- */
   { id:'paira', ring:2, cx:0.3204, cy:0.1399, bw:255.0, bh:168.4, img:'me-paira', label:'Paira', accent:'#605cff',

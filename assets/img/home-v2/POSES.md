@@ -1,8 +1,10 @@
 # Home v2 clay poses
 
-Twelve figures: you in the middle, three things about you, four featured
-projects, three made outside the screen, and the explorations archive. All
-twelve are real pieces now; nothing is standing in.
+Twelve figures: you in the middle, Skills and Work, the four featured
+projects, Explorations, and four from outside the screen — calligraphy,
+tennis, bouldering and the cats. All twelve are real pieces; nothing is
+standing in. Education has no figure in this arrangement; its section on the
+About page is still reached from Skills and Work.
 
 Open the draft and press **Show the poses still to make**: every stand-in gets
 a dashed amber box, and its hover card prints the pose it is waiting for.
@@ -27,10 +29,10 @@ readable.
 
 ## What is on the page
 
-**Centre** `me-portrait`. **About** `me-work-2`, `me-skills-2`,
-`me-education`. **Featured** `me-paira`, `me-ecoscan`, `me-merlin-2`,
-`me-game`. **Outside the screen** `me-tennis`, `me-climb`,
-`me-calligraphy`, `me-explorations`.
+**Centre** `me-portrait`. **About** `me-skills-2`, `me-work-2`.
+**Featured** `me-paira`, `me-ecoscan`, `me-merlin-2`, `me-game`.
+**Outside the screen** `me-tennis`, `me-climb`, `me-calligraphy`,
+`me-cats-2`, and `me-explorations`.
 
 The six with a `-2` or a name of their own came from Olivia's Figma file and
 replaced earlier versions. The pieces they replaced, and the cat, Redmond,
