@@ -53,12 +53,12 @@ const NODES = [
     tags:['0 to 1 product','UX research','Brand and motion'], href:'/about/' },
 
   /* ---- ring 1: who she is ----------------------------------------------- */
-  { id:'skills', ring:1, cx:0.4900, cy:0.7560, bw:190.0, bh:127.0, img:'me-skills-2', label:'Skills', accent:ROSE,
+  { id:'skills', ring:1, cx:0.5040, cy:0.7560, bw:190.0, bh:127.0, img:'me-skills-2', label:'Skills', accent:ROSE,
     kicker:'About', title:'Skills',
     text:'Product strategy, UX research, interaction, design systems, AI experience.',
     tags:['Product strategy','UX research','AI experience design','Design engineering'], href:'/about/#about-skills-title' },
 
-  { id:'work', ring:1, cx:0.3080, cy:0.8331, bw:119.0, bh:97.0, img:'me-work-2', label:'Experience', accent:ROSE,
+  { id:'work', ring:1, cx:0.3220, cy:0.8331, bw:119.0, bh:97.0, img:'me-work-2', label:'Experience', accent:ROSE,
     kicker:'About', title:'Experience',
     text:'Paira, Fosun International, Cornell Lab of Ornithology, UW HCDE, UW GIX.',
     tags:['Paira','Fosun','Cornell Lab','UW HCDE','UW GIX'], href:'/about/#about-experience-title' },
