@@ -1,0 +1,198 @@
+/* ===========================================================================
+   The research card.
+
+   One shape for every round of user research on the site, so two rounds can be
+   compared without being read. Four slots, always in this order:
+
+     1  subject   what was tested, as a thing rather than a sentence
+     2  count     who and how many, first in the meta line because it is the
+                  number a reader checks
+     3  when      the date, right-aligned, so a column of cards reads as a
+                  timeline down the right edge
+     4  signals   a finding and its consequence, never a finding alone
+
+   A round with four signals and a round with one are the same object. A slot
+   with no number yet is marked rather than guessed, and the card still reads.
+
+   Draft: loaded only by drafts/research-card.html until the shape is agreed.
+   =========================================================================== */
+
+.rc-page {
+  --rc-line: color-mix(in srgb, var(--case-accent-deep) 16%, transparent);
+  --rc-surface: rgba(255, 255, 255, 0.5);
+  background: var(--case-paper);
+}
+
+.rc-bar {
+  position: sticky; top: 0; z-index: 9;
+  display: flex; align-items: center; gap: .9rem; flex-wrap: wrap;
+  padding: .55rem clamp(1rem, 3.5vw, 2.6rem);
+  background: var(--case-accent-deep); color: #fff;
+  font-family: var(--font-body); font-size: .78rem;
+}
+.rc-bar b { font-size: .64rem; letter-spacing: .12em; text-transform: uppercase; }
+
+.rc-main { padding-block: clamp(2.5rem, 6vw, 5rem) clamp(4rem, 10vw, 8rem); }
+
+.rc-intro { max-width: 46rem; }
+.rc-intro h1 {
+  margin: .5rem 0 1rem;
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 5vw, 3.6rem); font-weight: 600;
+  letter-spacing: -.02em; line-height: 1.04;
+}
+.rc-intro p { margin: 0; max-width: 60ch; color: var(--ink-soft); }
+
+.rc-sec { margin-top: clamp(3.5rem, 8vw, 6rem); }
+.rc-sec > h2 {
+  margin: .4rem 0 clamp(1.4rem, 3vw, 2.2rem);
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 2.6vw, 2.2rem); font-weight: 600;
+  letter-spacing: -.02em; line-height: 1.08;
+}
+.rc-sec > p { max-width: 60ch; color: var(--ink-soft); }
+
+/* ---------- the card ------------------------------------------------------ */
+
+.rc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  gap: clamp(1.1rem, 2.4vw, 1.8rem);
+}
+.rc-grid-2 { grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr)); }
+
+.rc-card {
+  display: flex; flex-direction: column;
+  padding: clamp(1.3rem, 2.6vw, 1.9rem);
+  border: 1px solid var(--rc-line);
+  border-radius: 1.1rem;
+  background: var(--rc-surface);
+}
+
+/* 1 and 2 and 3: the head, which is identical on every card. */
+.rc-head { padding-bottom: .9rem; border-bottom: 1px solid var(--rc-line); }
+
+.rc-subject {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 1.9vw, 1.6rem); font-weight: 600;
+  letter-spacing: -.015em; line-height: 1.1;
+  text-wrap: balance;
+}
+
+.rc-meta {
+  display: flex; align-items: baseline; flex-wrap: wrap; gap: .35em;
+  margin: .5rem 0 0;
+  font-family: var(--font-body);
+  font-size: .82rem; line-height: 1.4;
+  color: var(--ink-soft);
+}
+.rc-n { font-weight: 600; color: var(--case-accent-deep); font-variant-numeric: tabular-nums; }
+.rc-dot { opacity: .45; }
+/* The date goes to the right edge, so a column of cards reads as a timeline. */
+.rc-when { margin-left: auto; font-variant-numeric: tabular-nums; }
+
+/* A number that is not known yet. Marked, not guessed, and not blank. */
+.rc-gap {
+  padding: .1em .5em;
+  border: 1px dashed color-mix(in srgb, #b07d2a 55%, transparent);
+  border-radius: 999px;
+  color: #8a6318;
+  font-size: .95em;
+}
+.rc-gap-inline { display: inline-block; }
+
+/* 4: the signals. A finding, and what it changed. */
+.rc-signals { margin: 0; padding: 0; list-style: none; }
+.rc-signals > li {
+  position: relative;
+  padding: 1.1rem 0 0 2.1rem;
+  counter-increment: rc;
+}
+.rc-signals { counter-reset: rc; }
+.rc-signals > li::before {
+  content: counter(rc);
+  position: absolute; left: 0; top: 1.15rem;
+  width: 1.4rem; height: 1.4rem;
+  display: grid; place-items: center;
+  border: 1px solid var(--rc-line); border-radius: 50%;
+  color: var(--case-accent-deep);
+  font-family: var(--font-body);
+  font-size: .68rem; font-weight: 600; font-variant-numeric: tabular-nums;
+}
+.rc-signals > li + li { border-top: 1px solid var(--rc-line); }
+
+.rc-signals h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 1.4vw, 1.22rem); font-weight: 600;
+  letter-spacing: -.01em; line-height: 1.16;
+  text-wrap: pretty;
+}
+.rc-change {
+  display: flex; gap: .45em;
+  margin: .45rem 0 0;
+  font-family: var(--font-body);
+  font-size: .9rem; line-height: 1.5;
+  color: var(--case-accent-deep);
+}
+.rc-change span { opacity: .7; }
+
+/* ---------- the anatomy drawing ------------------------------------------- */
+
+.rc-anatomy {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr);
+  gap: clamp(1.4rem, 3vw, 2.6rem);
+  align-items: start;
+}
+.rc-card-demo { background: #fff; }
+.rc-ann {
+  display: block;
+  margin-top: .3rem;
+  color: #8a6318;
+  font-family: var(--font-body);
+  font-size: .68rem; font-weight: 600;
+  letter-spacing: .04em;
+}
+.rc-ann-right { width: 100%; }
+
+.rc-rules h3 {
+  margin: 0 0 .7rem;
+  font-family: var(--font-display);
+  font-size: 1.3rem; font-weight: 600; letter-spacing: -.01em;
+}
+.rc-rules ul, .rc-gaps { margin: 0; padding: 0; list-style: none; }
+.rc-rules li, .rc-gaps li {
+  padding: .7rem 0;
+  border-top: 1px solid var(--rc-line);
+  font-size: .9rem; line-height: 1.55;
+  color: var(--ink-soft);
+}
+.rc-rules li b, .rc-gaps li b { color: var(--ink); }
+.rc-gaps { margin-top: 1.2rem; max-width: 50rem; }
+
+/* ---------- the two alternatives ------------------------------------------ */
+
+.rc-vlabel {
+  margin: 0 0 .7rem;
+  font-family: var(--font-body);
+  font-size: .72rem; font-weight: 600; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--ink-soft);
+}
+.rc-card-b .rc-strip {
+  margin: 0 0 .55rem;
+  font-family: var(--font-body);
+  font-size: .78rem; color: var(--ink-soft);
+}
+.rc-card-b .rc-strip b { color: var(--case-accent-deep); }
+.rc-card-c {
+  padding: 0;
+  border: 0; border-top: 2px solid var(--case-accent-deep);
+  border-radius: 0; background: none;
+  padding-top: 1.1rem;
+}
+
+@media (max-width: 860px) {
+  .rc-anatomy { grid-template-columns: 1fr; }
+}
