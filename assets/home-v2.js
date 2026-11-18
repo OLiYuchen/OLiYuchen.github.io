@@ -330,23 +330,32 @@ function layout() {
 
 // What it is and what was done, nothing else. The tags repeated the kicker
 // and the sentence, and the three of them together made the card tall.
+// The four case studies. Everything else gets the upright card.
+const WIDE = new Set(['paira', 'merlin', 'ecoscan', 'game']);
+
 function fillCard(n) {
   card.style.setProperty('--accent', n.accent);
   // A project shows its project picture. Everything else shows its own clay
   // figure, so every card is the same shape rather than some being shorter.
   const src = n.media || (IMG + n.img + '.webp');
+  // The four case studies are landscape, because their pictures are. The rest
+  // read better upright, which is also the shape of a photograph of a person.
+  card.classList.toggle('is-portrait', !WIDE.has(n.id));
   card.innerHTML =
     '<img class="hv2-card-media' + (n.media ? '' : ' is-art') +
       '" src="' + src + '" alt="" />' +
+    '<span class="hv2-card-sheen" aria-hidden="true"></span>' +
     '<div class="hv2-card-body">' +
       '<div class="hv2-card-copy">' +
         '<p class="hv2-card-kicker">' + n.kicker + '</p>' +
         '<h2 class="hv2-card-title">' + n.title + '</h2>' +
         '<p class="hv2-card-text">' + n.text + '</p>' +
+        (n.href
+          ? '<p class="hv2-card-cue">Click to view more'
+            + ' <span aria-hidden="true">&#8594;</span></p>' : '') +
         (n.todo && document.body.classList.contains('show-todo-notes')
           ? '<p class="hv2-card-todo">Clay pose still to make: ' + n.todo + '</p>' : '') +
       '</div>' +
-      (n.href ? '<span class="hv2-card-go" aria-hidden="true">&#8594;</span>' : '') +
     '</div>';
 }
 
