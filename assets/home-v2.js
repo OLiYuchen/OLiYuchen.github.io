@@ -101,12 +101,12 @@ const NODES = [
 
   { id:'tennis', ring:3, cx:0.1455, cy:0.7654, bw:96.0, bh:120.0, img:'me-tennis', label:'Tennis', accent:VIOLET,
     kicker:'Hobby', title:'Tennis',
-    text:'Tennis and badminton, both better with people.',
+    text:'My latest obsession.',
     tags:['Tennis','Badminton'] },
 
   { id:'bouldering', ring:3, cx:0.8988, cy:0.1844, bw:86.0, bh:114.0, img:'me-climb', label:'Bouldering', accent:VIOLET,
     kicker:'Hobby', title:'Bouldering',
-    text:'The social hobby that stuck.',
+    text:'Falling off, getting back on, again and again.',
     tags:['Bouldering'] },
 
   { id:'archive', ring:3, cx:0.1038, cy:0.3135, bw:180.0, bh:113.0, img:'me-explorations', label:'Explorations', accent:VIOLET,
