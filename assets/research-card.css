@@ -302,3 +302,37 @@ body.rc-page { background: var(--case-paper, var(--paper)); color: var(--rc-ink)
 .rc-round + .paira-screen-grid { margin-top: var(--sp-tight, 1.7rem); }
 .pd-growth .rc-round + .pd-ways,
 .pd-growth .rc-round + .paira-findings { margin-top: var(--sp-tight); }
+
+
+/* ---------- the same card, inside a case study ----------------------------
+
+   On the draft page a card is one round and its findings. On the case study
+   it is one round and the evidence that round produced, which is sometimes
+   three screens and sometimes a bar chart, so it carries more air.
+   -------------------------------------------------------------------------- */
+
+.rc-card-round {
+  padding: clamp(1.5rem, 3vw, 2.2rem);
+  background: var(--case-surface-strong, var(--paper-soft));
+  border: 1px solid var(--rc-faint);
+  border-radius: 1rem;
+  box-shadow: 0 18px 44px rgba(52, 39, 27, 0.06);
+}
+
+/* The card's own padding is the space above the round; the header's margin
+   would sit on top of it. */
+.rc-card-round > .rc-round { margin-top: 0; }
+
+/* The card takes the margin the round used to carry, so each act keeps the
+   rhythm it already had. */
+.pd-growth .pd-method > .rc-card-round { margin-top: var(--sp-stage); }
+.pd-growth .pd-method > p + .rc-card-round { margin-top: var(--sp-block); }
+
+/* Inside the card the evidence hugs the round, rather than keeping the
+   distance it kept when both sat loose on the page. */
+.rc-card-round > .rc-round + * { margin-top: var(--sp-tight, 1.7rem); }
+.rc-card-round > :last-child { margin-bottom: 0; }
+
+/* Act 2's round shares a row with the quote beside it; the card should start
+   level with it rather than below the row's own rule. */
+.paira-research-step > .rc-card-round { align-self: stretch; }
