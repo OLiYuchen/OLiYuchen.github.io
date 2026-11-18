@@ -44,71 +44,71 @@ const ART = {
 const NODES = [
   /* ---- the centre ------------------------------------------------------- */
   { id:'me', ring:0, cx:0.5000, cy:0.3196, bw:202.8, bh:258.3, mob:{cx:0.500,cy:0.145,bw:116,bh:148}, img:'me-portrait', label:'Olivia Feng', accent:ROSE,
-    kicker:'Product designer and manager',
-    title:'Hi, I am Olivia.',
-    text:'I turn ambiguous questions into flows, stories, prototypes and artifacts people can respond to.',
+    kicker:'About me',
+    title:'Olivia Feng',
+    text:'Product designer and manager. 0 to 1 products, research through launch.',
     tags:['0 to 1 product','UX research','Brand and motion'], href:'/about/' },
 
   /* ---- ring 1: who she is ----------------------------------------------- */
   { id:'skills', ring:1, cx:0.4782, cy:0.7409, bw:190.0, bh:127.0, img:'me-skills-2', label:'Skills', accent:ROSE,
-    kicker:'What I bring', title:'Research rigor, visual sensitivity, calm systems.',
-    text:'Product strategy and UX research through to interaction design, design systems and AI experience design. Plus the making side: prototyping, design engineering, CAD and physical computing.',
+    kicker:'About', title:'Skills',
+    text:'Product strategy, UX research, interaction, design systems, AI experience.',
     tags:['Product strategy','UX research','AI experience design','Design engineering'], href:'/about/#about-skills-title' },
 
   { id:'work', ring:1, cx:0.2966, cy:0.8331, bw:119.0, bh:97.0, img:'me-work-2', label:'Experience', accent:ROSE,
-    kicker:'Where I have worked and studied', title:'Five places, and a degree in two halves.',
-    text:'Product designer at Paira through its App Store launch. Strategy and PMO intern at Fosun International in Shanghai. Research assistant at UW HCDE. UX researcher and designer at the Cornell Lab of Ornithology. Vice president at WEGET Magazine. A B.S. in Human-Centered Design and Engineering with a minor in Neural Computation, and now an M.S. in Technology Innovation at UW GIX.',
+    kicker:'About', title:'Experience',
+    text:'Paira, Fosun International, Cornell Lab of Ornithology, UW HCDE, UW GIX.',
     tags:['Paira','Fosun','Cornell Lab','UW HCDE','UW GIX'], href:'/about/#about-experience-title' },
 
   { id:'popo', ring:1, cx:0.8519, cy:0.5000, bw:122.0, bh:90.0, img:'me-popo', label:'Popo', accent:VIOLET,
-    kicker:'Studio supervisor', title:'Popo.',
-    text:'She sleeps through most of the work and wakes up for the parts that matter.',
+    kicker:'Studio supervisor', title:'Popo',
+    text:'Sleeps through most of the work, wakes for the parts that matter.',
     tags:['Popo'], media:'/assets/img/about-hobbies-collage.jpg' },
 
   /* ---- ring 2: the featured work ---------------------------------------- */
   { id:'paira', ring:2, cx:0.3204, cy:0.1399, bw:255.0, bh:168.4, mob:{cx:0.275,cy:0.455,bw:138,bh:91}, img:'me-paira', label:'Paira', accent:'#605cff',
     kicker:'0 to 1 product', title:'Paira',
-    text:'A request-first help network where AI writes the ask and finds the person.',
+    text:'Designed a help network where AI writes the ask and finds the person.',
     tags:['0 to 1 product','AI flows','Brand and launch'],
     media:'/assets/img/paira/paira-home-overview.webp', href:'/paira/' },
 
   { id:'ecoscan', ring:2, cx:0.2911, cy:0.5115, bw:222.2, bh:128.4, mob:{cx:0.275,cy:0.720,bw:136,bh:79}, img:'me-ecoscan', label:'EcoScan', accent:'#70a9a1',
     kicker:'Rapid prototype', title:'EcoScan',
-    text:'Scan-based grocery UX translating food labels into personal priorities.',
+    text:'Designed a scan-first grocery app that reads labels against your priorities.',
     tags:['Team leadership','App flow','Rapid prototype'],
     media:'/assets/img/home/ecoscan.webp', href:'/ecoscan/' },
 
   { id:'game', ring:2, cx:0.6812, cy:0.5945, bw:188.0, bh:163.3, mob:{cx:0.730,cy:0.700,bw:110,bh:90}, img:'me-game', label:'Common Ground', accent:'#c98a56',
     kicker:'Game design', title:'Common Ground',
-    text:'A cooperative card game where teamwork becomes the winning mechanic.',
+    text:'Designed a cooperative card game where teamwork is the winning move.',
     tags:['Mechanics','Rule system','Playtesting'],
     media:'/assets/img/home/game-overview.webp', href:'/game/' },
 
   { id:'merlin', ring:2, cx:0.6928, cy:0.1705, bw:263.0, bh:148.2, mob:{cx:0.730,cy:0.455,bw:138,bh:78}, img:'me-merlin-2', label:'Merlin Bird ID', accent:'#d98589',
-    kicker:'Research-led strategy', title:'Merlin Bird ID',
-    text:'Research-led product strategy helping novice birders stay engaged.',
+    kicker:'UX research', title:'Merlin Bird ID',
+    text:'Ran the research that redefined what a novice birder needs.',
     tags:['UX research','Synthesis','Opportunity framing'],
     media:'/assets/img/home/merlin-bird-id.webp', href:'/merlin/' },
 
   /* ---- ring 3: made outside the screen ----------------------------------- */
   { id:'calligraphy', ring:3, cx:0.8528, cy:0.8003, bw:159.0, bh:100.0, img:'me-calligraphy', label:'Calligraphy', accent:VIOLET,
-    kicker:'10+ years of practice', title:'Two scripts, one long practice.',
-    text:'Traditional Chinese calligraphy has stayed with me for more than a decade. Along the way I taught myself English calligraphy in Engrosser’s Script.',
+    kicker:'Practice', title:'Calligraphy',
+    text:'Chinese calligraphy for over ten years, and Engrosser’s Script by hand.',
     tags:['Chinese','Engrosser’s Script'], media:'/assets/img/home/header-calligraphy.webp' },
 
   { id:'tennis', ring:3, cx:0.1283, cy:0.7081, bw:96.0, bh:120.0, img:'me-tennis', label:'Tennis', accent:VIOLET,
-    kicker:'Curious by default', title:'Tennis and badminton.',
-    text:'Two more that are better with people than alone.',
+    kicker:'Hobby', title:'Tennis',
+    text:'Tennis and badminton, both better with people.',
     tags:['Tennis','Badminton'] },
 
   { id:'bouldering', ring:3, cx:0.8823, cy:0.2137, bw:86.0, bh:114.0, img:'me-climb', label:'Bouldering', accent:VIOLET,
-    kicker:'Curious by default', title:'Better with friends.',
-    text:'An ENFJ who keeps picking up social hobbies. Bouldering is the one that stuck.',
+    kicker:'Hobby', title:'Bouldering',
+    text:'The social hobby that stuck.',
     tags:['Bouldering'] },
 
   { id:'archive', ring:3, cx:0.1138, cy:0.3094, bw:180.0, bh:113.0, img:'me-explorations', label:'Explorations', accent:VIOLET,
-    kicker:'Explorations', title:'The full skill archive.',
-    text:'Side projects that stretch prototyping, fabrication and technical craft.',
+    kicker:'Explorations', title:'Explorations',
+    text:'Side projects in prototyping, fabrication and technical craft.',
     tags:['Archive'], media:'/assets/img/explorations/assets-final-cover-process.webp', href:'/explorations/' },
 ];
 
@@ -328,27 +328,20 @@ function layout() {
 
 /* ---------- the card ------------------------------------------------------ */
 
-function openLabel(href) {
-  if (href.startsWith('/about')) return 'Open the About page';
-  if (href.startsWith('/explorations')) return 'Open the skill archive';
-  return 'Open the case study';
-}
-
+// What it is and what was done, nothing else. The tags repeated the kicker
+// and the sentence, and the three of them together made the card tall.
 function fillCard(n) {
   card.style.setProperty('--accent', n.accent);
   card.innerHTML =
-    (n.media ? '<img class="hv2-card-media" src="' + n.media + '" alt="" />' : '') +
+    (n.media ? '<img class="hv2-card-thumb" src="' + n.media + '" alt="" />' : '') +
     '<div class="hv2-card-body">' +
       '<p class="hv2-card-kicker">' + n.kicker + '</p>' +
       '<h2 class="hv2-card-title">' + n.title + '</h2>' +
       '<p class="hv2-card-text">' + n.text + '</p>' +
-      '<div class="hv2-card-tags">' + n.tags.map(t => '<span>' + t + '</span>').join('') + '</div>' +
-      (n.href
-        ? '<p class="hv2-card-open">' + openLabel(n.href) + ' <span aria-hidden="true">&#8594;</span></p>'
-        : '') +
       (n.todo && document.body.classList.contains('show-todo-notes')
         ? '<p class="hv2-card-todo">Clay pose still to make: ' + n.todo + '</p>' : '') +
-    '</div>';
+    '</div>' +
+    (n.href ? '<span class="hv2-card-go" aria-hidden="true">&#8594;</span>' : '');
 }
 
 function placeCard(el) {
@@ -371,18 +364,11 @@ function open(el) {
   fillCard(n);
   card.classList.add('is-open');
   requestAnimationFrame(() => placeCard(el));
-  field.classList.add('is-reading');
-  NODES.forEach(x => {
-    x.el.classList.toggle('is-active', x.el === el);
-    x.el.classList.toggle('is-kin', x !== n && x.ring === n.ring);
-  });
 }
 
 function close() {
   openId = null;
   card.classList.remove('is-open');
-  field.classList.remove('is-reading');
-  NODES.forEach(x => x.el.classList.remove('is-active', 'is-kin'));
 }
 
 function wire() {

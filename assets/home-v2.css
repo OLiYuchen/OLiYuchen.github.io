@@ -127,16 +127,8 @@ body.hv2 { isolation: auto; }
    pinned its offset, which fought the tag system and the art-centring. */
 .hv2-node-centre { --x: 0; --y: 0; }
 
-/* Everything dims a little while one node is being read. */
-/* Reading one figure: it stays lit, the rest of its rank stays legible so the
-   group is visible without drawing a ring around it, everything else recedes. */
-.hv2-field.is-reading .hv2-node,
-.hv2-field.is-about .hv2-node { opacity: .3; transition: opacity .45s var(--hv2-ease); }
-.hv2-field.is-reading .hv2-node.is-kin,
-.hv2-field.is-about .hv2-node.is-kin { opacity: .92; }
-.hv2-field.is-reading .hv2-node.is-active,
-.hv2-field.is-about .hv2-node-centre { opacity: 1; }
-.hv2-node.is-kin .hv2-node-label { opacity: 1; translate: -50% 0; }
+/* Hovering one figure used to dim the whole field and light up its rank.
+   Each figure answers for itself now: nothing else on the page reacts. */
 
 /* A node whose clay pose is still a stand-in. */
 .hv2-field.show-todo .hv2-node[data-todo] .hv2-node-inner {
@@ -145,26 +137,35 @@ body.hv2 { isolation: auto; }
 
 /* ---------- the hover card ------------------------------------------------ */
 
+/* A label, not a page. It says what the thing is and what was done, on one
+   line each, so it can be wide and short instead of tall. The picture, where
+   there is one, sits beside the words rather than above them. */
 .hv2-card {
-  position: fixed; z-index: 6; width: min(22rem, 78vw);
-  background: #fff; border: 1px solid var(--hv2-line); border-radius: 1.1rem;
-  box-shadow: 0 24px 60px rgba(43, 36, 30, .18);
-  overflow: hidden; pointer-events: none;
-  opacity: 0; translate: 0 8px; scale: .98;
-  transition: opacity .3s var(--hv2-ease), translate .3s var(--hv2-ease), scale .3s var(--hv2-ease);
+  position: fixed; z-index: 6; width: min(29rem, 88vw);
+  display: flex; align-items: center; gap: .85rem;
+  padding: .8rem .95rem;
+  background: #fff; border: 1px solid var(--hv2-line); border-radius: .9rem;
+  box-shadow: 0 18px 44px rgba(43, 36, 30, .16);
+  pointer-events: none;
+  opacity: 0; translate: 0 6px;
+  transition: opacity .22s var(--hv2-ease), translate .22s var(--hv2-ease);
 }
-.hv2-card.is-open { opacity: 1; translate: 0 0; scale: 1; }
-.hv2-card-media { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: #efeae2; }
-.hv2-card-body { padding: .95rem 1.1rem 1.1rem; }
+.hv2-card.is-open { opacity: 1; translate: 0 0; }
+.hv2-card-thumb {
+  flex: none; width: 3.9rem; height: 3.9rem;
+  border-radius: .6rem; object-fit: cover; background: #efeae2;
+}
+.hv2-card-body { flex: 1 1 auto; min-width: 0; }
 .hv2-card-kicker {
-  margin: 0 0 .25rem; font-size: .62rem; font-weight: 600; letter-spacing: .16em;
+  margin: 0 0 .18rem; font-size: .6rem; font-weight: 600; letter-spacing: .15em;
   text-transform: uppercase; color: var(--hv2-violet-deep);
 }
 .hv2-card-title {
-  margin: 0 0 .4rem; font-family: "Cormorant Garamond", serif;
-  font-size: 1.5rem; font-weight: 600; line-height: 1.1;
+  margin: 0 0 .15rem; font-family: "Cormorant Garamond", serif;
+  font-size: 1.3rem; font-weight: 600; line-height: 1.08;
 }
-.hv2-card-text { margin: 0; font-size: .92rem; line-height: 1.55; color: var(--hv2-soft); }
+.hv2-card-text { margin: 0; font-size: .85rem; line-height: 1.42; color: var(--hv2-soft); }
+.hv2-card-go { flex: none; align-self: center; color: var(--accent, var(--hv2-violet-deep)); font-size: 1rem; }
 .hv2-card-tags { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .75rem; }
 .hv2-card-tags span {
   border: 1px solid var(--hv2-line); border-radius: 999px; padding: .22rem .6rem;
@@ -281,8 +282,7 @@ button.hv2-node { cursor: default; }
     drop-shadow(14px 17px 18px rgba(var(--hv2-shade), .07));
 }
 .hv2-node[data-ring="3"]:hover .hv2-node-inner,
-.hv2-node[data-ring="3"]:focus-visible .hv2-node-inner,
-.hv2-node[data-ring="3"].is-kin .hv2-node-inner { opacity: 1; }
+.hv2-node[data-ring="3"]:focus-visible .hv2-node-inner { opacity: 1; }
 
 
 
@@ -355,7 +355,7 @@ button.hv2-node { cursor: default; }
   background: #241f1a; color: #faf7f1;
   box-shadow: 0 6px 12px rgba(var(--hv2-shade), .1), 0 20px 44px rgba(var(--hv2-shade), .18);
 }
-.hv2-field.is-reading .hv2-cta { opacity: .45; transition: opacity .4s var(--hv2-ease); }
+
 
 /* ---------- reading one figure -------------------------------------------- */
 
