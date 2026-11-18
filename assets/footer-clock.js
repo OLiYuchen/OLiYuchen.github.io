@@ -18,7 +18,9 @@
     var now = fmt.format(new Date());
     if (now === last) return;
     last = now;
-    el.textContent = '· ' + now;
+    // Ordinary spaces collapse to one, so the gap either side of the dot is
+    // made of non-breaking ones.
+    el.textContent = '\u00a0\u00a0\u00b7\u00a0\u00a0' + now;
   }
 
   tick();
