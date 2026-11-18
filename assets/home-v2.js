@@ -345,6 +345,10 @@ function layout() {
 const WIDE = new Set(['paira', 'merlin', 'ecoscan', 'game',
                       'archive', 'skills', 'work']);
 
+// The four that carry their own colour. Everything else states its type in
+// one neutral, so the colour reads as "this is a case study".
+const PROJECTS = new Set(['paira', 'merlin', 'ecoscan', 'game']);
+
 // What the card shows while you hover. Every path here is a file that is
 // already on the site; where a figure has only one, the card simply holds it.
 const SHOTS = {
@@ -358,12 +362,12 @@ const SHOTS = {
             '/assets/img/ecoscan/overview-full.png'],
   game: ['/assets/img/home/game-overview.webp',
          '/assets/img/game/play-full-table.jpg'],
-  archive: ['/assets/img/explorations/assets-final-cover-process.webp',
-            '/assets/img/physical-computing-overview.png'],
+  archive: ['/assets/img/physical-computing-overview.png',
+            '/assets/img/explorations/assets-final-cover-process.webp'],
   // Her photographs.
   me: ['/assets/img/home-v2/photos/olivia-portrait.webp'],
   calligraphy: ['/assets/img/home-v2/photos/calligraphy-2026-calendars.webp',
-                '/assets/img/home/header-calligraphy.webp'],
+                '/assets/img/home-v2/photos/calligraphy-eva.webp'],
   popo: ['/assets/img/home-v2/photos/popo-in-the-sun.webp'],
   tennis: ['/assets/img/home-v2/photos/tennis-courts-at-dusk.webp'],
   bouldering: ['/assets/img/home-v2/photos/bouldering-wall.webp'],
@@ -384,16 +388,7 @@ function fillCard(n) {
   // read better upright, which is also the shape of a photograph of a person.
   card.classList.toggle('is-portrait', !WIDE.has(n.id));
   card.classList.toggle('is-plate', WIDE.has(n.id));
-  card.style.removeProperty('--shot');
-  const first = card.querySelector('.hv2-card-shot');
-  if (first) {
-    const fit = () => {
-      if (!first.naturalWidth) return;
-      card.style.setProperty('--shot', first.naturalWidth + ' / ' + first.naturalHeight);
-    };
-    if (first.complete) fit();
-    else first.addEventListener('load', fit, { once: true });
-  }
+  card.classList.toggle('is-project', PROJECTS.has(n.id));
   card.innerHTML =
     (live
       ? '<div class="hv2-card-stack is-live"><div class="hv2-card-live">'
@@ -423,7 +418,7 @@ function placeCard(el, n) {
     width: box.width * (a.x1 - a.x0),
     top: box.top, height: box.height,
   };
-  const w = card.offsetWidth, h = card.offsetHeight, gap = 16;
+  const w = card.offsetWidth, h = card.offsetHeight, gap = 32;
   let x = r.right + gap;
   if (x + w > window.innerWidth - 12) x = r.left - gap - w;
   if (x < 12) x = Math.min(Math.max(12, r.left + r.width / 2 - w / 2), window.innerWidth - w - 12);

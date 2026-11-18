@@ -181,8 +181,6 @@ body.hv2 { isolation: auto; }
   object-fit: cover;
   opacity: 0;
   transition: opacity .75s var(--hv2-ease);
-  /* Never quite still: the visible one drifts in while it is up. */
-  animation: hv2-drift 7.6s ease-in-out infinite alternate;
 }
 .hv2-card-shot.is-on { opacity: 1; }
 /* The ones with no project picture show their own clay figure instead, which
@@ -222,10 +220,6 @@ body.hv2 { isolation: auto; }
 @keyframes hv2-rise {
   from { opacity: 0; translate: 0 9px; }
   to   { opacity: 1; translate: 0 0; }
-}
-@keyframes hv2-drift {
-  from { scale: 1; }
-  to   { scale: 1.075; }
 }
 /* The card lands from the direction of the figure it belongs to, with a
    little overshoot, so it reads as having come out of that figure. */
@@ -505,13 +499,12 @@ button.hv2-node { cursor: default; }
    ------------------------------------------------------------------------- */
 
 .hv2-card.is-plate { aspect-ratio: auto; }
+/* One frame, near the shape these covers already are, so every wide card is
+   the same size and each picture fills it rather than sitting inside it. */
 .hv2-card.is-plate .hv2-card-stack {
   position: relative; inset: auto;
-  width: 100%; aspect-ratio: var(--shot, 16 / 10);
+  width: 100%; aspect-ratio: 2.1 / 1;
 }
-/* Whole, never cropped: the two shots of one project are not always the same
-   shape, so the one that is not the frame's shape sits inside it. */
-.hv2-card.is-plate .hv2-card-shot { object-fit: contain; }
 
 .hv2-card.is-plate .hv2-card-body {
   position: static; inset: auto;
@@ -522,9 +515,15 @@ button.hv2-node { cursor: default; }
   -webkit-mask-image: none; mask-image: none;
   border-top: 1px solid rgba(43, 36, 30, .09);
 }
-.hv2-card.is-plate .hv2-card-kicker {
+/* The four case studies keep their own colour. Everything else says what it
+   is quietly, in one neutral, so the colour means "this is a project". */
+.hv2-card.is-plate .hv2-card-kicker { color: var(--hv2-soft); }
+.hv2-card.is-plate.is-project .hv2-card-kicker {
   color: var(--accent, var(--hv2-violet-deep));
 }
+.hv2-card:not(.is-project) .hv2-card-kicker { color: rgba(255, 255, 255, .6); }
+.hv2-card.is-plate:not(.is-project) .hv2-card-kicker { color: var(--hv2-soft); }
+.hv2-card.is-plate:not(.is-project) .hv2-card-go { background: #2b241e; }
 .hv2-card.is-plate .hv2-card-text { color: var(--hv2-soft); }
 .hv2-card.is-plate .hv2-card-go {
   background: var(--accent, #2b241e); color: #fff;
@@ -539,14 +538,17 @@ button.hv2-node { cursor: default; }
    they stay live at any size: the pills still answer the cursor.
    ------------------------------------------------------------------------- */
 
+/* A window onto the section, not the whole of it: the timeline is eight
+   roles long and the frame holds two, so the bottom fades out to say it
+   carries on rather than ending there. */
 .hv2-card-stack.is-live {
-  aspect-ratio: 1.3 / 1;
   background: var(--paper-soft, #fffefa);
+  -webkit-mask-image: linear-gradient(to bottom, #000 68%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 68%, transparent 100%);
 }
-.hv2-card.is-plate .hv2-card-stack.is-live { aspect-ratio: 1.3 / 1; }
 
 .hv2-card-live {
-  --k: .46;
+  --k: .40;
   position: absolute; top: 0; left: 0;
   width: calc(100% / var(--k));
   padding: 1.1rem 1.2rem;
