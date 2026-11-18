@@ -334,10 +334,9 @@ function layout() {
 // What it is and what was done, nothing else. The tags repeated the kicker
 // and the sentence, and the three of them together made the card tall.
 // The four case studies. Everything else gets the upright card.
-// Landscape where the picture is a wide one: the four case studies and the
-// explorations. Skills and Experience take the upright card her own portrait
-// uses, since all three lead to the About page.
-const WIDE = new Set(['paira', 'merlin', 'ecoscan', 'game', 'archive']);
+// Landscape for the four case studies, whose pictures are wide. Everything
+// else takes the upright card her own portrait uses.
+const WIDE = new Set(['paira', 'merlin', 'ecoscan', 'game']);
 
 // The four that carry their own colour. Everything else states its type in
 // one neutral, so the colour reads as "this is a case study".
@@ -356,8 +355,7 @@ const SHOTS = {
             '/assets/img/ecoscan/overview-full.png'],
   game: ['/assets/img/home/game-overview.webp',
          '/assets/img/game/play-full-table.jpg'],
-  archive: ['/assets/img/physical-computing-overview.png',
-            '/assets/img/explorations/assets-final-cover-process.webp'],
+  archive: ['/assets/img/home-v2/photos/explorations.webp'],
   // Her photographs.
   me: ['/assets/img/home-v2/photos/olivia-portrait.webp'],
   calligraphy: ['/assets/img/home-v2/photos/calligraphy-2026-calendars.webp',
