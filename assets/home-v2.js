@@ -116,6 +116,12 @@ const NODES = [
 
 const field = document.querySelector('[data-field]');
 const card = document.querySelector('[data-card]');
+// One cue for the whole page, parked near the middle of the screen.
+const cue = Object.assign(document.createElement('p'), {
+  className: 'hv2-cue', textContent: 'Click to view more',
+});
+cue.setAttribute('aria-hidden', 'true');
+document.body.appendChild(cue);
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 function build() {
@@ -133,9 +139,6 @@ function build() {
         '<span class="hv2-node-plate" aria-hidden="true"></span>' +
         '<img src="' + IMG + n.img + '.webp" alt="" decoding="async" />' +
         '<span class="hv2-node-label">' + n.label + '</span>' +
-        (n.href
-          ? '<span class="hv2-node-cue" aria-hidden="true">Click to view more'
-            + ' <span>&#8594;</span></span>' : '') +
       '</span>';
     n.el = el;
     n.img_el = el.querySelector('img');
@@ -355,17 +358,35 @@ const SHOTS = {
          '/assets/img/game/play-full-table.jpg',
          '/assets/img/game/cards-collection.png',
          '/assets/img/game/beta-test-class.jpg'],
-  archive: ['/assets/img/explorations/assets-final-cover-process.webp',
+  archive: ['/assets/img/home-v2/photos/making-laser-cut-house.webp',
+            '/assets/img/explorations/assets-final-cover-process.webp',
             '/assets/img/explorations/pwm-fading-poster.webp',
             '/assets/img/explorations/photoresistor-input-poster.webp'],
+  calligraphy: ['/assets/img/home-v2/photos/calligraphy-2026-calendars.webp',
+                '/assets/img/home/header-calligraphy.webp'],
+  popo: ['/assets/img/home-v2/photos/popo-in-the-sun.webp'],
+  tennis: ['/assets/img/home-v2/photos/tennis-courts-at-dusk.webp'],
+  bouldering: ['/assets/img/home-v2/photos/bouldering-wall.webp'],
+  // Her own portrait from the About page, and the places the About page
+  // lists, in the order it lists them.
+  me: ['/assets/img/home-v2/photos/about-portrait.webp'],
+  work: ['/assets/img/about-logos/fosun.png',
+         '/assets/img/about-logos/paira.png',
+         '/assets/img/about-logos/cornell.png',
+         '/assets/img/about-logos/hcde.png',
+         '/assets/img/about-logos/weget.png',
+         '/assets/img/about-logos/starbucks.png'],
 };
+
+// Marks rather than photographs: they sit in the frame instead of filling it.
+const CONTAIN = new Set(['work']);
 
 function fillCard(n) {
   card.style.setProperty('--accent', n.accent);
   // A project shows its project picture. Everything else shows its own clay
   // figure, so every card is the same shape rather than some being shorter.
   const shots = SHOTS[n.id] || [n.media || (IMG + n.img + '.webp')];
-  const art = !n.media && !SHOTS[n.id];
+  const art = CONTAIN.has(n.id) || (!n.media && !SHOTS[n.id]);
   // The four case studies are landscape, because their pictures are. The rest
   // read better upright, which is also the shape of a photograph of a person.
   card.classList.toggle('is-portrait', !WIDE.has(n.id));
@@ -379,10 +400,8 @@ function fillCard(n) {
       '<div class="hv2-card-copy">' +
         '<p class="hv2-card-kicker">' + n.kicker + '</p>' +
         '<h2 class="hv2-card-title">' + n.title + '</h2>' +
-        '<p class="hv2-card-text">' + n.text + '</p>' +
-        (n.todo && document.body.classList.contains('show-todo-notes')
-          ? '<p class="hv2-card-todo">Clay pose still to make: ' + n.todo + '</p>' : '') +
       '</div>' +
+      (n.href ? '<span class="hv2-card-go" aria-hidden="true">&#8594;</span>' : '') +
     '</div>';
 }
 
@@ -395,6 +414,12 @@ function placeCard(el) {
   let y = Math.min(Math.max(12, r.top + r.height / 2 - h / 2), window.innerHeight - h - 12);
   card.style.left = Math.round(x) + 'px';
   card.style.top = Math.round(y) + 'px';
+  // Come from the figure: left of it, right of it, or straight up.
+  const dx = Math.round(x) > r.left ? -18 : (Math.round(x) + w < r.right ? 18 : 0);
+  card.style.setProperty('--from', dx + 'px 14px');
+  card.classList.remove('is-pop');
+  void card.offsetWidth;
+  card.classList.add('is-pop');
 }
 
 let openId = null;
@@ -420,6 +445,7 @@ function open(el) {
   openId = n.id;
   fillCard(n);
   card.classList.add('is-open');
+  cue.classList.toggle('is-on', !!n.href);
   runSlides();
   requestAnimationFrame(() => placeCard(el));
   field.classList.add('is-reading');
@@ -429,6 +455,7 @@ function open(el) {
 function close() {
   openId = null;
   clearInterval(slides);
+  cue.classList.remove('is-on');
   card.classList.remove('is-open');
   field.classList.remove('is-reading');
   NODES.forEach(x => x.el.classList.remove('is-active'));

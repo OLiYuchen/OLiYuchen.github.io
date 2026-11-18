@@ -144,28 +144,28 @@ body.hv2 { isolation: auto; }
    ratio the old homepage used for the same images. Frosted rather than solid:
    it sits over the figures, so letting them through keeps it on the page
    instead of on top of it. */
+/* The card is the picture. The words lie along its foot on a frosted strip,
+   so the whole thing can be smaller and still show the work bigger. The
+   shadow is tinted with the figure's own colour, which is what makes one
+   land differently from the next. */
 .hv2-card {
-  position: fixed; z-index: 6; width: min(28rem, 88vw);
+  position: fixed; z-index: 6;
+  width: min(23rem, 84vw); aspect-ratio: 2.3 / 1;
   overflow: hidden; isolation: isolate;
-  border-radius: 1.1rem;
-  border: 1px solid rgba(255, 255, 255, .62);
-  background: rgba(255, 255, 255, .58);
-  -webkit-backdrop-filter: blur(26px) saturate(1.7);
-  backdrop-filter: blur(26px) saturate(1.7);
+  border-radius: .95rem;
+  border: 1px solid rgba(255, 255, 255, .5);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, .9),
-    0 30px 66px -22px rgba(43, 36, 30, .34),
-    0 3px 12px rgba(43, 36, 30, .07);
+    0 26px 58px -20px color-mix(in srgb, var(--accent, #2b241e) 62%, transparent),
+    0 6px 16px -6px rgba(43, 36, 30, .3);
   pointer-events: none;
-  opacity: 0; translate: 0 10px; scale: .985;
-  transition: opacity .26s var(--hv2-ease), translate .26s var(--hv2-ease),
-              scale .26s var(--hv2-ease);
+  opacity: 0;
+  transition: opacity .2s var(--hv2-ease);
 }
-.hv2-card.is-open { opacity: 1; translate: 0 0; scale: 1; }
+.hv2-card.is-open { opacity: 1; }
 /* 2.3 to 1, the ratio the live homepage shows these same pictures at. The
    frame holds every shot that figure has and shows one at a time. */
 .hv2-card-stack {
-  position: relative; width: 100%; aspect-ratio: 2.3 / 1;
+  position: absolute; inset: 0;
   overflow: hidden;
   background: color-mix(in srgb, var(--accent, #8b7fd4) 9%, #f4f0e9);
 }
@@ -184,33 +184,25 @@ body.hv2 { isolation: auto; }
 
 /* The four case studies are landscape, because their pictures are. Everything
    else is a portrait frame, which suits a photograph of a person or a desk. */
-.hv2-card.is-portrait { width: min(19rem, 76vw); }
-.hv2-card.is-portrait .hv2-card-stack { aspect-ratio: 4 / 5; }
+.hv2-card.is-portrait { width: min(15rem, 62vw); aspect-ratio: 4 / 5; }
 /* A clay pose is wider than it is tall, so a 4 by 5 frame would leave it
    swimming. It gets a square. */
-.hv2-card.is-portrait .hv2-card-stack.is-art { aspect-ratio: 1 / 1; }
+.hv2-card.is-portrait:has(.is-art) { aspect-ratio: 1 / 1; }
 
-/* The thing you click is the figure, so the cue hangs under the figure's own
-   name rather than inside the card, which cannot be clicked at all. */
-.hv2-node-cue {
-  position: absolute; top: 100%; left: 50%;
-  margin-top: calc(max(5px, .68rem - var(--footpad, 0px))
-                   + var(--tag, 11px) * 1.9 + .36rem);
-  translate: calc(-50% + var(--artmid, 0px)) -3px;
+/* One cue, in one place, in one grey. It followed each figure before, which
+   meant it moved every time the cursor did and coloured itself differently
+   each time. It is an instruction, so it holds still and stays quiet. */
+.hv2-cue {
+  position: fixed; left: 50%; top: 68%; z-index: 7;
+  margin: 0; translate: -50% 4px;
   font-family: var(--font-body, "Instrument Sans", sans-serif);
-  font-size: calc(var(--tag, 11px) * .92);
-  font-weight: 600; letter-spacing: .02em; line-height: 1;
+  font-size: .76rem; font-weight: 500; letter-spacing: .06em;
   white-space: nowrap; pointer-events: none;
-  color: var(--accent, var(--hv2-violet-deep));
+  color: rgba(var(--hv2-shade), .5);
   opacity: 0;
-  transition: opacity .3s var(--hv2-ease), translate .3s var(--hv2-ease);
+  transition: opacity .28s var(--hv2-ease), translate .28s var(--hv2-ease);
 }
-.hv2-node-cue span { margin-left: .3em; }
-.hv2-node.is-active .hv2-node-cue {
-  opacity: 1;
-  translate: calc(-50% + var(--artmid, 0px)) 0;
-  transition-delay: 90ms;
-}
+.hv2-cue.is-on { opacity: 1; translate: -50% 0; transition-delay: 80ms; }
 
 /* ---- it arrives rather than appears -------------------------------------
    The picture settles out of a slight push-in, the lines come up one after
@@ -225,25 +217,53 @@ body.hv2 { isolation: auto; }
   from { scale: 1; }
   to   { scale: 1.075; }
 }
+/* The card lands from the direction of the figure it belongs to, with a
+   little overshoot, so it reads as having come out of that figure. */
+@keyframes hv2-land {
+  0%   { opacity: 0; scale: .84; translate: var(--from, 0 14px); }
+  62%  { opacity: 1; scale: 1.022; translate: 0 0; }
+  100% { opacity: 1; scale: 1; translate: 0 0; }
+}
 
+.hv2-card.is-pop { animation: hv2-land 480ms cubic-bezier(.2, .9, .25, 1.06) both; }
 .hv2-card-kicker { animation: hv2-rise 440ms var(--hv2-ease) both 70ms; }
 .hv2-card-title  { animation: hv2-rise 440ms var(--hv2-ease) both 125ms; }
 .hv2-card-text   { animation: hv2-rise 440ms var(--hv2-ease) both 180ms; }
 
 .hv2-card-body {
-  display: flex; align-items: flex-start; gap: .9rem;
-  padding: 1.05rem 1.15rem 1.25rem;
+  position: absolute; inset: auto 0 0 0; z-index: 2;
+  display: flex; align-items: flex-end; gap: .6rem;
+  padding: 1.6rem .8rem .68rem;
+  color: #fff;
+  background: linear-gradient(to top,
+    rgba(24, 19, 15, .9) 0%, rgba(24, 19, 15, .66) 52%, transparent 100%);
+  -webkit-backdrop-filter: blur(7px) saturate(1.2);
+  backdrop-filter: blur(7px) saturate(1.2);
+  -webkit-mask-image: linear-gradient(to top, #000 62%, transparent 100%);
+  mask-image: linear-gradient(to top, #000 62%, transparent 100%);
 }
 .hv2-card-copy { flex: 1 1 auto; min-width: 0; }
 .hv2-card-kicker {
-  margin: 0 0 .28rem; font-size: .63rem; font-weight: 600; letter-spacing: .15em;
-  text-transform: uppercase; color: var(--hv2-violet-deep);
+  margin: 0 0 .2rem; font-size: .58rem; font-weight: 700; letter-spacing: .15em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--accent, #fff) 55%, #fff);
 }
 .hv2-card-title {
-  margin: 0 0 .32rem; font-family: "Cormorant Garamond", serif;
-  font-size: 1.55rem; font-weight: 600; line-height: 1.05;
+  margin: 0 0 .18rem; font-family: "Cormorant Garamond", serif;
+  font-size: 1.28rem; font-weight: 600; line-height: 1.04; color: #fff;
 }
-.hv2-card-text { margin: 0; font-size: .9rem; line-height: 1.5; color: var(--hv2-soft); }
+.hv2-card-text {
+  margin: 0; font-size: .76rem; line-height: 1.36;
+  color: rgba(255, 255, 255, .8);
+}
+/* The small arrow the clickable ones used to carry. */
+.hv2-card-go {
+  flex: none; align-self: flex-end; margin-bottom: .1rem;
+  display: grid; place-items: center;
+  width: 1.5rem; height: 1.5rem; border-radius: 50%;
+  background: rgba(255, 255, 255, .92); color: #1c1710;
+  font-size: .8rem; line-height: 1;
+}
 
 .hv2-card-tags { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .75rem; }
 .hv2-card-tags span {
@@ -294,7 +314,7 @@ body.hv2 { isolation: auto; }
 @media (prefers-reduced-motion: reduce) {
   .hv2-node-inner { animation: none; }
   .hv2-card, .hv2-node-inner { transition: none; }
-  .hv2-card-shot, .hv2-card-kicker, .hv2-card-title,
+  .hv2-card, .hv2-card-shot, .hv2-card-kicker, .hv2-card-title,
   .hv2-card-text { animation: none; }
 }
 
