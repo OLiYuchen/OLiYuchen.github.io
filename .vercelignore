@@ -1,0 +1,6 @@
+# Working files that are not part of the site: draft pages, the scripts that
+# build things, and notes written for her rather than for visitors.
+drafts/
+tools/
+paira/PREVIEW-TODO.md
+paira/depth.html

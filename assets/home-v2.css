@@ -26,7 +26,9 @@
   margin: 0;
   min-height: 100dvh;
   display: grid;
-  grid-template-rows: auto auto 1fr auto;
+  /* header, field, footer. There used to be a draft bar in front of these,
+     and with it gone a four-row grid handed the stretch row to the footer. */
+  grid-template-rows: auto 1fr auto;
   /* A deeper cream than the rest of the site. The figures are objects lying
      on a surface here, and a surface has to be darker than the thing on it or
      the shadows have nothing to fall on. */

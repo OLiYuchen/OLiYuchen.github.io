@@ -537,7 +537,7 @@ function wire() {
   }
 
   const todoBtn = document.querySelector('[data-todo-toggle]');
-  todoBtn.addEventListener('click', () => {
+  if (todoBtn) todoBtn.addEventListener('click', () => {
     const on = field.classList.toggle('show-todo');
     document.body.classList.toggle('show-todo-notes', on);
     todoBtn.textContent = on ? 'Hide the poses still to make' : 'Show the poses still to make';
