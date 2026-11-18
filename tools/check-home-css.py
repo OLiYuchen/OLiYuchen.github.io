@@ -12,7 +12,7 @@ CSS = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
 NEEDED = [
     '.hv2-node', '.hv2-node-inner', '.hv2-node-label', '.hv2-node-plate',
     '.hv2-node-centre .hv2-node-label', '.hv2-cta', '.hv2-cta:hover',
-    '.hv2-card', '.hv2-card-body', '.hv2-card-stack', '.hv2-cue', '.hv2-card-shot', '.hv2-field',
+    '.hv2-card', '.hv2-card-body', '.hv2-card-stack', '.hv2-cue.is-on', '.hv2-card-shot', '.hv2-field',
     '.hv2-draftbar', '.hv2-foot',
 ]
 s = io.open(CSS, encoding='utf-8').read()

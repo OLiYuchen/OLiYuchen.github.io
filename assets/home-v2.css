@@ -196,21 +196,21 @@ body.hv2 { isolation: auto; }
 
 /* One cue, in one place, in one grey. It followed each figure before, which
    meant it moved every time the cursor did and coloured itself differently
-   each time. It is an instruction, so it holds still and stays quiet. */
-.hv2-cue {
-  /* It used to sit at 68% of the height, which is exactly where a card
-     lands. Along the foot instead: still one place, still centred, and
-     nothing covers it. */
-  position: fixed; left: 50%; bottom: 1.15rem; z-index: 7;
-  margin: 0; translate: -50% 4px;
-  font-family: var(--font-body, "Instrument Sans", sans-serif);
-  font-size: .76rem; font-weight: 500; letter-spacing: .06em;
-  white-space: nowrap; pointer-events: none;
-  color: rgba(var(--hv2-shade), .5);
-  opacity: 0;
+   each time. It is an instruction, so it holds still and stays quiet, and it
+   stands where the call to action used to, which the layout already keeps
+   clear of the figures. */
+.hv2-cue.hv2-cta {
+  height: auto;
+  background: none; box-shadow: none; backdrop-filter: none;
+  border-radius: 0;
+  margin: 0; pointer-events: none;
+  font-size: max(.74rem, var(--cta-fs, .8rem));
+  font-weight: 500; letter-spacing: .06em;
+  color: rgba(var(--hv2-shade), .45);
+  opacity: 0; translate: 0 4px;
   transition: opacity .28s var(--hv2-ease), translate .28s var(--hv2-ease);
 }
-.hv2-cue.is-on { opacity: 1; translate: -50% 0; transition-delay: 80ms; }
+.hv2-cue.is-on { opacity: 1; translate: 0 0; transition-delay: 80ms; }
 
 /* ---- it arrives rather than appears -------------------------------------
    The picture settles out of a slight push-in, the lines come up one after

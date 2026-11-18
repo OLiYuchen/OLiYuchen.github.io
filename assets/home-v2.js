@@ -119,12 +119,8 @@ const NODES = [
 
 const field = document.querySelector('[data-field]');
 const card = document.querySelector('[data-card]');
-// One cue for the whole page, parked near the middle of the screen.
-const cue = Object.assign(document.createElement('p'), {
-  className: 'hv2-cue', textContent: 'Click to view more',
-});
-cue.setAttribute('aria-hidden', 'true');
-document.body.appendChild(cue);
+// One cue for the whole page, standing where the call to action used to.
+const cue = document.querySelector('[data-cue]');
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 function build() {
@@ -422,8 +418,9 @@ function placeCard(el, n) {
   let x = r.right + gap;
   if (x + w > window.innerWidth - 12) x = r.left - gap - w;
   if (x < 12) x = Math.min(Math.max(12, r.left + r.width / 2 - w / 2), window.innerWidth - w - 12);
-  // The cue has the bottom strip to itself, so a tall card stops above it.
-  const floor = window.innerHeight - h - 42;
+  // The cue keeps its place: a card stops short of it rather than over it.
+  const q = cue.getBoundingClientRect();
+  const floor = Math.min(window.innerHeight - h - 12, q.top - 14 - h);
   let y = Math.min(Math.max(12, r.top + r.height / 2 - h / 2), floor);
   card.style.left = Math.round(x) + 'px';
   card.style.top = Math.round(y) + 'px';
@@ -478,7 +475,7 @@ function close() {
   openHref = null;
   clearInterval(slides);
   cue.classList.remove('is-on');
-  card.classList.remove('is-open');
+  card.classList.remove('is-open', 'is-pop');
   field.classList.remove('is-reading');
   NODES.forEach(x => x.el.classList.remove('is-active'));
 }
