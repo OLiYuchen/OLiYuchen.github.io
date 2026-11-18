@@ -200,17 +200,21 @@ body.hv2 { isolation: auto; }
    stands where the call to action used to, which the layout already keeps
    clear of the figures. */
 .hv2-cue.hv2-cta {
-  height: auto;
+  /* Over her portrait, on the page's own middle. Only the top comes from the
+     script; the width is the line's own and the centring is here. */
+  left: 50%; top: var(--cta-y, 18%);
+  width: max-content; height: auto;
   background: none; box-shadow: none; backdrop-filter: none;
   border-radius: 0;
-  margin: 0; pointer-events: none;
-  font-size: max(.74rem, var(--cta-fs, .8rem));
-  font-weight: 500; letter-spacing: .06em;
-  color: rgba(var(--hv2-shade), .45);
-  opacity: 0; translate: 0 4px;
-  transition: opacity .28s var(--hv2-ease), translate .28s var(--hv2-ease);
+  margin: 0; padding: 0; pointer-events: none;
+  font-family: var(--font-display, "Cormorant Garamond", serif);
+  font-size: var(--cta-fs, 1.1rem);
+  font-weight: 600; letter-spacing: .005em; line-height: 1.2;
+  color: rgba(var(--hv2-shade), .78);
+  opacity: 0; translate: -50% 5px;
+  transition: opacity .3s var(--hv2-ease), translate .3s var(--hv2-ease);
 }
-.hv2-cue.is-on { opacity: 1; translate: 0 0; transition-delay: 80ms; }
+.hv2-cue.is-on { opacity: 1; translate: -50% 0; transition-delay: 80ms; }
 
 /* ---- it arrives rather than appears -------------------------------------
    The picture settles out of a slight push-in, the lines come up one after

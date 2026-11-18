@@ -199,15 +199,15 @@ function place(scale, W, H) {
   // rather than one set; only hers is different, and deliberately.
   field.style.setProperty('--tag', Math.max(10.5, Math.min(13, 12.4 * scale)).toFixed(2) + 'px');
   if (cta) {
-    // Placed and sized like a figure, so the gap she left above it survives
-    // every window. Its middle keeps to the middle of the page.
-    const C = F.cta;
-    const w = C.w * scale, h = C.h * scale;
-    cta.style.setProperty('--cta-w', w.toFixed(1) + 'px');
-    cta.style.setProperty('--cta-h', h.toFixed(1) + 'px');
-    cta.style.setProperty('--cta-x', ((C.x + C.w / 2) / F.w * W - w / 2).toFixed(1) + 'px');
-    cta.style.setProperty('--cta-y', ((C.y + C.h / 2) / F.h * H - h / 2).toFixed(1) + 'px');
-    cta.style.setProperty('--cta-fs', Math.max(11.5, Math.min(15, 13.8 * scale)).toFixed(2) + 'px');
+    // Over her portrait, on the page's own middle, which is where she stands.
+    // Its own width, centred by the stylesheet, so only the height matters.
+    const me = NODES.find(n => n.id === 'me');
+    const g = me && (F.mobile ? me.mob : me);
+    const fs = Math.max(16, Math.min(28, 25 * scale));
+    const top = g ? g.cy * H - (g.bh * scale) / 2 : H * 0.2;
+    cta.style.setProperty('--cta-fs', fs.toFixed(2) + 'px');
+    cta.style.setProperty('--cta-y',
+      (top - Math.max(16, 30 * scale) - fs * 1.25).toFixed(1) + 'px');
   }
   NODES.forEach(n => {
     const g = F.mobile ? n.mob : n;
@@ -246,13 +246,11 @@ function boxOf(n, pad) {
 }
 
 function collides(limit, pad) {
+  // The cue is not in here. It used to be the call to action, which sat below
+  // the figures and had to be kept clear of; a line of type over her portrait
+  // would instead push the whole arrangement around, and the arrangement is
+  // hers.
   const boxes = NODES.filter(n => !n.off).map(n => boxOf(n, pad || 0));
-  if (cta) {
-    const r = cta.getBoundingClientRect();
-    const q = pad || 0;
-    boxes.push({ left: r.left - q, right: r.right + q, top: r.top - q, bottom: r.bottom + q,
-                 width: r.width + 2 * q, height: r.height + 2 * q });
-  }
   for (let i = 0; i < boxes.length; i++) {
     for (let j = i + 1; j < boxes.length; j++) {
       const a = boxes[i], b = boxes[j];
