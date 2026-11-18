@@ -612,10 +612,17 @@ function entrance() {
   const f = field.getBoundingClientRect();
   const cx = f.left + f.width / 2, cy = f.top + f.height / 2;
   const me = NODES.find(n => n.id === 'me');
+  // Every figure also comes into colour: washed pale at the start, deepening
+  // to its own colour a little after it is fully there, so the eye reads the
+  // colour arriving as a second beat rather than as part of the fade.
+  const PALE = 'saturate(.12) brightness(1.32) contrast(.82)';
+  const FULL = 'saturate(1) brightness(1) contrast(1)';
   if (me && !me.off) {
-    me.el.querySelector('.hv2-node-inner').animate(
-      [{ opacity: 0, scale: .9 }, { opacity: 1, scale: 1 }],
-      { duration: 800, easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'backwards' });
+    me.el.querySelector('.hv2-node-inner').animate([
+      { opacity: 0, scale: .9, filter: PALE },
+      { opacity: 1, scale: 1, filter: PALE, offset: .35 },
+      { opacity: 1, scale: 1, filter: FULL },
+    ], { duration: 1500, easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'backwards' });
   }
   NODES.filter(n => n !== me && !n.off)
     .map(n => {
@@ -633,12 +640,13 @@ function entrance() {
                  Math.min(window.innerHeight - 8 - o.r.bottom, o.dy / d * out));
       const ox = -sx * 0.035, oy = -sy * 0.035;
       o.n.el.querySelector('.hv2-node-inner').animate([
-        { translate: sx + 'px ' + sy + 'px', opacity: 0, scale: .8,
+        { translate: sx + 'px ' + sy + 'px', opacity: 0, scale: .8, filter: PALE,
           easing: 'cubic-bezier(.2, .75, .3, 1)' },
         { translate: ox + 'px ' + oy + 'px', opacity: 1, scale: 1.015,
+          filter: 'saturate(.55) brightness(1.12) contrast(.92)',
           offset: .8, easing: 'cubic-bezier(.4, 0, .4, 1)' },
-        { translate: '0px 0px', opacity: 1, scale: 1 },
-      ], { duration: 1350, delay: 380 + i * 60, fill: 'backwards' });
+        { translate: '0px 0px', opacity: 1, scale: 1, filter: FULL },
+      ], { duration: 1650, delay: 380 + i * 60, fill: 'backwards' });
     });
 }
 
