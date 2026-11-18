@@ -467,6 +467,40 @@ function runSlides() {
   }, 1900);
 }
 
+// While one figure is lit the others move out from it, the nearest ones
+// most. The push is set, never added, and measured from where each figure
+// rests, so moving from one figure to the next does not compound.
+function spread(active) {
+  if (reduced) return;
+  const a = active.el.getBoundingClientRect();
+  const ax = a.left + a.width / 2, ay = a.top + a.height / 2;
+  const reach = Math.max(14, Math.min(28, window.innerWidth * 0.017));
+  const f = field.getBoundingClientRect();
+  NODES.forEach(x => {
+    const px0 = x.px || 0, py0 = x.py || 0;
+    if (x === active || x.off) { setPush(x, 0, 0); return; }
+    const r = x.el.getBoundingClientRect();
+    const left = r.left - px0, right = r.right - px0, top = r.top - py0, bottom = r.bottom - py0;
+    const dx = (left + right) / 2 - ax, dy = (top + bottom) / 2 - ay;
+    const d = Math.hypot(dx, dy) || 1;
+    const amt = reach * Math.max(0.35, 1 - d / 900);
+    let px = dx / d * amt, py = dy / d * amt;
+    // Up and down it stays inside the field; sideways the page clips.
+    py = Math.max(f.top - top, Math.min(f.bottom - bottom + 24, py));
+    setPush(x, px, py);
+  });
+}
+function setPush(x, px, py) {
+  x.px = px; x.py = py;
+  if (!px && !py) {
+    x.el.style.removeProperty('--push-x');
+    x.el.style.removeProperty('--push-y');
+  } else {
+    x.el.style.setProperty('--push-x', px.toFixed(1) + 'px');
+    x.el.style.setProperty('--push-y', py.toFixed(1) + 'px');
+  }
+}
+
 function open(el) {
   const n = NODES.find(x => x.id === el.dataset.id);
   if (!n) return;
@@ -483,6 +517,7 @@ function open(el) {
   requestAnimationFrame(() => placeCard(el, n));
   field.classList.add('is-reading');
   NODES.forEach(x => x.el.classList.toggle('is-active', x.el === el));
+  spread(n);
 }
 
 function close() {
@@ -493,7 +528,7 @@ function close() {
   cue.classList.remove('is-on');
   card.classList.remove('is-open', 'is-pop');
   field.classList.remove('is-reading');
-  NODES.forEach(x => x.el.classList.remove('is-active'));
+  NODES.forEach(x => { x.el.classList.remove('is-active'); setPush(x, 0, 0); });
 }
 
 function wire() {
@@ -544,13 +579,47 @@ function wire() {
   });
 }
 
-/* The page fades in once, from the middle outward, and then holds still. */
+/* The opening. She is there first, in the middle. Then everyone else comes
+   in from further out along the line between them and her, faint to solid,
+   small to full size, the nearest first - and lands with a small give, a
+   touch past their place toward her and back, which is what makes it read
+   as arriving rather than sliding.
+
+   It moves the inner part of each figure, so it never touches the box the
+   layout positions, and the layout can settle underneath while it plays. */
 function entrance() {
   if (reduced) return;
-  [...NODES].sort((a, b) => a.ring - b.ring).forEach((n, i) => {
-    n.el.animate([{ opacity: 0 }, { opacity: 1 }],
-      { duration: 620, delay: 90 + i * 38, easing: 'ease-out', fill: 'backwards' });
-  });
+  const f = field.getBoundingClientRect();
+  const cx = f.left + f.width / 2, cy = f.top + f.height / 2;
+  const me = NODES.find(n => n.id === 'me');
+  if (me && !me.off) {
+    me.el.querySelector('.hv2-node-inner').animate(
+      [{ opacity: 0, scale: .9 }, { opacity: 1, scale: 1 }],
+      { duration: 800, easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'backwards' });
+  }
+  NODES.filter(n => n !== me && !n.off)
+    .map(n => {
+      const r = n.el.getBoundingClientRect();
+      return { n, r, dx: r.left + r.width / 2 - cx, dy: r.top + r.height / 2 - cy };
+    })
+    .sort((p, q) => Math.hypot(p.dx, p.dy) - Math.hypot(q.dx, q.dy))
+    .forEach((o, i) => {
+      const d = Math.hypot(o.dx, o.dy) || 1;
+      const out = Math.min(260, d * 0.75);
+      const sx = o.dx / d * out;
+      // Sideways they may start off the page; up and down they start inside
+      // the field, or the page would scroll for a moment as they pass.
+      const sy = Math.max(f.top - o.r.top,
+                 Math.min(window.innerHeight - 8 - o.r.bottom, o.dy / d * out));
+      const ox = -sx * 0.035, oy = -sy * 0.035;
+      o.n.el.querySelector('.hv2-node-inner').animate([
+        { translate: sx + 'px ' + sy + 'px', opacity: 0, scale: .8,
+          easing: 'cubic-bezier(.2, .75, .3, 1)' },
+        { translate: ox + 'px ' + oy + 'px', opacity: 1, scale: 1.015,
+          offset: .8, easing: 'cubic-bezier(.4, 0, .4, 1)' },
+        { translate: '0px 0px', opacity: 1, scale: 1 },
+      ], { duration: 1350, delay: 380 + i * 60, fill: 'backwards' });
+    });
 }
 
 /* Print which build this is, so a stale copy is obvious instead of being
@@ -603,9 +672,13 @@ window.addEventListener('load', () => { layout(); stamp(); });
 /* Coming back to this page with the back button restores it from the cache
    with the entrance animations frozen before their delay, which holds those
    figures at nothing. Finish them, then lay out again. */
-window.addEventListener('pageshow', () => {
-  NODES.forEach(n => n.el.getAnimations({ subtree: true })
-    .forEach(a => { try { a.finish(); } catch (e) {} }));
+window.addEventListener('pageshow', (e) => {
+  // pageshow fires on every load, not only on the way back; finishing the
+  // animations on a fresh load cut the opening off before it had played.
+  if (e.persisted) {
+    NODES.forEach(n => n.el.getAnimations({ subtree: true })
+      .forEach(a => { try { a.finish(); } catch (err) {} }));
+  }
   layout();
 });
 document.addEventListener('visibilitychange', () => {

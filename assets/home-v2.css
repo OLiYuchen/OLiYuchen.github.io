@@ -25,6 +25,7 @@
 
   margin: 0;
   min-height: 100dvh;
+  overflow-x: clip;
   display: grid;
   /* header, field, footer. There used to be a draft bar in front of these,
      and with it gone a four-row grid handed the stretch row to the footer. */
@@ -73,6 +74,12 @@ body.hv2 { isolation: auto; }
   top: calc(50% + var(--y) * 1%);
   margin: 0; padding: 0; border: 0; background: none; cursor: pointer;
   transform: translate(-50%, -100%);
+  /* While one figure is lit the rest make room, moving out from it. The
+     push is its own property, so it never fights the positioning above. */
+  translate: var(--push-x, 0px) var(--push-y, 0px);
+  /* This is the way back: when the hover ends, the field comes up slowly
+     and the figures drift home, rather than snapping. */
+  transition: opacity 1.1s var(--hv2-ease), translate .9s var(--hv2-ease);
 }
 .hv2-node-inner {
   position: relative;
@@ -132,7 +139,10 @@ body.hv2 { isolation: auto; }
 /* One figure at a time: the one under the cursor stays lit and everything
    else steps back. It is the figure itself that dims, not its rank, so
    nothing lights up in sympathy with the one being read. */
-.hv2-field.is-reading .hv2-node { opacity: .12; transition: opacity .4s var(--hv2-ease); }
+.hv2-field.is-reading .hv2-node {
+  opacity: .12;
+  transition: opacity .4s var(--hv2-ease), translate .6s var(--hv2-ease);
+}
 .hv2-field.is-reading .hv2-node.is-active { opacity: 1; }
 
 /* A node whose clay pose is still a stand-in. */
