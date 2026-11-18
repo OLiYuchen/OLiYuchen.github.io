@@ -334,10 +334,10 @@ function layout() {
 // What it is and what was done, nothing else. The tags repeated the kicker
 // and the sentence, and the three of them together made the card tall.
 // The four case studies. Everything else gets the upright card.
-// Landscape where the picture is a wide one: the four case studies, the
-// explorations, and the two slices of the About page.
-const WIDE = new Set(['paira', 'merlin', 'ecoscan', 'game',
-                      'archive', 'skills', 'work']);
+// Landscape where the picture is a wide one: the four case studies and the
+// explorations. Skills and Experience take the upright card her own portrait
+// uses, since all three lead to the About page.
+const WIDE = new Set(['paira', 'merlin', 'ecoscan', 'game', 'archive']);
 
 // The four that carry their own colour. Everything else states its type in
 // one neutral, so the colour reads as "this is a case study".
@@ -375,9 +375,12 @@ function fillCard(n) {
   // figure, so every card is the same shape rather than some being shorter.
   // Skills and Experience show the About page's own components, shrunk,
   // rather than a picture of them: they stay live at any size.
-  const live = window.HV2_ABOUT && window.HV2_ABOUT[n.id];
+  const A = window.HV2_ABOUT || {};
+  // Experience shows the places only: the timeline's own logo tiles.
+  const logos = n.id === 'work' && A.work_logos;
+  const live = !logos && A[n.id];
   const shots = SHOTS[n.id] || [n.media || (IMG + n.img + '.webp')];
-  const art = !live && !n.media && !SHOTS[n.id];
+  const art = !live && !logos && !n.media && !SHOTS[n.id];
   // The four case studies are landscape, because their pictures are. The rest
   // read better upright, which is also the shape of a photograph of a person.
   card.classList.toggle('is-portrait', !WIDE.has(n.id));
@@ -385,7 +388,10 @@ function fillCard(n) {
   card.classList.toggle('is-project', PROJECTS.has(n.id));
   card.classList.toggle('is-quiet', !n.href);
   card.innerHTML =
-    (live
+    (logos
+      ? '<div class="hv2-card-stack is-logos"><div class="hv2-card-logos">'
+        + logos.join('') + '</div></div>'
+    : live
       ? '<div class="hv2-card-stack is-live"><div class="hv2-card-live">'
         + live + '</div></div>'
       : '<div class="hv2-card-stack' + (art ? ' is-art' : '') + '">' +

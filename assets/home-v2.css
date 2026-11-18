@@ -567,3 +567,29 @@ button.hv2-node { cursor: default; }
 /* The timeline is the taller of the two and wants to start at the top. */
 .hv2-card-live .about-experience-timeline { margin: 0; }
 .hv2-card-live .about-skill-cloud { margin: 0; }
+
+
+/* ---- Experience: the places, nothing else --------------------------------
+
+   The timeline's own logo tiles, lifted out of it and set in a small grid.
+   They keep every per-logo rule the About page gives them; only the
+   timeline's positioning is taken off, because there is no timeline here.
+   ------------------------------------------------------------------------- */
+
+.hv2-card-stack.is-logos {
+  display: grid; place-items: center;
+  padding-bottom: 3.6rem;            /* clear of the words along the foot */
+  background: var(--paper-soft, #fffefa);
+}
+.hv2-card-logos {
+  display: flex; flex-wrap: wrap; justify-content: center;
+  gap: .7rem; width: calc(3 * 3.3rem + 2 * .7rem);
+}
+.hv2-card-logos .about-experience-logo {
+  position: static; inset: auto;
+  width: 3.3rem; height: 3.3rem;
+}
+
+/* The skill cloud in the upright card wraps narrower, so it is shown a touch
+   larger than it was in the wide one. */
+.hv2-card.is-portrait .hv2-card-live { --k: .42; }
