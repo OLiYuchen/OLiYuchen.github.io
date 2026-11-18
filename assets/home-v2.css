@@ -395,6 +395,8 @@ button.hv2-node { cursor: default; }
 /* Until the opening starts. The script adds this, so without the script the
    figures simply show. */
 .hv2-field.is-entering .hv2-node-inner { opacity: 0; }
+/* While they fly in, nothing reacts to the cursor: no lift, no card. */
+.hv2-field.is-opening .hv2-node { pointer-events: none; }
 .hv2-field.is-measuring .hv2-node-inner,
 .hv2-field.is-measuring .hv2-node img { animation: none; }
 
