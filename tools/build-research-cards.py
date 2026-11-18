@@ -18,7 +18,7 @@ from datetime import date
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 OUT = ROOT / "drafts" / "research-card.html"
-CSS_V = "2026111811"
+CSS_V = "2026111815"
 
 
 def months(a, b):
@@ -79,8 +79,7 @@ PROJECTS = [
                 "subject": "The MVP, and the mentor side",
                 "sittings": [
                     {"n": 9, "unit": "people", "how": "builds 122&ndash;127, five days"},
-                    {"n": 4, "solid": 3, "unit": "people", "label": "3 or 4",
-                     "how": "the mentor flow, one-on-one"},
+                    {"n": 3, "unit": "people", "how": "the mentor flow, one-on-one"},
                 ],
                 "when": date(2026, 6, 15), "when_label": "June 2026",
                 "signals": [
@@ -221,7 +220,7 @@ HEAD = '''<!DOCTYPE html>
 <link rel="stylesheet" href="/assets/style.css" />
 <link rel="stylesheet" href="/assets/research-card.css?v=%s" />
 </head>
-<body class="case-study-page rc-page">
+<body class="case-study-page paira-case-page rc-page">
 
 <div class="rc-bar"><b>Draft</b><span>One card for every round of research. Nothing here is on a live page.</span></div>
 
@@ -233,14 +232,15 @@ HEAD = '''<!DOCTYPE html>
        is one mark per person, so five and fifty are told apart before they are
        read. The date sits on the project&rsquo;s own run, as a dot where the day
        is known and as a span where only the stage is, so the four cards read
-       as one timeline. Everything else is type, in the page&rsquo;s own colour.</p>
+       as one timeline. Everything else is type. The card takes its colour from
+       the page it is on, so this preview is wearing Paira&rsquo;s.</p>
   </header>
 ''' % CSS_V
 
 TAIL = '''
   <section class="rc-sec">
     <p class="rc-kicker">What is placed, not pinned</p>
-    <h2>Four things to pin down.</h2>
+    <h2>Three things to pin down.</h2>
     <p>Every card is filled from something already on the site. Where the month
        is not pinned the card draws a span rather than a dot, and the span is
        taken from what the case study already says, never from a guess. Give me
@@ -253,9 +253,9 @@ TAIL = '''
           in February 2026 and the page says the rebuild landed in spring, so
           the sessions sit between the two. The count is the other open one: the
           page says six or more, so the card draws six and says so.</li>
-      <li><b>The mentor flow &mdash; three or four people.</b> Three marks filled
-          and one open. It is written into the June card, which places those
-          sessions in the same window as the TestFlight round.</li>
+      <li><b>The mentor flow &mdash; three people.</b> It is written into the June
+          card, which places those sessions in the same window as the
+          TestFlight round.</li>
       <li><b>Merlin</b> is switched off on this page, not deleted. Its three
           rounds are still in the builder and come back in one word.</li>
     </ul>

@@ -19,16 +19,18 @@
    =========================================================================== */
 
 /* The page's own colours, not a second set. ink / ink-soft / line / accent
-   are style.css; the card sits on --paper and is cut from --paper-soft. */
-.rc-page {
+   are style.css; the card sits on --paper and is cut from --paper-soft.
+   .rc-round carries the same tokens so a round can announce itself inside a
+   case study, where the draft page's own chrome does not exist. */
+.rc-page,
+.rc-round {
   --rc-ink: var(--ink);
   --rc-soft: var(--ink-soft);
-  --rc-faint: var(--line);
-  --rc-accent: var(--accent);
-  --rc-accent-deep: var(--accent-deep);
-  background: var(--paper);
-  color: var(--rc-ink);
+  --rc-faint: var(--case-line, var(--line));
+  --rc-accent: var(--case-accent, var(--accent));
+  --rc-accent-deep: var(--case-accent-deep, var(--accent-deep));
 }
+body.rc-page { background: var(--case-paper, var(--paper)); color: var(--rc-ink); }
 
 .rc-bar {
   position: sticky; top: 0; z-index: 9;
@@ -106,8 +108,8 @@
 .rc-card {
   padding: clamp(1.3rem, 2.4vw, 1.7rem) clamp(1.3rem, 2.4vw, 1.6rem)
            clamp(1.45rem, 2.6vw, 1.8rem);
-  background: var(--paper-soft);
-  border: 1px solid var(--line);
+  background: var(--case-surface-strong, var(--paper-soft));
+  border: 1px solid var(--rc-faint);
   border-radius: 1rem;
   box-shadow: 0 18px 44px rgba(52, 39, 27, 0.07);
 }
@@ -258,3 +260,45 @@
 @media (max-width: 520px) {
   .rc-dots { max-width: 100%; }
 }
+
+
+/* ===========================================================================
+   A round announcing itself inside a case study.
+
+   Same two drawings as the card, without the box: the case study is already
+   the box. It replaces a line that only named the round, so the name keeps
+   the rule it had and the numbers are drawn underneath it.
+   =========================================================================== */
+
+.rc-round { margin-top: 2.6rem; }
+.pd-growth .pd-method > .rc-round { margin-top: var(--sp-stage); }
+
+.rc-round-name {
+  margin: 0;
+  display: flex; align-items: center; gap: .7rem;
+  font-family: var(--font-body);
+  font-size: .92rem; font-weight: 600; letter-spacing: 0; text-transform: none;
+  color: var(--rc-accent-deep);
+}
+.rc-round-name::after {
+  content: ""; flex: 1; height: 1px;
+  background: color-mix(in srgb, var(--rc-accent) 28%, transparent);
+}
+
+.rc-round-data {
+  margin-top: .8rem;
+  display: flex; align-items: center; gap: .85rem 2.2rem; flex-wrap: wrap;
+}
+.rc-round-data .rc-sample { margin-top: 0; }
+.rc-round-data .rc-time { margin-top: 0; flex: 1 1 15rem; max-width: 26rem; }
+
+/* In Market Research the round is followed by the finding itself, which was
+   sitting 5px under the date. */
+.rc-round + h3 { margin-top: 1.05rem; }
+
+/* The evidence follows directly under the round, as it did before. */
+.rc-round + .pd-ways,
+.rc-round + .paira-findings,
+.rc-round + .paira-screen-grid { margin-top: var(--sp-tight, 1.7rem); }
+.pd-growth .rc-round + .pd-ways,
+.pd-growth .rc-round + .paira-findings { margin-top: var(--sp-tight); }
