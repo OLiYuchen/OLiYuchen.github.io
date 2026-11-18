@@ -132,7 +132,7 @@ body.hv2 { isolation: auto; }
 /* One figure at a time: the one under the cursor stays lit and everything
    else steps back. It is the figure itself that dims, not its rank, so
    nothing lights up in sympathy with the one being read. */
-.hv2-field.is-reading .hv2-node { opacity: .26; transition: opacity .4s var(--hv2-ease); }
+.hv2-field.is-reading .hv2-node { opacity: .12; transition: opacity .4s var(--hv2-ease); }
 .hv2-field.is-reading .hv2-node.is-active { opacity: 1; }
 
 /* A node whose clay pose is still a stand-in. */
