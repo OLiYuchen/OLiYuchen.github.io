@@ -18,7 +18,7 @@ from datetime import date
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 OUT = ROOT / "drafts" / "research-card.html"
-CSS_V = "2026111802"
+CSS_V = "2026111809"
 
 
 def months(a, b):
@@ -30,13 +30,13 @@ def months(a, b):
 PROJECTS = [
     {
         "name": "Paira",
-        "note": "Five rounds.",
+        "note": "Four rounds.",
         "span": (date(2025, 8, 1), date(2026, 9, 1)),
         "span_label": ("Aug 2025", "Sep 2026"),
         "rounds": [
             {
                 "subject": "The first interviews",
-                "n": 5, "unit": "people", "method": "interviews",
+                "sittings": [{"n": 5, "unit": "people", "how": "interviews"}],
                 "when": None, "when_label": "month to confirm",
                 "signals": [
                     ("All five wanted career help through something lighter than what exists today.",
@@ -49,7 +49,8 @@ PROJECTS = [
             },
             {
                 "subject": "The pivot",
-                "n": 6, "unit": "people", "n_label": "6 or more", "method": "one-on-one think-aloud",
+                "sittings": [{"n": 6, "unit": "people", "label": "6 or more",
+                              "how": "one-on-one think-aloud"}],
                 "when": None, "when_range": (date(2025, 11, 1), date(2026, 3, 1)),
                 "when_label": "before spring 2026",
                 "signals": [
@@ -61,7 +62,7 @@ PROJECTS = [
             },
             {
                 "subject": "Explore concepts",
-                "n": 5, "unit": "people", "method": "2 rounds, three days apart",
+                "sittings": [{"n": 5, "unit": "people", "how": "2 rounds, three days apart"}],
                 "when": date(2026, 4, 22), "when_label": "21 and 23 April 2026",
                 "signals": [
                     ("Novel to look at, heavy to use.",
@@ -73,8 +74,12 @@ PROJECTS = [
                 ],
             },
             {
-                "subject": "The MVP on TestFlight",
-                "n": 9, "unit": "people", "method": "builds 122&ndash;127, five days",
+                "subject": "The MVP, and the mentor side",
+                "sittings": [
+                    {"n": 9, "unit": "people", "how": "builds 122&ndash;127, five days"},
+                    {"n": 4, "solid": 3, "unit": "people", "label": "3 or 4",
+                     "how": "the mentor flow, one-on-one"},
+                ],
                 "when": date(2026, 6, 15), "when_label": "June 2026",
                 "signals": [
                     ("The AI wrote well, and that was the question.",
@@ -83,14 +88,7 @@ PROJECTS = [
                      "A phrasing pass across the product."),
                     ("Helpers weighed what it would cost them.",
                      "Filters by deadline and reward before taking something on."),
-                ],
-            },
-            {
-                "subject": "The mentor AI flow",
-                "n": None, "unit": "people", "n_label": "count to confirm", "method": "one-on-one",
-                "when": None, "when_label": "month to confirm",
-                "signals": [
-                    ("The question on this side was trust, not which screen wins.",
+                    ("On the mentor side the question was trust, not which screen wins.",
                      "The AI shows its work for a beat, then gets out of the way."),
                 ],
             },
@@ -104,7 +102,8 @@ PROJECTS = [
         "rounds": [
             {
                 "subject": "Discovery",
-                "n": 50, "unit": "responses", "method": "survey, and 3 field observations",
+                "sittings": [{"n": 50, "unit": "responses",
+                              "how": "survey, and 3 field observations"}],
                 "when": None, "when_label": "month to confirm",
                 "signals": [
                     ("A first profile of the young novice birder, from the survey rather than from assumption.",
@@ -113,7 +112,8 @@ PROJECTS = [
             },
             {
                 "subject": "Interviews and shadowing",
-                "n": 6, "unit": "people", "method": "12 hours, 90&ndash;120 minutes each",
+                "sittings": [{"n": 6, "unit": "people",
+                              "how": "12 hours, 90&ndash;120 minutes each"}],
                 "when": None, "when_label": "month to confirm",
                 "signals": [
                     ("Someone can be novice through knowledge, tools, confidence, identity, or community access.",
@@ -124,7 +124,7 @@ PROJECTS = [
             },
             {
                 "subject": "Concept testing",
-                "n": 4, "unit": "people", "method": "from the interview pool",
+                "sittings": [{"n": 4, "unit": "people", "how": "from the interview pool"}],
                 "when": None, "when_label": "month to confirm",
                 "signals": [
                     ("There was no single winning feature.",
@@ -137,19 +137,29 @@ PROJECTS = [
 
 
 # ----------------------------------------------------------------- drawings
-def sample(n, unit, label):
-    """One mark per person. Fifty wraps into a block; five is a short row."""
+def sitting(s):
+    """One mark per person. Fifty wraps into a block; five is a short row.
+    A round can have more than one sitting; each gets its own row of marks."""
+    n, unit, label, how = s["n"], s["unit"], s.get("label"), s.get("how")
+    extra = '<span class="rc-how">%s</span>' % how if how else ""
     if n is None:
-        return ('<div class="rc-sample rc-sample-gap">'
+        return ('<div class="rc-sitting">'
                 '<span class="rc-dots rc-dots-unknown" aria-hidden="true">'
                 '<i></i><i></i><i></i></span>'
-                '<span class="rc-n rc-unknown">%s</span></div>' % label)
+                '<span class="rc-n rc-unknown">%s</span>%s</div>' % (label, extra))
     dense = " rc-dots-dense" if n > 12 else ""
-    dots = "".join("<i></i>" for _ in range(n))
-    return ('<div class="rc-sample">'
+    # An uncertain count draws the ones that are certain, then an open one.
+    solid = s.get("solid", n)
+    dots = "".join("<i></i>" for _ in range(solid))
+    dots += "".join('<i class="rc-maybe"></i>' for _ in range(n - solid))
+    return ('<div class="rc-sitting">'
             '<span class="rc-dots%s" aria-hidden="true">%s</span>'
-            '<span class="rc-n">%s %s</span></div>'
-            % (dense, dots, label or n, unit))
+            '<span class="rc-n">%s %s</span>%s</div>'
+            % (dense, dots, label or n, unit, extra))
+
+
+def sample(sittings):
+    return '<div class="rc-sample">%s</div>' % "".join(sitting(s) for s in sittings)
 
 
 def timeline(r, span, span_label):
@@ -184,13 +194,12 @@ def card(r, span, span_label):
             '<header class="rc-head">'
             '<h3 class="rc-subject">%s</h3>'
             '%s'
-            '<p class="rc-method">%s</p>'
             '%s'
             '</header>'
             '<ol class="rc-signals">%s</ol>'
             '</article>'
-            % (r["subject"], sample(r["n"], r["unit"], r.get("n_label")),
-               r["method"], timeline(r, span, span_label), sigs))
+            % (r["subject"], sample(r["sittings"]),
+               timeline(r, span, span_label), sigs))
 
 
 # -------------------------------------------------------------------- build
@@ -225,14 +234,17 @@ HEAD = '''<!DOCTYPE html>
 TAIL = '''
   <section class="rc-sec">
     <p class="rc-kicker">What the cards are missing</p>
-    <h2>Six numbers I will not invent.</h2>
+    <h2>Five numbers I will not invent.</h2>
     <p>Every card is filled from something already on the site. Where a month or
        a count is not known the card shows the track with no marker, and says so
        in grey. It is the only thing on the page that is grey.</p>
     <ul class="rc-gaps">
       <li><b>Paira, the first interviews</b> &mdash; which month.</li>
       <li><b>Paira, the pivot</b> &mdash; which month, and the exact count. The page says six or more, so the card draws six and says so.</li>
-      <li><b>Paira, the mentor flow</b> &mdash; how many people, and which month.</li>
+      <li><b>Paira, the mentor flow</b> &mdash; which month. You said three or four
+          people, so the card draws three filled marks and one open one. It is
+          written into the June card, which assumes those sessions sat in the
+          same window; say the word if they did not.</li>
       <li><b>Merlin, all three rounds</b> &mdash; which month of 2025 each one ran.</li>
     </ul>
   </section>
