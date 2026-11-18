@@ -190,6 +190,8 @@ body.hv2 { isolation: auto; }
 /* The four case studies are landscape, because their pictures are. Everything
    else is a portrait frame, which suits a photograph of a person or a desk. */
 .hv2-card.is-portrait { width: min(15rem, 62vw); aspect-ratio: 4 / 5; }
+/* Nothing to click, so it asks for less room. */
+.hv2-card.is-quiet { width: min(12rem, 50vw); }
 /* A clay pose is wider than it is tall, so a 4 by 5 frame would leave it
    swimming. It gets a square. */
 .hv2-card.is-portrait:has(.is-art) { aspect-ratio: 1 / 1; }
@@ -215,6 +217,9 @@ body.hv2 { isolation: auto; }
   transition: opacity .3s var(--hv2-ease), translate .3s var(--hv2-ease);
 }
 .hv2-cue.is-on { opacity: 1; translate: -50% 0; transition-delay: 80ms; }
+/* Parked. Everything that places it is still here; take this line out to
+   bring the line of type back over her portrait. */
+.hv2-cue.hv2-cta { display: none; }
 
 /* ---- it arrives rather than appears -------------------------------------
    The picture settles out of a slight push-in, the lines come up one after

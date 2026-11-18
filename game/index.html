@@ -600,7 +600,7 @@
   </section>
 </main>
 
-<footer class="site-footer home-footer"><div class="container footer-row small muted"><p>© <span id="year"></span> Olivia Yuchen Feng</p><p>Designed with lots of 🧠🐱❤️</p></div></footer>
+<footer class="site-footer home-footer"><div class="container footer-row small muted"><p>© <span id="year"></span> Olivia Yuchen Feng</p><p class="footer-place">Redmond, WA <span data-clock></span></p></div></footer>
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -685,5 +685,6 @@
     }
   });
 </script>
+<script src="/assets/footer-clock.js?v=2026111803" defer></script>
 </body>
 </html>

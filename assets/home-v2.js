@@ -383,6 +383,7 @@ function fillCard(n) {
   card.classList.toggle('is-portrait', !WIDE.has(n.id));
   card.classList.toggle('is-plate', WIDE.has(n.id));
   card.classList.toggle('is-project', PROJECTS.has(n.id));
+  card.classList.toggle('is-quiet', !n.href);
   card.innerHTML =
     (live
       ? '<div class="hv2-card-stack is-live"><div class="hv2-card-live">'
