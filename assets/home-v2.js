@@ -53,17 +53,17 @@ const NODES = [
     tags:['0 to 1 product','UX research','Brand and motion'], href:'/about/' },
 
   /* ---- ring 1: who she is ----------------------------------------------- */
-  { id:'skills', ring:1, cx:0.5040, cy:0.7560, bw:190.0, bh:127.0, img:'me-skills-2', label:'Skills', accent:ROSE,
+  { id:'skills', ring:1, cx:0.5628, cy:0.7842, bw:190.0, bh:127.0, img:'me-skills-2', label:'Skills', accent:ROSE,
     kicker:'About', title:'Skills',
     text:'Product strategy, UX research, interaction, design systems, AI experience.',
     tags:['Product strategy','UX research','AI experience design','Design engineering'], href:'/about/#about-skills-title' },
 
-  { id:'work', ring:1, cx:0.3220, cy:0.8331, bw:119.0, bh:97.0, img:'me-work-2', label:'Experience', accent:ROSE,
+  { id:'work', ring:1, cx:0.3819, cy:0.7884, bw:119.0, bh:97.0, img:'me-work-2', label:'Experience', accent:ROSE,
     kicker:'About', title:'Experience',
     text:'Paira, Fosun International, Cornell Lab of Ornithology, UW HCDE, UW GIX.',
     tags:['Paira','Fosun','Cornell Lab','UW HCDE','UW GIX'], href:'/about/#about-experience-title' },
 
-  { id:'popo', ring:1, cx:0.8519, cy:0.5000, bw:122.0, bh:90.0, img:'me-popo', label:'Popo', accent:VIOLET,
+  { id:'popo', ring:1, cx:0.9200, cy:0.5321, bw:122.0, bh:90.0, img:'me-popo', label:'Popo', accent:VIOLET,
     kicker:'Studio supervisor', title:'Popo',
     text:'Sleeps through most of the work, wakes for the parts that matter.',
     tags:['Popo'], media:'/assets/img/about-hobbies-collage.jpg' },
@@ -81,7 +81,7 @@ const NODES = [
     tags:['Team leadership','App flow','Rapid prototype'],
     media:'/assets/img/home/ecoscan.webp', href:'/ecoscan/' },
 
-  { id:'game', ring:2, cx:0.6812, cy:0.5945, bw:188.0, bh:163.3, mob:{cx:0.730,cy:0.700,bw:110,bh:90}, img:'me-game', label:'Common Ground', accent:'#c98a56',
+  { id:'game', ring:2, cx:0.7103, cy:0.5442, bw:188.0, bh:163.3, mob:{cx:0.730,cy:0.700,bw:110,bh:90}, img:'me-game', label:'Common Ground', accent:'#c98a56',
     kicker:'Game design', title:'Common Ground',
     text:'Designed a cooperative card game where teamwork is the winning move.',
     tags:['Mechanics','Rule system','Playtesting'],
@@ -94,22 +94,22 @@ const NODES = [
     media:'/assets/img/home/merlin-bird-id.webp', href:'/merlin/' },
 
   /* ---- ring 3: made outside the screen ----------------------------------- */
-  { id:'calligraphy', ring:3, cx:0.8528, cy:0.8003, bw:159.0, bh:100.0, img:'me-calligraphy', label:'Calligraphy', accent:VIOLET,
+  { id:'calligraphy', ring:3, cx:0.8436, cy:0.8352, bw:159.0, bh:100.0, img:'me-calligraphy', label:'Calligraphy', accent:VIOLET,
     kicker:'Practice', title:'Calligraphy',
     text:'Chinese calligraphy for over ten years, and Engrosser’s Script by hand.',
     tags:['Chinese','Engrosser’s Script'], media:'/assets/img/home/header-calligraphy.webp' },
 
-  { id:'tennis', ring:3, cx:0.1283, cy:0.7081, bw:96.0, bh:120.0, img:'me-tennis', label:'Tennis', accent:VIOLET,
+  { id:'tennis', ring:3, cx:0.1455, cy:0.7654, bw:96.0, bh:120.0, img:'me-tennis', label:'Tennis', accent:VIOLET,
     kicker:'Hobby', title:'Tennis',
     text:'Tennis and badminton, both better with people.',
     tags:['Tennis','Badminton'] },
 
-  { id:'bouldering', ring:3, cx:0.8823, cy:0.2137, bw:86.0, bh:114.0, img:'me-climb', label:'Bouldering', accent:VIOLET,
+  { id:'bouldering', ring:3, cx:0.8988, cy:0.1844, bw:86.0, bh:114.0, img:'me-climb', label:'Bouldering', accent:VIOLET,
     kicker:'Hobby', title:'Bouldering',
     text:'The social hobby that stuck.',
     tags:['Bouldering'] },
 
-  { id:'archive', ring:3, cx:0.1138, cy:0.3094, bw:180.0, bh:113.0, img:'me-explorations', label:'Explorations', accent:VIOLET,
+  { id:'archive', ring:3, cx:0.1038, cy:0.3135, bw:180.0, bh:113.0, img:'me-explorations', label:'Explorations', accent:VIOLET,
     kicker:'Explorations', title:'Explorations',
     text:'Side projects in prototyping, fabrication and technical craft.',
     tags:['Archive'], media:'/assets/img/explorations/assets-final-cover-process.webp', href:'/explorations/' },
