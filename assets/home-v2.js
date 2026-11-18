@@ -617,12 +617,10 @@ function entrance() {
   // Nothing answers the cursor until everyone has landed: a hover caught
   // mid-flight would light up a figure that is not where it is going to be.
   field.classList.add('is-opening');
-  const PALE = 'saturate(.12) brightness(1.32) contrast(.82)';
-  const FULL = 'saturate(1) brightness(1) contrast(1)';
   if (me && !me.off) {
     me.el.querySelector('.hv2-node-inner').animate([
-      { opacity: 0, scale: .9 },
-      { opacity: 1, scale: 1 },
+      { scale: .9 },
+      { scale: 1 },
     ], { duration: 1150, easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'backwards' });
   }
   NODES.filter(n => n !== me && !n.off)
@@ -641,19 +639,20 @@ function entrance() {
                  Math.min(window.innerHeight - 8 - o.r.bottom, o.dy / d * out));
       const ox = -sx * 0.035, oy = -sy * 0.035;
       o.n.el.querySelector('.hv2-node-inner').animate([
-        { translate: sx + 'px ' + sy + 'px', opacity: 0, scale: .8,
+        { translate: sx + 'px ' + sy + 'px', scale: .8,
           easing: 'cubic-bezier(.2, .75, .3, 1)' },
-        { translate: ox + 'px ' + oy + 'px', opacity: 1, scale: 1.015,
+        { translate: ox + 'px ' + oy + 'px', scale: 1.015,
           offset: .8, easing: 'cubic-bezier(.4, 0, .4, 1)' },
         { translate: '0px 0px', opacity: 1, scale: 1 },
       ], { duration: FLY, delay: 280 + i * 45, fill: 'backwards' });
       last = Math.max(last, 280 + i * 45 + FLY);
     });
-  // The colour comes in once, for everyone at the same moment: the whole
-  // field goes from washed pale to full colour over the length of the
-  // opening, so it finishes as the last figure lands.
-  field.animate([{ filter: PALE }, { filter: FULL }],
-    { duration: last, easing: 'cubic-bezier(.45, 0, .25, 1)', fill: 'backwards' });
+  // Light to deep, for everyone at the same moment: the whole field goes
+  // from nearly clear to solid over the length of the opening, finishing as
+  // the last figure lands. Their colours are their own throughout - this is
+  // how much of each you see, not how much colour it has.
+  field.animate([{ opacity: 0 }, { opacity: 1 }],
+    { duration: last, easing: 'cubic-bezier(.33, 0, .2, 1)', fill: 'backwards' });
 
   // A timer rather than the animations' finished promises: measuring winds
   // them to their end and back, which settles those promises early.
