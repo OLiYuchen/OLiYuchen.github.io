@@ -332,16 +332,22 @@ function layout() {
 // and the sentence, and the three of them together made the card tall.
 function fillCard(n) {
   card.style.setProperty('--accent', n.accent);
+  // A project shows its project picture. Everything else shows its own clay
+  // figure, so every card is the same shape rather than some being shorter.
+  const src = n.media || (IMG + n.img + '.webp');
   card.innerHTML =
-    (n.media ? '<img class="hv2-card-thumb" src="' + n.media + '" alt="" />' : '') +
+    '<img class="hv2-card-media' + (n.media ? '' : ' is-art') +
+      '" src="' + src + '" alt="" />' +
     '<div class="hv2-card-body">' +
-      '<p class="hv2-card-kicker">' + n.kicker + '</p>' +
-      '<h2 class="hv2-card-title">' + n.title + '</h2>' +
-      '<p class="hv2-card-text">' + n.text + '</p>' +
-      (n.todo && document.body.classList.contains('show-todo-notes')
-        ? '<p class="hv2-card-todo">Clay pose still to make: ' + n.todo + '</p>' : '') +
-    '</div>' +
-    (n.href ? '<span class="hv2-card-go" aria-hidden="true">&#8594;</span>' : '');
+      '<div class="hv2-card-copy">' +
+        '<p class="hv2-card-kicker">' + n.kicker + '</p>' +
+        '<h2 class="hv2-card-title">' + n.title + '</h2>' +
+        '<p class="hv2-card-text">' + n.text + '</p>' +
+        (n.todo && document.body.classList.contains('show-todo-notes')
+          ? '<p class="hv2-card-todo">Clay pose still to make: ' + n.todo + '</p>' : '') +
+      '</div>' +
+      (n.href ? '<span class="hv2-card-go" aria-hidden="true">&#8594;</span>' : '') +
+    '</div>';
 }
 
 function placeCard(el) {
@@ -364,11 +370,15 @@ function open(el) {
   fillCard(n);
   card.classList.add('is-open');
   requestAnimationFrame(() => placeCard(el));
+  field.classList.add('is-reading');
+  NODES.forEach(x => x.el.classList.toggle('is-active', x.el === el));
 }
 
 function close() {
   openId = null;
   card.classList.remove('is-open');
+  field.classList.remove('is-reading');
+  NODES.forEach(x => x.el.classList.remove('is-active'));
 }
 
 function wire() {

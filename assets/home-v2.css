@@ -127,8 +127,11 @@ body.hv2 { isolation: auto; }
    pinned its offset, which fought the tag system and the art-centring. */
 .hv2-node-centre { --x: 0; --y: 0; }
 
-/* Hovering one figure used to dim the whole field and light up its rank.
-   Each figure answers for itself now: nothing else on the page reacts. */
+/* One figure at a time: the one under the cursor stays lit and everything
+   else steps back. It is the figure itself that dims, not its rank, so
+   nothing lights up in sympathy with the one being read. */
+.hv2-field.is-reading .hv2-node { opacity: .26; transition: opacity .4s var(--hv2-ease); }
+.hv2-field.is-reading .hv2-node.is-active { opacity: 1; }
 
 /* A node whose clay pose is still a stand-in. */
 .hv2-field.show-todo .hv2-node[data-todo] .hv2-node-inner {
@@ -137,35 +140,52 @@ body.hv2 { isolation: auto; }
 
 /* ---------- the hover card ------------------------------------------------ */
 
-/* A label, not a page. It says what the thing is and what was done, on one
-   line each, so it can be wide and short instead of tall. The picture, where
-   there is one, sits beside the words rather than above them. */
+/* Landscape, roughly four to three, with the picture across the top at the
+   ratio the old homepage used for the same images. Frosted rather than solid:
+   it sits over the figures, so letting them through keeps it on the page
+   instead of on top of it. */
 .hv2-card {
-  position: fixed; z-index: 6; width: min(29rem, 88vw);
-  display: flex; align-items: center; gap: .85rem;
-  padding: .8rem .95rem;
-  background: #fff; border: 1px solid var(--hv2-line); border-radius: .9rem;
-  box-shadow: 0 18px 44px rgba(43, 36, 30, .16);
+  position: fixed; z-index: 6; width: min(28rem, 88vw);
+  overflow: hidden;
+  border-radius: 1.1rem;
+  border: 1px solid rgba(255, 255, 255, .62);
+  background: rgba(255, 255, 255, .58);
+  -webkit-backdrop-filter: blur(26px) saturate(1.7);
+  backdrop-filter: blur(26px) saturate(1.7);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .9),
+    0 30px 66px -22px rgba(43, 36, 30, .34),
+    0 3px 12px rgba(43, 36, 30, .07);
   pointer-events: none;
-  opacity: 0; translate: 0 6px;
-  transition: opacity .22s var(--hv2-ease), translate .22s var(--hv2-ease);
+  opacity: 0; translate: 0 10px; scale: .985;
+  transition: opacity .26s var(--hv2-ease), translate .26s var(--hv2-ease),
+              scale .26s var(--hv2-ease);
 }
-.hv2-card.is-open { opacity: 1; translate: 0 0; }
-.hv2-card-thumb {
-  flex: none; width: 3.9rem; height: 3.9rem;
-  border-radius: .6rem; object-fit: cover; background: #efeae2;
+.hv2-card.is-open { opacity: 1; translate: 0 0; scale: 1; }
+/* 2.3 to 1, the ratio the live homepage shows these same pictures at. */
+.hv2-card-media {
+  display: block; width: 100%; aspect-ratio: 2.3 / 1;
+  object-fit: cover;
+  background: color-mix(in srgb, var(--accent, #8b7fd4) 9%, #f4f0e9);
 }
-.hv2-card-body { flex: 1 1 auto; min-width: 0; }
+/* The ones with no project picture show their own clay figure instead, which
+   has to sit in the frame rather than fill it. */
+.hv2-card-media.is-art { object-fit: contain; padding: .45rem 0; }
+.hv2-card-body {
+  display: flex; align-items: flex-start; gap: .9rem;
+  padding: 1.05rem 1.15rem 1.25rem;
+}
+.hv2-card-copy { flex: 1 1 auto; min-width: 0; }
 .hv2-card-kicker {
-  margin: 0 0 .18rem; font-size: .6rem; font-weight: 600; letter-spacing: .15em;
+  margin: 0 0 .28rem; font-size: .63rem; font-weight: 600; letter-spacing: .15em;
   text-transform: uppercase; color: var(--hv2-violet-deep);
 }
 .hv2-card-title {
-  margin: 0 0 .15rem; font-family: "Cormorant Garamond", serif;
-  font-size: 1.3rem; font-weight: 600; line-height: 1.08;
+  margin: 0 0 .32rem; font-family: "Cormorant Garamond", serif;
+  font-size: 1.55rem; font-weight: 600; line-height: 1.05;
 }
-.hv2-card-text { margin: 0; font-size: .85rem; line-height: 1.42; color: var(--hv2-soft); }
-.hv2-card-go { flex: none; align-self: center; color: var(--accent, var(--hv2-violet-deep)); font-size: 1rem; }
+.hv2-card-text { margin: 0; font-size: .9rem; line-height: 1.5; color: var(--hv2-soft); }
+.hv2-card-go { flex: none; align-self: center; color: var(--accent, var(--hv2-violet-deep)); font-size: 1.1rem; }
 .hv2-card-tags { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .75rem; }
 .hv2-card-tags span {
   border: 1px solid var(--hv2-line); border-radius: 999px; padding: .22rem .6rem;
@@ -177,6 +197,8 @@ body.hv2 { isolation: auto; }
 }
 
 /* ---------- footer and the draft bar -------------------------------------- */
+
+.hv2-field.is-reading .hv2-cta { opacity: .38; transition: opacity .4s var(--hv2-ease); }
 
 .hv2-foot { position: relative; z-index: 2; }
 .hv2-draftbar {
@@ -282,7 +304,8 @@ button.hv2-node { cursor: default; }
     drop-shadow(14px 17px 18px rgba(var(--hv2-shade), .07));
 }
 .hv2-node[data-ring="3"]:hover .hv2-node-inner,
-.hv2-node[data-ring="3"]:focus-visible .hv2-node-inner { opacity: 1; }
+.hv2-node[data-ring="3"]:focus-visible .hv2-node-inner,
+.hv2-node[data-ring="3"].is-active .hv2-node-inner { opacity: 1; }
 
 
 
@@ -359,7 +382,8 @@ button.hv2-node { cursor: default; }
 
 /* ---------- reading one figure -------------------------------------------- */
 
-.hv2-card { border-top: 3px solid var(--accent, var(--hv2-violet)); }
+/* The accent used to run across the top as a 3px bar. Against frosted glass
+   it read as a hard seam, so the accent stays in the type and the arrow. */
 .hv2-card-kicker { color: var(--accent, var(--hv2-violet-deep)); }
 .hv2-card-open { color: var(--accent, var(--hv2-violet-deep)); }
 
