@@ -17,7 +17,7 @@ import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 IDX = ROOT / "paira/index.html"
-CSS_V = "2026111816"
+CSS_V = "2026111817"
 
 # already a wrapper: the round and its evidence are the only things inside
 CLASSED = [

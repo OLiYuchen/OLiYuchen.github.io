@@ -18,7 +18,7 @@ from datetime import date
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 OUT = ROOT / "drafts" / "research-card.html"
-CSS_V = "2026111815"
+CSS_V = "2026111818"
 
 
 def months(a, b):

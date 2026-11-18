@@ -18,7 +18,7 @@ import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 IDX = ROOT / "paira/index.html"
-CSS_V = "2026111815"
+CSS_V = "2026111817"
 
 spec = importlib.util.spec_from_file_location("rc", ROOT / "tools/build-research-cards.py")
 rc = importlib.util.module_from_spec(spec)
