@@ -151,6 +151,9 @@ body.hv2 { isolation: auto; }
 .hv2-card {
   position: fixed; z-index: 6;
   width: min(23rem, 84vw); aspect-ratio: 1.15 / 1;
+  background: rgba(255, 255, 255, .72);
+  -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  backdrop-filter: blur(20px) saturate(1.5);
   overflow: hidden; isolation: isolate;
   border-radius: .95rem;
   border: 1px solid rgba(255, 255, 255, .5);
@@ -197,7 +200,10 @@ body.hv2 { isolation: auto; }
    meant it moved every time the cursor did and coloured itself differently
    each time. It is an instruction, so it holds still and stays quiet. */
 .hv2-cue {
-  position: fixed; left: 50%; top: 68%; z-index: 7;
+  /* It used to sit at 68% of the height, which is exactly where a card
+     lands. Along the foot instead: still one place, still centred, and
+     nothing covers it. */
+  position: fixed; left: 50%; bottom: 1.15rem; z-index: 7;
   margin: 0; translate: -50% 4px;
   font-family: var(--font-body, "Instrument Sans", sans-serif);
   font-size: .76rem; font-weight: 500; letter-spacing: .06em;
@@ -486,3 +492,67 @@ button.hv2-node { cursor: default; }
   backdrop-filter: none;
   border-bottom: 0;
 }
+
+
+/* ---- a plate, where the picture has to be seen whole ---------------------
+
+   A project picture is a composed thing: cropping it to a frame cuts the
+   screens off its edges. So those cards drop the fixed shape, take the
+   picture's own proportions, and put the words in a strip of their own
+   underneath rather than across the bottom of the image. The photographs
+   keep the other treatment, because with a photograph the picture is the
+   whole point and a crop costs it nothing.
+   ------------------------------------------------------------------------- */
+
+.hv2-card.is-plate { aspect-ratio: auto; }
+.hv2-card.is-plate .hv2-card-stack {
+  position: relative; inset: auto;
+  width: 100%; aspect-ratio: var(--shot, 16 / 10);
+}
+/* Whole, never cropped: the two shots of one project are not always the same
+   shape, so the one that is not the frame's shape sits inside it. */
+.hv2-card.is-plate .hv2-card-shot { object-fit: contain; }
+
+.hv2-card.is-plate .hv2-card-body {
+  position: static; inset: auto;
+  padding: .8rem .9rem .85rem;
+  color: var(--hv2-ink, #2b241e);
+  background: rgba(255, 255, 255, .82);
+  -webkit-backdrop-filter: none; backdrop-filter: none;
+  -webkit-mask-image: none; mask-image: none;
+  border-top: 1px solid rgba(43, 36, 30, .09);
+}
+.hv2-card.is-plate .hv2-card-kicker {
+  color: var(--accent, var(--hv2-violet-deep));
+}
+.hv2-card.is-plate .hv2-card-text { color: var(--hv2-soft); }
+.hv2-card.is-plate .hv2-card-go {
+  background: var(--accent, #2b241e); color: #fff;
+}
+
+
+/* ---- the About components themselves, shrunk ----------------------------
+
+   Not a picture of the skill cloud and the timeline: the components, lifted
+   out of about/index.html by tools/build-home-about.py and scaled down. The
+   stylesheet is the same one, so they arrive looking like themselves, and
+   they stay live at any size: the pills still answer the cursor.
+   ------------------------------------------------------------------------- */
+
+.hv2-card-stack.is-live {
+  aspect-ratio: 1.3 / 1;
+  background: var(--paper-soft, #fffefa);
+}
+.hv2-card.is-plate .hv2-card-stack.is-live { aspect-ratio: 1.3 / 1; }
+
+.hv2-card-live {
+  --k: .46;
+  position: absolute; top: 0; left: 0;
+  width: calc(100% / var(--k));
+  padding: 1.1rem 1.2rem;
+  transform: scale(var(--k));
+  transform-origin: top left;
+}
+/* The timeline is the taller of the two and wants to start at the top. */
+.hv2-card-live .about-experience-timeline { margin: 0; }
+.hv2-card-live .about-skill-cloud { margin: 0; }

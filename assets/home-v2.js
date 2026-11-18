@@ -26,19 +26,22 @@ const VIOLET = '#8b7fd4';
    how far down its feet are. Several of the new pieces carry a wide
    transparent margin, and a tag hung off the picture's edge floats away
    from the thing it names. Measured from the alpha channel. */
+// x0 and x1 are the same alpha measurement sideways: where the figure really
+// starts and stops inside its picture. The hover card sits off those, so it
+// keeps one distance from every figure rather than from every picture box.
 const ART = {
-  'me-calligraphy': { cx: 0.510, foot: 0.984 },
-  'me-climb': { cx: 0.500, foot: 0.992 },
-  'me-ecoscan': { cx: 0.490, foot: 0.985 },
-  'me-popo': { cx: 0.500, foot: 1.000 },
-  'me-explorations': { cx: 0.515, foot: 0.963 },
-  'me-game': { cx: 0.497, foot: 1.000 },
-  'me-merlin-2': { cx: 0.547, foot: 0.963 },
-  'me-paira': { cx: 0.496, foot: 0.986 },
-  'me-portrait': { cx: 0.531, foot: 1.000 },
-  'me-skills-2': { cx: 0.545, foot: 0.910 },
-  'me-tennis': { cx: 0.505, foot: 1.000 },
-  'me-work-2': { cx: 0.500, foot: 1.000 },
+  'me-calligraphy': { cx: 0.510, foot: 0.984, x0: 0.000, x1: 0.999 },
+  'me-climb': { cx: 0.500, foot: 0.992, x0: 0.000, x1: 1.000 },
+  'me-ecoscan': { cx: 0.490, foot: 0.985, x0: 0.000, x1: 1.000 },
+  'me-popo': { cx: 0.500, foot: 1.000, x0: 0.000, x1: 1.000 },
+  'me-explorations': { cx: 0.515, foot: 0.963, x0: 0.000, x1: 0.989 },
+  'me-game': { cx: 0.497, foot: 1.000, x0: 0.000, x1: 1.000 },
+  'me-merlin-2': { cx: 0.547, foot: 0.963, x0: 0.000, x1: 0.974 },
+  'me-paira': { cx: 0.496, foot: 0.986, x0: 0.000, x1: 1.000 },
+  'me-portrait': { cx: 0.531, foot: 1.000, x0: 0.000, x1: 1.000 },
+  'me-skills-2': { cx: 0.545, foot: 0.910, x0: 0.229, x1: 0.862 },
+  'me-tennis': { cx: 0.505, foot: 1.000, x0: 0.000, x1: 1.000 },
+  'me-work-2': { cx: 0.500, foot: 1.000, x0: 0.000, x1: 1.000 },
 };
 
 const NODES = [
@@ -357,10 +360,6 @@ const SHOTS = {
          '/assets/img/game/play-full-table.jpg'],
   archive: ['/assets/img/explorations/assets-final-cover-process.webp',
             '/assets/img/physical-computing-overview.png'],
-  // Skills and Experience show the About page itself, rendered from its own
-  // markup and its own stylesheet.
-  skills: ['/assets/img/home-v2/photos/about-skills.webp'],
-  work: ['/assets/img/home-v2/photos/about-experience.webp'],
   // Her photographs.
   me: ['/assets/img/home-v2/photos/olivia-portrait.webp'],
   calligraphy: ['/assets/img/home-v2/photos/calligraphy-2026-calendars.webp',
@@ -376,17 +375,34 @@ function fillCard(n) {
   card.style.setProperty('--accent', n.accent);
   // A project shows its project picture. Everything else shows its own clay
   // figure, so every card is the same shape rather than some being shorter.
+  // Skills and Experience show the About page's own components, shrunk,
+  // rather than a picture of them: they stay live at any size.
+  const live = window.HV2_ABOUT && window.HV2_ABOUT[n.id];
   const shots = SHOTS[n.id] || [n.media || (IMG + n.img + '.webp')];
-  const art = !n.media && !SHOTS[n.id];
+  const art = !live && !n.media && !SHOTS[n.id];
   // The four case studies are landscape, because their pictures are. The rest
   // read better upright, which is also the shape of a photograph of a person.
   card.classList.toggle('is-portrait', !WIDE.has(n.id));
+  card.classList.toggle('is-plate', WIDE.has(n.id));
+  card.style.removeProperty('--shot');
+  const first = card.querySelector('.hv2-card-shot');
+  if (first) {
+    const fit = () => {
+      if (!first.naturalWidth) return;
+      card.style.setProperty('--shot', first.naturalWidth + ' / ' + first.naturalHeight);
+    };
+    if (first.complete) fit();
+    else first.addEventListener('load', fit, { once: true });
+  }
   card.innerHTML =
-    '<div class="hv2-card-stack' + (art ? ' is-art' : '') + '">' +
-      shots.map((src, i) =>
-        '<img class="hv2-card-shot' + (i ? '' : ' is-on') +
-        '" src="' + src + '" alt="" decoding="async" />').join('') +
-    '</div>' +
+    (live
+      ? '<div class="hv2-card-stack is-live"><div class="hv2-card-live">'
+        + live + '</div></div>'
+      : '<div class="hv2-card-stack' + (art ? ' is-art' : '') + '">' +
+          shots.map((src, i) =>
+            '<img class="hv2-card-shot' + (i ? '' : ' is-on') +
+            '" src="' + src + '" alt="" decoding="async" />').join('') +
+        '</div>') +
     '<div class="hv2-card-body">' +
       '<div class="hv2-card-copy">' +
         '<p class="hv2-card-kicker">' + n.kicker + '</p>' +
@@ -396,13 +412,24 @@ function fillCard(n) {
     '</div>';
 }
 
-function placeCard(el) {
-  const r = el.getBoundingClientRect();
+function placeCard(el, n) {
+  const box = el.getBoundingClientRect();
+  // me-skills-2 carries almost a quarter of its width as empty pixels, so
+  // measuring from the box put its card much further out than the rest.
+  const a = (n && ART[n.img]) || { x0: 0, x1: 1 };
+  const r = {
+    left: box.left + box.width * a.x0,
+    right: box.left + box.width * a.x1,
+    width: box.width * (a.x1 - a.x0),
+    top: box.top, height: box.height,
+  };
   const w = card.offsetWidth, h = card.offsetHeight, gap = 16;
   let x = r.right + gap;
   if (x + w > window.innerWidth - 12) x = r.left - gap - w;
   if (x < 12) x = Math.min(Math.max(12, r.left + r.width / 2 - w / 2), window.innerWidth - w - 12);
-  let y = Math.min(Math.max(12, r.top + r.height / 2 - h / 2), window.innerHeight - h - 12);
+  // The cue has the bottom strip to itself, so a tall card stops above it.
+  const floor = window.innerHeight - h - 42;
+  let y = Math.min(Math.max(12, r.top + r.height / 2 - h / 2), floor);
   card.style.left = Math.round(x) + 'px';
   card.style.top = Math.round(y) + 'px';
   // Come from the figure: left of it, right of it, or straight up.
@@ -445,7 +472,7 @@ function open(el) {
   card.classList.toggle('has-link', !!n.href);
   cue.classList.toggle('is-on', !!n.href);
   runSlides();
-  requestAnimationFrame(() => placeCard(el));
+  requestAnimationFrame(() => placeCard(el, n));
   field.classList.add('is-reading');
   NODES.forEach(x => x.el.classList.toggle('is-active', x.el === el));
 }
