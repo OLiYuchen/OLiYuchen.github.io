@@ -367,9 +367,8 @@ const SHOTS = {
   popo: ['/assets/img/home-v2/photos/popo-in-the-sun.webp'],
   tennis: ['/assets/img/home-v2/photos/tennis-courts-at-dusk.webp'],
   bouldering: ['/assets/img/home-v2/photos/bouldering-wall.webp'],
-  // Her own portrait from the About page, and the places the About page
-  // lists, in the order it lists them.
-  me: ['/assets/img/home-v2/photos/about-portrait.webp'],
+  // Her own portrait, and the places the About page lists, in its order.
+  me: ['/assets/img/home-v2/photos/olivia-portrait.webp'],
   work: ['/assets/img/about-logos/fosun.png',
          '/assets/img/about-logos/paira.png',
          '/assets/img/about-logos/cornell.png',
