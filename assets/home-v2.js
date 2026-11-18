@@ -418,8 +418,11 @@ function placeCard(el, n) {
   if (x + w > window.innerWidth - 12) x = r.left - gap - w;
   if (x < 12) x = Math.min(Math.max(12, r.left + r.width / 2 - w / 2), window.innerWidth - w - 12);
   // The cue keeps its place: a card stops short of it rather than over it.
+  // While the cue is parked it has no box at all, and a floor measured off
+  // nothing put every card above the top of the window.
   const q = cue.getBoundingClientRect();
-  const floor = Math.min(window.innerHeight - h - 12, q.top - 14 - h);
+  const low = window.innerHeight - h - 12;
+  const floor = q.height > 0 ? Math.min(low, q.top - 14 - h) : low;
   let y = Math.min(Math.max(12, r.top + r.height / 2 - h / 2), floor);
   card.style.left = Math.round(x) + 'px';
   card.style.top = Math.round(y) + 'px';
