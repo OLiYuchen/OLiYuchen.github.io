@@ -53,12 +53,12 @@ const NODES = [
     tags:['0 to 1 product','UX research','Brand and motion'], href:'/about/' },
 
   /* ---- ring 1: who she is ----------------------------------------------- */
-  { id:'skills', ring:1, cx:0.4782, cy:0.7409, bw:190.0, bh:127.0, img:'me-skills-2', label:'Skills', accent:ROSE,
+  { id:'skills', ring:1, cx:0.4900, cy:0.7560, bw:190.0, bh:127.0, img:'me-skills-2', label:'Skills', accent:ROSE,
     kicker:'About', title:'Skills',
     text:'Product strategy, UX research, interaction, design systems, AI experience.',
     tags:['Product strategy','UX research','AI experience design','Design engineering'], href:'/about/#about-skills-title' },
 
-  { id:'work', ring:1, cx:0.2966, cy:0.8331, bw:119.0, bh:97.0, img:'me-work-2', label:'Experience', accent:ROSE,
+  { id:'work', ring:1, cx:0.3080, cy:0.8331, bw:119.0, bh:97.0, img:'me-work-2', label:'Experience', accent:ROSE,
     kicker:'About', title:'Experience',
     text:'Paira, Fosun International, Cornell Lab of Ornithology, UW HCDE, UW GIX.',
     tags:['Paira','Fosun','Cornell Lab','UW HCDE','UW GIX'], href:'/about/#about-experience-title' },
@@ -441,6 +441,14 @@ let openHref = null;
 // card open across it, and let the card itself cancel the close.
 let closing = null;
 
+// One timer, never two. Leaving the figure and leaving the field can both
+// happen in the same movement, and each starting its own timer left one of
+// them running loose: it fired under the cursor and shut the card.
+function closeSoon() {
+  clearTimeout(closing);
+  closing = setTimeout(close, 180);
+}
+
 // The photographs change while you hover, rather than one picture sitting
 // still. Each shot holds for just under two seconds.
 function runSlides() {
@@ -457,10 +465,12 @@ function runSlides() {
 
 function open(el) {
   const n = NODES.find(x => x.id === el.dataset.id);
-  if (!n || openId === n.id) return;
+  if (!n) return;
+  // Whatever else happens, being on a figure means the card stays.
+  clearTimeout(closing);
+  if (openId === n.id) return;
   openId = n.id;
   fillCard(n);
-  clearTimeout(closing);
   openHref = n.href || null;
   card.classList.add('is-open');
   card.classList.toggle('has-link', !!n.href);
@@ -487,19 +497,17 @@ function wire() {
     const el = n.el;
     el.addEventListener('pointerenter', () => open(el));
     el.addEventListener('focus', () => open(el));
-    el.addEventListener('pointerleave', () => {
-      closing = setTimeout(close, 180);
-    });
+    el.addEventListener('pointerleave', closeSoon);
     el.addEventListener('blur', close);
   });
 
   // The card is part of the thing you are hovering, and it goes where the
   // figure goes when you click it.
   card.addEventListener('pointerenter', () => clearTimeout(closing));
-  card.addEventListener('pointerleave', close);
+  card.addEventListener('pointerleave', closeSoon);
   card.addEventListener('click', () => { if (openHref) window.location.href = openHref; });
 
-  field.addEventListener('pointerleave', () => { closing = setTimeout(close, 180); });
+  field.addEventListener('pointerleave', closeSoon);
   window.addEventListener('scroll', () => { if (openId) close(); }, { passive: true });
 
 
