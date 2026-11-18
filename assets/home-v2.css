@@ -392,6 +392,9 @@ button.hv2-node { cursor: default; }
 /* Held still while the layout is being solved. */
 /* Nothing moves on its own here any more; the class is kept because the
    solver still wants the entrance animation finished before it measures. */
+/* Until the opening starts. The script adds this, so without the script the
+   figures simply show. */
+.hv2-field.is-entering .hv2-node-inner { opacity: 0; }
 .hv2-field.is-measuring .hv2-node-inner,
 .hv2-field.is-measuring .hv2-node img { animation: none; }
 

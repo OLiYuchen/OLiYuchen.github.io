@@ -305,15 +305,36 @@ function fitField() {
   return h;
 }
 
+/* Measure the figures where they rest, not where an animation has them this
+   frame, without ending the animation. Every animation is wound to its end,
+   the work is done, and each is wound back to where it was. It all happens
+   inside one task, so nothing is painted in between.
+
+   layout() used to finish the animations outright before measuring, and it
+   runs four or five times as the page loads - so the opening was ended
+   within forty milliseconds of starting, before anyone could see it. */
+function atRest(fn) {
+  const held = [];
+  NODES.forEach(n => n.el.getAnimations({ subtree: true }).forEach(a => {
+    if (a.currentTime == null || !a.effect) return;
+    held.push([a, a.currentTime]);
+    try { a.currentTime = a.effect.getComputedTiming().endTime; } catch (e) {}
+  }));
+  try { return fn(); }
+  finally { held.forEach(([a, t]) => { try { a.currentTime = t; } catch (e) {} }); }
+}
+
 function layout() {
   fitField();
   const box = field.getBoundingClientRect();
   const W = box.width, H = box.height;
   if (!W || !H) return;
   field.classList.add('is-measuring');
-  NODES.forEach(n => n.el.getAnimations({ subtree: true })
-    .forEach(a => { try { a.finish(); } catch (e) {} }));
+  atRest(() => settle(W, H));
+  field.classList.remove('is-measuring');
+}
 
+function settle(W, H) {
   const F = frame(W);
   let scale = Math.min(W / F.w, H / F.h);
   place(scale, W, H);
@@ -326,7 +347,6 @@ function layout() {
     scale *= 0.97;
     place(scale, W, H);
   }
-  field.classList.remove('is-measuring');
 }
 
 /* ---------- the card ------------------------------------------------------ */
@@ -648,10 +668,12 @@ function stamp() {
 }
 
 build();
+// Hidden until the opening starts, so nobody sees them standing in place
+// first and then jump back to fly in.
+if (!reduced) field.classList.add('is-entering');
 layout();
 stamp();
 wire();
-entrance();
 
 let resizeTimer;
 const relayout = () => { window.clearTimeout(resizeTimer); resizeTimer = window.setTimeout(layout, 110); };
@@ -662,10 +684,25 @@ if ('ResizeObserver' in window) new ResizeObserver(relayout).observe(document.bo
 /* The first pass runs before the figures have arrived, so it measures boxes
    that are not their real shape and settles on a smaller scale than the field
    can take. These three run it again once the page is actually itself. */
-Promise.all(
-  [...field.querySelectorAll('img')].map(img =>
-    img.decode ? img.decode().catch(() => {}) : Promise.resolve())
-).then(layout);
+Promise.race([
+  Promise.all([...field.querySelectorAll('img')].map(img =>
+    img.decode ? img.decode().catch(() => {}) : Promise.resolve())),
+  // A slow connection gets the opening anyway, a little later.
+  new Promise(r => window.setTimeout(r, 1500)),
+]).then(() => {
+  layout();
+  // The opening waits for its audience: a page opened in a background tab
+  // plays it when the tab is looked at, not unseen.
+  const go = () => {
+    try { entrance(); } finally { field.classList.remove('is-entering'); }
+  };
+  if (!document.hidden) { go(); return; }
+  document.addEventListener('visibilitychange', function seen() {
+    if (document.hidden) return;
+    document.removeEventListener('visibilitychange', seen);
+    go();
+  });
+});
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
 window.addEventListener('load', () => { layout(); stamp(); });
 
@@ -678,12 +715,8 @@ window.addEventListener('pageshow', (e) => {
   if (e.persisted) {
     NODES.forEach(n => n.el.getAnimations({ subtree: true })
       .forEach(a => { try { a.finish(); } catch (err) {} }));
+    field.classList.remove('is-entering');
   }
   layout();
-});
-document.addEventListener('visibilitychange', () => {
-  if (document.visibilityState !== 'visible') return;
-  NODES.forEach(n => n.el.getAnimations({ subtree: true })
-    .forEach(a => { try { a.finish(); } catch (e) {} }));
 });
 window.setTimeout(() => { layout(); stamp(); }, 2200);
