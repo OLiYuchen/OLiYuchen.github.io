@@ -133,6 +133,9 @@ function build() {
         '<span class="hv2-node-plate" aria-hidden="true"></span>' +
         '<img src="' + IMG + n.img + '.webp" alt="" decoding="async" />' +
         '<span class="hv2-node-label">' + n.label + '</span>' +
+        (n.href
+          ? '<span class="hv2-node-cue" aria-hidden="true">Click to view more'
+            + ' <span>&#8594;</span></span>' : '') +
       '</span>';
     n.el = el;
     n.img_el = el.querySelector('img');
@@ -333,26 +336,50 @@ function layout() {
 // The four case studies. Everything else gets the upright card.
 const WIDE = new Set(['paira', 'merlin', 'ecoscan', 'game']);
 
+// What the card shows while you hover. Every path here is a file that is
+// already on the site; where a figure has only one, the card simply holds it.
+const SHOTS = {
+  paira: ['/assets/img/paira/paira-home-overview.webp',
+          '/assets/img/paira/brand-gallery/app-store-feature-mockup.webp',
+          '/assets/img/paira/brand-gallery/app-store-poster-01.webp',
+          '/assets/img/paira/paira-overview.webp'],
+  merlin: ['/assets/img/home/merlin-bird-id.webp',
+           '/assets/img/Merlin%20Capstone%20png/Design%20directions%20-%20idea%201.png',
+           '/assets/img/Merlin%20Capstone%20png/Design%20directions%20-%20idea%202.png',
+           '/assets/img/merlin-redesign-assets/types-of-novice.svg'],
+  ecoscan: ['/assets/img/home/ecoscan.webp',
+            '/assets/img/ecoscan/overview-full.png',
+            '/assets/img/ecoscan/qr-scan.png',
+            '/assets/img/ecoscan/app-flow.png'],
+  game: ['/assets/img/home/game-overview.webp',
+         '/assets/img/game/play-full-table.jpg',
+         '/assets/img/game/cards-collection.png',
+         '/assets/img/game/beta-test-class.jpg'],
+  archive: ['/assets/img/explorations/assets-final-cover-process.webp',
+            '/assets/img/explorations/pwm-fading-poster.webp',
+            '/assets/img/explorations/photoresistor-input-poster.webp'],
+};
+
 function fillCard(n) {
   card.style.setProperty('--accent', n.accent);
   // A project shows its project picture. Everything else shows its own clay
   // figure, so every card is the same shape rather than some being shorter.
-  const src = n.media || (IMG + n.img + '.webp');
+  const shots = SHOTS[n.id] || [n.media || (IMG + n.img + '.webp')];
+  const art = !n.media && !SHOTS[n.id];
   // The four case studies are landscape, because their pictures are. The rest
   // read better upright, which is also the shape of a photograph of a person.
   card.classList.toggle('is-portrait', !WIDE.has(n.id));
   card.innerHTML =
-    '<img class="hv2-card-media' + (n.media ? '' : ' is-art') +
-      '" src="' + src + '" alt="" />' +
-    '<span class="hv2-card-sheen" aria-hidden="true"></span>' +
+    '<div class="hv2-card-stack' + (art ? ' is-art' : '') + '">' +
+      shots.map((src, i) =>
+        '<img class="hv2-card-shot' + (i ? '' : ' is-on') +
+        '" src="' + src + '" alt="" decoding="async" />').join('') +
+    '</div>' +
     '<div class="hv2-card-body">' +
       '<div class="hv2-card-copy">' +
         '<p class="hv2-card-kicker">' + n.kicker + '</p>' +
         '<h2 class="hv2-card-title">' + n.title + '</h2>' +
         '<p class="hv2-card-text">' + n.text + '</p>' +
-        (n.href
-          ? '<p class="hv2-card-cue">Click to view more'
-            + ' <span aria-hidden="true">&#8594;</span></p>' : '') +
         (n.todo && document.body.classList.contains('show-todo-notes')
           ? '<p class="hv2-card-todo">Clay pose still to make: ' + n.todo + '</p>' : '') +
       '</div>' +
@@ -371,6 +398,21 @@ function placeCard(el) {
 }
 
 let openId = null;
+let slides = null;
+
+// The photographs change while you hover, rather than one picture sitting
+// still. Each shot holds for just under two seconds.
+function runSlides() {
+  clearInterval(slides);
+  const shots = card.querySelectorAll('.hv2-card-shot');
+  if (shots.length < 2) return;
+  let i = 0;
+  slides = setInterval(() => {
+    shots[i].classList.remove('is-on');
+    i = (i + 1) % shots.length;
+    shots[i].classList.add('is-on');
+  }, 1900);
+}
 
 function open(el) {
   const n = NODES.find(x => x.id === el.dataset.id);
@@ -378,6 +420,7 @@ function open(el) {
   openId = n.id;
   fillCard(n);
   card.classList.add('is-open');
+  runSlides();
   requestAnimationFrame(() => placeCard(el));
   field.classList.add('is-reading');
   NODES.forEach(x => x.el.classList.toggle('is-active', x.el === el));
@@ -385,6 +428,7 @@ function open(el) {
 
 function close() {
   openId = null;
+  clearInterval(slides);
   card.classList.remove('is-open');
   field.classList.remove('is-reading');
   NODES.forEach(x => x.el.classList.remove('is-active'));
