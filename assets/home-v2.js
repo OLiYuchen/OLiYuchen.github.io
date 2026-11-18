@@ -337,55 +337,47 @@ function layout() {
 // What it is and what was done, nothing else. The tags repeated the kicker
 // and the sentence, and the three of them together made the card tall.
 // The four case studies. Everything else gets the upright card.
-const WIDE = new Set(['paira', 'merlin', 'ecoscan', 'game']);
+// Landscape where the picture is a wide one: the four case studies, the
+// explorations, and the two slices of the About page.
+const WIDE = new Set(['paira', 'merlin', 'ecoscan', 'game',
+                      'archive', 'skills', 'work']);
 
 // What the card shows while you hover. Every path here is a file that is
 // already on the site; where a figure has only one, the card simply holds it.
 const SHOTS = {
+  // Two each: the cover this homepage already shows, and the hero image you
+  // land on when you click through.
   paira: ['/assets/img/paira/paira-home-overview.webp',
-          '/assets/img/paira/brand-gallery/app-store-feature-mockup.webp',
-          '/assets/img/paira/brand-gallery/app-store-poster-01.webp',
-          '/assets/img/paira/paira-overview.webp'],
+          '/assets/img/paira/paira-hero.webp'],
   merlin: ['/assets/img/home/merlin-bird-id.webp',
-           '/assets/img/Merlin%20Capstone%20png/Design%20directions%20-%20idea%201.png',
-           '/assets/img/Merlin%20Capstone%20png/Design%20directions%20-%20idea%202.png',
-           '/assets/img/merlin-redesign-assets/types-of-novice.svg'],
+           '/assets/img/merlin-bird-id.png'],
   ecoscan: ['/assets/img/home/ecoscan.webp',
-            '/assets/img/ecoscan/overview-full.png',
-            '/assets/img/ecoscan/qr-scan.png',
-            '/assets/img/ecoscan/app-flow.png'],
+            '/assets/img/ecoscan/overview-full.png'],
   game: ['/assets/img/home/game-overview.webp',
-         '/assets/img/game/play-full-table.jpg',
-         '/assets/img/game/cards-collection.png',
-         '/assets/img/game/beta-test-class.jpg'],
-  archive: ['/assets/img/home-v2/photos/making-laser-cut-house.webp',
-            '/assets/img/explorations/assets-final-cover-process.webp',
-            '/assets/img/explorations/pwm-fading-poster.webp',
-            '/assets/img/explorations/photoresistor-input-poster.webp'],
+         '/assets/img/game/play-full-table.jpg'],
+  archive: ['/assets/img/explorations/assets-final-cover-process.webp',
+            '/assets/img/physical-computing-overview.png'],
+  // Skills and Experience show the About page itself, rendered from its own
+  // markup and its own stylesheet.
+  skills: ['/assets/img/home-v2/photos/about-skills.webp'],
+  work: ['/assets/img/home-v2/photos/about-experience.webp'],
+  // Her photographs.
+  me: ['/assets/img/home-v2/photos/olivia-portrait.webp'],
   calligraphy: ['/assets/img/home-v2/photos/calligraphy-2026-calendars.webp',
                 '/assets/img/home/header-calligraphy.webp'],
   popo: ['/assets/img/home-v2/photos/popo-in-the-sun.webp'],
   tennis: ['/assets/img/home-v2/photos/tennis-courts-at-dusk.webp'],
   bouldering: ['/assets/img/home-v2/photos/bouldering-wall.webp'],
-  // Her own portrait, and the places the About page lists, in its order.
-  me: ['/assets/img/home-v2/photos/olivia-portrait.webp'],
-  work: ['/assets/img/about-logos/fosun.png',
-         '/assets/img/about-logos/paira.png',
-         '/assets/img/about-logos/cornell.png',
-         '/assets/img/about-logos/hcde.png',
-         '/assets/img/about-logos/weget.png',
-         '/assets/img/about-logos/starbucks.png'],
 };
 
-// Marks rather than photographs: they sit in the frame instead of filling it.
-const CONTAIN = new Set(['work']);
+
 
 function fillCard(n) {
   card.style.setProperty('--accent', n.accent);
   // A project shows its project picture. Everything else shows its own clay
   // figure, so every card is the same shape rather than some being shorter.
   const shots = SHOTS[n.id] || [n.media || (IMG + n.img + '.webp')];
-  const art = CONTAIN.has(n.id) || (!n.media && !SHOTS[n.id]);
+  const art = !n.media && !SHOTS[n.id];
   // The four case studies are landscape, because their pictures are. The rest
   // read better upright, which is also the shape of a photograph of a person.
   card.classList.toggle('is-portrait', !WIDE.has(n.id));
@@ -398,7 +390,7 @@ function fillCard(n) {
     '<div class="hv2-card-body">' +
       '<div class="hv2-card-copy">' +
         '<p class="hv2-card-kicker">' + n.kicker + '</p>' +
-        '<h2 class="hv2-card-title">' + n.title + '</h2>' +
+        '<p class="hv2-card-text">' + n.text + '</p>' +
       '</div>' +
       (n.href ? '<span class="hv2-card-go" aria-hidden="true">&#8594;</span>' : '') +
     '</div>';
@@ -423,6 +415,10 @@ function placeCard(el) {
 
 let openId = null;
 let slides = null;
+let openHref = null;
+// Moving the cursor off the figure and onto the card crosses a gap. Hold the
+// card open across it, and let the card itself cancel the close.
+let closing = null;
 
 // The photographs change while you hover, rather than one picture sitting
 // still. Each shot holds for just under two seconds.
@@ -443,7 +439,10 @@ function open(el) {
   if (!n || openId === n.id) return;
   openId = n.id;
   fillCard(n);
+  clearTimeout(closing);
+  openHref = n.href || null;
   card.classList.add('is-open');
+  card.classList.toggle('has-link', !!n.href);
   cue.classList.toggle('is-on', !!n.href);
   runSlides();
   requestAnimationFrame(() => placeCard(el));
@@ -452,7 +451,9 @@ function open(el) {
 }
 
 function close() {
+  clearTimeout(closing);
   openId = null;
+  openHref = null;
   clearInterval(slides);
   cue.classList.remove('is-on');
   card.classList.remove('is-open');
@@ -465,10 +466,19 @@ function wire() {
     const el = n.el;
     el.addEventListener('pointerenter', () => open(el));
     el.addEventListener('focus', () => open(el));
-    el.addEventListener('pointerleave', close);
+    el.addEventListener('pointerleave', () => {
+      closing = setTimeout(close, 180);
+    });
     el.addEventListener('blur', close);
   });
-  field.addEventListener('pointerleave', close);
+
+  // The card is part of the thing you are hovering, and it goes where the
+  // figure goes when you click it.
+  card.addEventListener('pointerenter', () => clearTimeout(closing));
+  card.addEventListener('pointerleave', close);
+  card.addEventListener('click', () => { if (openHref) window.location.href = openHref; });
+
+  field.addEventListener('pointerleave', () => { closing = setTimeout(close, 180); });
   window.addEventListener('scroll', () => { if (openId) close(); }, { passive: true });
 
 

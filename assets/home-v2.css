@@ -150,17 +150,21 @@ body.hv2 { isolation: auto; }
    land differently from the next. */
 .hv2-card {
   position: fixed; z-index: 6;
-  width: min(23rem, 84vw); aspect-ratio: 2.3 / 1;
+  width: min(23rem, 84vw); aspect-ratio: 1.15 / 1;
   overflow: hidden; isolation: isolate;
   border-radius: .95rem;
   border: 1px solid rgba(255, 255, 255, .5);
   box-shadow:
     0 26px 58px -20px color-mix(in srgb, var(--accent, #2b241e) 62%, transparent),
     0 6px 16px -6px rgba(43, 36, 30, .3);
-  pointer-events: none;
+  /* It can be clicked now, so it also has to stay open while the cursor is
+     on it, which the close delay in the script handles. */
+  pointer-events: auto;
   opacity: 0;
   transition: opacity .2s var(--hv2-ease);
 }
+.hv2-card:not(.is-open) { pointer-events: none; }
+.hv2-card.has-link { cursor: pointer; }
 .hv2-card.is-open { opacity: 1; }
 /* 2.3 to 1, the ratio the live homepage shows these same pictures at. The
    frame holds every shot that figure has and shows one at a time. */
@@ -233,7 +237,7 @@ body.hv2 { isolation: auto; }
 .hv2-card-body {
   position: absolute; inset: auto 0 0 0; z-index: 2;
   display: flex; align-items: flex-end; gap: .6rem;
-  padding: 1.6rem .8rem .68rem;
+  padding: 2.2rem .9rem .85rem;
   color: #fff;
   background: linear-gradient(to top,
     rgba(24, 19, 15, .9) 0%, rgba(24, 19, 15, .66) 52%, transparent 100%);
@@ -244,7 +248,7 @@ body.hv2 { isolation: auto; }
 }
 .hv2-card-copy { flex: 1 1 auto; min-width: 0; }
 .hv2-card-kicker {
-  margin: 0 0 .2rem; font-size: .58rem; font-weight: 700; letter-spacing: .15em;
+  margin: 0 0 .32rem; font-size: .6rem; font-weight: 700; letter-spacing: .15em;
   text-transform: uppercase;
   color: color-mix(in srgb, var(--accent, #fff) 55%, #fff);
 }
@@ -253,8 +257,8 @@ body.hv2 { isolation: auto; }
   font-size: 1.28rem; font-weight: 600; line-height: 1.04; color: #fff;
 }
 .hv2-card-text {
-  margin: 0; font-size: .76rem; line-height: 1.36;
-  color: rgba(255, 255, 255, .8);
+  margin: 0; font-size: .82rem; line-height: 1.42;
+  color: rgba(255, 255, 255, .86);
 }
 /* The small arrow the clickable ones used to carry. */
 .hv2-card-go {
