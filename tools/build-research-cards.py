@@ -18,7 +18,7 @@ from datetime import date
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 OUT = ROOT / "drafts" / "research-card.html"
-CSS_V = "2026111809"
+CSS_V = "2026111811"
 
 
 def months(a, b):
@@ -30,6 +30,7 @@ def months(a, b):
 PROJECTS = [
     {
         "name": "Paira",
+        "show": True,
         "note": "Four rounds.",
         "span": (date(2025, 8, 1), date(2026, 9, 1)),
         "span_label": ("Aug 2025", "Sep 2026"),
@@ -37,7 +38,8 @@ PROJECTS = [
             {
                 "subject": "The first interviews",
                 "sittings": [{"n": 5, "unit": "people", "how": "interviews"}],
-                "when": None, "when_label": "month to confirm",
+                "when": None, "when_range": (date(2025, 8, 1), date(2025, 11, 1)),
+                "when_label": "Aug&ndash;Nov 2025",
                 "signals": [
                     ("All five wanted career help through something lighter than what exists today.",
                      "The premise the product was built on."),
@@ -51,8 +53,8 @@ PROJECTS = [
                 "subject": "The pivot",
                 "sittings": [{"n": 6, "unit": "people", "label": "6 or more",
                               "how": "one-on-one think-aloud"}],
-                "when": None, "when_range": (date(2025, 11, 1), date(2026, 3, 1)),
-                "when_label": "before spring 2026",
+                "when": None, "when_range": (date(2026, 2, 1), date(2026, 4, 1)),
+                "when_label": "Feb&ndash;Apr 2026",
                 "signals": [
                     ("One-shot AI was not enough. Search understood the intent, then left people on their own.",
                      "Intent needed a guided path from the ask to the match."),
@@ -95,7 +97,10 @@ PROJECTS = [
         ],
     },
     {
+        # Off for now: the card was asked for on Paira. The rounds stay here so
+        # turning this back on is one word.
         "name": "Merlin Bird ID",
+        "show": False,
         "note": "Three rounds.",
         "span": (date(2025, 1, 1), date(2025, 6, 1)),
         "span_label": ("Jan 2025", "Jun 2025"),
@@ -226,26 +231,33 @@ HEAD = '''<!DOCTYPE html>
     <h1>One shape for every round.</h1>
     <p>The two numbers the card is about are drawn, not only written. The sample
        is one mark per person, so five and fifty are told apart before they are
-       read. The date is a marker on the project&rsquo;s own run, so a column of
-       cards reads as a timeline. Everything else is type, in one colour.</p>
+       read. The date sits on the project&rsquo;s own run, as a dot where the day
+       is known and as a span where only the stage is, so the four cards read
+       as one timeline. Everything else is type, in the page&rsquo;s own colour.</p>
   </header>
 ''' % CSS_V
 
 TAIL = '''
   <section class="rc-sec">
-    <p class="rc-kicker">What the cards are missing</p>
-    <h2>Five numbers I will not invent.</h2>
-    <p>Every card is filled from something already on the site. Where a month or
-       a count is not known the card shows the track with no marker, and says so
-       in grey. It is the only thing on the page that is grey.</p>
+    <p class="rc-kicker">What is placed, not pinned</p>
+    <h2>Four things to pin down.</h2>
+    <p>Every card is filled from something already on the site. Where the month
+       is not pinned the card draws a span rather than a dot, and the span is
+       taken from what the case study already says, never from a guess. Give me
+       a month and the span becomes a dot.</p>
     <ul class="rc-gaps">
-      <li><b>Paira, the first interviews</b> &mdash; which month.</li>
-      <li><b>Paira, the pivot</b> &mdash; which month, and the exact count. The page says six or more, so the card draws six and says so.</li>
-      <li><b>Paira, the mentor flow</b> &mdash; which month. You said three or four
-          people, so the card draws three filled marks and one open one. It is
-          written into the June card, which assumes those sessions sat in the
-          same window; say the word if they did not.</li>
-      <li><b>Merlin, all three rounds</b> &mdash; which month of 2025 each one ran.</li>
+      <li><b>The first interviews &mdash; Aug&ndash;Nov 2025.</b> The span is read
+          from the page: you joined in August 2025, and this is the research the
+          premise was built on.</li>
+      <li><b>The pivot &mdash; Feb&ndash;Apr 2026.</b> Beta testers were recruited
+          in February 2026 and the page says the rebuild landed in spring, so
+          the sessions sit between the two. The count is the other open one: the
+          page says six or more, so the card draws six and says so.</li>
+      <li><b>The mentor flow &mdash; three or four people.</b> Three marks filled
+          and one open. It is written into the June card, which places those
+          sessions in the same window as the TestFlight round.</li>
+      <li><b>Merlin</b> is switched off on this page, not deleted. Its three
+          rounds are still in the builder and come back in one word.</li>
     </ul>
   </section>
 </main>
@@ -257,7 +269,7 @@ TAIL = '''
 
 def main():
     body = []
-    for p in PROJECTS:
+    for p in [x for x in PROJECTS if x.get("show")]:
         body.append('\n  <section class="rc-sec">')
         body.append('    <p class="rc-kicker">%s</p>' % p["name"])
         body.append('    <h2>%s</h2>' % p["note"])
@@ -271,9 +283,10 @@ def main():
 
     OUT.parent.mkdir(exist_ok=True)
     OUT.write_text(HEAD + "\n".join(body) + TAIL)
-    n = sum(len(p["rounds"]) for p in PROJECTS)
-    print("%s: %d cards across %d projects"
-          % (OUT.relative_to(ROOT), n, len(PROJECTS)))
+    on = [x for x in PROJECTS if x.get("show")]
+    n = sum(len(p["rounds"]) for p in on)
+    print("%s: %d cards across %d projects (%d off)"
+          % (OUT.relative_to(ROOT), n, len(on), len(PROJECTS) - len(on)))
 
 
 if __name__ == "__main__":

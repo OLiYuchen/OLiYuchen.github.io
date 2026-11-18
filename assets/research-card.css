@@ -18,13 +18,15 @@
    Built by tools/build-research-cards.py.
    =========================================================================== */
 
+/* The page's own colours, not a second set. ink / ink-soft / line / accent
+   are style.css; the card sits on --paper and is cut from --paper-soft. */
 .rc-page {
-  --rc-ink: #221d18;
-  --rc-soft: #7b7268;
-  --rc-faint: rgba(34, 29, 24, 0.13);
-  --rc-accent: #3f3cc7;
-  --rc-unknown: #a79d91;
-  background: #fbf9f5;
+  --rc-ink: var(--ink);
+  --rc-soft: var(--ink-soft);
+  --rc-faint: var(--line);
+  --rc-accent: var(--accent);
+  --rc-accent-deep: var(--accent-deep);
+  background: var(--paper);
   color: var(--rc-ink);
 }
 
@@ -32,7 +34,7 @@
   position: sticky; top: 0; z-index: 9;
   display: flex; align-items: center; gap: .9rem; flex-wrap: wrap;
   padding: .55rem clamp(1rem, 3.5vw, 2.6rem);
-  background: var(--rc-ink); color: #fbf9f5;
+  background: var(--rc-ink); color: var(--paper);
   font-family: var(--font-body); font-size: .76rem;
 }
 .rc-bar b { font-size: .62rem; letter-spacing: .12em; text-transform: uppercase; }
@@ -104,12 +106,10 @@
 .rc-card {
   padding: clamp(1.3rem, 2.4vw, 1.7rem) clamp(1.3rem, 2.4vw, 1.6rem)
            clamp(1.45rem, 2.6vw, 1.8rem);
-  background: #fff;
-  border: 1px solid rgba(34, 29, 24, 0.085);
-  border-radius: 14px;
-  box-shadow:
-    0 1px 2px rgba(34, 29, 24, 0.035),
-    0 14px 30px -18px rgba(34, 29, 24, 0.22);
+  background: var(--paper-soft);
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  box-shadow: 0 18px 44px rgba(52, 39, 27, 0.07);
 }
 
 .rc-subject {
@@ -148,14 +148,14 @@
 .rc-dots-dense { grid-template-columns: repeat(10, 6px); gap: 3px; }
 .rc-dots-dense i { width: 6px; height: 6px; }
 
-.rc-dots-unknown i { background: none; border: 1px solid var(--rc-unknown); }
+.rc-dots-unknown i { background: none; border: 1px solid var(--rc-faint); }
 
 .rc-n {
   font-family: var(--font-body);
   font-size: .86rem; font-weight: 600;
   font-variant-numeric: tabular-nums;
 }
-.rc-unknown { color: var(--rc-unknown); font-weight: 500; }
+.rc-unknown { color: var(--rc-soft); font-weight: 500; }
 
 .rc-how {
   font-family: var(--font-body);
@@ -190,7 +190,7 @@
   position: absolute; top: 50%;
   height: 5px; margin-top: -2.5px;
   border-radius: 999px;
-  background: color-mix(in srgb, var(--rc-accent) 28%, transparent);
+  background: color-mix(in srgb, var(--rc-accent) 72%, transparent);
 }
 
 .rc-time .rc-when {
@@ -219,7 +219,7 @@
   font-family: var(--font-body);
   font-size: .68rem; font-weight: 600;
   font-variant-numeric: tabular-nums;
-  color: color-mix(in srgb, var(--rc-ink) 36%, transparent);
+  color: color-mix(in srgb, var(--rc-accent-deep) 58%, transparent);
 }
 
 .rc-signals h3 {
