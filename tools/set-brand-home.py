@@ -5,14 +5,14 @@ every page that carries them.
     python3 tools/set-brand-home.py
 
 Any <a class="brand"> whose link reads "Olivia Feng" is pointed at
-/home-v2.html, root-absolute so it works from any depth. The Portugal tool
+/, root-absolute so it works from any depth. The Portugal tool
 has its own brand and is left alone. Safe to run again.
 """
 import pathlib
 import re
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-HOME = "/home-v2.html"
+HOME = "/"
 BRAND = re.compile(r'(<a class="brand" href=")([^"]*)("[^>]*>)(.*?</a>)', re.S)
 
 
