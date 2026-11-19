@@ -48,3 +48,45 @@
     show(board.classList.contains('is-before'));
   });
 })();
+
+/* ---- What we built: keep the lit line in step with the film ---------------
+   Each line knows when its part of the film is on screen; clicking a line
+   plays the film from there. With reduced motion the film does not play and
+   every line simply reads. */
+(function () {
+  var video = document.querySelector('[data-paira-intro]');
+  if (!video) return;
+  var block = video.closest('.paira-intro');
+  var beats = [].slice.call(block.querySelectorAll('.paira-intro-beats li'));
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    video.removeAttribute('autoplay');
+    video.pause();
+    block.classList.add('is-still');
+    return;
+  }
+
+  function mark() {
+    var t = video.currentTime;
+    beats.forEach(function (li) {
+      li.classList.toggle('is-now',
+        t >= parseFloat(li.dataset.from) && t < parseFloat(li.dataset.to));
+    });
+  }
+  video.addEventListener('timeupdate', mark);
+  video.addEventListener('seeked', mark);
+
+  beats.forEach(function (li) {
+    li.querySelector('button').addEventListener('click', function () {
+      video.currentTime = parseFloat(li.dataset.from) + 0.05;
+      var p = video.play();
+      if (p && p.catch) p.catch(function () {});
+      mark();
+    });
+  });
+
+  // If autoplay is refused, the lines are not waiting on a film that never
+  // starts.
+  var p = video.play();
+  if (p && p.catch) p.catch(function () { block.classList.add('is-still'); });
+})();
