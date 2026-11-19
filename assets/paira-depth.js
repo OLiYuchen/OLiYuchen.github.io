@@ -49,44 +49,45 @@
   });
 })();
 
-/* ---- What we built: keep the lit line in step with the film ---------------
-   Each line knows when its part of the film is on screen; clicking a line
-   plays the film from there. With reduced motion the film does not play and
-   every line simply reads. */
+/* ---- What we built: the film plays once, when it is seen ------------------
+   It starts when most of it is on screen, plays to the end and holds there on
+   the logo, and offers to play again. It does not loop: a film that keeps
+   going under the reader's eye while they read the next section is noise.
+   With reduced motion it does not play by itself; it shows the frame with
+   both sides of the app and gives the reader the controls. */
 (function () {
-  var video = document.querySelector('[data-paira-intro]');
+  var video = document.querySelector('[data-paira-film]');
   if (!video) return;
-  var block = video.closest('.paira-intro');
-  var beats = [].slice.call(block.querySelectorAll('.paira-intro-beats li'));
+  var replay = document.querySelector('[data-paira-replay]');
 
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    video.removeAttribute('autoplay');
-    video.pause();
-    block.classList.add('is-still');
+    if (video.dataset.still) video.poster = video.dataset.still;
+    video.controls = true;
     return;
   }
 
-  function mark() {
-    var t = video.currentTime;
-    beats.forEach(function (li) {
-      li.classList.toggle('is-now',
-        t >= parseFloat(li.dataset.from) && t < parseFloat(li.dataset.to));
-    });
+  var played = false;
+  function play() {
+    var p = video.play();
+    if (p && p.catch) p.catch(function () { video.controls = true; });
   }
-  video.addEventListener('timeupdate', mark);
-  video.addEventListener('seeked', mark);
 
-  beats.forEach(function (li) {
-    li.querySelector('button').addEventListener('click', function () {
-      video.currentTime = parseFloat(li.dataset.from) + 0.05;
-      var p = video.play();
-      if (p && p.catch) p.catch(function () {});
-      mark();
-    });
+  video.addEventListener('ended', function () {
+    if (replay) replay.hidden = false;
+  });
+  if (replay) replay.addEventListener('click', function () {
+    replay.hidden = true;
+    video.currentTime = 0;
+    play();
   });
 
-  // If autoplay is refused, the lines are not waiting on a film that never
-  // starts.
-  var p = video.play();
-  if (p && p.catch) p.catch(function () { block.classList.add('is-still'); });
+  if (!('IntersectionObserver' in window)) { play(); return; }
+  new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting && !played) { played = true; play(); }
+      // scrolled away mid-film: pause, and pick up where it was when it returns
+      else if (!e.isIntersecting && played && !video.ended) video.pause();
+      else if (e.isIntersecting && played && video.paused && !video.ended && video.currentTime > 0) play();
+    });
+  }, { threshold: 0.55 }).observe(video);
 })();

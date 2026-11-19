@@ -16,7 +16,7 @@
 <script src="../assets/paira-motion.js" defer></script>
 <link rel="stylesheet" href="../assets/paira-depth.css?v=2026111710" />
 <link rel="stylesheet" href="../assets/research-card.css?v=2026111818" />
-<link rel="stylesheet" href="../assets/paira-intro.css?v=2026111802" />
+<link rel="stylesheet" href="../assets/paira-intro.css?v=2026111803" />
 </head>
 <body class="merlin-report-page case-study-page paira-case-page">
 <header class="site-header home-header"><div class="container header-row"><a class="brand" href="/"><img class="brand-logo" src="../assets/img/personal-logo.png" alt="" aria-hidden="true" /><span>Olivia Feng</span></a><nav class="nav" aria-label="Primary"><div class="nav-links"><a href="/work#selected-work">Work</a><a href="/about/">About</a><a href="/work#contact">Contact</a></div><a class="btn btn-clear nav-cta" href="/assets/Yuchen_Olivia_Feng_Resume.pdf" target="_blank" rel="noreferrer"><span class="nav-cta-icon" aria-hidden="true">&#8595;</span><span>Resume</span></a></nav></div></header>
@@ -93,26 +93,22 @@
       <aside class="merlin-report-section-label"><p class="section-label">Overview</p><span>01</span></aside>
       <div class="merlin-report-content">
         <div class="paira-intro" aria-labelledby="paira-intro-title">
-          <div class="paira-intro-film">
-            <figure class="paira-intro-phone">
-              <video src="../assets/img/paira/intro/paira-intro.mp4"
-                     poster="../assets/img/paira/intro/paira-intro.webp"
-                     autoplay muted loop playsinline preload="metadata"
-                     aria-label="Paira's onboarding: start with a request, AI brings it into focus, then get help or give help, ending on the sign-in screen."
-                     data-paira-intro></video>
-            </figure>
-            <div class="paira-intro-copy">
-              <div class="merlin-report-lede paira-editorial-lede">
-                <h2 id="paira-intro-title">What we built</h2>
-                <p>An app where everything starts with a request. You say what you need, or what you can offer, and Paira finds the person on the other side.</p>
-              </div>
-              <ol class="paira-intro-beats" aria-label="The app's own onboarding">
-                <li data-from="0.0" data-to="3.5"><button type="button"><h3>Start with a request</h3><p>Everything starts with a request, whether you need help or have experience to share.</p></button></li>
-                <li data-from="3.5" data-to="7.3"><button type="button"><h3>AI brings requests into focus</h3><p>Draft a clearer request, or find requests that match your expertise.</p></button></li>
-                <li data-from="7.3" data-to="14.7"><button type="button"><h3>Get help, give help</h3><p>Post a request and invite people whose experience fits, or find requests where your experience can help, no expert title needed.</p></button></li>
-              </ol>
-            </div>
+          <div class="merlin-report-lede paira-editorial-lede">
+            <h2 id="paira-intro-title">What we built</h2>
+            <p>An app where everything starts with a request. You say what you need, or what you can offer, and Paira finds the person on the other side.</p>
           </div>
+
+          <figure class="paira-intro-film">
+            <video src="../assets/img/paira/intro/paira-film.mp4"
+                   poster="../assets/img/paira/intro/paira-film-poster.jpg"
+                   data-still="../assets/img/paira/intro/paira-film-still.jpg"
+                   muted playsinline preload="metadata"
+                   aria-label="A short film of the app: start with a request, AI brings requests into focus, get help and give help, the five places in the app, and the Paira logo."
+                   data-paira-film></video>
+            <button type="button" class="paira-film-replay" data-paira-replay hidden>
+              <span aria-hidden="true">&#8635;</span> Play again
+            </button>
+          </figure>
 
           <div class="paira-intro-areas">
             <p class="paira-intro-areas-label">Five places in the app, left to right as the tab bar keeps them</p>
@@ -1270,7 +1266,7 @@
     });
   });
 </script>
-<script src="../assets/paira-depth.js?v=2026111801" defer></script>
+<script src="../assets/paira-depth.js?v=2026111802" defer></script>
 <script src="/assets/footer-clock.js?v=2026111804" defer></script>
 </body>
 </html>

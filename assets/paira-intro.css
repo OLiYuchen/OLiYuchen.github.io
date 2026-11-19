@@ -1,56 +1,39 @@
 /* ===========================================================================
-   What we built: the app's own onboarding as a short film beside the three
-   lines it says, and the five main screens in the tab bar's order.
+   What we built: a short film of the app, and its five main screens in the
+   tab bar's order.
 
-   The phone uses the page's one screen shape and corner, so it sits with
-   every other screen on the page. Built from "What is paira/" by
-   tools/build-paira-intro.py.
+   The film is made in tools/paira-film/ (a page filmed frame by frame), so
+   the motion, the 3D phones and the type are exact. It plays once when it
+   comes into view and holds on its last frame, the logo, with a way to play
+   it again.
    =========================================================================== */
 
 .paira-intro { display: grid; gap: var(--sp-rest, 3rem); }
+.paira-intro > .merlin-report-lede p { max-width: 52ch; }
 
 .paira-intro-film {
-  display: grid;
-  grid-template-columns: minmax(0, 17.5rem) minmax(0, 1fr);
-  gap: clamp(2rem, 5vw, 4.5rem);
-  align-items: center;
+  position: relative; margin: 0;
+  border-radius: 1.25rem; overflow: hidden;
+  background: #0b0b0f;
+  box-shadow: 0 30px 70px rgba(19, 19, 19, .22);
 }
+.paira-intro-film video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
 
-.paira-intro-phone { margin: 0; container-type: inline-size; }
-.paira-intro-phone video {
-  display: block; width: 100%; height: auto;
-  aspect-ratio: var(--screen-ratio, 393 / 852);
-  object-fit: cover;
-  border-radius: var(--screen-radius, 11.5cqw);
-  background: var(--paira-ink, #131313);
-  box-shadow: 0 22px 54px rgba(19, 19, 19, .2);
+.paira-film-replay {
+  position: absolute; right: 1.1rem; bottom: 1.1rem;
+  display: inline-flex; align-items: center; gap: .45rem;
+  padding: .55rem 1rem; border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, .22);
+  background: rgba(11, 11, 15, .55);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  color: #f4f1ea; font: 600 .82rem/1 var(--font-body, "Instrument Sans", sans-serif);
+  cursor: pointer;
+  transition: background .25s ease, border-color .25s ease, opacity .4s ease;
 }
-
-.paira-intro-copy { display: grid; gap: var(--sp-tight, 1.5rem); }
-.paira-intro-copy .merlin-report-lede p { max-width: 46ch; }
-
-/* The three lines the film says, lit in step with it. */
-.paira-intro-beats { list-style: none; margin: 0; padding: 0; display: grid; gap: .25rem; }
-.paira-intro-beats button {
-  all: unset; box-sizing: border-box; display: block; width: 100%;
-  padding: .85rem 0 .85rem 1.1rem; cursor: pointer;
-  border-left: 2px solid var(--case-line, rgba(43, 36, 30, .14));
-  transition: border-color .4s ease, opacity .4s ease;
-  opacity: .5;
-}
-.paira-intro-beats h3 {
-  margin: 0 0 .25rem;
-  font-family: var(--font-display, "Cormorant Garamond", serif);
-  font-size: clamp(1.25rem, 1.8vw, 1.5rem); font-weight: 600; line-height: 1.12;
-  color: var(--ink, #2b241e);
-}
-.paira-intro-beats p { margin: 0; max-width: 48ch; font-size: .92rem; line-height: 1.5; color: var(--merlin-muted, #6d6258); }
-.paira-intro-beats li.is-now button { opacity: 1; border-left-color: var(--case-accent, #605cff); }
-.paira-intro-beats button:hover,
-.paira-intro-beats button:focus-visible { opacity: 1; }
-.paira-intro-beats button:focus-visible { outline: 2px solid var(--case-accent, #605cff); outline-offset: 3px; }
-/* No film playing, nothing to keep in step with: every line reads fully. */
-.paira-intro.is-still .paira-intro-beats button { opacity: 1; }
+.paira-film-replay span { font-size: 1rem; }
+.paira-film-replay:hover { background: rgba(96, 92, 255, .55); border-color: rgba(166, 160, 255, .6); }
+.paira-film-replay:focus-visible { outline: 2px solid #a6a0ff; outline-offset: 3px; }
+.paira-film-replay[hidden] { display: none; }
 
 .paira-intro-areas-label {
   margin: 0 0 var(--sp-tight, 1.4rem);
@@ -67,8 +50,8 @@
 .paira-intro-grid figcaption { line-height: 1.45; }
 
 @media (max-width: 760px) {
-  .paira-intro-film { grid-template-columns: 1fr; justify-items: center; }
-  .paira-intro-phone { width: min(15rem, 68vw); }
+  .paira-intro-film { border-radius: .9rem; }
+  .paira-film-replay { right: .6rem; bottom: .6rem; padding: .45rem .8rem; }
   /* Five in a row is too small on a phone; they scroll sideways instead. */
   .paira-intro-grid {
     display: grid; grid-template-columns: none;
